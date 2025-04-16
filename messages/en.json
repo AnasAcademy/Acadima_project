@@ -1,0 +1,147 @@
+{
+    "HomePage": {
+        "title": "Hello world!",
+            "about": "Go to the about page"
+    }
+
+    ,
+
+  "Login": {
+    "login": "Login ",
+    "email": "Email",
+    "password": "Password ",
+    "forgetpass": "Forgot password?",
+    "remberme":"Remember Me",
+    "donthaveacc":"Don't have an account?",
+    "register":"Register",
+    "errEmail":"Invalid email format ",
+    "errEmial2":"Email is required",
+    "errPassword":"Password must be at least 6 characters ",
+    "errPassword2":"Password is required",
+    "errPass": " Password must not exceed 12 characters"
+    
+
+  }
+,
+
+  "register": {
+      "fullName": "Full name",
+      "phoneNumber":" Mobile Phone",
+    "reg": "Signup ",
+    "email": "Email",
+    "password": "Password ",
+    "forgetpass": "Forgot password?",
+    "remberme":"Remember Me",
+    "donthaveacc":"have an account?",
+    "register":"Login",
+    "errEmail":"Invalid email format ",
+    "errEmial2":"Email is required",
+    "errPassword":"Password must be at least 6 characters ",
+    "errPassword2":"Password is required",
+    "errPass": " Password must not exceed 12 characters",
+     "errFullName": "Full name must only contain letters, spaces",
+     "errFullNameMin": "Full name must be at least 3 characters",
+     "errFullNameReq": "Full name is required.",
+      "errphoneNumber":"Invalid phone number format",
+    "errphoneNumReq":"Mobile number is required"
+ 
+
+  },
+  
+"Navbar": {
+  "fullName": "Full Student Name"
+  }
+,
+
+
+"Sidebar": {
+  "dashboard": "Dashboard",
+  "Subscription Management": "Admissions",
+  "Notifications": "Courses",
+  "Technical Support": "Certificates",
+  "Account Management": "Notifications",
+  "elctro": "E-Services",
+  "AI Assistant": "Settings",
+  "logout": "Logout"
+},
+
+  "Namcard": {
+  "hello": "Hello",
+  "name": "Aisha Mohamed",
+  "info": "Diploma Program in Visual Design",
+  "Academic_info": "Academic Information:",
+  "Student ID": "Student ID :",
+  "Academic_Email": "Academic Email:",
+  "Password": "Password :"
+},
+
+"smallcard": {
+  "title": "Microsoft Teams",
+  "info": "The platform for attending all lectures",
+  "btn": "Login"
+},
+
+"importantFiles": {
+  "title": "Important Files",
+  "guide": "Microsoft Teams User Guide"
+},
+
+
+ "todaySchedule": {
+    "title": "Today's Schedule",
+    "action":"Add action",
+     "month":"Novamber 2024",
+    "event1": {
+        "times": "12:00",
+      "timef": "02:00",
+      "lecture": "User Experience Fundamentals Lecture",
+      "action": "Access the Lecture"
+    },
+    "event2": {
+        "times": "12:00",
+      "timef": "02:00",
+      "lecture": "Design Thinking Session",
+      "action": "Join Now"
+  }
+},
+"weeklySchedule": {
+    "title": "Weekly Schedule",
+    "columns": {
+      "tasks": "Assignments & Tasks",
+      "liveLectures": "Live Lectures",
+      "recordedLectures": "Recorded Lectures"
+    },
+    "lectures": {
+      "lecture1": {
+        "title": "User Experience Fundamentals",
+        "number": "Lecture 5",
+        "button": "Go to Lecture"
+      },
+      "lecture2": {
+        "title": "Valuable Design Programs",
+        "number": "Lecture 3",
+        "button": "Go to Lecture"
+      },
+      "lecture3": {
+        "title": "Freelance Business Pricing",
+        "number": "Lecture 1",
+        "button": "Go to Lecture"
+      },
+      "lecture4": {
+        "title": "User Experience Analysis - Level 1",
+        "number": "Lecture 1",
+        "button": "Go to Lecture"
+      }
+    }
+  },
+
+
+
+"support": {
+  "title": "Facing an issue on the platform?",
+  "description": "Feel free to reach out to us — our team is ready to help you with anything you need.",
+  "newRequest": "Submit New Request",
+  "followUp": "Follow Up on Previous Request"
+}
+
+}
