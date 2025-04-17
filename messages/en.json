@@ -142,6 +142,57 @@
   "description": "Feel free to reach out to us — our team is ready to help you with anything you need.",
   "newRequest": "Submit New Request",
   "followUp": "Follow Up on Previous Request"
-}
+},
+
+"RegisteredPrograms": {
+    "title": "Registered Programs",
+    "courseType": "recorded Training Course",
+    "courseName": "Open AI for Beginners: Programming Guidance",
+    "status": "Program Status: in Progress",
+    "installments": "Installments in Progress",
+    "goToProgram": "Go to Program"
+  },
+  "EnrollProgram": {
+    "title": "Enroll in a New Program",
+    "programTypeLabel": "Program Type: *",
+    "programTypePlaceholder": "Select the type of program you wish to study",
+    "courseNameLabel": "Program/Course Name:",
+    "courseNamePlaceholder": "Choose the specialization you wish to study",
+    "checkbox1": "I confirm I have experience with the programs and understand the course is only for test preparation, not teaching from scratch.",
+    "checkbox2": "Trainees must complete the test within 30 days, including preparation.",
+    "submitButton": "Enroll new program"
+  },
+  "RegisteredProgramss": {
+    "title": "Registered Programs",
+    "courseType": "Intermediate Joint Diploma",
+    "courseName": "Jumpstart your cybersecurity career",
+    "status": "Program Status: 100% Complete",
+    "additionalCourse": "Training for the ACP Certification Exam",
+    "additionalCourseProgress": "Progress: 0%"
+  },
+  "CourseSchedule": {
+    "title": "Course Schedule",
+    "programDuration": "Program Duration: 25 hours",
+    
+      "courseNumber": "Course Number",
+      "courseName": "Course Name",
+      "startDate": "Start Date",
+      "numberOfTasks": "Number of Tasks",
+      "numSubmission": "Number of Submissions",
+      "actions": "Actions"
+    ,
+    "courses": [
+      {
+        "courseNumber": "01",
+        "courseName": "Fundamentals of Cybersecurity",
+        "startDate": "17 Nov 2024",
+        "numberOfTasks": "0",
+        "numberOfSubmissions": "No submissions yet",
+        "actions": "Lectures"
+      }
+      
+    ],
+    "downloadLectureSchedule": "Download Lecture Schedule"
+  }
 
 }

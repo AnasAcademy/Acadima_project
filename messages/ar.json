@@ -151,7 +151,62 @@
   "description": "لا تتردد بالتواصل معنا وفريقينا جاهز لمساعدتك بأي شي تحتاجه",
   "newRequest": "تقديم طلب جديد",
   "followUp": "متابعة طلب سابق"
-}
+},
+
+"RegisteredPrograms": {
+    "title": "البرامج المسجلة",
+    "courseType": "دورة تدريبية مسجلة",
+    "courseName": "الذكاء الاصطناعي المفتوح للمبتدئين: التوجيه البرمجي",
+    "status": "حالة البرنامج: قيد الدراسة",
+    "installments": "جاري دفع الأقساط",
+    "goToProgram": "اذهب إلى البرنامج"
+  },
+  "EnrollProgram": {
+    "title": "التسجيل ببرنامج جديد",
+    "programTypeLabel": "نوع البرنامج الدراسي: *",
+    "programTypePlaceholder": "اختر نوع البرنامج الذي تود دراسته",
+    "courseNameLabel": "اسم البرنامج / الدورة:",
+    "courseNamePlaceholder": "اختر التخصص الذي تود دراسته",
+    "checkbox1": "أقر بأن لدي خبرة مسبقة بالبرامج التي سأقوم بالتسجيل فيها، وأفهم أن الدورة للتهيئة للاختبار فقط وليست للتدريس من الصفر.",
+    "checkbox2": "يجب على المتدربين إتمام الاختبار خلال ٣٠ يومًا شاملة فترة الإعداد.",
+    "submitButton": "التسجيل"
+  }
+,
+
+
+"RegisteredProgramss": {
+    "title": "البرامج المسجلة",
+    "courseType": "دبلوم مشترك متوسط",
+    "courseName": "التصميم المرئي وواجهة المستخدم ",
+    "status": "حالة البرنامج: مكتمل 100%",
+    "additionalCourse": "التدريب على إعداد اختبار ACP Certification Exam",
+    "additionalCourseProgress": "التقدم: 0%"
+  },
+
+
+  "CourseSchedule": {
+    "title": " جدول المقررات ",
+    "programDuration": " عدد الساعات للبرنامج: 25 ساعة  ",
+   
+      "courseNumber": "رقم المقرر",
+      "courseName": "اسم الدورة",
+      "startDate": "تاريخ البدء",
+      "numberOfTasks": "عدد المهام",
+      "numSubmission": "عدد التسليمات",
+      "actions": "الإجراءات",
+    
+    "courses": [
+      {
+        "courseNumber": "01",
+        "courseName": "أساسيات الأمن السيبراني",
+        "startDate": "17 نوفمبر 2024",
+        "numberOfTasks": "0",
+        "numberOfSubmissions": "لم يتم التسليم بعد",
+        "actions": "المحاضرات"
+      }
+    ],
+    "downloadLectureSchedule": "تنزيل جدول المحاضرات"
+  }
 
 
 }

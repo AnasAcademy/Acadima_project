@@ -7,6 +7,7 @@
   --background-color: #000000;
   --text-color: #ffffff;
   --text-s-color:#141F25;
+  --btn-color:#599FAF;
 }
 
 
@@ -46,6 +47,20 @@ color: var(--secondary-color);
   line-height: normal;
 
 }
+
+
+h2{
+
+  color: var(--text-color);
+  
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+}
+
+
 
 h3 {
   color: var(--secondary-color);
@@ -261,20 +276,27 @@ color: var(--secondary-color);
   /* 18px */
 }
 
+
 table thead th {
 
-  color: var(--text-color) !important;
+  color: var(--primary-color) !important;
 
   font-size: 12px !important;
   font-style: normal !important;
   font-weight: 700 !important;
   line-height: 150% !important;
+  
+}
+
+table tbody{
+
+   background-color: #000000 !important;
 }
 
 table tbody td {
 
   color: var(--text-color) !important;
-
+background-color: #599FAF;
   font-size: 14px !important;
   font-style: normal !important;
   font-weight: 700 !important;
@@ -424,4 +446,33 @@ color: var(--secondary-color);
 .texto-white{
 
   color:var(--text-color) ;
+}
+
+.custButton{
+
+color: var(--primary-color);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  background-color: var(--btn-color);
+  color: var(--text-color);
+  
+
+}
+
+
+.custButt-outline {
+
+  color: var(--primary-color);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  background-color: transparent;
+  color: var(--text-color);
+  border-radius: 6px;
+  border-color: var(--btn-color);
+
+
 }

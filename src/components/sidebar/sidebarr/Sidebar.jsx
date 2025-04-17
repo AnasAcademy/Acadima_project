@@ -65,12 +65,12 @@ export default function Sidebar() {
 
                             <li className={`nav-item d-flex text-white  align-items-center   `}>
                                 <Image src={admission}  alt="admission" />
-                                <Link className="nav-link hvv" aria-current="page" href="/insights/user-adoption">{t('Subscription Management')}</Link>
+                                    <Link className="nav-link hvv" aria-current="page" href="/admissions">{t('Subscription Management')}</Link>
                             </li>
 
                             <li className={`nav-item d-flex text-white  align-items-center  `}>
                                 <Image  src={classes} alt="classes" />
-                                <Link className="nav-link hvv" aria-current="page" href="/engagement/progress-tracker">{t('Notifications')}</Link>
+                                    <Link className="nav-link hvv" aria-current="page" href="/courses">{t('Notifications')}</Link>
                             </li>
 
                             <li className={`nav-item d-flex text-white  align-items-center `}>
