@@ -192,7 +192,9 @@
       }
       
     ,
-    "dwnldLectable": "Download Lecture Schedule"
+    "dwnldLectable": "Download Lecture Schedule",
+    "join": "Would you like to join another program?",
+  "register": "New Registration Request"
   }
 
 }

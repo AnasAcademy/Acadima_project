@@ -51,7 +51,7 @@ export default function Courses() {
         <h3> {ts('programDuration')}</h3>
           
 
-        <CoursesTable headers={tabHeaders} courses={tabCourses}  />
+        <CoursesTable headers={tabHeaders} courses={tabCourses} btn={ts('dwnldLectable')} join={ts('join')} reg={ts('register')}/>
     
   
             

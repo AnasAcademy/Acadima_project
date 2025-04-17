@@ -1,9 +1,6 @@
 import React from 'react'
 
-export default function CoursesTable({ headers, courses }) {
-
-
-
+export default function CoursesTable({ headers, courses , btn ,join ,reg}) {
 
 
   return <>
@@ -45,8 +42,8 @@ export default function CoursesTable({ headers, courses }) {
                               </table>
                          
                    </div>
-          <button className=' btn  mt-xl-0 mt-sm-3 mt-3  m-auto btn-light custButton border-0 px-5 py-2 text-nowrap'>تحميل جدول المحاضرات</button>
-          <h4 className=' mt-3'>ترغب بالانضمام إلى برنامج أخر ؟  طلب تسجيل جديد</h4>
+          <button className=' btn  mt-xl-0 mt-sm-3 mt-3  m-auto btn-light custButton border-0 px-5 py-2 text-nowrap'>{btn}</button>
+          <h4 className=' mt-3'>{join} {reg}</h4>
       </div>
   </>
 }
