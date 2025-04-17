@@ -1,110 +1,98 @@
 {
-    "HomePage": {
-        "title": "Hello world!",
-            "about": "Go to the about page"
-    }
-
-    ,
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
 
   "Login": {
     "login": "Login ",
     "email": "Email",
     "password": "Password ",
     "forgetpass": "Forgot password?",
-    "remberme":"Remember Me",
-    "donthaveacc":"Don't have an account?",
-    "register":"Register",
-    "errEmail":"Invalid email format ",
-    "errEmial2":"Email is required",
-    "errPassword":"Password must be at least 6 characters ",
-    "errPassword2":"Password is required",
+    "remberme": "Remember Me",
+    "donthaveacc": "Don't have an account?",
+    "register": "Register",
+    "errEmail": "Invalid email format ",
+    "errEmial2": "Email is required",
+    "errPassword": "Password must be at least 6 characters ",
+    "errPassword2": "Password is required",
     "errPass": " Password must not exceed 12 characters"
-    
-
-  }
-,
-
+  },
   "register": {
-      "fullName": "Full name",
-      "phoneNumber":" Mobile Phone",
+    "fullName": "Full name",
+    "phoneNumber": " Mobile Phone",
     "reg": "Signup ",
     "email": "Email",
     "password": "Password ",
     "forgetpass": "Forgot password?",
-    "remberme":"Remember Me",
-    "donthaveacc":"have an account?",
-    "register":"Login",
-    "errEmail":"Invalid email format ",
-    "errEmial2":"Email is required",
-    "errPassword":"Password must be at least 6 characters ",
-    "errPassword2":"Password is required",
+    "remberme": "Remember Me",
+    "donthaveacc": "have an account?",
+    "register": "Login",
+    "errEmail": "Invalid email format ",
+    "errEmial2": "Email is required",
+    "errPassword": "Password must be at least 6 characters ",
+    "errPassword2": "Password is required",
     "errPass": " Password must not exceed 12 characters",
-     "errFullName": "Full name must only contain letters, spaces",
-     "errFullNameMin": "Full name must be at least 3 characters",
-     "errFullNameReq": "Full name is required.",
-      "errphoneNumber":"Invalid phone number format",
-    "errphoneNumReq":"Mobile number is required"
- 
-
+    "errFullName": "Full name must only contain letters, spaces",
+    "errFullNameMin": "Full name must be at least 3 characters",
+    "errFullNameReq": "Full name is required.",
+    "errphoneNumber": "Invalid phone number format",
+    "errphoneNumReq": "Mobile number is required"
   },
-  
-"Navbar": {
-  "fullName": "Full Student Name"
-  }
-,
 
-
-"Sidebar": {
-  "dashboard": "Dashboard",
-  "Subscription Management": "Admissions",
-  "Notifications": "Courses",
-  "Technical Support": "Certificates",
-  "Account Management": "Notifications",
-  "elctro": "E-Services",
-  "AI Assistant": "Settings",
-  "logout": "Logout"
-},
+  "Navbar": {
+    "fullName": "Full Student Name"
+  },
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "Subscription Management": "Admissions",
+    "Notifications": "Courses",
+    "Technical Support": "Certificates",
+    "Account Management": "Notifications",
+    "elctro": "E-Services",
+    "AI Assistant": "Settings",
+    "logout": "Logout"
+  },
 
   "Namcard": {
-  "hello": "Hello",
-  "name": "Aisha Mohamed",
-  "info": "Diploma Program in Visual Design",
-  "Academic_info": "Academic Information:",
-  "Student ID": "Student ID :",
-  "Academic_Email": "Academic Email:",
-  "Password": "Password :"
-},
+    "hello": "Hello",
+    "name": "Aisha Mohamed",
+    "info": "Diploma Program in Visual Design",
+    "Academic_info": "Academic Information:",
+    "Student ID": "Student ID :",
+    "Academic_Email": "Academic Email:",
+    "Password": "Password :"
+  },
 
-"smallcard": {
-  "title": "Microsoft Teams",
-  "info": "The platform for attending all lectures",
-  "btn": "Login"
-},
+  "smallcard": {
+    "title": "Microsoft Teams",
+    "info": "The platform for attending all lectures",
+    "btn": "Login"
+  },
 
-"importantFiles": {
-  "title": "Important Files",
-  "guide": "Microsoft Teams User Guide"
-},
+  "importantFiles": {
+    "title": "Important Files",
+    "guide": "Microsoft Teams User Guide"
+  },
 
-
- "todaySchedule": {
+  "todaySchedule": {
     "title": "Today's Schedule",
-    "action":"Add action",
-     "month":"Novamber 2024",
+    "action": "Add action",
+    "month": "Novamber 2024",
     "event1": {
-        "times": "12:00",
+      "times": "12:00",
       "timef": "02:00",
       "lecture": "User Experience Fundamentals Lecture",
       "action": "Access the Lecture"
     },
     "event2": {
-        "times": "12:00",
+      "times": "12:00",
       "timef": "02:00",
       "lecture": "Design Thinking Session",
       "action": "Join Now"
-  }
-},
-"weeklySchedule": {
+    }
+  },
+  "weeklySchedule": {
     "title": "Weekly Schedule",
     "columns": {
       "tasks": "Assignments & Tasks",
@@ -135,16 +123,14 @@
     }
   },
 
+  "support": {
+    "title": "Facing an issue on the platform?",
+    "description": "Feel free to reach out to us — our team is ready to help you with anything you need.",
+    "newRequest": "Submit New Request",
+    "followUp": "Follow Up on Previous Request"
+  },
 
-
-"support": {
-  "title": "Facing an issue on the platform?",
-  "description": "Feel free to reach out to us — our team is ready to help you with anything you need.",
-  "newRequest": "Submit New Request",
-  "followUp": "Follow Up on Previous Request"
-},
-
-"RegisteredPrograms": {
+  "RegisteredPrograms": {
     "title": "Registered Programs",
     "courseType": "recorded Training Course",
     "courseName": "Open AI for Beginners: Programming Guidance",
@@ -173,14 +159,13 @@
   "CourseSchedule": {
     "title": "Course Schedule",
     "programDuration": "Program Duration: 25 hours",
-    
-      "courseNumber": "Course Number",
-      "courseName": "Course Name",
-      "startDate": "Start Date",
-      "numberOfTasks": "Number of Tasks",
-      "numSubmission": "Number of Submissions",
-      "actions": "Actions"
-    ,
+
+    "courseNumber": "Course Number",
+    "courseName": "Course Name",
+    "startDate": "Start Date",
+    "numberOfTasks": "Number of Tasks",
+    "numSubmission": "Number of Submissions",
+    "actions": "Actions",
     "courses": [
       {
         "courseNumber": "01",
@@ -190,9 +175,55 @@
         "numberOfSubmissions": "No submissions yet",
         "actions": "Lectures"
       }
-      
     ],
     "downloadLectureSchedule": "Download Lecture Schedule"
+  },
+  "services": {
+    "title": "Electronic Services",
+    "items": [
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 SAR"
+      },
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 SAR"
+      },
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 SAR"
+      },
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 SAR"
+      },
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 SAR"
+      }
+    ],
+    "apply": "Submit Request"
+  },
+  "certificates": {
+    "title": "Course Completion Certificates",
+    "message": "Congratulations! You have successfully completed the program.",
+    "downloadPDF": "Download Certificate (PDF)",
+    "downloadJPG": "Download Certificate (JPEG)",
+    "certificateId": "Certificate ID: {id}",
+    "items": [
+      {
+        "id": "A22232D",
+        "title": "ACP Certification Preparation Program"
+      },
+      {
+        "id": "B33445X",
+        "title": "Advanced UX Certification Preparation Program"
+      }
+    ]
   }
-
 }
