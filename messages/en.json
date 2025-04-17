@@ -181,18 +181,18 @@
       "numSubmission": "Number of Submissions",
       "actions": "Actions"
     ,
-    "courses": [
+    "td": 
       {
-        "courseNumber": "01",
-        "courseName": "Fundamentals of Cybersecurity",
+        "courseNum": "01",
+        "courseNam": "Fundamentals of Cybersecurity",
         "startDate": "17 Nov 2024",
-        "numberOfTasks": "0",
-        "numberOfSubmissions": "No submissions yet",
+        "numTasks": "0",
+        "numSubmission": "No submissions yet",
         "actions": "Lectures"
       }
       
-    ],
-    "downloadLectureSchedule": "Download Lecture Schedule"
+    ,
+    "dwnldLectable": "Download Lecture Schedule"
   }
 
 }

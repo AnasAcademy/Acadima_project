@@ -16,10 +16,13 @@ export default function Courses() {
      { courseType: t('courseType'), courseNAm: t('courseName'), progress: "20%" }
   ];
   
-  const tabHeaders = [ts('courseNumber'), ts('courseName'), ts('startDate'), ts('numberOfTasks'), ts('numSubmission')]
+  const tabHeaders = [ts('courseNumber'), ts('courseName'), ts('startDate'), ts('numberOfTasks'), ts('numSubmission'), ts('actions')]
+  const tabCourses = [ [ ts("td.courseNum"), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission')],
+                       [ ts('td.courseNum'), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission')],
+    [ts('td.courseNum'), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission')]
+  ]
 
-
-  
+ 
      
   return <>
   
@@ -48,7 +51,7 @@ export default function Courses() {
         <h3> {ts('programDuration')}</h3>
           
 
-        <CoursesTable headers={tabHeaders} />
+        <CoursesTable headers={tabHeaders} courses={tabCourses}  />
     
   
             

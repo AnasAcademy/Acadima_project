@@ -187,7 +187,6 @@
   "CourseSchedule": {
     "title": " جدول المقررات ",
     "programDuration": " عدد الساعات للبرنامج: 25 ساعة  ",
-   
       "courseNumber": "رقم المقرر",
       "courseName": "اسم الدورة",
       "startDate": "تاريخ البدء",
@@ -195,17 +194,17 @@
       "numSubmission": "عدد التسليمات",
       "actions": "الإجراءات",
     
-    "courses": [
+    "td": 
       {
-        "courseNumber": "01",
-        "courseName": "أساسيات الأمن السيبراني",
+        "courseNum": "01",
+        "courseNam": "أساسيات الأمن السيبراني",
         "startDate": "17 نوفمبر 2024",
-        "numberOfTasks": "0",
-        "numberOfSubmissions": "لم يتم التسليم بعد",
+        "numTasks": "0",
+        "numSubmission": "لم يتم التسليم بعد",
         "actions": "المحاضرات"
       }
-    ],
-    "downloadLectureSchedule": "تنزيل جدول المحاضرات"
+    ,
+    "dwnldLectable": "تنزيل جدول المحاضرات"
   }
 
 

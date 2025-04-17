@@ -40,7 +40,6 @@ a {
 
 h1{
 color: var(--secondary-color);
-
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
@@ -52,7 +51,6 @@ color: var(--secondary-color);
 h2{
 
   color: var(--text-color);
-  
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -79,7 +77,7 @@ h4 {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  /* 19.6px */
+ 
 }
 
 h5 {
@@ -89,7 +87,7 @@ h5 {
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
-  /* 19.6px */
+ 
 }
 
 h6 {
@@ -99,7 +97,7 @@ h6 {
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
-  /* 18px */
+
 }
 
 .h7 {
@@ -142,7 +140,6 @@ input:focus {
 
 .ft {
   color: var(--text-color);
-
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -192,7 +189,6 @@ font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  /* 19.6px */
 }
 
 .hvvv {
@@ -254,7 +250,6 @@ ul li {
 .h3v {
 
 color: var(--secondary-color);
-
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -262,25 +257,22 @@ color: var(--secondary-color);
 }
 
 .cust-w {
-
   width: 16px;
 }
 
 .h6v {
 color: var(--secondary-color);
-
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height:normal;
-  /* 18px */
+
 }
 
 
 table thead th {
 
   color: var(--primary-color) !important;
-
   font-size: 12px !important;
   font-style: normal !important;
   font-weight: 700 !important;
@@ -288,24 +280,33 @@ table thead th {
   
 }
 
+
+
 table tbody{
 
    background-color: #000000 !important;
+
+}
+
+table tbody tr{
+    
+  background-color: #b40f0f !important;
+ 
 }
 
 table tbody td {
 
   color: var(--text-color) !important;
-background-color: #599FAF;
-  font-size: 14px !important;
+  font-size: 16px !important;
   font-style: normal !important;
-  font-weight: 700 !important;
-  line-height: 140% !important;
+  font-weight: 400 !important;
+  line-height: normal !important;
+  padding: 13px !important;
 }
 
 .bg-danger-subtle {
   background-color: #ff616f !important;
-  /* Lighter danger color */
+ 
 }
 
 .alertFont {
