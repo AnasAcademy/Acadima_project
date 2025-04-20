@@ -461,3 +461,26 @@ table tbody td {
     width: 100%;
   }
 }
+.container {
+  max-width: 80% !important;
+}
+
+@media (max-width: 992px) {
+  .container {
+    max-width: 95% !important;
+  }
+}
+@media (max-width: 1786px) {
+  .sidebar {
+    margin-left: 30px !important;
+  }
+}
+@media (max-width: 1400px) {
+  .sidebar {
+    margin-right: 30px !important;
+  }
+}
+.bg-cyan {
+  background-color: var(--secondary-color) !important;
+}
+

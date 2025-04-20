@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "../../styles/globals.css";
+import "@/styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
@@ -28,21 +28,20 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: { locale: string; segments?: string[] }; // add segments if your config allows it
 }) {
-  // Ensure that the incoming `locale` is valid
-  const { locale } = await params;
+  const { locale } = params;
+
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
-      <body>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextIntlClientProvider>
           <Navbar />
-          <div className="  d-flex  ">
-            <div className=" d-none  d-sm-none d-md-none d-lg-flex d-xl-flex">
+          <div className="d-flex justify-content-center">
+            <div className="d-none d-sm-none d-md-none d-lg-flex d-xl-flex">
               <Sidebar />
             </div>
             {children}

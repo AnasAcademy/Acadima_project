@@ -4,7 +4,7 @@ export default function InstallmentsLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
       <body style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh' }}>
-        <MiniNavbar />
+        {/* <MiniNavbar /> */}
         {children}
       </body>
     </html>
