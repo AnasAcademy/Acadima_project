@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "@/i18n/navigation";
 
 export default function CoursesTable({ headers, courses, btn, join, reg }) {
   return (
@@ -43,8 +44,11 @@ export default function CoursesTable({ headers, courses, btn, join, reg }) {
         <button className=" btn  mt-xl-0 mt-sm-3 mt-3  m-auto btn-light custButton border-0 px-5 py-2 text-nowrap">
           {btn}
         </button>
-        <h4 className=" mt-3">
-          {join} {reg}
+        <h4 className="mt-3">
+          {join}{" "}
+          <Link href="/admissions" className="h6v" aria-current="page">
+            {reg}
+          </Link>
         </h4>
       </div>
     </>

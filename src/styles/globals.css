@@ -484,3 +484,14 @@ table tbody td {
   background-color: var(--secondary-color) !important;
 }
 
+.broken-cable-img {
+  width: 100%;
+  max-width: 400px;
+}
+
+@media (min-width: 768px) {
+  .broken-cable-img {
+    width: 70%;
+    max-width: 500px;
+  }
+}

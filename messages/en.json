@@ -13,7 +13,7 @@
     "donthaveacc": "Don't have an account?",
     "register": "Register",
     "errEmail": "Invalid email format ",
-    "errEmial2": "Email is required",
+    "errEmail2": "Email is required",
     "errPassword": "Password must be at least 6 characters ",
     "errPassword2": "Password is required",
     "errPass": " Password must not exceed 12 characters"
@@ -29,7 +29,7 @@
     "donthaveacc": "have an account?",
     "register": "Login",
     "errEmail": "Invalid email format ",
-    "errEmial2": "Email is required",
+    "errEmail2": "Email is required",
     "errPassword": "Password must be at least 6 characters ",
     "errPassword2": "Password is required",
     "errPass": " Password must not exceed 12 characters",
@@ -38,6 +38,16 @@
     "errFullNameReq": "Full name is required.",
     "errphoneNumber": "Invalid phone number format",
     "errphoneNumReq": "Mobile number is required"
+  },
+  "ForgetPassword": {
+    "forgetPassword": "Forget Password",
+    "or": "Or",
+    "MailSentSuccessfully":"Mail Sent Successfully",
+    "PasswordUpdatedSuccessfully": "Password Updated Successfully",
+    "resetPassword": "Reset Password",
+    "passwordsMustMatch": "Passwords must match",
+    "confirmPasswordRequired": "Confirm Password Required",
+    "confirmPassword": "Confirm Password"
   },
 
   "Navbar": {

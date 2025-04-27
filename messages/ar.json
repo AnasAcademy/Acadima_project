@@ -13,7 +13,7 @@
     "donthaveacc": "ليس لديك حساب؟",
     "register": "إنشاء حساب ",
     "errEmail": "البريد الإلكتروني غير صالح",
-    "errEmial2": "البريد الإلكتروني مطلوب",
+    "errEmail2": "البريد الإلكتروني مطلوب",
     "errPassword": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
     "errPassword2": "كلمة المرور مطلوبة",
     "errPass": "يجب ألا تتجاوز كلمة المرور 12 حرفًا"
@@ -29,7 +29,7 @@
     "donthaveacc": "لديك حساب؟",
     "register": "تسجيل دخول",
     "errEmail": "البريد الإلكتروني غير صالح",
-    "errEmial2": "البريد الإلكتروني مطلوب",
+    "errEmail2": "البريد الإلكتروني مطلوب",
     "errPassword": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
     "errPassword2": "كلمة المرور مطلوبة",
     "errPass": "يجب ألا تتجاوز كلمة المرور 12 حرفًا",
@@ -38,6 +38,16 @@
     "errFullNameRiq": "الاسم الكامل مطلوب",
     "errphoneNumber": "تنسيق رقم الهاتف غير صالح",
     "errphoneNumReq": "رقم الجوال مطلوب"
+  },
+  "ForgetPassword": {
+    "forgetPassword": "استعادة كلمة المرور",
+    "or": "أو",
+    "MailSentSuccessfully": "تم إرسال طلب تغيير كلمة المرور بنجاح عبر البريد الالكتروني",
+    "PasswordUpdatedSuccessfully": "تم تغيير كلمة المرور بنجاح ",
+    "resetPassword": "تغيير كلمة المرور",
+    "passwordsMustMatch": "يجب أن تتطابق كلمتا المرور",
+    "confirmPasswordRequired": "تأكيد كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور"
   },
 
   "Navbar": {
@@ -273,5 +283,4 @@
     "back": "الرجوع",
     "confirm": "موافق"
   }
-  
 }

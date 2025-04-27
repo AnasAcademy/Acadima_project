@@ -43,7 +43,7 @@ export default function Register() {
       .string()
       .matches(/^\d{10}$/, t("errphoneNumber"))
       .required(t("errphoneNumReq")),
-    email: yup.string().email(t("errEmail")).required(t("errEmial2")),
+    email: yup.string().email(t("errEmail")).required(t("errEmail2")),
     password: yup
       .string()
       .min(6, t("errPassword"))
@@ -84,7 +84,7 @@ export default function Register() {
     <>
       <div className="  container d-flex  justify-content-center align-items-center vh-100">
         <form
-          className=" d-flex flex-column  bg-white col-lg-5 m-5 p-5 gap-4  rounded-5 shadow    border border-1  "
+          className="col-12 d-flex flex-column  bg-white col-lg-5 col-md-8 m-5 p-5 gap-4  rounded-5 shadow    border border-1  "
           onSubmit={formik.handleSubmit}
         >
           <LanguageSwitcher />
@@ -312,7 +312,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={!formik.isValid || !formik.dirty}
-              className="btn  text-white rounded-5 ps-4  pe-4 pt-3 pb-3 h2"
+              className="btn  text-white rounded-5 ps-4  pe-4 pt-3 pb-3 h2 w-100 w-md-auto"
               style={{ backgroundColor: "#C14B93", border: "none" }}
             >
               {t("reg")}
