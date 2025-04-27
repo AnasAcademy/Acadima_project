@@ -5,8 +5,8 @@ export default function CoursesTable({ headers, courses , btn ,join ,reg}) {
 
   return <>
    
-<div>
-      <div class="table-responsive mt-3">
+<div  className='w-100'>
+      <div className="table-responsive mt-3">
   
                               <table className="table">
                                   <thead className=" table-light ">
@@ -26,13 +26,13 @@ export default function CoursesTable({ headers, courses , btn ,join ,reg}) {
 
                                       return  <tr key={key} className='   '  >
                                             {course.map((td, key)=> {
-                                                return <td key={key} className=' text-nowrap text-center '>{td}</td>
+
+                                              const isLast = key === course.length - 1;
+                                              return <td key={key} className=' text-nowrap text-center '> {isLast ? <button className="btn btn-outline-light  w-50 custfontbtn">{td}</button> : td}</td>
 
                                             })
                                             }
-                                            <td className=' d-flex justify-content-center'>
-                                              <button className="btn btn-outline-light  custfontbtn">المحاضرات</button>
-                                            </td>
+                                          
                                         </tr>
 
                                     })
@@ -42,7 +42,7 @@ export default function CoursesTable({ headers, courses , btn ,join ,reg}) {
                               </table>
                          
                    </div>
-          <button className=' btn  mt-xl-0 mt-sm-3 mt-3  m-auto btn-light custButton border-0 px-5 py-2 text-nowrap'>{btn}</button>
+              { btn ?    <button className=' btn  mt-xl-0 mt-sm-3 mt-3  m-auto btn-light custButton border-0 px-5 py-2 text-nowrap'>{btn}</button> : '' }
           <h4 className=' mt-3'>{join} {reg}</h4>
       </div>
   </>

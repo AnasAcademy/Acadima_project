@@ -48,6 +48,7 @@
     "Subscription Management": "Admissions",
     "Notifications": "Courses",
     "Technical Support": "Certificates",
+     "pay_pro_fees": "Pay Program Fees",
     "Account Management": "Notifications",
     "elctro": "E-Services",
     "AI Assistant": "Settings",
@@ -172,7 +173,8 @@
         "startDate": "17 Nov 2024",
         "numTasks": "0",
         "numSubmission": "No submissions yet",
-        "actions": "Lectures"
+        "actions": "Lectures",
+         "lec": "Lectures"
       }
       
     ,
@@ -228,5 +230,214 @@
         "title": "Advanced UX Certification Preparation Program"
       }
     ]
+  },
+  "notifications": [
+  {
+    "tit": "Notifications",
+    "title": "A Message from the Technical Department",
+    "date": "November 5, 2024 | 5:12 PM",
+    "body": "The Technical Department at Anas Academy wishes you continued success and excellence. We are honored to support you on your journey...",
+    "button": "View Message",
+    "close": "Close Message"
+  },
+  {
+    "tit": "Important Update",
+    "title": "Your Data Has Been Successfully Updated",
+    "date": "November 6, 2024 | 10:00 AM",
+    "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment."
+    
+  },
+  {
+    "tit": "Important Update",
+    "title": "Your Data Has Been Successfully Updated",
+    "date": "November 6, 2024 | 10:00 AM",
+    "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment."
+    
   }
+],
+
+"payments": {
+    "title": "Pay Program Fees",
+    "program": "AI with Open IA for Beginners: Programming Guidance",
+    "early_reg": {
+      "title": "Early Registration Fee",
+      "price": "6233 SAR",
+      "notes": [
+        "Save up to 3125 SAR with early registration",
+        "Offer ends in 7 days and 7:29 hours"
+      ],
+      "button": "Pay Full Fee"
+    },
+    "install_reg": {
+      "title": "Installment Registration Fee",
+      "price": "6958 SAR",
+      "notes": [
+        "Pay a registration fee of 2346 SAR as a down payment",
+        "Then pay 4 monthly installments",
+        "1150 SAR per monthly installment"
+      ],
+      "vat_note": "Price includes VAT",
+      "button": "Start Installment Plan"
+    },
+    "or_contact": "Or you can",
+    "book_call": "Book a call now",
+    "savings_difference": "1402.22"
+  },
+
+"installments": {
+    "title": "Program Installments",
+  
+    "summary": {
+      "amount_paid": "Amount Paid",
+      "paid": "SAR 4048",
+      "note": "3 installments paid"
+    },
+    "program_details": {
+      "name": "AI with Open IA for Beginners: Programming Guidance",
+      "install_dtls_titl": "Program Installment Details",
+      "reg_date": "Registration Date: December 21, 2024",
+      "status": "Payment Status: In progress",
+      "fee": "Program Fee: 4048 SAR",
+      "installment_info": "Total Installments: 4 | Remaining: 1"
+    },
+    "table": {
+      "title": "Program Installment Schedule",
+      "headers": ["No.", "Installment Details", "Amount", "Installment Finish", "Payment Date", "Payment Status"],
+      "rows": [
+        ["01", "First Installment (Registration)", "SAR 1150", "-", "Nov 1, 2024", "Paid"],
+        ["02", "Second Installment", "SAR 966", "Nov 1, 2024", "Nov 1, 2024", "Paid"],
+        ["03", "Third Installment", "SAR 966", "Nov 1, 2024", "Nov 1, 2024", "Paid"],
+        ["04", "Fourth Installment", "SAR 966", "Nov 1, 2024", "Nov 1, 2024", "Pay Now"]
+      ]
+    }
+  },
+   "comp-pay":{
+
+    "page_title": "Complete Payment",
+    "page_subtitle": "Pay the registration fees for Diploma in Fundamentals of Cybersecurity: Total payment of $599",
+    "section_title": "Secure Checkout",
+    "coupon_instruction": "If you have a coupon, insert the code in the following input and click \"Validate\" button.",
+    "coupon_placeholder": "Enter coupon code here",
+    "validate_button": "Validate",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "total": "Total",
+    "amount_due": "Total amount due today 559$",
+    "pay_button": "Make secure payment"
+   },
+
+     "settings":{
+
+         "edit": "Edit",
+  "full_name": "Full Name",
+  "academic_info": "Academic Information",
+  "academic_code": "Academic Code",
+  "email": "Email",
+  "birthdate": "Date of Birth",
+  "language": "Language",
+  "arabic_language": "Arabic Language",
+  "region_unit": "Region / Timezone",
+  "mobile": "Mobile Number",
+  "password": "Password",
+  "save": "Save",
+  "toggle_language": "Enable Arabic Menu",
+  "toggle_profile": "Enable Profile Card",
+  "settings_header": "All Settings",
+  "basic_data": "Basic Data",
+  "personal_data": "Personal Information",
+  "education": "Education & Experience",
+  "extra_info": "Additional Info",
+  "portfolio_links": "Portfolio Links",
+  "connections": "Connections",
+  "completion_note": "Dear student, please make sure to fill out all required fields (marked with a *) correctly to ensure program acceptance.",
+  "progress": "15%"
+
+
+
+
+     },
+
+     
+  "personalData": {
+  "academic_data": "Academic Data",
+  "full_name_arabic": "Full Name in Arabic",
+  "birth_date": "Birth Date",
+  "nationality": "Nationality",
+  "country_of_residence": "Country of Residence",
+  "language": "Language",
+  "full_name_english": "Full Name in English",
+  "id_or_passport_number": "National ID or Passport Number",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "city_of_residence": "City of Residence",
+  "upload_id_or_passport": "Upload National ID or Passport",
+  "no_file_uploaded": "No file uploaded"
+}
+
+ ,
+
+  "eduction":{
+
+   "uni_edu": "University Education",
+    "edu_area": "Educational Area",
+    "uni": "University",
+  "last_uni_cert": "Last university degree obtained",
+  "dip": "Diploma",
+  "bach": "Bachelor's",
+  "mast": "Master's",
+  "phd": "PhD",
+  "ent_bach_cert_sor": "Enter source of Bachelor's certificate",
+  "cert_country": "Certificate Issuing Country",
+  "college": "College",
+  "grad_year": "Graduation Year",
+  "major": "Major",
+  "gpa": "GPA",
+  "grad_cert_img": "Graduation Certificate Image",
+  "no_file": "No file uploaded",
+  "lang": "Language",
+
+  "high_edu": "High School Education",
+  "high_cert_country": "High School Certificate Issuing Country",
+  "school": "School",
+  "high_grad_year": "High School Graduation Year",
+  "high_gpa": "High School GPA",
+  "high_cert_img": "High School Certificate Image",
+
+  "exp": "Experiences",
+  "exp_field": "Field of Experience",
+  "years_exp": "Years of Experience",
+  "add_exp": "Add Experience"
+  }
+
+ ,
+
+  "addInfo":{
+
+
+ "job_info": "Job Information",
+  "current_job_status": "Current Job Status",
+  "working": "Working",
+  "not_working": "Not Working",
+  "job_title": "Job Title",
+  "employer": "Employer",
+  "emergency_info": "Emergency Contact Information",
+  "relation": "Relation",
+  "emergency_contact_name": "Emergency Contact Name",
+  "emergency_phone": "Phone Number",
+  "emergency_email": "Email",
+  "health_status": "Health Status",
+  "hearing_disability": "Do you have a hearing disability?",
+  "health_issue": "Do you have a health issue?",
+  "disability": "Are you a person with disabilities?",
+  "health_issue_detail": "Enter your health issue"
+
+  },
+   "ProfilLinks":{
+   "workLinks": "Work Links",
+  "addLink": "Add Link",
+  "linkTitle": "Link Title"
+
+ }
+
 }

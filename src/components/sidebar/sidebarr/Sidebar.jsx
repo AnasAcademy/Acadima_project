@@ -13,6 +13,8 @@ import settings from "@/assets/Sidebar icons/settings.png";
 import logout from "@/assets/Sidebar icons/logout.svg";
 import logo from "@/assets/Sidebar icons/sidebarLogo.png";
 import line from "@/assets/Sidebar icons/Line 48.png";
+import payment from '@/assets/Sidebar icons/payment.svg'
+
 
 export default function Sidebar() {
   const t = useTranslations("Sidebar");
@@ -111,13 +113,30 @@ export default function Sidebar() {
                   </li>
 
                   <li
+                    className={`nav-item d-flex text-white  align-items-center `}
+                  >
+                    <Image src={payment} alt="pay_pro_fees" />
+                    <Link
+                      className="nav-link hvv"
+                      aria-current="page"
+                      href="/paymentplans"
+                    >
+                      {t("pay_pro_fees")}
+                    </Link>
+                  </li>
+
+
+
+
+
+                  <li
                     className={`nav-item d-flex text-white align-items-center  `}
                   >
                     <Image src={notifi} alt="notification" />
                     <Link
                       className="nav-link hvv"
                       aria-current="page"
-                      href="/engagement/progress-tracker"
+                      href="/notifications"
                     >
                       {t("Account Management")}
                     </Link>
@@ -143,7 +162,7 @@ export default function Sidebar() {
                     <Link
                       className="nav-link hvv"
                       aria-current="page"
-                      href="/org-settings"
+                      href="/settings"
                     >
                       {t("AI Assistant")}
                     </Link>
@@ -156,7 +175,7 @@ export default function Sidebar() {
                     <Link
                       className="nav-link hvv"
                       aria-current="page"
-                      href="/org-settings"
+                      href="/login"
                     >
                       {t("logout")}
                     </Link>

@@ -16,10 +16,10 @@ export default function Courses() {
      { courseType: t('courseType'), courseNAm: t('courseName'), progress: "20%" }
   ];
   
-  const tabHeaders = [ts('courseNumber'), ts('courseName'), ts('startDate'), ts('numberOfTasks'), ts('numSubmission'), ts('actions')]
-  const tabCourses = [ [ ts("td.courseNum"), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission')],
-                       [ ts('td.courseNum'), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission')],
-    [ts('td.courseNum'), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission')]
+  const tabHeaders = [ts('courseNumber'), ts('courseName'), ts('startDate'), ts('numberOfTasks'), ts('numSubmission'), ts('actions') ]
+  const tabCourses = [[ts("td.courseNum"), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission'), ts('td.lec') ],
+    [ts('td.courseNum'), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission'), ts('td.lec')],
+    [ts('td.courseNum'), ts('td.courseNam'), ts('td.startDate'), ts('td.numTasks'), ts('td.numSubmission'),  ts('td.lec')]
   ]
 
  
@@ -27,12 +27,9 @@ export default function Courses() {
   return <>
   
   
-  <div className='  container p-3  mt-5 '>
-  
-  
+  <div className='container p-3  mt-5 '>
   <div>
         <h2 className='hvvv'>{t('title')}</h2>
-  
             <div className=' row g-3 mt-4'>
                 {  regInfo.map(function(reg , key){
                   return <div  key={key} className=' d-flex flex-column gap-3 col-sm-12 col-xl-6'>
@@ -40,30 +37,14 @@ export default function Courses() {
                   </div>
                 })              
                }
-               
-            </div>
-             
+            </div>   
         </div>
-  
-  
+
         <div className=' mt-5'>             
         <h2 className=' hvvv'> {ts('title')}</h2>
         <h3> {ts('programDuration')}</h3>
-          
-
-        <CoursesTable headers={tabHeaders} courses={tabCourses} btn={ts('dwnldLectable')} join={ts('join')} reg={ts('register')}/>
-    
-  
-            
-  
-  
-  
+        <CoursesTable headers={tabHeaders} courses={tabCourses} btn={ts('dwnldLectable')} join={ts('join')} reg={ts('register')} lec={ts('td.lec')}/>
         </div>  
-  
-  
-  
-  
-  
         </div>
     
   
