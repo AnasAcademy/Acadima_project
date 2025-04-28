@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
 import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
@@ -12,8 +12,9 @@ import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
-export default function Login() {
+export default function ResetPassword() {
   const t = useTranslations("Login");
+  const ts = useTranslations("ForgetPassword");
 
   const [toggle, setToggle] = useState("");
 
@@ -33,9 +34,12 @@ export default function Login() {
     email: yup.string().email(t("errEmail")).required(t("errEmail2")),
     password: yup
       .string()
-      .min(6, t("errPassword"))
-      .max(12, t("errPass"))
+      .min(6, t("errPassword")) // example: password min length 6
       .required(t("errPassword2")),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], ts("passwordsMustMatch"))
+      .required(ts("confirmPasswordRequired")),
   });
 
   const [errMsg, setErrMsg] = useState(null);
@@ -45,19 +49,18 @@ export default function Login() {
     initialValues: {
       email: "",
       password: "",
+      confirmPassword: "",
     },
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        const { data } = await axios.post("https://e.ggg.com/", values);
-
+        const { data } = await axios.post("https://e.ggg.com/", {
+          email: values.email,
+          password: values.password,
+        });
         if (data.message === "success") {
-          setSucMsg("Welcome back!");
-          setTimeout(() => {
-            nav("/user");
-            setToken(data.token);
-            localStorage.setItem("tkn", data.token);
-          }, 1000);
+          setSucMsg(ts("PasswordUpdatedSuccessfully"));
+          resetForm();
         }
       } catch (err) {
         setErrMsg(err.response?.data?.message || "Something went wrong.");
@@ -88,7 +91,7 @@ export default function Login() {
           </Link>
 
           <div className="d-flex justify-content-center  gap-2">
-            <h3 className="textpink  fw-bold h5"> {t("login")}</h3>
+            <h3 className="textpink  fw-bold h5"> {ts("resetPassword")}</h3>
           </div>
 
           {/* Email Field */}
@@ -131,63 +134,6 @@ export default function Login() {
               )}
           </div>
 
-          {/* Password Field */}
-          <div className="form-group">
-            <div
-              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4    gap-2    ${
-                formik.values.password &&
-                formik.touched.password &&
-                formik.errors.password
-                  ? "border-2 border-danger "
-                  : ""
-              }`}
-            >
-              <Image src={lock} alt="lock" className="mb-1" />
-              <input
-                id="password"
-                name="password"
-                type={toggle === "hide" ? "password" : "text"}
-                className="form-control h7 border-0 shadow-none p-0 m-0"
-                placeholder={t("password")}
-                value={formik.values.password}
-                onChange={(e) => {
-                  formik.handleChange(e);
-                  formik.setFieldTouched("password", false);
-                  setErrMsg(null);
-                }}
-                onBlur={formik.handleBlur}
-              />
-
-              <span className="icon2" onClick={togglePassvis}>
-                {toggle === "hide" ? (
-                  <Image
-                    id="toggleIcon1"
-                    src={show}
-                    alt="Show"
-                    className="icon2"
-                  />
-                ) : (
-                  <Image
-                    id="toggleIcon2"
-                    src={hide}
-                    alt="hide"
-                    className="icon2"
-                  />
-                )}
-              </span>
-            </div>
-            {formik.values.password &&
-              formik.touched.password &&
-              formik.errors.password && (
-                <div
-                  className="alert alertFont  mt-2 mb-0 p-2 rounded-3"
-                  style={{ color: "red" }}
-                >
-                  {formik.errors.password}
-                </div>
-              )}
-          </div>
-
           {errMsg && (
             <div
               className="alert alertFont  bg-danger-subtle mt-2 mb-0 p-2"
@@ -200,41 +146,109 @@ export default function Login() {
             <div className="alert alert-success mt-2 mb-0 p-2">{sucMsg}</div>
           )}
 
-          <div className="d-flex  justify-content-between">
-            <div className="text-right forgetpw d-flex justify-content-end text-center ">
-              <a
-                href="/forget-password"
-                target="_blank"
-                className=" textpink mb-30 text-decoration-none"
-              >
-                {" "}
-                {t("forgetpass")}
-              </a>
+          {/* Password Field */}
+          <div className="form-group">
+            <div
+              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4 gap-2 ${
+                formik.touched.password && formik.errors.password
+                  ? "border-2 border-danger"
+                  : ""
+              }`}
+            >
+              <Image src={lock} alt="lock" className="mb-1" />
+              <input
+                id="password"
+                name="password"
+                type={toggle === "hide" ? "password" : "text"}
+                className="form-control h7 border-0 shadow-none p-0 m-0"
+                placeholder={t("password")}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              <span className="icon2" onClick={togglePassvis}>
+                {toggle === "hide" ? (
+                  <Image
+                    id="toggleIcon1"
+                    src={show}
+                    alt="Show"
+                    className="icon2"
+                  />
+                ) : (
+                  <Image
+                    id="toggleIcon2"
+                    src={hide}
+                    alt="Hide"
+                    className="icon2"
+                  />
+                )}
+              </span>
             </div>
+            {formik.touched.password && formik.errors.password && (
+              <div
+                className="alert alertFont mt-2 mb-0 p-2 rounded-3"
+                style={{ color: "red" }}
+              >
+                {formik.errors.password}
+              </div>
+            )}
           </div>
+
+          {/* Confirm Password Field */}
+          <div className="form-group">
+            <div
+              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4 gap-2 ${
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+                  ? "border-2 border-danger"
+                  : ""
+              }`}
+            >
+              <Image src={lock} alt="lock" className="mb-1" />
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type={toggle === "hide" ? "password" : "text"}
+                className="form-control h7 border-0 shadow-none p-0 m-0"
+                placeholder={ts("confirmPassword")}
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+            {formik.touched.confirmPassword &&
+              formik.errors.confirmPassword && (
+                <div
+                  className="alert alertFont mt-2 mb-0 p-2 rounded-3"
+                  style={{ color: "red" }}
+                >
+                  {formik.errors.confirmPassword}
+                </div>
+              )}
+          </div>
+
+          {/* Error or Success */}
+          {errMsg && (
+            <div
+              className="alert alertFont bg-danger-subtle mt-2 mb-0 p-2"
+              style={{ color: "white" }}
+            >
+              {errMsg}
+            </div>
+          )}
+          {sucMsg && (
+            <div className="alert alert-success mt-2 mb-0 p-2">{sucMsg}</div>
+          )}
 
           {/* Submit Button */}
           <div className="form-group d-flex justify-content-end">
             <button
               type="submit"
               disabled={!formik.isValid || !formik.dirty}
-              className="btn  text-white rounded-5 ps-4  pe-4 pt-3 pb-3 h2 w-100 w-md-auto"
+              className="btn text-white rounded-5 ps-4 pe-4 pt-3 pb-3 h2 w-100 w-md-auto"
               style={{ backgroundColor: "#C14B93", border: "none" }}
             >
-              {t("login")}
+              {ts("resetPassword")}
             </button>
-          </div>
-
-          <div className="mt-20 text-center registertext">
-            <span className=" ps-1">{t("donthaveacc")}</span>
-
-            <a
-              href="/register?"
-              className="fw-bold text-decoration-none"
-              style={{ color: "#C14B93" }}
-            >
-              {t("register")}
-            </a>
           </div>
         </form>
       </div>

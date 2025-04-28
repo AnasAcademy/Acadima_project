@@ -31,7 +31,7 @@ a {
   text-decoration: none;
 }
 
-h1{
+h1 {
   color: var(--secondary-color);
   font-size: 30px;
   font-style: normal;
@@ -41,9 +41,9 @@ h1{
 
 h2 {
   color: var(--text-color);
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
 }
 
 h3 {
@@ -62,7 +62,6 @@ h4 {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
- 
 }
 
 h5 {
@@ -72,7 +71,6 @@ h5 {
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
- 
 }
 
 h6 {
@@ -82,16 +80,14 @@ h6 {
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
-
 }
-.h8{
+.h8 {
   color: var(--background-color);
-    text-align: right;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .h7 {
@@ -143,7 +139,6 @@ input:focus {
   font-weight: 400;
   line-height: normal;
 }
-
 
 h1,
 h2,
@@ -238,7 +233,7 @@ ul li {
 }
 
 .h3v {
-color: var(--secondary-color);
+  color: var(--secondary-color);
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -270,7 +265,7 @@ table tbody {
   background-color: #000000 !important;
 }
 
-table tbody tr{
+table tbody tr {
   background-color: #b40f0f !important;
 }
 
@@ -286,7 +281,6 @@ table tbody td {
 
 .bg-danger-subtle {
   background-color: #ff616f !important;
- 
 }
 
 .alertFont {
@@ -352,6 +346,12 @@ table tbody td {
   border: 1px solid #ccf5ff;
   padding: 8px 16px;
 }
+@media (max-width: 992px) {
+  .custfontbtn {
+    font-size: 10px !important;
+    padding: 6px !important;
+  }
+}
 .custfontbtn:hover {
   background-color: var(--btn-color);
   border: 1px solid var(--btn-color);
@@ -368,13 +368,11 @@ table tbody td {
 .custsubtitle2 {
   color: var(--text-color);
 
-
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-
 
 .custsubtitle3 {
   color: var(--text-color);
@@ -391,9 +389,6 @@ table tbody td {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-
-
 
 .custcalendar {
   color: var(--secondary-color);
@@ -465,35 +460,27 @@ table tbody td {
   width: fit-content;
 }
 
-.prevcard{
-border: 1px solid;
-border-color: var(--btn-color);
-border-radius: 20px;
+.prevcard {
+  border: 1px solid;
+  border-color: var(--btn-color);
+  border-radius: 20px;
 }
 
 .prevcardt {
   border-bottom: 1px solid;
   border-color: var(--btn-color);
- 
 }
 
-.message{
- 
+.message {
   background-color: var(--text-color);
   border: 1px solid;
-  border-radius: 10px 10px 10px 0px ;
+  border-radius: 10px 10px 10px 0px;
   color: var(--text-s-color);
 }
 
-[dir="rtl"] .message{
-
-
-      border-radius: 10px 10px 0px 10px;
-
-
+[dir="rtl"] .message {
+  border-radius: 10px 10px 0px 10px;
 }
-
-
 
 @media (max-width: 768px) {
   .srv-btn-width {
@@ -507,60 +494,108 @@ border-radius: 20px;
     width: 100px;
   }
 }
+.border-bottom-sm-md {
+  border-bottom: 1px solid var(--text-color); /* or any color */
+}
 
-.notfiNavbar{
+@media (min-width: 992px) {
+  /* lg and up */
+  .border-bottom-sm-md {
+    border-bottom: none !important;
+  }
+}
+.col-md-6-lg-12 {
+  width: 100%;
+}
 
+@media (min-width: 768px) {
+  .col-md-6-lg-12 {
+    width: 50%;
+  }
+}
 
-    background-color:  var(--text-color);
-    width:300px !important;
-    height:   auto !important;
-    
+@media (min-width: 992px) {
+  .col-md-6-lg-12 {
+    width: 100%;
+  }
+}
+.container {
+  max-width: 80% !important;
+}
+
+@media (max-width: 992px) {
+  .container {
+    max-width: 95% !important;
+  }
+}
+@media (max-width: 1786px) {
+  .sidebar {
+    margin-left: 30px !important;
+  }
+}
+@media (max-width: 1400px) {
+  .sidebar {
+    margin-right: 30px !important;
+  }
+}
+.bg-cyan {
+  background-color: var(--secondary-color) !important;
+}
+
+.broken-cable-img {
+  width: 100%;
+  max-width: 400px;
+}
+
+@media (min-width: 768px) {
+  .broken-cable-img {
+    width: 70%;
+    max-width: 500px;
+  }
+}
+
+.notfiNavbar {
+  background-color: var(--text-color);
+  width: 300px !important;
+  height: auto !important;
+
   border: 0px solid;
   border-radius: 16px;
-    top:60px;
-    left: -137px;
+  top: 60px;
+  left: -137px;
 }
 
 .notfiNavbar::before {
-
-
-        content: "";
-          position: absolute;
-          top: -9px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 20px;
-          height: 10px;
-          background-color: var(--text-color);
-          clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 10px;
+  background-color: var(--text-color);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
 }
 
-.pricetit{
-
+.pricetit {
   color: var(--text-color);
-  
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
 
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
-.settCardBorder{
-
-           border: var(--primary-color) solid ;
-           border-radius: 8px;
+.settCardBorder {
+  border: var(--primary-color) solid;
+  border-radius: 8px;
 }
 
-
-.bg-prim-color{
-
-   background-color: var(--primary-color);
+.bg-prim-color {
+  background-color: var(--primary-color);
 }
 
 .bg-white-color {
-
   background-color: var(--text-color);
 }
 
@@ -575,17 +610,12 @@ border-radius: 20px;
   transform: translate(-50%, -50%);
 }
 
-
-
-.custPadding{
-    padding-left: 160px;
+.custPadding {
+  padding-left: 160px;
   padding-right: 0px;
   padding-top: 10px;
   padding-bottom: 20px;
-
 }
-
-
 
 .settingCard {
   position: absolute;
@@ -594,14 +624,10 @@ border-radius: 20px;
 }
 
 [dir="rtl"] .settingCard {
-
   right: 4%;
 }
 
-
 [dir="rtl"] .custPadding {
-
   padding-right: 160px;
   padding-left: 0px;
-
 }

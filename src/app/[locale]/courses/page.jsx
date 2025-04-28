@@ -1,19 +1,33 @@
-import React from 'react'
-import { useTranslations } from 'next-intl'
-import Regproaca from '@/components/regproaca/Regproaca'
-import CoursesTable from'@/components/CoursesTable/CoursesTable'
+import React from "react";
+import { useTranslations } from "next-intl";
+import Regproaca from "@/components/regproaca/Regproaca";
+import CoursesTable from "@/components/CoursesTable/CoursesTable";
 
 export default function Courses() {
-
-
-  const t = useTranslations('RegisteredProgramss')
-  const ts = useTranslations('CourseSchedule')
+  const t = useTranslations("RegisteredProgramss");
+  const ts = useTranslations("CourseSchedule");
 
   const regInfo = [
-    { courseType: t('courseType'), courseNAm: t('courseName') ,progress:"80%"},
-    { courseType: t('courseType'), courseNAm: t('courseName'), progress: "30%" },
-    { courseType: t('courseType'), courseNAm: t('courseName'), progress: "100%" },
-     { courseType: t('courseType'), courseNAm: t('courseName'), progress: "20%" }
+    {
+      courseType: t("courseType"),
+      courseNAm: t("courseName"),
+      progress: "80%",
+    },
+    {
+      courseType: t("courseType"),
+      courseNAm: t("courseName"),
+      progress: "30%",
+    },
+    {
+      courseType: t("courseType"),
+      courseNAm: t("courseName"),
+      progress: "100%",
+    },
+    {
+      courseType: t("courseType"),
+      courseNAm: t("courseName"),
+      progress: "20%",
+    },
   ];
   
   const tabHeaders = [ts('courseNumber'), ts('courseName'), ts('startDate'), ts('numberOfTasks'), ts('numSubmission'), ts('actions') ]
@@ -43,12 +57,13 @@ export default function Courses() {
         <div className=' mt-5'>             
         <h2 className=' hvvv'> {ts('title')}</h2>
         <h3> {ts('programDuration')}</h3>
-        <CoursesTable headers={tabHeaders} courses={tabCourses} btn={ts('dwnldLectable')} join={ts('join')} reg={ts('register')} lec={ts('td.lec')}/>
+        <CoursesTable 
+        headers={tabHeaders} 
+        courses={tabCourses} 
+        btn={ts('dwnldLectable')} join={ts('join')} reg={ts('register')} lec={ts('td.lec')}/>
         </div>  
         </div>
-    
-  
-  
-  
-  </>
+
+
+    </>
 }

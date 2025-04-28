@@ -10,9 +10,9 @@ import certificate from "@/assets/Sidebar icons/certificate.png";
 import notifi from "@/assets/Sidebar icons/notifications.png";
 import schedule from "@/assets/Sidebar icons/schedule.png";
 import settings from "@/assets/Sidebar icons/settings.png";
-import logout from "@/assets/Sidebar icons/logout.svg";
 import logo from "@/assets/Sidebar icons/sidebarLogo.png";
 import line from "@/assets/Sidebar icons/Line 48.png";
+import LogoutButton from "@/components/LogoutButton/LogoutButton";
 import payment from '@/assets/Sidebar icons/payment.svg'
 
 
@@ -171,14 +171,7 @@ export default function Sidebar() {
                   <li
                     className={`nav-item d-flex text-white  align-items-center `}
                   >
-                    <Image src={logout} alt="Dashboard" />
-                    <Link
-                      className="nav-link hvv"
-                      aria-current="page"
-                      href="/login"
-                    >
-                      {t("logout")}
-                    </Link>
+                    <LogoutButton />
                   </li>
                 </ul>
               </div>

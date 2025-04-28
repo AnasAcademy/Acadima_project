@@ -13,7 +13,7 @@
     "donthaveacc": "Don't have an account?",
     "register": "Register",
     "errEmail": "Invalid email format ",
-    "errEmial2": "Email is required",
+    "errEmail2": "Email is required",
     "errPassword": "Password must be at least 6 characters ",
     "errPassword2": "Password is required",
     "errPass": " Password must not exceed 12 characters"
@@ -29,7 +29,7 @@
     "donthaveacc": "have an account?",
     "register": "Login",
     "errEmail": "Invalid email format ",
-    "errEmial2": "Email is required",
+    "errEmail2": "Email is required",
     "errPassword": "Password must be at least 6 characters ",
     "errPassword2": "Password is required",
     "errPass": " Password must not exceed 12 characters",
@@ -38,6 +38,16 @@
     "errFullNameReq": "Full name is required.",
     "errphoneNumber": "Invalid phone number format",
     "errphoneNumReq": "Mobile number is required"
+  },
+  "ForgetPassword": {
+    "forgetPassword": "Forget Password",
+    "or": "Or",
+    "MailSentSuccessfully":"Mail Sent Successfully",
+    "PasswordUpdatedSuccessfully": "Password Updated Successfully",
+    "resetPassword": "Reset Password",
+    "passwordsMustMatch": "Passwords must match",
+    "confirmPasswordRequired": "Confirm Password Required",
+    "confirmPassword": "Confirm Password"
   },
 
   "Navbar": {
@@ -438,6 +448,47 @@
   "addLink": "Add Link",
   "linkTitle": "Link Title"
 
+ },
+ "installments-conditions": {
+   "title": "Review and Confirm Installments",
+   "overview": "Installment Overview",
+   "programName": "Program Name: UX/UI Design Diploma with Installment Payments",
+   "installmentAmount": "Installment 1 (6431 SAR)",
+   "dueDate": "Due Date: Monday, November 1, 2024",
+   "termsTitle": "Installment Terms and Conditions",
+   "termsIntro": "By paying the first installment for Acadima programs, you agree to the following terms and conditions:",
+   "terms": [
+   {
+     "title": "1. Acceptance of Terms:",
+     "body": "By completing the payment for any installment, the user is considered to have agreed to all the listed terms and conditions."
+   },
+   {
+     "title": "2. Payment Schedule:",
+     "body": "The user must adhere to paying all agreed-upon installments on the specified dates according to the schedule."
+   },
+   {
+     "title": "3. Late Payment:",
+     "body": "In case of payment delay, acadima reserves the right to take appropriate measures to ensure completion of payments, including freezing the program or restricting access to learning materials."
+   },
+   {
+     "title": "4. Refund Policy:",
+     "body": "No payment can be refunded except in special circumstances evaluated by the acadima administration."
+   },
+   {
+     "title": "5. Program Access:",
+     "body": "Access to the educational program is granted upon successful completion of the first installment."
+   },
+   {
+     "title": "6. Reminder Notification:",
+     "body": "Notifications will be sent prior to each due date to avoid any delay or service interruption."
+   },
+   {
+     "title": "7. Communication & Support:",
+     "body": "Subscribers can contact the acadima support team for inquiries regarding payments or terms."
+   }
+ ],
+   "importantNote": "Important: By proceeding with the payment, you fully and irrevocably agree to all the terms and conditions, and you commit to complying with them to ensure continued access to Acadima services.",
+   "back": "Back",
+   "confirm": "Confirm"
  }
-
 }
