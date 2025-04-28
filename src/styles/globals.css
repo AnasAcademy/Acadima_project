@@ -31,7 +31,7 @@ a {
   text-decoration: none;
 }
 
-h1{
+h1 {
   color: var(--secondary-color);
   font-size: 30px;
   font-style: normal;
@@ -41,9 +41,9 @@ h1{
 
 h2 {
   color: var(--text-color);
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
 }
 
 h3 {
@@ -62,7 +62,6 @@ h4 {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
- 
 }
 
 h5 {
@@ -72,7 +71,6 @@ h5 {
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
- 
 }
 
 h6 {
@@ -82,7 +80,14 @@ h6 {
   font-style: normal;
   font-weight: 700;
   line-height: 150%;
-
+}
+.h8 {
+  color: var(--background-color);
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .h7 {
@@ -124,7 +129,15 @@ input:focus {
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%;
+  line-height: normal;
+}
+
+.ftnote {
+  color: var(--secondary-color);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 h1,
@@ -165,6 +178,14 @@ h6 {
 
 .hvvv {
   color: var(--secondary-color);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.htitle {
+  color: var(--text-color);
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -212,7 +233,7 @@ ul li {
 }
 
 .h3v {
-color: var(--secondary-color);
+  color: var(--secondary-color);
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -244,7 +265,7 @@ table tbody {
   background-color: #000000 !important;
 }
 
-table tbody tr{
+table tbody tr {
   background-color: #b40f0f !important;
 }
 
@@ -260,7 +281,6 @@ table tbody td {
 
 .bg-danger-subtle {
   background-color: #ff616f !important;
- 
 }
 
 .alertFont {
@@ -348,11 +368,26 @@ table tbody td {
 .custsubtitle2 {
   color: var(--text-color);
 
-  font-family: "IBM Plex Sans";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.custsubtitle3 {
+  color: var(--text-color);
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.centered-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .custcalendar {
@@ -425,6 +460,28 @@ table tbody td {
   width: fit-content;
 }
 
+.prevcard {
+  border: 1px solid;
+  border-color: var(--btn-color);
+  border-radius: 20px;
+}
+
+.prevcardt {
+  border-bottom: 1px solid;
+  border-color: var(--btn-color);
+}
+
+.message {
+  background-color: var(--text-color);
+  border: 1px solid;
+  border-radius: 10px 10px 10px 0px;
+  color: var(--text-s-color);
+}
+
+[dir="rtl"] .message {
+  border-radius: 10px 10px 0px 10px;
+}
+
 @media (max-width: 768px) {
   .srv-btn-width {
     width: 150px;
@@ -441,7 +498,8 @@ table tbody td {
   border-bottom: 1px solid var(--text-color); /* or any color */
 }
 
-@media (min-width: 992px) { /* lg and up */
+@media (min-width: 992px) {
+  /* lg and up */
   .border-bottom-sm-md {
     border-bottom: none !important;
   }
@@ -494,4 +552,82 @@ table tbody td {
     width: 70%;
     max-width: 500px;
   }
+}
+
+.notfiNavbar {
+  background-color: var(--text-color);
+  width: 300px !important;
+  height: auto !important;
+
+  border: 0px solid;
+  border-radius: 16px;
+  top: 60px;
+  left: -137px;
+}
+
+.notfiNavbar::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 10px;
+  background-color: var(--text-color);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.pricetit {
+  color: var(--text-color);
+
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.settCardBorder {
+  border: var(--primary-color) solid;
+  border-radius: 8px;
+}
+
+.bg-prim-color {
+  background-color: var(--primary-color);
+}
+
+.bg-white-color {
+  background-color: var(--text-color);
+}
+
+.img-opacity {
+  opacity: 0.6;
+}
+
+.centered-absolut {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.custPadding {
+  padding-left: 160px;
+  padding-right: 0px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.settingCard {
+  position: absolute;
+  top: 20%;
+  left: 4%;
+}
+
+[dir="rtl"] .settingCard {
+  right: 4%;
+}
+
+[dir="rtl"] .custPadding {
+  padding-right: 160px;
+  padding-left: 0px;
 }

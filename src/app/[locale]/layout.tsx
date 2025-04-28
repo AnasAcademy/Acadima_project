@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Navbar from "@/components/sidebar/navbar/Navbar";
 import Sidebar from "@/components/sidebar/sidebarr/Sidebar";
+import NotificationProvider from'@/context/NotificationContext'
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,13 +41,15 @@ export default async function RootLayout({
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextIntlClientProvider>
-          <Navbar />
-          <div className="d-flex justify-content-center">
-            <div className="d-none d-sm-none d-md-none d-lg-flex d-xl-flex">
-              <Sidebar />
+          <NotificationProvider>
+            <Navbar />
+            <div className="  d-flex  ">
+              <div className=" d-none  d-sm-none d-md-none d-lg-flex d-xl-flex">
+                <Sidebar />
+              </div>
+              {children}
             </div>
-            {children}
-          </div>
+          </NotificationProvider>
         </NextIntlClientProvider>
       </body>
     </html>
