@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 
 export default function LogoutButton() {
   const router = useRouter();
-  const t = useTranslations("Sidebar"); 
+  const t = useTranslations("Sidebar");
 
   const handleLogout = () => {
     localStorage.clear();

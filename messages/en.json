@@ -3,7 +3,6 @@
     "title": "Hello world!",
     "about": "Go to the about page"
   },
-
   "Login": {
     "login": "Login ",
     "email": "Email",
@@ -42,14 +41,13 @@
   "ForgetPassword": {
     "forgetPassword": "Forget Password",
     "or": "Or",
-    "MailSentSuccessfully":"Mail Sent Successfully",
+    "MailSentSuccessfully": "Mail Sent Successfully",
     "PasswordUpdatedSuccessfully": "Password Updated Successfully",
     "resetPassword": "Reset Password",
     "passwordsMustMatch": "Passwords must match",
     "confirmPasswordRequired": "Confirm Password Required",
     "confirmPassword": "Confirm Password"
   },
-
   "Navbar": {
     "fullName": "Full Student Name"
   },
@@ -58,13 +56,12 @@
     "Subscription Management": "Admissions",
     "Notifications": "Courses",
     "Technical Support": "Certificates",
-     "pay_pro_fees": "Pay Program Fees",
+    "pay_pro_fees": "Pay Program Fees",
     "Account Management": "Notifications",
     "elctro": "E-Services",
     "AI Assistant": "Settings",
     "logout": "Logout"
   },
-
   "Namcard": {
     "hello": "Hello",
     "name": "Aisha Mohamed",
@@ -74,18 +71,15 @@
     "Academic_Email": "Academic Email:",
     "Password": "Password :"
   },
-
   "smallcard": {
     "title": "Microsoft Teams",
     "info": "The platform for attending all lectures",
     "btn": "Login"
   },
-
   "importantFiles": {
     "title": "Important Files",
     "guide": "Microsoft Teams User Guide"
   },
-
   "todaySchedule": {
     "title": "Today's Schedule",
     "action": "Add action",
@@ -133,14 +127,12 @@
       }
     }
   },
-
   "support": {
     "title": "Facing an issue on the platform?",
     "description": "Feel free to reach out to us — our team is ready to help you with anything you need.",
     "newRequest": "Submit New Request",
     "followUp": "Follow Up on Previous Request"
   },
-
   "RegisteredPrograms": {
     "title": "Registered Programs",
     "courseType": "recorded Training Course",
@@ -176,22 +168,18 @@
     "numberOfTasks": "Number of Tasks",
     "numSubmission": "Number of Submissions",
     "actions": "Actions",
-    "td": 
-      {
-        "courseNum": "01",
-        "courseNam": "Fundamentals of Cybersecurity",
-        "startDate": "17 Nov 2024",
-        "numTasks": "0",
-        "numSubmission": "No submissions yet",
-        "actions": "Lectures",
-         "lec": "Lectures"
-      }
-      
-    ,
+    "td": {
+      "courseNum": "01",
+      "courseNam": "Fundamentals of Cybersecurity",
+      "startDate": "17 Nov 2024",
+      "numTasks": "0",
+      "numSubmission": "No submissions yet",
+      "actions": "Lectures",
+      "lec": "Lectures"
+    },
     "dwnldLectable": "Download Lecture Schedule",
     "join": "Would you like to join another program?",
-  "register": "New Registration Request"
-
+    "register": "New Registration Request"
   },
   "services": {
     "title": "Electronic Services",
@@ -242,31 +230,28 @@
     ]
   },
   "notifications": [
-  {
-    "tit": "Notifications",
-    "title": "A Message from the Technical Department",
-    "date": "November 5, 2024 | 5:12 PM",
-    "body": "The Technical Department at Anas Academy wishes you continued success and excellence. We are honored to support you on your journey...",
-    "button": "View Message",
-    "close": "Close Message"
-  },
-  {
-    "tit": "Important Update",
-    "title": "Your Data Has Been Successfully Updated",
-    "date": "November 6, 2024 | 10:00 AM",
-    "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment."
-    
-  },
-  {
-    "tit": "Important Update",
-    "title": "Your Data Has Been Successfully Updated",
-    "date": "November 6, 2024 | 10:00 AM",
-    "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment."
-    
-  }
-],
-
-"payments": {
+    {
+      "tit": "Notifications",
+      "title": "A Message from the Technical Department",
+      "date": "November 5, 2024 | 5:12 PM",
+      "body": "The Technical Department at Anas Academy wishes you continued success and excellence. We are honored to support you on your journey...",
+      "button": "View Message",
+      "close": "Close Message"
+    },
+    {
+      "tit": "Important Update",
+      "title": "Your Data Has Been Successfully Updated",
+      "date": "November 6, 2024 | 10:00 AM",
+      "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment."
+    },
+    {
+      "tit": "Important Update",
+      "title": "Your Data Has Been Successfully Updated",
+      "date": "November 6, 2024 | 10:00 AM",
+      "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment."
+    }
+  ],
+  "payments": {
     "title": "Pay Program Fees",
     "program": "AI with Open IA for Beginners: Programming Guidance",
     "early_reg": {
@@ -293,10 +278,8 @@
     "book_call": "Book a call now",
     "savings_difference": "1402.22"
   },
-
-"installments": {
+  "installments": {
     "title": "Program Installments",
-  
     "summary": {
       "amount_paid": "Amount Paid",
       "paid": "SAR 4048",
@@ -312,17 +295,51 @@
     },
     "table": {
       "title": "Program Installment Schedule",
-      "headers": ["No.", "Installment Details", "Amount", "Installment Finish", "Payment Date", "Payment Status"],
+      "headers": [
+        "No.",
+        "Installment Details",
+        "Amount",
+        "Installment Finish",
+        "Payment Date",
+        "Payment Status"
+      ],
       "rows": [
-        ["01", "First Installment (Registration)", "SAR 1150", "-", "Nov 1, 2024", "Paid"],
-        ["02", "Second Installment", "SAR 966", "Nov 1, 2024", "Nov 1, 2024", "Paid"],
-        ["03", "Third Installment", "SAR 966", "Nov 1, 2024", "Nov 1, 2024", "Paid"],
-        ["04", "Fourth Installment", "SAR 966", "Nov 1, 2024", "Nov 1, 2024", "Pay Now"]
+        [
+          "01",
+          "First Installment (Registration)",
+          "SAR 1150",
+          "-",
+          "Nov 1, 2024",
+          "Paid"
+        ],
+        [
+          "02",
+          "Second Installment",
+          "SAR 966",
+          "Nov 1, 2024",
+          "Nov 1, 2024",
+          "Paid"
+        ],
+        [
+          "03",
+          "Third Installment",
+          "SAR 966",
+          "Nov 1, 2024",
+          "Nov 1, 2024",
+          "Paid"
+        ],
+        [
+          "04",
+          "Fourth Installment",
+          "SAR 966",
+          "Nov 1, 2024",
+          "Nov 1, 2024",
+          "Pay Now"
+        ]
       ]
     }
   },
-   "comp-pay":{
-
+  "comp-pay": {
     "page_title": "Complete Payment",
     "page_subtitle": "Pay the registration fees for Diploma in Fundamentals of Cybersecurity: Total payment of $599",
     "section_title": "Secure Checkout",
@@ -334,161 +351,140 @@
     "total": "Total",
     "amount_due": "Total amount due today 559$",
     "pay_button": "Make secure payment"
-   },
-
-     "settings":{
-
-         "edit": "Edit",
-  "full_name": "Full Name",
-  "academic_info": "Academic Information",
-  "academic_code": "Academic Code",
-  "email": "Email",
-  "birthdate": "Date of Birth",
-  "language": "Language",
-  "arabic_language": "Arabic Language",
-  "region_unit": "Region / Timezone",
-  "mobile": "Mobile Number",
-  "password": "Password",
-  "save": "Save",
-  "toggle_language": "Enable Arabic Menu",
-  "toggle_profile": "Enable Profile Card",
-  "settings_header": "All Settings",
-  "basic_data": "Basic Data",
-  "personal_data": "Personal Information",
-  "education": "Education & Experience",
-  "extra_info": "Additional Info",
-  "portfolio_links": "Portfolio Links",
-  "connections": "Connections",
-  "completion_note": "Dear student, please make sure to fill out all required fields (marked with a *) correctly to ensure program acceptance.",
-  "progress": "15%"
-
-
-
-
-     },
-
-     
+  },
+  "settings": {
+    "edit": "Edit",
+    "full_name": "Full Name",
+    "academic_info": "Academic Information",
+    "academic_code": "Academic Code",
+    "email": "Email",
+    "birthdate": "Date of Birth",
+    "language": "Language",
+    "arabic_language": "Arabic Language",
+    "region_unit": "Region / Timezone",
+    "mobile": "Mobile Number",
+    "password": "Password",
+    "save": "Save",
+    "toggle_language": "Enable Arabic Menu",
+    "toggle_profile": "Enable Profile Card",
+    "settings_header": "All Settings",
+    "basic_data": "Basic Data",
+    "personal_data": "Personal Information",
+    "education": "Education & Experience",
+    "extra_info": "Additional Info",
+    "portfolio_links": "Portfolio Links",
+    "connections": "Connections",
+    "completion_note": "Dear student, please make sure to fill out all required fields (marked with a *) correctly to ensure program acceptance.",
+    "progress": "15%"
+  },
   "personalData": {
-  "academic_data": "Academic Data",
-  "full_name_arabic": "Full Name in Arabic",
-  "birth_date": "Birth Date",
-  "nationality": "Nationality",
-  "country_of_residence": "Country of Residence",
-  "language": "Language",
-  "full_name_english": "Full Name in English",
-  "id_or_passport_number": "National ID or Passport Number",
-  "gender": "Gender",
-  "male": "Male",
-  "female": "Female",
-  "city_of_residence": "City of Residence",
-  "upload_id_or_passport": "Upload National ID or Passport",
-  "no_file_uploaded": "No file uploaded"
-}
-
- ,
-
-  "eduction":{
-
-   "uni_edu": "University Education",
+    "academic_data": "Academic Data",
+    "full_name_arabic": "Full Name in Arabic",
+    "birth_date": "Birth Date",
+    "nationality": "Nationality",
+    "country_of_residence": "Country of Residence",
+    "language": "Language",
+    "full_name_english": "Full Name in English",
+    "id_or_passport_number": "National ID or Passport Number",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "city_of_residence": "City of Residence",
+    "upload_id_or_passport": "Upload National ID or Passport",
+    "no_file_uploaded": "No file uploaded"
+  },
+  "eduction": {
+    "uni_edu": "University Education",
     "edu_area": "Educational Area",
     "uni": "University",
-  "last_uni_cert": "Last university degree obtained",
-  "dip": "Diploma",
-  "bach": "Bachelor's",
-  "mast": "Master's",
-  "phd": "PhD",
-  "ent_bach_cert_sor": "Enter source of Bachelor's certificate",
-  "cert_country": "Certificate Issuing Country",
-  "college": "College",
-  "grad_year": "Graduation Year",
-  "major": "Major",
-  "gpa": "GPA",
-  "grad_cert_img": "Graduation Certificate Image",
-  "no_file": "No file uploaded",
-  "lang": "Language",
-
-  "high_edu": "High School Education",
-  "high_cert_country": "High School Certificate Issuing Country",
-  "school": "School",
-  "high_grad_year": "High School Graduation Year",
-  "high_gpa": "High School GPA",
-  "high_cert_img": "High School Certificate Image",
-
-  "exp": "Experiences",
-  "exp_field": "Field of Experience",
-  "years_exp": "Years of Experience",
-  "add_exp": "Add Experience"
-  }
-
- ,
-
-  "addInfo":{
-
-
- "job_info": "Job Information",
-  "current_job_status": "Current Job Status",
-  "working": "Working",
-  "not_working": "Not Working",
-  "job_title": "Job Title",
-  "employer": "Employer",
-  "emergency_info": "Emergency Contact Information",
-  "relation": "Relation",
-  "emergency_contact_name": "Emergency Contact Name",
-  "emergency_phone": "Phone Number",
-  "emergency_email": "Email",
-  "health_status": "Health Status",
-  "hearing_disability": "Do you have a hearing disability?",
-  "health_issue": "Do you have a health issue?",
-  "disability": "Are you a person with disabilities?",
-  "health_issue_detail": "Enter your health issue"
-
+    "last_uni_cert": "Last university degree obtained",
+    "dip": "Diploma",
+    "bach": "Bachelor's",
+    "mast": "Master's",
+    "phd": "PhD",
+    "ent_bach_cert_sor": "Enter source of Bachelor's certificate",
+    "cert_country": "Certificate Issuing Country",
+    "college": "College",
+    "grad_year": "Graduation Year",
+    "major": "Major",
+    "gpa": "GPA",
+    "grad_cert_img": "Graduation Certificate Image",
+    "no_file": "No file uploaded",
+    "lang": "Language",
+    "high_edu": "High School Education",
+    "high_cert_country": "High School Certificate Issuing Country",
+    "school": "School",
+    "high_grad_year": "High School Graduation Year",
+    "high_gpa": "High School GPA",
+    "high_cert_img": "High School Certificate Image",
+    "exp": "Experiences",
+    "exp_field": "Field of Experience",
+    "years_exp": "Years of Experience",
+    "add_exp": "Add Experience"
   },
-   "ProfilLinks":{
-   "workLinks": "Work Links",
-  "addLink": "Add Link",
-  "linkTitle": "Link Title"
-
- },
- "installments-conditions": {
-   "title": "Review and Confirm Installments",
-   "overview": "Installment Overview",
-   "programName": "Program Name: UX/UI Design Diploma with Installment Payments",
-   "installmentAmount": "Installment 1 (6431 SAR)",
-   "dueDate": "Due Date: Monday, November 1, 2024",
-   "termsTitle": "Installment Terms and Conditions",
-   "termsIntro": "By paying the first installment for Acadima programs, you agree to the following terms and conditions:",
-   "terms": [
-   {
-     "title": "1. Acceptance of Terms:",
-     "body": "By completing the payment for any installment, the user is considered to have agreed to all the listed terms and conditions."
-   },
-   {
-     "title": "2. Payment Schedule:",
-     "body": "The user must adhere to paying all agreed-upon installments on the specified dates according to the schedule."
-   },
-   {
-     "title": "3. Late Payment:",
-     "body": "In case of payment delay, acadima reserves the right to take appropriate measures to ensure completion of payments, including freezing the program or restricting access to learning materials."
-   },
-   {
-     "title": "4. Refund Policy:",
-     "body": "No payment can be refunded except in special circumstances evaluated by the acadima administration."
-   },
-   {
-     "title": "5. Program Access:",
-     "body": "Access to the educational program is granted upon successful completion of the first installment."
-   },
-   {
-     "title": "6. Reminder Notification:",
-     "body": "Notifications will be sent prior to each due date to avoid any delay or service interruption."
-   },
-   {
-     "title": "7. Communication & Support:",
-     "body": "Subscribers can contact the acadima support team for inquiries regarding payments or terms."
-   }
- ],
-   "importantNote": "Important: By proceeding with the payment, you fully and irrevocably agree to all the terms and conditions, and you commit to complying with them to ensure continued access to Acadima services.",
-   "back": "Back",
-   "confirm": "Confirm"
- }
+  "addInfo": {
+    "job_info": "Job Information",
+    "current_job_status": "Current Job Status",
+    "working": "Working",
+    "not_working": "Not Working",
+    "job_title": "Job Title",
+    "employer": "Employer",
+    "emergency_info": "Emergency Contact Information",
+    "relation": "Relation",
+    "emergency_contact_name": "Emergency Contact Name",
+    "emergency_phone": "Phone Number",
+    "emergency_email": "Email",
+    "health_status": "Health Status",
+    "hearing_disability": "Do you have a hearing disability?",
+    "health_issue": "Do you have a health issue?",
+    "disability": "Are you a person with disabilities?",
+    "health_issue_detail": "Enter your health issue"
+  },
+  "ProfilLinks": {
+    "workLinks": "Work Links",
+    "addLink": "Add Link",
+    "linkTitle": "Link Title"
+  },
+  "installments-conditions": {
+    "title": "Review and Confirm Installments",
+    "overview": "Installment Overview",
+    "programName": "Program Name: UX/UI Design Diploma with Installment Payments",
+    "installmentAmount": "Installment 1 (6431 SAR)",
+    "dueDate": "Due Date: Monday, November 1, 2024",
+    "termsTitle": "Installment Terms and Conditions",
+    "termsIntro": "By paying the first installment for Acadima programs, you agree to the following terms and conditions:",
+    "terms": [
+      {
+        "title": "1. Acceptance of Terms:",
+        "body": "By completing the payment for any installment, the user is considered to have agreed to all the listed terms and conditions."
+      },
+      {
+        "title": "2. Payment Schedule:",
+        "body": "The user must adhere to paying all agreed-upon installments on the specified dates according to the schedule."
+      },
+      {
+        "title": "3. Late Payment:",
+        "body": "In case of payment delay, acadima reserves the right to take appropriate measures to ensure completion of payments, including freezing the program or restricting access to learning materials."
+      },
+      {
+        "title": "4. Refund Policy:",
+        "body": "No payment can be refunded except in special circumstances evaluated by the acadima administration."
+      },
+      {
+        "title": "5. Program Access:",
+        "body": "Access to the educational program is granted upon successful completion of the first installment."
+      },
+      {
+        "title": "6. Reminder Notification:",
+        "body": "Notifications will be sent prior to each due date to avoid any delay or service interruption."
+      },
+      {
+        "title": "7. Communication & Support:",
+        "body": "Subscribers can contact the acadima support team for inquiries regarding payments or terms."
+      }
+    ],
+    "importantNote": "Important: By proceeding with the payment, you fully and irrevocably agree to all the terms and conditions, and you commit to complying with them to ensure continued access to Acadima services.",
+    "back": "Back",
+    "confirm": "Confirm"
+  }
 }

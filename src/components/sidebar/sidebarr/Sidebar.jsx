@@ -13,8 +13,7 @@ import settings from "@/assets/Sidebar icons/settings.png";
 import logo from "@/assets/Sidebar icons/sidebarLogo.png";
 import line from "@/assets/Sidebar icons/Line 48.png";
 import LogoutButton from "@/components/LogoutButton/LogoutButton";
-import payment from '@/assets/Sidebar icons/payment.svg'
-
+import payment from "@/assets/Sidebar icons/payment.svg";
 
 export default function Sidebar() {
   const t = useTranslations("Sidebar");
@@ -124,10 +123,6 @@ export default function Sidebar() {
                       {t("pay_pro_fees")}
                     </Link>
                   </li>
-
-
-
-
 
                   <li
                     className={`nav-item d-flex text-white align-items-center  `}

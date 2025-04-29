@@ -45,7 +45,10 @@ export default function InstallmentsPage() {
 
           <ol className="custfont d-flex flex-column justify-content-start align-items-start mt-4 p-0">
             {terms.map((item, index) => (
-              <li className="mb-3 d-flex flex-column justify-content-start align-items-start" key={index}>
+              <li
+                className="mb-3 d-flex flex-column justify-content-start align-items-start"
+                key={index}
+              >
                 <strong>{item.title}</strong>
                 <div>{item.body}</div>
               </li>

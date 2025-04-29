@@ -1,7 +1,7 @@
 import React from "react";
 import { BsLinkedin } from "react-icons/bs";
 import Image from "next/image";
-import cert_image from '../../assets/cert-icon.png';
+import cert_image from "../../assets/cert-icon.png";
 
 export default function CertificateCard({ certs, t }) {
   if (!certs || certs.length < 2) return null;
@@ -33,7 +33,7 @@ export default function CertificateCard({ certs, t }) {
                 {t("downloadJPG")}
               </button>
               <button className="btn btn-outline-light d-flex align-items-center justify-content-center px-1 py-1 bg-cyan">
-                <BsLinkedin size={18} color="black"/>
+                <BsLinkedin size={18} color="black" />
               </button>
             </div>
           </div>

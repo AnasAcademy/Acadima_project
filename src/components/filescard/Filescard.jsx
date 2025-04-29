@@ -1,64 +1,43 @@
- import React from 'react'
-import file from '../../assets/filescard/Ellipse 22.svg'
+import React from "react";
+import file from "../../assets/filescard/Ellipse 22.svg";
 import Image from "next/image";
-import { useTranslations } from 'next-intl';
- 
- export default function Filescard() {
+import { useTranslations } from "next-intl";
 
+export default function Filescard() {
+  const t = useTranslations("importantFiles");
 
-     const t = useTranslations("importantFiles");
- 
+  return (
+    <>
+      <div className="  p-3 rounded-2  w-100 d-flex justify-content-center flex-column align-items-start  cardbg text-white">
+        <h3 className=" custsubtitle"> {t("title")} </h3>
 
-   return <>
-   
-   
-       <div className='  p-3 rounded-2  w-100 d-flex justify-content-center flex-column align-items-start  cardbg text-white'>
+        <div className=" d-flex flex-column gap-3 mt-4  ">
+          <div className=" d-flex  gap-2  ">
+            <Image src={file} alt="file" />
+            <p className="texto-white"> {t("guide")} </p>
+          </div>
 
+          <div className=" d-flex gap-2 ">
+            <Image src={file} alt="file" />
+            <p className="texto-white "> {t("guide")} </p>
+          </div>
 
+          <div className=" d-flex gap-2">
+            <Image src={file} alt="file" />
+            <p className="texto-white"> {t("guide")} </p>
+          </div>
 
-           <h3 className=' custsubtitle'>  {t('title')} </h3>
+          <div className=" d-flex gap-2">
+            <Image src={file} alt="file" />
+            <p className="texto-white"> {t("guide")} </p>
+          </div>
 
-           <div  className=' d-flex flex-column gap-3 mt-4  '>
-           <div className=' d-flex  gap-2  '>
-                <Image src={file} alt='file'/>
-                   <p className='texto-white'> {t('guide')} </p>
-           </div>
-
-           <div className=' d-flex gap-2 '>
-               <Image src={file} alt='file'  />
-                   <p className='texto-white '> {t('guide')} </p>
-           </div>
-
-
-           <div className=' d-flex gap-2'>
-               <Image src={file} alt='file' />
-                   <p className='texto-white'> {t('guide')} </p>
-           </div>
-
-
-
-           <div className=' d-flex gap-2'>
-               <Image src={file}  alt='file'/>
-                   <p className='texto-white'> {t('guide')} </p>
-           </div>
-
-
-           <div className=' d-flex gap-2'>
-               <Image src={file}  alt='file'/>
-                   <p className='texto-white'> {t('guide')} </p>
-           </div>
-
-           </div>
-
-
-
-
-       </div>
-
-   
-   
-   
-   
-   </>
- }
- 
+          <div className=" d-flex gap-2">
+            <Image src={file} alt="file" />
+            <p className="texto-white"> {t("guide")} </p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

@@ -81,6 +81,7 @@ h6 {
   font-weight: 700;
   line-height: 150%;
 }
+
 .h8 {
   color: var(--background-color);
   text-align: right;
@@ -346,17 +347,20 @@ table tbody td {
   border: 1px solid #ccf5ff;
   padding: 8px 16px;
 }
+
 @media (max-width: 992px) {
   .custfontbtn {
     font-size: 10px !important;
     padding: 6px !important;
   }
 }
+
 .custfontbtn:hover {
   background-color: var(--btn-color);
   border: 1px solid var(--btn-color);
   color: var(--text-color);
 }
+
 .custsubtitle {
   color: var(--secondary-color);
   font-size: 20px;
@@ -444,6 +448,7 @@ table tbody td {
   border-radius: 6px;
   border-color: var(--btn-color);
 }
+
 .custButt-outline-secondary {
   color: var(--primary-color);
   font-size: 12px;
@@ -456,6 +461,7 @@ table tbody td {
   border-color: var(--secondary-color);
   cursor: none;
 }
+
 .srv-btn-width {
   width: fit-content;
 }
@@ -489,21 +495,26 @@ table tbody td {
     padding: 8px !important;
   }
 }
+
 @media (max-width: 412px) {
   .srv-btn-width {
     width: 100px;
   }
 }
+
 .border-bottom-sm-md {
-  border-bottom: 1px solid var(--text-color); /* or any color */
+  border-bottom: 1px solid var(--text-color);
+  /* or any color */
 }
 
 @media (min-width: 992px) {
+
   /* lg and up */
   .border-bottom-sm-md {
     border-bottom: none !important;
   }
 }
+
 .col-md-6-lg-12 {
   width: 100%;
 }
@@ -519,25 +530,20 @@ table tbody td {
     width: 100%;
   }
 }
-.container {
-  max-width: 80% !important;
-}
 
-@media (max-width: 992px) {
-  .container {
-    max-width: 95% !important;
-  }
-}
+
 @media (max-width: 1786px) {
   .sidebar {
     margin-left: 30px !important;
   }
 }
+
 @media (max-width: 1400px) {
   .sidebar {
     margin-right: 30px !important;
   }
 }
+
 .bg-cyan {
   background-color: var(--secondary-color) !important;
 }
@@ -589,6 +595,7 @@ table tbody td {
 .settCardBorder {
   border: var(--primary-color) solid;
   border-radius: 8px;
+  color: white;
 }
 
 .bg-prim-color {

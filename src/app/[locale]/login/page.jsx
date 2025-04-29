@@ -94,13 +94,12 @@ export default function Login() {
           {/* Email Field */}
           <div className="form-group">
             <div
-              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4   gap-2  ${
-                formik.values.email &&
-                formik.touched.email &&
-                formik.errors.email
+              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4   gap-2  ${formik.values.email &&
+                  formik.touched.email &&
+                  formik.errors.email
                   ? "border-2 border-danger "
                   : ""
-              }    `}
+                }    `}
             >
               <Image src={mail} alt="mail" className="mb-1" />
 
@@ -134,13 +133,12 @@ export default function Login() {
           {/* Password Field */}
           <div className="form-group">
             <div
-              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4    gap-2    ${
-                formik.values.password &&
-                formik.touched.password &&
-                formik.errors.password
+              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4    gap-2    ${formik.values.password &&
+                  formik.touched.password &&
+                  formik.errors.password
                   ? "border-2 border-danger "
                   : ""
-              }`}
+                }`}
             >
               <Image src={lock} alt="lock" className="mb-1" />
               <input

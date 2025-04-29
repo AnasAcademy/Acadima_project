@@ -31,7 +31,6 @@ export default function ServiceCards() {
               <div className="d-flex justify-content-start align-items-center mt-4 gap-2">
                 <button
                   className="btn custButt-outline-secondary px-3 py-2 srv-btn-width"
-                  
                   style={{
                     pointerEvents: "none",
                     cursor: "default",

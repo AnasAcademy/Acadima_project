@@ -5,10 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import Navbar from "@/components/sidebar/navbar/Navbar";
-import Sidebar from "@/components/sidebar/sidebarr/Sidebar";
-import NotificationProvider from'@/context/NotificationContext'
-
+import NavbarWrapper from "@/components/navbarWrapper/NavbarWrapper";
+import SideBarWrapper from "@/components/sideBarWrapper/SideBarWrapper";
+import NotificationProvider from "@/context/NotificationContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +31,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string; segments?: string[] }; // add segments if your config allows it
 }) {
-  const { locale } = params;
+  const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -42,10 +41,10 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextIntlClientProvider>
           <NotificationProvider>
-            <Navbar />
-            <div className="  d-flex  ">
-              <div className=" d-none  d-sm-none d-md-none d-lg-flex d-xl-flex">
-                <Sidebar />
+            <NavbarWrapper />
+            <div className="d-flex">
+              <div className="d-none d-sm-none d-md-none d-lg-flex d-xl-flex">
+                <SideBarWrapper />
               </div>
               {children}
             </div>
