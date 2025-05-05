@@ -4,6 +4,11 @@
 
 }
 
+@font-face {
+  font-family: "ibm";
+  src: url(../assets/fonts/IBMPlexSans-Regular.ttf);
+}
+
 .custom-calendar {
   border-radius: 8px;
   width: 100%;
@@ -65,9 +70,9 @@
 }
 
 .calendar-day {
-  padding: 10px 4px;
+ 
   cursor: pointer;
-  color: #3ff12f;
+  color: #ffffff;
   text-align: center;
   font-size: 14px; /* Ensures text size is consistent */
   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
@@ -81,30 +86,39 @@
 
 }
 
-.calendar-day.selected:not(.disabled) {
-  background-color: var(--secondary-color); /* Highlight selected day with another color */
-  color: #000000 !important; /* Text color for better contrast */
-  border-radius: 50%; /* Ensures a circular highlight */
+.disabled{
+
+  color:  transparent !important;
+}
+
+ .calendar-day.selected:not(.disabled) {
+  background-color: var(--secondary-color); 
+  color: #000000 !important; 
+  
   font-weight: bold;
 }
 
 .calendar-day.current-day:not(.disabled) {
   background-color: var(--secondary-color);
-    color: #000000 !important;
-  border-radius: 50%;
+  color: #000000 !important;
   font-weight: bold;
-}
+} 
+
 
 
 .calendar-day:hover:not(.disabled):not(.selected):not(.current-day) {
-  background-color: rgba(204, 245, 255, 0.5); /* Subtle hover effect for non-selected days */
-  color: #000000; /* Keeps hover color consistent */
-}
+  background-color: rgba(204, 245, 255, 0.5); 
+
+  color: #000000; 
+} */
 
 .calendar-day.disabled:hover {
-  background-color: transparent; /* Ensure disabled days have no hover effect */
-  cursor: not-allowed; /* Show "not-allowed" cursor for clarity */
+  background-color: transparent; 
+
+  cursor: not-allowed; 
 }
+
+
 .calendar-day.has-events {
   position: relative; /* Ensure the pseudo-element is positioned relative to the day */
 }
@@ -112,12 +126,13 @@
 .calendar-day.has-events:not(.disabled)::after {
   content: '';
   position: absolute;
+   top:31px;
   bottom: -5%;
-  left: 30%;
-  width: 40%; /* Full width of the day box */
+  left: 20%;
+  width: 60%; /* Full width of the day box */
   height: 2px; /* Thickness of the line */
   background-color: red; /* Red color for the line */
-  border-radius: 0; /* Ensures no radius on the line */
+  border-radius: 20px; /* Ensures no radius on the line */
 }
 
 .events-container {
@@ -210,6 +225,7 @@ width: 200px;
   font-style: normal;
   font-weight: 600;
   line-height: 20px; /* 200% */
+  font-family: "ibm" !important;
 }
 .noEvents-image {
   width: 64px;

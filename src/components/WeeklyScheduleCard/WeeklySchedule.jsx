@@ -82,7 +82,7 @@ export default function WeeklySchedule() {
                   </div>
                   <button
                     className="btn btn-light custfontbtn px-3 text-nowrap "
-                    style={{ width: "120px" }}
+                   
                   >
                     {t(`lectures.${key}.button`)}
                   </button>

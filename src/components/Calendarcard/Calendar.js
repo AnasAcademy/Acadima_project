@@ -67,7 +67,7 @@ const loc = useLocale();
             link: "",
           },
           {
-            date: "2024-12-11",
+            date: "2025-12-11",
             time:"12:00",
             title: "اجتماع مشروع التخرج",
             type: "meeting",
@@ -257,7 +257,7 @@ const loc = useLocale();
         const hasEvents = events[formattedDate]?.length > 0;
 
         const dayClass = `
-          calendar-day  text-white 
+          calendar-day   pt-1 w-50 m-2 pb-1
           ${isCurrentDay ? "current-day" : ""} 
           ${isSelected ? "selected" : ""} 
           ${hasEvents ? "has-events" : ""} 
