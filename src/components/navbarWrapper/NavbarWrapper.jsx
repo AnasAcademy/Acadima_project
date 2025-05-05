@@ -12,6 +12,11 @@ export default function NavbarWrapper() {
     "/en/login",
     "/en/register",
     "/ar/register",
+    "/ar/bundles/4/course/learning/4",
+    "/ar/forget-password",
+    "/en/forget-password",
+    "/ar/reset-password",
+    "/en/reset-password",
   ];
 
   return <>{!hideNavbarRoutes.includes(pathname) && <Navbar />}</>;

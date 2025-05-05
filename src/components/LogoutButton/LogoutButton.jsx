@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import logout from "@/assets/Sidebar icons/logout.svg";
+import LogoutIcon from "@/assets/Sidebar icons/logout.svg";
 import { useTranslations } from "next-intl";
 
 export default function LogoutButton() {
@@ -20,7 +20,7 @@ export default function LogoutButton() {
       className="d-flex align-items-center gap-2 text-decoration-none"
       style={{ cursor: "pointer" }}
     >
-      <Image src={logout} alt="Logout" width={24} height={24} />
+      <LogoutIcon  className="iconSize1 iconcolor" />
       <span className="nav-link hvv text-danger">{t("logout")}</span>
     </div>
   );

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import icon from "@/assets/calendar/Group.svg";
+import Icon from "@/assets/calendar/Group.svg";
 
 export default function WeeklySchedule() {
   const t = useTranslations("weeklySchedule");
@@ -72,7 +72,7 @@ export default function WeeklySchedule() {
                   className="d-flex   w-100 justify-content-between  align-items-center   gap-5 mb-3"
                 >
                   <div className=" d-flex justify-content-center align-items-center gap-4">
-                    <Image src={icon} alt="icon" />
+                    <Icon  className="iconSize1" />
                     <div>
                       <div className="hv">{t(`lectures.${key}.number`)}</div>
                       <div className="custcalendartit texto-white">

@@ -3,10 +3,10 @@ import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
 import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
-import lock from "@/assets/Registration/Lock.svg";
-import mail from "@/assets/Registration/Mail.svg";
-import hide from "@/assets/Registration/Hide.svg";
-import show from "@/assets/Registration/Show.svg";
+import LockIcon from "@/assets/Registration/Lock.svg";
+import MailIcon from "@/assets/Registration/Mail.svg";
+import HideIcon from "@/assets/Registration/Hide.svg";
+import ShowIcon from "@/assets/Registration/Show.svg";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
@@ -94,14 +94,15 @@ export default function Login() {
           {/* Email Field */}
           <div className="form-group">
             <div
-              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4   gap-2  ${formik.values.email &&
-                  formik.touched.email &&
-                  formik.errors.email
+              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4   gap-2  ${
+                formik.values.email &&
+                formik.touched.email &&
+                formik.errors.email
                   ? "border-2 border-danger "
                   : ""
-                }    `}
+              }    `}
             >
-              <Image src={mail} alt="mail" className="mb-1" />
+              <MailIcon className="iconSize1 mt-1" />
 
               <input
                 id="email"
@@ -133,14 +134,15 @@ export default function Login() {
           {/* Password Field */}
           <div className="form-group">
             <div
-              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4    gap-2    ${formik.values.password &&
-                  formik.touched.password &&
-                  formik.errors.password
+              className={`border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4    gap-2    ${
+                formik.values.password &&
+                formik.touched.password &&
+                formik.errors.password
                   ? "border-2 border-danger "
                   : ""
-                }`}
+              }`}
             >
-              <Image src={lock} alt="lock" className="mb-1" />
+              <LockIcon className="iconSize1 mt-1" />
               <input
                 id="password"
                 name="password"
@@ -158,19 +160,9 @@ export default function Login() {
 
               <span className="icon2" onClick={togglePassvis}>
                 {toggle === "hide" ? (
-                  <Image
-                    id="toggleIcon1"
-                    src={show}
-                    alt="Show"
-                    className="icon2"
-                  />
+                  <ShowIcon className="icon2 iconSize" />
                 ) : (
-                  <Image
-                    id="toggleIcon2"
-                    src={hide}
-                    alt="hide"
-                    className="icon2"
-                  />
+                  <HideIcon className="icon2 iconSize" />
                 )}
               </span>
             </div>

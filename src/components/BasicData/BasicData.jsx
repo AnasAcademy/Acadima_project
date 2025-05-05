@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import circle from "@/assets/settings/9.webp";
-import x from "@/assets/settings/x.svg";
-import linked from "@/assets/settings/in.svg";
-import insta from "@/assets/settings/insta.svg";
-import pen from "@/assets/settings/pen.svg";
+import XIcon from "@/assets/settings/x.svg";
+import LinkedIcon from "@/assets/settings/in.svg";
+import InstaIcon from "@/assets/settings/insta.svg";
+import PenIcon from "@/assets/settings/pen.svg";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useFormik } from "formik";
@@ -101,23 +101,17 @@ export default function BasicData({ setTab, setPro }) {
               <h3 className="custsubtitle3">{info.full_name}</h3>
               <h4 className="custfont">000000000</h4>
               <div className=" d-flex gap-2">
-                <Image
-                  src={x}
-                  alt="  x"
-                  className=" bg-white  p-1   rounded-circle"
-                  width={25}
+                <XIcon
+                  className="bg-white p-1 rounded-circle iconSize1 iconcolor"
+                  aria-label="x"
                 />
-                <Image
-                  src={linked}
-                  alt=" linkedin"
-                  className=" bg-white  p-1   rounded-circle"
-                  width={25}
+                <LinkedIcon
+                  className="bg-white p-1 rounded-circle iconSize1 iconcolor"
+                  aria-label="linkedin"
                 />
-                <Image
-                  src={insta}
-                  alt=" insta"
-                  className=" bg-white  p-1   rounded-circle"
-                  width={25}
+                <InstaIcon
+                  className="bg-white p-1 rounded-circle iconSize1 iconcolor"
+                  aria-label="insta"
                 />
               </div>
             </div>
@@ -137,7 +131,7 @@ export default function BasicData({ setTab, setPro }) {
               style={{ cursor: "pointer" }}
             >
               {info.edit}
-              <Image src={pen} alt="pen icon" />
+              <PenIcon />
             </label>
           </div>
         </div>

@@ -8,6 +8,8 @@ import { routing } from "@/i18n/routing";
 import NavbarWrapper from "@/components/navbarWrapper/NavbarWrapper";
 import SideBarWrapper from "@/components/sideBarWrapper/SideBarWrapper";
 import NotificationProvider from "@/context/NotificationContext";
+import BootstrapClient from '@/components/bootstrapClient/BootstrapClient'
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +41,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <BootstrapClient/>
         <NextIntlClientProvider>
           <NotificationProvider>
             <NavbarWrapper />

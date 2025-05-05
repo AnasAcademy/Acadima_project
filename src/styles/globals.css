@@ -5,6 +5,8 @@
   --text-color: #ffffff;
   --text-s-color: #141f25;
   --btn-color: #599faf;
+  --icon-color: rgb(255, 0, 0);
+  --icon-color-actv: purple;
 }
 
 @font-face {
@@ -48,7 +50,6 @@ h2 {
 
 h3 {
   color: var(--secondary-color);
-
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -213,6 +214,17 @@ h6 {
 
 ul li {
   margin: 4px;
+}
+
+.ad4{
+  color: var(--secondary-color);
+ 
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+
+
 }
 
 .ad3 {
@@ -637,4 +649,26 @@ table tbody td {
 [dir="rtl"] .custPadding {
   padding-right: 160px;
   padding-left: 0px;
+}
+
+.iconcolor{
+color: var(--icon-color);
+}
+
+.iconSize1{
+
+width: 24px ;
+ height: 24px
+
+}
+
+.iconSize2 {
+
+  width: 36px;
+  height: 36px
+}
+.iconSize3 {
+
+  width: 20px;
+  height: 20px
 }

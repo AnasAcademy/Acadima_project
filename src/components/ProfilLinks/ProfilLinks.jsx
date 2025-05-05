@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import pen from "@/assets/settings/penwhite.svg";
-import bin from "@/assets/settings/bin.svg";
+import PenIcon from "@/assets/settings/penwhite.svg";
+import Bin from "@/assets/settings/bin.svg";
 
 export default function ProfilLinks({ save }) {
   const t = useTranslations();
@@ -53,13 +53,8 @@ export default function ProfilLinks({ save }) {
                   <h4>www.xfgfdhfdh</h4>
                 )}
                 <div className=" d-flex gap-3">
-                  <Image
-                    src={pen}
-                    alt="pen"
-                    className="edit"
-                    onClick={editing}
-                  />
-                  <Image src={bin} alt="bin" className="remove" />
+                  <PenIcon className="iconcolor" onClick={editing} />
+                  <Bin className="iconcolor" />
                 </div>
               </div>
             </div>

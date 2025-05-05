@@ -3,12 +3,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
 import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
-import lock from "@/assets/Registration/Lock.svg";
-import mail from "@/assets/Registration/Mail.svg";
-import hide from "@/assets/Registration/Hide.svg";
-import show from "@/assets/Registration/Show.svg";
-import user from "@/assets/Registration/User_01.svg";
-import mobile from "@/assets/Registration/Mobile.svg";
+import LockIcon from "@/assets/Registration/Lock.svg";
+import MailIcon from "@/assets/Registration/Mail.svg";
+import HideIcon from "@/assets/Registration/Hide.svg";
+import ShowIcon from "@/assets/Registration/Show.svg";
+import User from "@/assets/Registration/User_01.svg";
+import Mobile from "@/assets/Registration/Mobile.svg";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
@@ -118,7 +118,7 @@ export default function Register() {
                   : ""
               }    `}
             >
-              <Image src={user} alt="fn" className="mb-1" />
+              <User className="iconSize1 mt-1" />
               <input
                 id="fullName"
                 name="fullName"
@@ -157,7 +157,7 @@ export default function Register() {
                   : ""
               }    `}
             >
-              <Image src={mail} alt="mail" className="mb-1" />
+              <MailIcon className="iconSize1 mt-1" />
 
               <input
                 id="email"
@@ -197,7 +197,7 @@ export default function Register() {
                   : ""
               }    `}
             >
-              <Image src={mobile} alt="fn" className="mb-1" />
+              <Mobile className="iconSize1 mt-1" />
               <input
                 id="phoneNumber"
                 name="phoneNumber"
@@ -236,7 +236,7 @@ export default function Register() {
                   : ""
               }`}
             >
-              <Image src={lock} alt="lock" className="mb-1" />
+              <LockIcon className="iconSize1 mt-1" />
               <input
                 id="password"
                 name="password"
@@ -254,19 +254,9 @@ export default function Register() {
 
               <span className="icon2" onClick={togglePassvis}>
                 {toggle === "hide" ? (
-                  <Image
-                    id="toggleIcon1"
-                    src={show}
-                    alt="Show"
-                    className="icon2"
-                  />
+                  <ShowIcon className="iconSize1 mt-1" />
                 ) : (
-                  <Image
-                    id="toggleIcon2"
-                    src={hide}
-                    alt="hide"
-                    className="icon2"
-                  />
+                  <HideIcon className="iconSize1 mt-1" />
                 )}
               </span>
             </div>

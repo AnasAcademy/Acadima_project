@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import image from "@/assets/payments icons/Rectangle 174.png";
-import line from "@/assets/payments icons/Line 57.svg";
+import LineSvg from "@/assets/payments icons/Line 57.svg";
 
 import { useTranslations } from "next-intl";
 
@@ -45,12 +45,9 @@ export default function Checkout() {
             </div>
 
             <div className=" d-flex justify-content-start">
-              <Image
-                src={line}
-                alt="line"
-                className="w-100   bg-white  my-2"
-                height={2}
-              />
+              <div className="w-100 bg-white my-2">
+                <LineSvg />
+              </div>
             </div>
             <div className=" d-flex justify-content-between">
               <h2 className="htitle  "> {info.discount} </h2>
@@ -58,12 +55,9 @@ export default function Checkout() {
             </div>
 
             <div className=" d-flex justify-content-start">
-              <Image
-                src={line}
-                alt="line"
-                className=" w-100   bg-white  my-2"
-                height={2}
-              />
+              <div className="w-100 bg-white my-2">
+                <LineSvg />
+              </div>
             </div>
 
             <div className=" d-flex justify-content-between">

@@ -1,5 +1,5 @@
 import React from "react";
-import file from "../../assets/filescard/Ellipse 22.svg";
+import File from "../../assets/filescard/Ellipse 22.svg";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
@@ -13,27 +13,27 @@ export default function Filescard() {
 
         <div className=" d-flex flex-column gap-3 mt-4  ">
           <div className=" d-flex  gap-2  ">
-            <Image src={file} alt="file" />
+            <File className="iconSize1" />
             <p className="texto-white"> {t("guide")} </p>
           </div>
 
           <div className=" d-flex gap-2 ">
-            <Image src={file} alt="file" />
+            <File className="iconSize1" />
             <p className="texto-white "> {t("guide")} </p>
           </div>
 
           <div className=" d-flex gap-2">
-            <Image src={file} alt="file" />
+            <File className="iconSize1" />
             <p className="texto-white"> {t("guide")} </p>
           </div>
 
           <div className=" d-flex gap-2">
-            <Image src={file} alt="file" />
+            <File className="iconSize1" />
             <p className="texto-white"> {t("guide")} </p>
           </div>
 
           <div className=" d-flex gap-2">
-            <Image src={file} alt="file" />
+            <File className="iconSize1" />
             <p className="texto-white"> {t("guide")} </p>
           </div>
         </div>

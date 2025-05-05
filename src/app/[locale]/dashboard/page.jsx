@@ -3,7 +3,7 @@ import Namcard from "@/components/namecard/Namcard";
 import WeeklySchedule from "@/components/WeeklyScheduleCard/WeeklySchedule";
 import Smallcard from "@/components/smallCard/Smallcard";
 import Filescard from "@/components/filescard/Filescard";
-import CalendarCard from "@/components/Calendarcard/CalendarCard";
+import Calendar from "@/components/Calendarcard/Calendar";
 import ProblemCard from "@/components/problemcard/ProblemCard";
 
 export default function Home() {
@@ -16,8 +16,8 @@ export default function Home() {
               <div className="  col-xl-12 col-lg-6 ">
                 <Namcard />
               </div>
-
-              <div className=" d-flex flex-column   justify-content-around gap-3 col-md-12  col-lg-6 col-12 col-xl-6 ">
+              {/* justify-content-around */}
+              <div className=" d-flex flex-column   gap-3 col-md-12  col-lg-6 col-12 col-xl-6 ">
                 <div className=" d-flex justify-content-around gap-3">
                   <Smallcard />
                   <Smallcard />
@@ -27,11 +27,9 @@ export default function Home() {
                   <Filescard />
                 </div>
               </div>
-
               <div className=" d-flex flex-column    justify-content-between gap-3 col-md-12  col-lg-6 col-12 col-xl-6 ">
-                <CalendarCard />
+                <Calendar />
               </div>
-
               <div className="col-md-12 flex-column  d-none  col-lg-6 col-12 col-xl-6 d-xl-none d-lg-flex d-md-none d-sm-none gap-3">
                 <Filescard />
 

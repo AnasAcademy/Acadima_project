@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
 import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
-import mail from "@/assets/Registration/Mail.svg";
+import MailIcon from "@/assets/Registration/Mail.svg";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
@@ -78,7 +78,7 @@ export default function ForgetPassword() {
                   : ""
               }    `}
             >
-              <Image src={mail} alt="mail" className="mb-1" />
+              <MailIcon className="iconSize1 mt-1" />
 
               <input
                 id="email"

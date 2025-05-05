@@ -486,5 +486,11 @@
     "importantNote": "Important: By proceeding with the payment, you fully and irrevocably agree to all the terms and conditions, and you commit to complying with them to ensure continued access to Acadima services.",
     "back": "Back",
     "confirm": "Confirm"
+  },
+   "calendar": {
+  
+     "days": ["Sat", "Fri", "Thu", "Wed", "Tue", "Mon", "Sun"],
+       "tasksTitle": "Tasks for Today:",
+    "noTasks": "No tasks or important events for today"
   }
 }

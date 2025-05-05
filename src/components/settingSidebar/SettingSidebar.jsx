@@ -1,13 +1,12 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import card from "@/assets/settings/cards.svg";
-import link from "@/assets/settings/link.svg";
-import object from "@/assets/settings/OBJECTS.svg";
-import user from "@/assets/settings/user.svg";
+import CardIcon from "@/assets/settings/cards.svg";
+import LinkIcon from "@/assets/settings/link.svg";
+import ObjectIcon from "@/assets/settings/OBJECTS.svg";
+import UserIcon from "@/assets/settings/user.svg";
 import BasicData from "@/components/BasicData/BasicData";
 import PersonalData from "@/components/PersonalData/PersonalData";
 import EduCard from "@/components/eduCard/EduCard";
@@ -97,7 +96,7 @@ export default function SettingSidebar() {
                       }}
                     >
                       <div className=" d-flex gap-2 align-items-center">
-                        <Image src={user} alt="basic data" />
+                        <UserIcon className="iconcolor iconSize3" />
                         <Link
                           className="nav-link hvv "
                           aria-current="page"
@@ -119,7 +118,7 @@ export default function SettingSidebar() {
                       }}
                     >
                       <div className=" d-flex gap-2 align-items-center">
-                        <Image src={card} alt="basic data" />
+                        <CardIcon className="iconcolor iconSize3" />
                         <Link
                           className="nav-link hvv   text-nowrap "
                           aria-current="page"
@@ -143,7 +142,7 @@ export default function SettingSidebar() {
                       }}
                     >
                       <div className=" d-flex gap-2 align-items-center">
-                        <Image src={card} alt="basic data" />
+                        <CardIcon className="iconcolor iconSize3" />
                         <Link
                           className="nav-link hvv text-nowrap "
                           aria-current="page"
@@ -164,7 +163,7 @@ export default function SettingSidebar() {
                       }}
                     >
                       <div className=" d-flex gap-2 align-items-center">
-                        <Image src={object} alt="settings" />
+                        <ObjectIcon className="iconcolor iconSize3" />
                         <Link
                           className="nav-link hvv  text-nowrap "
                           aria-current="page"
@@ -188,7 +187,7 @@ export default function SettingSidebar() {
                       }}
                     >
                       <div className=" d-flex gap-2 align-items-center">
-                        <Image src={link} alt="portfolio_links" />
+                        <LinkIcon className="iconcolor iconSize3" />
                         <Link
                           className="nav-link hvv text-nowrap  "
                           aria-current="page"
@@ -209,7 +208,7 @@ export default function SettingSidebar() {
                       }}
                     >
                       <div className=" d-flex gap-2 align-items-center">
-                        <Image src={card} alt="basic data" />
+                        <CardIcon className="iconcolor iconSize3" />
                         <Link
                           className="nav-link hvv text-nowrap  "
                           aria-current="page"

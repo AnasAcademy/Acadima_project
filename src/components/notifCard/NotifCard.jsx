@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import Image from "next/image";
-import circle from "@/assets/notifCard/Ellipse 26.svg";
+import Circle from "@/assets/notifCard/Ellipse 26.svg";
 import PrevCard from "@/components/prevCard/PrevCard";
 import { NotificationContext } from "@/context/NotificationContext";
 
@@ -54,7 +54,7 @@ export default function NotifCard() {
                 >
                   <div>
                     <div className="d-flex justify-content-center justify-content-md-start  align-items-center mb-3 gap-2">
-                      <Image src={circle} alt="circle" />
+                      <Circle width={10} height={10} />
 
                       <h4 className="custsubtitle3 ">{dat.title}</h4>
                     </div>

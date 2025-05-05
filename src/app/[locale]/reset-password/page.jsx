@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
 import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
-import lock from "@/assets/Registration/Lock.svg";
-import mail from "@/assets/Registration/Mail.svg";
-import hide from "@/assets/Registration/Hide.svg";
-import show from "@/assets/Registration/Show.svg";
+import LockIcon from "@/assets/Registration/Lock.svg";
+import MailIcon from "@/assets/Registration/Mail.svg";
+import HideIcon from "@/assets/Registration/Hide.svg";
+import ShowIcon from "@/assets/Registration/Show.svg";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
@@ -105,7 +105,7 @@ export default function ResetPassword() {
                   : ""
               }    `}
             >
-              <Image src={mail} alt="mail" className="mb-1" />
+              <MailIcon className="iconSize1 mt-1" />
 
               <input
                 id="email"
@@ -155,7 +155,7 @@ export default function ResetPassword() {
                   : ""
               }`}
             >
-              <Image src={lock} alt="lock" className="mb-1" />
+              <LockIcon className="iconSize1 mt-1" />
               <input
                 id="password"
                 name="password"
@@ -168,19 +168,9 @@ export default function ResetPassword() {
               />
               <span className="icon2" onClick={togglePassvis}>
                 {toggle === "hide" ? (
-                  <Image
-                    id="toggleIcon1"
-                    src={show}
-                    alt="Show"
-                    className="icon2"
-                  />
+                  <ShowIcon className="icon2 iconSize" />
                 ) : (
-                  <Image
-                    id="toggleIcon2"
-                    src={hide}
-                    alt="Hide"
-                    className="icon2"
-                  />
+                  <HideIcon className="icon2 iconSize" />
                 )}
               </span>
             </div>
@@ -203,7 +193,7 @@ export default function ResetPassword() {
                   : ""
               }`}
             >
-              <Image src={lock} alt="lock" className="mb-1" />
+              <LockIcon className="iconSize1 mt-1" />
               <input
                 id="confirmPassword"
                 name="confirmPassword"

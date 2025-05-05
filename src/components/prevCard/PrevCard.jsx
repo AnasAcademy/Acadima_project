@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import message from "@/assets/notifCard/Frame 34462.svg";
+import Message from "@/assets/notifCard/Frame 34462.svg";
 
 export default function PrevCard({ date, title, show, MsgData }) {
   return (
@@ -22,7 +22,7 @@ export default function PrevCard({ date, title, show, MsgData }) {
         ) : (
           <div className=" d-flex justify-content-center align-items-center  w-100">
             {" "}
-            <Image src={message} alt="messageIcon" />{" "}
+            <Message  width={70} height={100} />{" "}
           </div>
         )}
       </div>

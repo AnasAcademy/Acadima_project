@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
-import show from "@/assets/navbar assets/vector.svg";
+import ShowIcon from "@/assets/navbar assets/vector.svg";
 
 export default function Namcard() {
   const t = useTranslations("Namcard");
@@ -59,7 +59,7 @@ export default function Namcard() {
                 className=" border-0 bg-transparent"
               >
                 {" "}
-                <Image src={show} alt="show" />
+                <ShowIcon  />
               </button>
             </div>
           </div>

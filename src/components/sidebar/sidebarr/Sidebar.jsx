@@ -3,17 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import dashboard from "@/assets/Sidebar icons/dashboard.svg";
-import admission from "@/assets/Sidebar icons/admission.png";
-import classes from "@/assets/Sidebar icons/classes.svg";
-import certificate from "@/assets/Sidebar icons/certificate.png";
-import notifi from "@/assets/Sidebar icons/notifications.png";
-import schedule from "@/assets/Sidebar icons/schedule.png";
-import settings from "@/assets/Sidebar icons/settings.png";
+import DashboardIcon from "@/assets/Sidebar icons/dashboard.svg";
+import AdmissionIcon from "@/assets/Sidebar icons/admission.svg";
+import ClassesIcon from "@/assets/Sidebar icons/classes.svg";
+import CertificateIcon from "@/assets/Sidebar icons/certifi.svg";
+import NotifiIcon from "@/assets/Sidebar icons/nottfi.svg";
+import ScheduleIcon from "@/assets/Sidebar icons/schedule.svg";
+import SettingsIcon from "@/assets/Sidebar icons/settings.svg";
 import logo from "@/assets/Sidebar icons/sidebarLogo.png";
 import line from "@/assets/Sidebar icons/Line 48.png";
 import LogoutButton from "@/components/LogoutButton/LogoutButton";
-import payment from "@/assets/Sidebar icons/payment.svg";
+import PaymentIcon from "@/assets/Sidebar icons/payment.svg";
 
 export default function Sidebar() {
   const t = useTranslations("Sidebar");
@@ -26,8 +26,8 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className=" d-flex     ">
-        <div className="     flex-column   d-flex ">
+      <div className="d-flex">
+        <div className="flex-column   d-flex">
           <nav className="navbar navbar-dark navbar-expand-lg  ">
             <div
               className="container-fluid  d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column min-vh-lg-100  justify-content-center   align-items-start p-0 sidebar    "
@@ -36,7 +36,7 @@ export default function Sidebar() {
               <Image
                 src={logo}
                 alt="acadimaLogo"
-                className="d-none  d-sm-none d-md-none d-lg-flex"
+                className="d-none  d-sm-none  d-lg-flex"
               />
 
               <button
@@ -52,19 +52,19 @@ export default function Sidebar() {
               </button>
 
               <div
-                className="collapse navbar-collapse    "
-                id="navbarSupportedContent "
+                className="collapse navbar-collapse"
+                id="navbarSupportedContent"
               >
                 <ul
-                  className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start    p-0 "
+                  className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start  p-0 "
                   style={{ gap: "20px" }}
                 >
                   <li
-                    className={`nav-item d-flex w-100  text-white align-items-center mt-2 `}
+                    className={`nav-item d-flex w-100  text-white align-items-center mt-2  gap-2 `}
                   >
-                    <Image src={dashboard} alt="Dashboard" />
+                    <DashboardIcon className="iconSize1 iconcolor" />
                     <Link
-                      className="nav-link hvv"
+                      className="nav-link hvv text-nowrap"
                       aria-current="page"
                       href="/dashboard"
                     >
@@ -73,11 +73,11 @@ export default function Sidebar() {
                   </li>
 
                   <li
-                    className={`nav-item d-flex text-white  align-items-center   `}
+                    className={`nav-item d-flex text-white  align-items-center  gap-2  `}
                   >
-                    <Image src={admission} alt="admission" />
+                    <AdmissionIcon className="iconSize1 iconcolor" />
                     <Link
-                      className="nav-link hvv"
+                      className="nav-link hvv text-nowrap"
                       aria-current="page"
                       href="/admissions"
                     >
@@ -86,11 +86,11 @@ export default function Sidebar() {
                   </li>
 
                   <li
-                    className={`nav-item d-flex text-white  align-items-center  `}
+                    className={`nav-item d-flex text-white  align-items-center  gap-2 `}
                   >
-                    <Image src={classes} alt="classes" />
+                    <ClassesIcon className="iconSize1 iconcolor" />
                     <Link
-                      className="nav-link hvv"
+                      className="nav-link hvv text-nowrap"
                       aria-current="page"
                       href="/courses"
                     >
@@ -99,11 +99,11 @@ export default function Sidebar() {
                   </li>
 
                   <li
-                    className={`nav-item d-flex text-white  align-items-center `}
+                    className={`nav-item d-flex text-white  align-items-center   gap-2`}
                   >
-                    <Image src={certificate} alt="Dashboard" />
+                    <CertificateIcon className="iconSize1 iconcolor" />
                     <Link
-                      className="nav-link hvv"
+                      className="nav-link hvv text-nowrap"
                       aria-current="page"
                       href="/certificates"
                     >
@@ -112,11 +112,11 @@ export default function Sidebar() {
                   </li>
 
                   <li
-                    className={`nav-item d-flex text-white  align-items-center `}
+                    className={`nav-item d-flex text-white  align-items-center  gap-2 `}
                   >
-                    <Image src={payment} alt="pay_pro_fees" />
+                    <PaymentIcon className="iconSize1 iconcolor" />
                     <Link
-                      className="nav-link hvv"
+                      className="nav-link hvv text-nowrap"
                       aria-current="page"
                       href="/paymentplans"
                     >
@@ -125,11 +125,11 @@ export default function Sidebar() {
                   </li>
 
                   <li
-                    className={`nav-item d-flex text-white align-items-center  `}
+                    className={`nav-item d-flex text-white align-items-center  gap-2 `}
                   >
-                    <Image src={notifi} alt="notification" />
+                    <NotifiIcon className="iconSize1 iconcolor" />
                     <Link
-                      className="nav-link hvv"
+                      className="nav-link hvv text-nowrap"
                       aria-current="page"
                       href="/notifications"
                     >
@@ -138,11 +138,11 @@ export default function Sidebar() {
                   </li>
 
                   <li
-                    className={`nav-item d-flex text-white align-items-center  `}
+                    className={`nav-item d-flex text-white align-items-center  gap-2  `}
                   >
-                    <Image src={schedule} alt="Dashboard" />
+                    <ScheduleIcon className="iconSize1 iconcolor" />
                     <Link
-                      className="nav-link hvv"
+                      className="nav-link hvv text-nowrap"
                       aria-current="page"
                       href="/services"
                     >
@@ -151,9 +151,12 @@ export default function Sidebar() {
                   </li>
 
                   <li
-                    className={`nav-item d-flex text-white  align-items-center `}
+                    className={`nav-item d-flex text-white  align-items-center  gap-2`}
                   >
-                    <Image src={settings} alt="Dashboard" />
+                    <SettingsIcon
+                      className="iconSize1 iconcolor"
+                
+                    />
                     <Link
                       className="nav-link hvv"
                       aria-current="page"
@@ -164,7 +167,7 @@ export default function Sidebar() {
                   </li>
 
                   <li
-                    className={`nav-item d-flex text-white  align-items-center `}
+                    className={`nav-item d-flex text-white  align-items-center   `}
                   >
                     <LogoutButton />
                   </li>
