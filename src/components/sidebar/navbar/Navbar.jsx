@@ -10,26 +10,46 @@ import LineIcon from "@/assets/navbar assets/Line 49.svg";
 import CircleIcon from "@/assets/navbar assets/Ellipse 16.svg";
 import Sidebar from "../sidebarr/Sidebar";
 import messagebar from "@/assets/notifCard/dialog_box_line.svg";
+import Circle from "@/assets/notifCard/Ellipse 26.svg";
 import Link from "next/link";
 import { NotificationContext } from "@/context/NotificationContext";
 
 const Navbar = () => {
-  const [show, setShow] = useState("");
+ 
   const { info, setKey } = useContext(NotificationContext);
   const t = useTranslations("Navbar");
-  const notfiRef = useRef();
+ 
+  const [isVisible, setIsVisible] = useState(false);
+
+ const notificationsRef = useRef(null);
 
   function toggle() {
-    if (show === "show") {
-      setShow("hide");
-    } else {
-      setShow("show");
-    }
+
+       setIsVisible(!isVisible);
+  
   }
 
   const handleClick = (key) => {
     setKey(key);
   };
+  
+const handleClickOutside = (event) =>
+ {
+
+    if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+       setIsVisible(true);
+    }
+  }
+
+
+   useEffect(() => {
+     document.addEventListener("click", handleClickOutside);
+
+     return () => {
+       document.removeEventListener("click", handleClickOutside);
+     };
+   }, []);
+
 
   return (
     <>
@@ -45,28 +65,52 @@ const Navbar = () => {
                   <div className=" d-flex justify-content-center align-items-center">
                     <LanguageSwitcher />
                   </div>
-                  <div
-                    ref={notfiRef}
-                    className=" d-none d-md-flex align-items-center position-relative "
-                  >
-                    <NotfiIcon width={24} height={27} onClick={toggle} />
-                    {show === "show" && (
-                      <div className="notfiNavbar  position-absolute d-flex justify-content-center align-items-start flex-column  gap-3 pt-4 pb-4 ps-3 pe-3 cursor-pointer ">
+
+                  <div className=" d-none d-md-flex align-items-center position-relative ">
+                    <NotfiIcon
+                      width={24}
+                      height={27}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggle();
+                      }}
+                    />
+
+                    {isVisible && (
+                      <div
+                        ref={notificationsRef}
+                        onClick={(e) => e.stopPropagation()}
+                        className="notfiNavbar  position-absolute d-flex justify-content-center align-items-start flex-column  gap-3 pt-4 pb-4 ps-3 pe-3 cursor-pointer  z-3"
+                      >
                         {info.map((dat, key) => {
                           return (
-                            <Link href="/notifications">
-                              <div
-                                key={key}
-                                className="mt-3 "
-                                onClick={() => handleClick(key)}
-                              >
-                                <h4 className="custsubtitle3  text-black">
-                                  {" "}
-                                  {dat.title}{" "}
-                                </h4>
-                                <p className="ft text-black">{dat.date}</p>
+                            <>
+                              <div className=" d-flex   gap-3">
+                                <Circle
+                                  width={10}
+                                  height={10}
+                                  className={` ${
+                                    1 === 1
+                                      ? " iconcol  mt-2"
+                                      : "  iconcolor mt-2"
+                                  } `}
+                                />
+
+                                <Link href="/notifications">
+                                  <div
+                                    key={key}
+                                    className=""
+                                    onClick={() => handleClick(key)}
+                                  >
+                                    <h4 className="custsubtitle3  text-black">
+                                      {" "}
+                                      {dat.title}{" "}
+                                    </h4>
+                                    <p className="ft text-black">{dat.date}</p>
+                                  </div>
+                                </Link>
                               </div>
-                            </Link>
+                            </>
                           );
                         })}
 
@@ -82,6 +126,7 @@ const Navbar = () => {
                       </div>
                     )}
                   </div>
+
                   <div>
                     <LineIcon style={{ width: "1px", height: "66px" }} />
                   </div>

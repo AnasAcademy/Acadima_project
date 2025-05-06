@@ -10,7 +10,7 @@ export default function Notifications() {
   return (
     <>
       <div className="   container p-3  mt-5 ">
-        <h2 className="hvvv">{info[0].tit}</h2>
+        <h2 className="hvvv m-3">{info[0].tit}</h2>
 
         <div className=" d-flex row ">
           <div className=" mt-4 d-flex gap-3 flex-column w-100 ">

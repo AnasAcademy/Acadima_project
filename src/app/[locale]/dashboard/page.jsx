@@ -17,7 +17,7 @@ export default function Home() {
                 <Namcard />
               </div>
               {/* justify-content-around */}
-              <div className=" d-flex flex-column   gap-3 col-md-12  col-lg-6 col-12 col-xl-6 ">
+              <div className=" d-flex flex-column    gap-3 col-md-12  col-lg-6 col-12 col-xl-6 ">
                 <div className=" d-flex justify-content-around gap-3">
                   <Smallcard />
                   <Smallcard />

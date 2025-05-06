@@ -5,7 +5,7 @@ export default function CoursesTable({ headers, courses, btn, join, reg }) {
     <>
       <div className="w-100">
         <div className="table-responsive mt-3">
-          <table className="table">
+          <table className="table ">
             <thead className=" table-light ">
               <tr className=" ">
                 {headers.map((head, key) => {
@@ -20,21 +20,27 @@ export default function CoursesTable({ headers, courses, btn, join, reg }) {
             </thead>
             <tbody className="  table-dark ">
               {courses.map((course, key) => {
+               const { flagColor, data } = course;
                 return (
-                  <tr key={key} className="   ">
-                    {course.map((td, key) => {
-                      const isLast = key === course.length - 1;
+                  <tr key={key} className="   p-3  ">
+                    {data.map((td, key) => {
+                      const isLast = key === data.length - 1;
                       return (
-                        <td key={key} className=" text-nowrap text-center ">
-                          {" "}
-                          {isLast ? (
-                            <button className="btn btn-outline-light  w-50 custfontbtn">
-                              {td}
-                            </button>
-                          ) : (
-                            td
-                          )}
-                        </td>
+                        <>
+                          <td
+                            key={key}
+                            className=" text-nowrap text-center "
+                            style={{ "--flag": flagColor }}
+                          >
+                            {isLast ? (
+                              <button className="btn btn-outline-light   custfontbtn">
+                                {td}
+                              </button>
+                            ) : (
+                              td
+                            )}
+                          </td>
+                        </>
                       );
                     })}
                   </tr>

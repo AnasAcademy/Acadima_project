@@ -236,19 +236,22 @@
       "date": "November 5, 2024 | 5:12 PM",
       "body": "The Technical Department at Anas Academy wishes you continued success and excellence. We are honored to support you on your journey...",
       "button": "View Message",
-      "close": "Close Message"
+      "close": "Close Message",
+       "flag":"true"
     },
     {
       "tit": "Important Update",
       "title": "Your Data Has Been Successfully Updated",
       "date": "November 6, 2024 | 10:00 AM",
-      "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment."
+      "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment.",
+      "flag":"false"
     },
     {
       "tit": "Important Update",
       "title": "Your Data Has Been Successfully Updated",
       "date": "November 6, 2024 | 10:00 AM",
-      "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment."
+      "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment.",
+       "flag":"true"
     }
   ],
   "payments": {

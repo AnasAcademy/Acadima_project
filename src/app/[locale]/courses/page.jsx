@@ -38,33 +38,43 @@ export default function Courses() {
     ts("numSubmission"),
     ts("actions"),
   ];
-  const tabCourses = [
-    [
-      ts("td.courseNum"),
-      ts("td.courseNam"),
-      ts("td.startDate"),
-      ts("td.numTasks"),
-      ts("td.numSubmission"),
-      ts("td.lec"),
-    ],
-    [
-      ts("td.courseNum"),
-      ts("td.courseNam"),
-      ts("td.startDate"),
-      ts("td.numTasks"),
-      ts("td.numSubmission"),
-      ts("td.lec"),
-    ],
-    [
-      ts("td.courseNum"),
-      ts("td.courseNam"),
-      ts("td.startDate"),
-      ts("td.numTasks"),
-      ts("td.numSubmission"),
-      ts("td.lec"),
-    ],
-  ];
 
+
+  const tabCourses = [
+    {
+      flagColor: "green",
+      data: [
+        ts("td.courseNum"),
+        ts("td.courseNam"),
+        ts("td.startDate"),
+        ts("td.numTasks"),
+        ts("td.numSubmission"),
+        ts("td.lec"),
+      ],
+    },
+    {
+      flagColor: "green",
+      data: [
+        ts("td.courseNum"),
+        ts("td.courseNam"),
+        ts("td.startDate"),
+        ts("td.numTasks"),
+        ts("td.numSubmission"),
+        ts("td.lec"),
+      ],
+    },
+    {
+      flagColor: "red",
+      data: [
+        ts("td.courseNum"),
+        ts("td.courseNam"),
+        ts("td.startDate"),
+        ts("td.numTasks"),
+        ts("td.numSubmission"),
+        ts("td.lec"),
+      ],
+    },
+  ];
   return (
     <>
       <div className="container p-3  mt-5 ">

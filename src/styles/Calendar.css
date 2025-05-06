@@ -45,16 +45,16 @@
 }
   
 .calendar-week {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr); /* Each week in 7 columns */
+           display: flex; 
+           justify-content: center;
 }
 
 .calendar-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
+ display: flex;
   color: var(--secondary-color);
-
+    justify-content: space-around;
+    
+  
 }
 
 
@@ -62,21 +62,29 @@
   display: flex;
   flex-direction: column; /* Stack rows vertically */
   gap: 5px; /* Optional spacing between rows */
+
 }
   
 .calendar-week {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr); /* Ensure 7 columns in each week */
+  display: flex;
+      justify-content: space-around;
+
+
 }
 
 .calendar-day {
  
   cursor: pointer;
   color: #ffffff;
-  text-align: center;
+ text-align: center;
   font-size: 14px; /* Ensures text size is consistent */
   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
   border-radius: 50%; /* Applies consistent rounding */
+
+ width: 30px;
+ margin: auto;
+ 
+
 }
 
 .calendar-day.disabled {
@@ -230,42 +238,4 @@ width: 200px;
 .noEvents-image {
   width: 64px;
   height: 59px;
-}
-@media (max-width: 1600px) {
-  .custom-calendar {
-    width: 100%;
-  }
- }
-
-@media (max-width: 1440px) {
- .calendar-day-name {
-  font-size: 12px;
- }
- .calendar-days {
-  gap: 5px;
- }
-
-}
-
-@media (max-width: 1000px) {
-  .calendar-day-name {
-   font-size: 12px;
-  }
-  .calendar-days {
-   gap: 0;
-  }
-  .custom-calendar {
-    width: 100%;
-  }
- }
-
-@media (max-width: 600px) {
-  .custom-calendar {
-    width: 80%;
-  }
-}
-@media (max-width: 380px) {
-  .custom-calendar {
-    width: 100%;
-  }
 }

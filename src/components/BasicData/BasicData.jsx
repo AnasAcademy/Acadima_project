@@ -100,20 +100,6 @@ export default function BasicData({ setTab, setPro }) {
             <div className="custPadding">
               <h3 className="custsubtitle3">{info.full_name}</h3>
               <h4 className="custfont">000000000</h4>
-              <div className=" d-flex gap-2">
-                <XIcon
-                  className="bg-white p-1 rounded-circle iconSize1 iconcolor"
-                  aria-label="x"
-                />
-                <LinkedIcon
-                  className="bg-white p-1 rounded-circle iconSize1 iconcolor"
-                  aria-label="linkedin"
-                />
-                <InstaIcon
-                  className="bg-white p-1 rounded-circle iconSize1 iconcolor"
-                  aria-label="insta"
-                />
-              </div>
             </div>
           </div>
 

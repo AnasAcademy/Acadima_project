@@ -6,7 +6,7 @@ import Message from "@/assets/notifCard/Frame 34462.svg";
 export default function PrevCard({ date, title, show, MsgData }) {
   return (
     <>
-      <div className=" text-white prevcard d-xl-flex d-lg-flex h-75  w-100    d-sm-none d-none ">
+      <div className=" text-white prevcard d-lg-flex  h-100  w-100 justify-content-center    d-sm-none d-none ">
         {show === "show" ? (
           <div className="  w-100 ">
             <div className=" d-flex  justify-content-between p-4    prevcardt  align-items-center">

@@ -8,56 +8,55 @@ export default function EnrollProgram() {
     <>
       <div className=" d-flex flex-column gap-4  ">
         <div className="p-4 rounded-2   d-flex flex-column gap-5  justify-content-start  cardbg">
-          <div>
-            <h4 className=" custcalendartit"> {t("programTypeLabel")} </h4>
-            <select
-              className="form-select   w-50    "
-              aria-label="Default select example"
-            >
-              <option value="0">{t("programTypePlaceholder")}</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-            </select>
-          </div>
+          <div className=" row d-flex flex-column gap-4">
+            <div className=" col-lg-6 col-md-8 col-12">
+              <h4 className=" custcalendartit"> {t("programTypeLabel")} </h4>
+              <select
+                className="form-select"
+                aria-label="Default select example"
+              >
+                <option value="0">{t("programTypePlaceholder")}</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+              </select>
+            </div>
 
-          <div>
-            <h4 className=" custcalendartit "> {t("courseNameLabel")} </h4>
-            <select
-              className="form-select  w-50"
-              aria-label="Default select example"
-            >
-              <option value="0">{t("courseNamePlaceholder")}</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-            </select>
+            <div className=" col-lg-6 col-md-8 col-12">
+              <h4 className=" custcalendartit "> {t("courseNameLabel")} </h4>
+              <select
+                className="form-select"
+                aria-label="Default select example"
+              >
+                <option value="0">{t("courseNamePlaceholder")}</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+              </select>
+            </div>
           </div>
 
           <div className=" d-flex gap-2  flex-column  ">
             <div className="form-check d-flex gap-2 ">
               <input
-                className="form-check-input  custButt-outline p-1"
+                className="form-check-input  custCheckbox"
                 type="checkbox"
                 value=""
-                id="flexCheckDefault"
+                id="flexCheckk"
               />
-              <label
-                className="form-check-label custfont me-4 "
-                htmlFor="flexCheckDefault"
-              >
+              <label className="form-check-label custfont me-4 " htmlFor="">
                 {t("checkbox1")}
               </label>
             </div>
             <div className="form-check d-flex gap-2">
-              <input
-                className="form-check-input custButt-outline p-1 "
-                type="checkbox"
-                value=""
-                id="flexCheckChecked"
-              />
-              <label
-                className="form-check-label custfont me-4"
-                htmlFor="flexCheckChecked"
-              >
+        
+                <input
+                  className="form-check-input custCheckbox "
+                  type="checkbox"
+                  value=""
+                  id="flexCheck"
+                />
+        
+
+              <label className="form-check-label custfont me-4" htmlFor="">
                 {t("checkbox2")}
               </label>
             </div>

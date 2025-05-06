@@ -46,7 +46,7 @@ const loc = useLocale();
             link: "",
           },
           {
-            date: "2025-05-10",
+            date: "2025-05-22",
             time:"2:00",
             title: "تسليم مشروع تخرج الفترة الأولى",
             type: "assignment", 
@@ -257,7 +257,7 @@ const loc = useLocale();
         const hasEvents = events[formattedDate]?.length > 0;
 
         const dayClass = `
-          calendar-day   pt-1 w-50 m-2 pb-1
+          calendar-day   p-2 pt-1  pb-1  
           ${isCurrentDay ? "current-day" : ""} 
           ${isSelected ? "selected" : ""} 
           ${hasEvents ? "has-events" : ""} 
@@ -278,13 +278,13 @@ const loc = useLocale();
         day = new Date(day.getTime() + 24 * 60 * 60 * 1000);
       }
       rows.push(
-        <div className="calendar-week text-white cardbg" key={day}>
+        <div className="calendar-week text-white cardbg " key={day}>
           {days}
         </div>
       );
       days = [];
     }
-    return <div className="calendar-dates text-white cardbg">{rows}</div>;
+    return <div className="calendar-dates text-white cardbg ">{rows}</div>;
   };
 
   return (
