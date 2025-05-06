@@ -181,6 +181,8 @@ h6 {
   line-height: normal;
 }
 
+
+
 .hvvv {
   color: var(--secondary-color);
   font-size: 20px;
@@ -737,4 +739,9 @@ width: 24px ;
 
   width: 20px;
   height: 20px
+}
+
+.coverimg{
+
+ margin:80px;
 }

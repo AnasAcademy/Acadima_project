@@ -98,7 +98,7 @@ export default function SettingSidebar() {
                       <div className=" d-flex gap-2 align-items-center">
                         <UserIcon className="iconcolor iconSize3" />
                         <Link
-                          className="nav-link hvv "
+                          className=" hvv "
                           aria-current="page"
                           href="/settings"
                         >
@@ -108,7 +108,7 @@ export default function SettingSidebar() {
                     </button>
                   </li>
 
-                  <li className={`nav-item d-flex `}>
+                  <li className={` d-flex `}>
                     <button
                       className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2 ${
                         tabinfo === "personal" ? "" : "bg-transparent border-0"
@@ -120,7 +120,7 @@ export default function SettingSidebar() {
                       <div className=" d-flex gap-2 align-items-center">
                         <CardIcon className="iconcolor iconSize3" />
                         <Link
-                          className="nav-link hvv   text-nowrap "
+                          className=" hvv   text-nowrap "
                           aria-current="page"
                           href="/settings"
                         >
@@ -132,7 +132,7 @@ export default function SettingSidebar() {
                 </div>
 
                 <div className=" d-flex flex-lg-column flex-row  gap-2     align-items-lg-start    justify-content-center ">
-                  <li className={`nav-item d-flex  `}>
+                  <li className={`d-flex  `}>
                     <button
                       className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  ${
                         tabinfo === "edu" ? "" : "bg-transparent border-0"
@@ -144,7 +144,7 @@ export default function SettingSidebar() {
                       <div className=" d-flex gap-2 align-items-center">
                         <CardIcon className="iconcolor iconSize3" />
                         <Link
-                          className="nav-link hvv text-nowrap "
+                          className=" hvv text-nowrap "
                           aria-current="page"
                           href="/settings"
                         >
@@ -153,7 +153,7 @@ export default function SettingSidebar() {
                       </div>
                     </button>
                   </li>
-                  <li className={`nav-item d-flex    `}>
+                  <li className={` d-flex    `}>
                     <button
                       className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  ${
                         tabinfo === "addinfo" ? "" : "bg-transparent border-0"
@@ -165,7 +165,7 @@ export default function SettingSidebar() {
                       <div className=" d-flex gap-2 align-items-center">
                         <ObjectIcon className="iconcolor iconSize3" />
                         <Link
-                          className="nav-link hvv  text-nowrap "
+                          className=" hvv  text-nowrap "
                           aria-current="page"
                           href="/settings"
                         >
@@ -177,9 +177,9 @@ export default function SettingSidebar() {
                 </div>
 
                 <div className=" d-flex flex-lg-column flex-row align-items-lg-start   gap-lg-2  gap-sm-4  gap-4 justify-content-start ">
-                  <li className={`nav-item d-flex `}>
+                  <li className={` d-flex `}>
                     <button
-                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  ${
+                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2   ${
                         tabinfo === "profil" ? "" : "bg-transparent border-0"
                       } `}
                       onClick={() => {
@@ -189,7 +189,7 @@ export default function SettingSidebar() {
                       <div className=" d-flex gap-2 align-items-center">
                         <LinkIcon className="iconcolor iconSize3" />
                         <Link
-                          className="nav-link hvv text-nowrap  "
+                          className=" hvv text-nowrap  "
                           aria-current="page"
                           href="/settings"
                         >

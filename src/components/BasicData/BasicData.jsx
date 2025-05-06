@@ -83,16 +83,26 @@ export default function BasicData({ setTab, setPro }) {
   return (
     <>
       <div className="  bg-prim-color position-relative settCardBorder">
-        <div className="settingCard">
-          <Image
-            src={preview}
-            alt="black circle"
-            class="rounded-circle"
-            width={111}
-            height={111}
-          />
+        <div className="   position-relative">
+          <div className="position-absolute z-3   coverimg">
+            <label
+              htmlFor="file-upload"
+              className="btn btn-light pt-0 pb-0 d-flex  fw-bold cursor-pointer m-3  "
+              style={{ cursor: "pointer" }}
+            >
+              <PenIcon />
+            </label>
+          </div>
+          <div className="settingCard">
+            <Image
+              src={preview}
+              alt="black circle"
+              class="rounded-circle"
+              width={111}
+              height={111}
+            />
+          </div>
         </div>
-
         <div className=" bg-black pt-5 pb-5"></div>
 
         <div className=" d-flex justify-content-between">
@@ -111,14 +121,6 @@ export default function BasicData({ setTab, setPro }) {
               style={{ display: "none" }}
               onChange={handleImageChange}
             />
-            <label
-              htmlFor="file-upload"
-              className="btn btn-light pt-0 pb-0 d-flex gap-1 justify-content-center align-items-center fw-bold cursor-pointer m-3"
-              style={{ cursor: "pointer" }}
-            >
-              {info.edit}
-              <PenIcon />
-            </label>
           </div>
         </div>
       </div>
