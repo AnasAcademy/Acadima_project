@@ -3,6 +3,9 @@ import { useTranslations } from "next-intl";
 import Regproaca from "@/components/regproaca/Regproaca";
 import CoursesTable from "@/components/CoursesTable/CoursesTable";
 
+
+
+
 export default function Courses() {
   const t = useTranslations("RegisteredProgramss");
   const ts = useTranslations("CourseSchedule");

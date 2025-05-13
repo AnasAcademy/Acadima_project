@@ -18,7 +18,7 @@ export default function CoursesTable({ headers, courses, btn, join, reg }) {
                 })}
               </tr>
             </thead>
-            <tbody className="  table-dark ">
+            <tbody className=" table-dark">
               {courses.map((course, key) => {
                const { flagColor, data } = course;
                 return (

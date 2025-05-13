@@ -37,13 +37,12 @@ export default function WeeklySchedule() {
                 setActv("task");
               }}
             >
-              {" "}
               {t("columns.tasks")}{" "}
             </span>
             <span
-              className={` h3v  cursor-pointer   ${
+              className={` h3v  cursor-pointer  text-nowrap  ${
                 liveLec === "actv" ? "" : "texto-white"
-              }   d-none d-lg-flex d-xl-flex`}
+              }   d-none  d-lg-none d-xl-flex hideun`}
               onClick={() => {
                 setActv("live");
               }}
@@ -52,40 +51,46 @@ export default function WeeklySchedule() {
               {t("columns.liveLectures")}
             </span>
             <span
-              className={` h3v cursor-pointer    ${
+              className={` h3v cursor-pointer text-nowrap   ${
                 recLec === "actv" ? "" : "texto-white"
               }  `}
               onClick={() => {
                 setActv("record");
               }}
             >
-              {" "}
               {t("columns.recordedLectures")}
             </span>
           </div>
 
-          <div className="d-flex flex-column justify-content-between align-items-start gap-3  mb-5">
+          <div className="d-flex flex-column justify-content-between align-items-start gap-3  mb-5 ">
             {task === "actv" ? (
               ["lecture1", "lecture2", "lecture3", "lecture4"].map((key) => (
                 <div
                   key={key}
-                  className="d-flex   w-100 justify-content-between  align-items-center   gap-5 mb-3"
+                  className="d-flex   w-100 justify-content-between  align-items-center   mb-3  "
                 >
-                  <div className=" d-flex justify-content-center align-items-center gap-4">
-                    <Icon  className="iconSize1" />
-                    <div>
-                      <div className="hv">{t(`lectures.${key}.number`)}</div>
-                      <div className="custcalendartit texto-white">
-                        {t(`lectures.${key}.title`)}
+                  <div className=" row w-100 d-flex  justify-content-between align-items-center  p-0 m-0 ">
+              
+                      <div className=" col-2 bg-dark pt-3 pb-3 rounded-circle  d-flex justify-content-center">
+                        <Icon className=" fs-2 " />
                       </div>
+
+                      <div className=" col-6 d-flex flex-column">
+
+                        <div className="hv">{t(`lectures.${key}.number`)}</div>
+
+                        <div className="custcalendartit mt-2 ">
+                          {t(`lectures.${key}.title`)}
+                        </div>
+                      </div>
+             
+
+                    <div  className="col-4 d-flex justify-content-end  p-0 align-items-center ">
+                      <button className="btn btn-light custfontbtnv ">
+                        {t(`lectures.${key}.button`)}
+                      </button>
                     </div>
                   </div>
-                  <button
-                    className="btn btn-light custfontbtn px-3 text-nowrap "
-                   
-                  >
-                    {t(`lectures.${key}.button`)}
-                  </button>
                 </div>
               ))
             ) : (

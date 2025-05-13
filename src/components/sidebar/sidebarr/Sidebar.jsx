@@ -14,15 +14,53 @@ import logo from "@/assets/Sidebar icons/sidebarLogo.png";
 import line from "@/assets/Sidebar icons/Line 48.png";
 import LogoutButton from "@/components/LogoutButton/LogoutButton";
 import PaymentIcon from "@/assets/Sidebar icons/payment.svg";
+import Close from '@/assets/Sidebar icons/close.svg'
+import Open from '@/assets/Sidebar icons/open.svg'
+
 
 export default function Sidebar() {
   const t = useTranslations("Sidebar");
-
+const [isRotating, setIsRotating] = useState(false);
   const [actv, setActv] = useState("");
+const [isButtVis, setIsButtVis] = useState(true);
 
-  useEffect(() => {
+
+
+
+
+  useEffect(() => {  
     setActv("first");
+const checkScreenSize = () => {
+  if (window.innerWidth < 992) {
+    // Bootstrap's 'lg' breakpoint
+    setIsButtVis(true); // Button is visible on smaller screens
+  } else {
+    setIsButtVis(false); // Button is hidden on larger screens
+  }
+};
+
+// Check screen size on initial load
+checkScreenSize();
+
+// Add event listener on resize
+window.addEventListener("resize", checkScreenSize);
+
+
+
+
+return () => {
+  window.removeEventListener("resize", checkScreenSize);
+};
   }, [setActv]);
+
+   const handleToggle = () => {
+     const sidebar = document.getElementById("navbarSupportedContent");
+     sidebar.classList.toggle("show");
+
+     setIsRotating(true);
+     setTimeout(() => setIsRotating(false), 200); // stop after 1 second
+   };
+
 
   return (
     <>
@@ -40,27 +78,41 @@ export default function Sidebar() {
               />
 
               <button
-                className="navbar-toggler "
+                className="navbar-toggler border-0 "
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
+                onClick={handleToggle}
                 aria-label="Toggle navigation"
               >
-                <span className="navbar-toggler-icon"></span>
+                <Close width={32} />
               </button>
 
               <div
-                className="collapse navbar-collapse"
+                className={` navbar-collapse ${
+                  isButtVis
+                    ? "sidebar-collapse  "
+                    : ""
+                } `}
                 id="navbarSupportedContent"
               >
+                <button
+                  className="navbar-toggler border-0  mt-4 mb-4"
+                  type="button"
+                  onClick={handleToggle}
+                  aria-label="Toggle navigation"
+                >
+                  <Open
+                    width={32}
+                    className={isRotating ? "rotate-loop" : ""}
+                  />
+                </button>
+
                 <ul
                   className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start  p-0 "
-                  style={{ gap: "20px" }}
+                  style={{ gap: "15px" }}
                 >
                   <li
                     className={`nav-item d-flex w-100  text-white align-items-center mt-2  gap-2 `}
+                    onClick={handleToggle}
                   >
                     <DashboardIcon className="iconSize1 iconcolor" />
                     <Link
@@ -74,6 +126,7 @@ export default function Sidebar() {
 
                   <li
                     className={`nav-item d-flex text-white  align-items-center  gap-2  `}
+                    onClick={handleToggle}
                   >
                     <AdmissionIcon className="iconSize1 iconcolor" />
                     <Link
@@ -87,6 +140,7 @@ export default function Sidebar() {
 
                   <li
                     className={`nav-item d-flex text-white  align-items-center  gap-2 `}
+                    onClick={handleToggle}
                   >
                     <ClassesIcon className="iconSize1 iconcolor" />
                     <Link
@@ -100,6 +154,7 @@ export default function Sidebar() {
 
                   <li
                     className={`nav-item d-flex text-white  align-items-center   gap-2`}
+                    onClick={handleToggle}
                   >
                     <CertificateIcon className="iconSize1 iconcolor" />
                     <Link
@@ -113,6 +168,7 @@ export default function Sidebar() {
 
                   <li
                     className={`nav-item d-flex text-white  align-items-center  gap-2 `}
+                    onClick={handleToggle}
                   >
                     <PaymentIcon className="iconSize1 iconcolor" />
                     <Link
@@ -126,6 +182,7 @@ export default function Sidebar() {
 
                   <li
                     className={`nav-item d-flex text-white align-items-center  gap-2 `}
+                    onClick={handleToggle}
                   >
                     <NotifiIcon className="iconSize1 iconcolor" />
                     <Link
@@ -139,6 +196,7 @@ export default function Sidebar() {
 
                   <li
                     className={`nav-item d-flex text-white align-items-center  gap-2  `}
+                    onClick={handleToggle}
                   >
                     <ScheduleIcon className="iconSize1 iconcolor" />
                     <Link
@@ -152,11 +210,9 @@ export default function Sidebar() {
 
                   <li
                     className={`nav-item d-flex text-white  align-items-center  gap-2`}
+                    onClick={handleToggle}
                   >
-                    <SettingsIcon
-                      className="iconSize1 iconcolor"
-                
-                    />
+                    <SettingsIcon className="iconSize1 iconcolor" />
                     <Link
                       className="nav-link hvv"
                       aria-current="page"
@@ -168,6 +224,7 @@ export default function Sidebar() {
 
                   <li
                     className={`nav-item d-flex text-white  align-items-center   `}
+                    onClick={handleToggle}
                   >
                     <LogoutButton />
                   </li>

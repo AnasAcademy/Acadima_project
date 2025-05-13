@@ -1,7 +1,10 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import NotifCard from "@/components/notifCard/NotifCard";
-import PrevCard from "@/components/prevCard/PrevCard";
+
+
+
+
 
 export default function Notifications() {
   const t = useTranslations();

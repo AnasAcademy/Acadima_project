@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
 import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
@@ -11,6 +11,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+
+
 
 export default function Login() {
   const t = useTranslations("Login");
@@ -67,7 +69,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="  container d-flex   justify-content-center align-items-center vh-100">
+      <div className="  container d-flex   justify-content-center align-items-center ">
         <form
           className="col-12 d-flex flex-column  bg-white col-lg-5 col-md-8 m-5 p-5 gap-4  rounded-5 shadow    border border-1  "
           onSubmit={formik.handleSubmit}

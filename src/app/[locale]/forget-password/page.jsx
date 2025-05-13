@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React, { useState } from "react";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
@@ -8,6 +8,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+
+
 
 export default function ForgetPassword() {
   const t = useTranslations("Login");

@@ -1,9 +1,10 @@
 import { useTranslations } from "next-intl";
 import React from "react";
 
-import Image from "next/image";
 
 import SettingSidebar from "@/components/settingSidebar/SettingSidebar";
+
+
 
 export default function Settings() {
   const t = useTranslations();

@@ -1,8 +1,12 @@
 import React from "react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import PaymentsIcon from "@/assets/payments icons/Layer_1.svg";
 import PaymentsCard from "@/components/PaymentsCard/PaymentsCard";
+
+
+
+
+
 
 export default function Paymentplans() {
   const t = useTranslations();

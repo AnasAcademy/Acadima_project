@@ -1,19 +1,15 @@
 import React from "react";
 import "@/styles/globals.css";
-import Image from "next/image";
-import Link from "next/link";
-import mainlogo from "@/assets/navbar assets/mainlogo.png";
 import BrokenCable from "@/assets/broken-cable.svg";
 
 export default function NotFound() {
   return (
     <div className="container-fluid d-flex flex-column justify-content-center align-items-center bg-black text-center p-4">
-      {/* Broken Cable Image */}
+   
       <div className="w-100 d-flex justify-content-center">
         <BrokenCable style={{ width: "400px", height: "auto" }} />
       </div>
 
-      {/* Text */}
       <h1 className="fw-bold mb-3" style={{ fontSize: "32px", color: "white" }}>
         Page Not Found
       </h1>

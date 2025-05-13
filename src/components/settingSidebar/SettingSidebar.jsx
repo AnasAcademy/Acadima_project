@@ -58,11 +58,10 @@ export default function SettingSidebar() {
 
   return (
     <>
-      <div className="row flex-column flex-lg-row ">
+      <div className="row flex-column flex-lg-row  ">
         <div className="col-lg-4 col-12">
           <div className=" w-100">
             <h2 className="htitle"> {info.settings_header} </h2>
-
             <div className=" d-flex flex-row mt-4  align-items-baseline gap-2">
               <div className="progress w-50" style={{ height: "8px" }}>
                 <div
@@ -82,143 +81,187 @@ export default function SettingSidebar() {
             <p className=" ad2  text-white  w-75">{info.completion_note}</p>
           </div>
 
-          <div className=" d-flex   justify-content-lg-start justify-content-center">
+          <div className=" d-flex   justify-content-lg-start justify-content-center ">
             <ul className=" d-flex flex-column gap-1  p-0 ">
               <div className=" d-flex flex-column  gap-2 ">
-                <div className=" d-flex flex-lg-column flex-row    gap-2    align-items-lg-start   justify-content-center ">
-                  <li className={`nav-item d-flex `}>
+                <div className=" row d-flex justify-content-around   m-0 p-0 ">
+                  <li
+                    className={`nav-item   col-4 col-lg-7  d-flex   p-0 m-0`}
+                  >
                     <button
-                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  ${
+                      className={` btn btn-light custfontbtn text-nowrap  d-flex gap-2   w-100 justify-content-center ${
                         tabinfo === "basic" ? "" : "bg-transparent border-0"
                       } `}
                       onClick={() => {
                         setToggle("basic");
                       }}
                     >
-                      <div className=" d-flex gap-2 align-items-center">
-                        <UserIcon className="iconcolor iconSize3" />
-                        <Link
-                          className=" hvv "
-                          aria-current="page"
-                          href="/settings"
-                        >
-                          {info.basic_data}
-                        </Link>
-                      </div>
+                      <UserIcon
+                        className={`iconcolor iconSize3 ${
+                          tabinfo === "basic" ? "iconcolors" : "iconcolor"
+                        }`}
+                      />
+                      <Link
+                        className={`  ${
+                          tabinfo === "basic" ? "hvvs" : "hvv"
+                        }  `}
+                        aria-current="page"
+                        href="/settings"
+                      >
+                        {info.basic_data}
+                      </Link>
                     </button>
                   </li>
 
-                  <li className={` d-flex `}>
+                  <li className="  col-lg-5 d-flex p-0 m-0"></li>
+
+                  <li
+                    className={`nav-item d-flex col-4 col-lg-7   d-flex   p-0 m-0`}
+                  >
                     <button
-                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2 ${
+                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2 w-100  justify-content-center  ${
                         tabinfo === "personal" ? "" : "bg-transparent border-0"
                       } `}
                       onClick={() => {
                         setToggle("personal");
                       }}
                     >
-                      <div className=" d-flex gap-2 align-items-center">
-                        <CardIcon className="iconcolor iconSize3" />
-                        <Link
-                          className=" hvv   text-nowrap "
-                          aria-current="page"
-                          href="/settings"
-                        >
-                          {info.personal_data}
-                        </Link>
-                      </div>
+                      <CardIcon
+                        className={`iconcolor iconSize3 ${
+                          tabinfo === "personal" ? "iconcolors" : "iconcolor"
+                        }`}
+                      />
+                      <Link
+                        className={`  ${
+                          tabinfo === "personal" ? "hvvs" : "hvv"
+                        }  `}
+                        aria-current="page"
+                        href="/settings"
+                      >
+                        {info.personal_data}
+                      </Link>
                     </button>
                   </li>
-                </div>
 
-                <div className=" d-flex flex-lg-column flex-row  gap-2     align-items-lg-start    justify-content-center ">
-                  <li className={`d-flex  `}>
+                  <li className="    col-lg-5  d-flex p-0 m-0"></li>
+
+                  <li
+                    className={`d-flex  col-4 col-lg-7 d-flex   p-0 m-0 `}
+                  >
                     <button
-                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  ${
+                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  w-100 justify-content-center  ${
                         tabinfo === "edu" ? "" : "bg-transparent border-0"
                       } `}
                       onClick={() => {
                         setToggle("edu");
                       }}
                     >
-                      <div className=" d-flex gap-2 align-items-center">
-                        <CardIcon className="iconcolor iconSize3" />
-                        <Link
-                          className=" hvv text-nowrap "
-                          aria-current="page"
-                          href="/settings"
-                        >
-                          {info.education}
-                        </Link>
-                      </div>
+                      <CardIcon
+                        className={`iconcolor iconSize3 ${
+                          tabinfo === "edu" ? "iconcolors" : "iconcolor"
+                        }`}
+                      />
+                      <Link
+                        className={` text-nowarp  ${
+                          tabinfo === "edu" ? "hvvs" : "hvv"
+                        }  `}
+                        aria-current="page"
+                        href="/settings"
+                      >
+                        {info.education}
+                      </Link>
                     </button>
                   </li>
-                  <li className={` d-flex    `}>
+
+                  <li className="  col-lg-5  d-flex p-0 m-0"></li>
+
+                  <li
+                    className={` d-flex  col-4 col-lg-7 d-flex   p-0 m-0 `}
+                  >
                     <button
-                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  ${
+                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2 w-100 justify-content-center   ${
                         tabinfo === "addinfo" ? "" : "bg-transparent border-0"
                       } `}
                       onClick={() => {
                         setToggle("addinfo");
                       }}
                     >
-                      <div className=" d-flex gap-2 align-items-center">
-                        <ObjectIcon className="iconcolor iconSize3" />
-                        <Link
-                          className=" hvv  text-nowrap "
-                          aria-current="page"
-                          href="/settings"
-                        >
-                          {info.extra_info}
-                        </Link>
-                      </div>
+                      <ObjectIcon
+                        className={`iconcolor iconSize3 ${
+                          tabinfo === "addinfo" ? "iconcolors" : "iconcolor"
+                        }`}
+                      />
+                      <Link
+                        className={` text-nowarp  ${
+                          tabinfo === "addinfo" ? "hvvs" : "hvv"
+                        }  `}
+                        aria-current="page"
+                        href="/settings"
+                      >
+                        {info.extra_info}
+                      </Link>
                     </button>
                   </li>
-                </div>
 
-                <div className=" d-flex flex-lg-column flex-row align-items-lg-start   gap-lg-2  gap-sm-4  gap-4 justify-content-start ">
-                  <li className={` d-flex `}>
+                  <li className="  col-lg-5  d-flex p-0 m-0"></li>
+
+                  <li
+                    className={` d-flex  col-4 col-lg-7 d-flex   p-0 m-0`}
+                  >
                     <button
-                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2   ${
+                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2   w-100 justify-content-center ${
                         tabinfo === "profil" ? "" : "bg-transparent border-0"
                       } `}
                       onClick={() => {
                         setToggle("profil");
                       }}
                     >
-                      <div className=" d-flex gap-2 align-items-center">
-                        <LinkIcon className="iconcolor iconSize3" />
-                        <Link
-                          className=" hvv text-nowrap  "
-                          aria-current="page"
-                          href="/settings"
-                        >
-                          {info.portfolio_links}
-                        </Link>
-                      </div>
+                      <LinkIcon
+                        className={`iconcolor iconSize3 ${
+                          tabinfo === "profil" ? "iconcolors" : "iconcolor"
+                        }`}
+                      />
+                      <Link
+                        className={` text-nowarp  ${
+                          tabinfo === "profil" ? "hvvs" : "hvv"
+                        }  `}
+                        aria-current="page"
+                        href="/settings"
+                      >
+                        {info.portfolio_links}
+                      </Link>
                     </button>
                   </li>
-                  <li className={`nav-item d-flex  `}>
+
+                  <li className="  col-lg-5 d-flex p-0 m-0"></li>
+
+                  <li className={`d-flex  col-4 col-lg-7 d-flex   p-0 m-0 `}>
                     <button
-                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  ${
+                      className={` btn btn-light custfontbtn px-3  py-2 text-nowrap  d-flex gap-2  w-100 justify-content-center   ${
                         tabinfo === "conn" ? "" : "bg-transparent border-0"
                       } `}
                       onClick={() => {
                         setToggle("conn");
                       }}
                     >
-                      <div className=" d-flex gap-2 align-items-center">
-                        <CardIcon className="iconcolor iconSize3" />
-                        <Link
-                          className="nav-link hvv text-nowrap  "
-                          aria-current="page"
-                          href="/settings"
-                        >
-                          {info.connections}
-                        </Link>
-                      </div>
+                      <CardIcon
+                        className={`iconcolor iconSize3 ${
+                          tabinfo === "conn" ? "iconcolors" : "iconcolor"
+                        }`}
+                      />
+                      <Link
+                        className={` text-nowarp  ${
+                          tabinfo === "conn" ? "hvvs" : "hvv"
+                        }  `}
+                        aria-current="page"
+                        href="/settings"
+                      >
+                        {info.connections}
+                      </Link>
                     </button>
                   </li>
+
+                  <li className="  col-lg-5  d-flex p-0 m-0"></li>
                 </div>
               </div>
             </ul>

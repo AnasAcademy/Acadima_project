@@ -1,5 +1,6 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
 import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
@@ -13,12 +14,29 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+
+
 
 export default function Register() {
+
+
+
+
+
+  const searchParams = useSearchParams();
+  const bundleIdFromUrl = searchParams.get("bundle_id");
+  const [phone, setPhone] = useState("");
   const t = useTranslations("register");
   const ts = useTranslations("Login");
-
   const [toggle, setToggle] = useState("");
+  const [open, setOpen] = useState(false);
+  const [prodata , setProdata] = useState([])
+
+
 
   function togglePassvis() {
     if (toggle === "hide") {
@@ -30,6 +48,36 @@ export default function Register() {
 
   useEffect(() => {
     setToggle("hide");
+
+    async function getData() {
+     
+
+      try {
+        const { data } = await axios.get(
+          "https://lms.acadimacollege.com/api/development/consultation/bundles",
+          {
+            headers: {
+              "x-api-key": "1234",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setProdata(data?.bundles);  
+          return data
+          
+        
+      } catch (err) {
+        setErrMsg(err.response?.data?.message || "Something went wrong.");
+      }
+
+
+
+    }
+   
+    
+    getData();
+
   }, []);
 
   const validationSchema = yup.object({
@@ -82,7 +130,7 @@ export default function Register() {
 
   return (
     <>
-      <div className="  container d-flex  justify-content-center align-items-center vh-100">
+      <div className="  container d-flex  justify-content-center align-items-center ">
         <form
           className="col-12 d-flex flex-column  bg-white col-lg-5 col-md-8 m-5 p-5 gap-4  rounded-5 shadow    border border-1  "
           onSubmit={formik.handleSubmit}
@@ -90,7 +138,7 @@ export default function Register() {
           <LanguageSwitcher />
 
           <Link
-            className="text-white text-decoration-none  m-lg-auto p-5 pb-3 pt-2  d-flex justify-content-center "
+            className="text-white text-decoration-none    d-flex justify-content-center "
             role="button"
             href="/"
           >
@@ -186,6 +234,19 @@ export default function Register() {
               )}
           </div>
 
+          <div className="form-group phonegroup">
+            <PhoneInput
+              country={"sa"}
+              value={phone}
+              onChange={setPhone}
+              enableSearch
+              inputProps={{
+                required: true,
+                autoFocus: true,
+              }}
+            />
+          </div>
+
           {/* phoneNumber Field */}
           <div className="form-group">
             <div
@@ -225,6 +286,37 @@ export default function Register() {
               )}
           </div>
 
+          {!bundleIdFromUrl && (
+            <div className="dropdown" onClick={() => setOpen(!open)}>
+              <button
+                className="btn btn-light dropdown-toggle w-100 d-flex justify-content-between align-items-center  border-radius-lg input-size form-control input-flex d-flex p-3 rounded-4   gap-2 border border-dark"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded={open ? "true" : "false"}
+              >
+                البرامج
+              </button>
+              <ul
+                className={`dropdown-menu w-100 ${open ? "show" : ""}`}
+                aria-labelledby="dropdownMenuButton"
+              >
+                {prodata?.map((dat, index) => (
+                  <li key={index}>
+                    {dat?.translations.map((trans, index) => (
+                      <a
+                        className="dropdown-item text-wrap"
+                        href="#"
+                        key={index}
+                      >
+                        {trans.title}
+                      </a>
+                    ))}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {/* Password Field */}
           <div className="form-group">
             <div
