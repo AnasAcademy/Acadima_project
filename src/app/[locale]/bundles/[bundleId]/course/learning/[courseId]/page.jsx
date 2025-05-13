@@ -1,39 +1,24 @@
- import React from 'react'
- 
- export default function Course() {
+
+import React from "react";
 
 
-
-    
-   return <>
-   
-           <div className=' text-white'>
-
-                    lessons navbar
-           </div>
+import WatchLessons from  '@/components/WatchLessons/WatchLessons'
+import LessonsContent from '@/components/LessonsContent/LessonsContent'
 
 
+export default function Course() {
 
-                
-      <div className="container p-3  mt-5 ">
-
-
-                         <div>
+  
 
 
-                                    body
-
-                         </div>
-
-
-
-
-
-
+  return (
+    <>
+      <div className=" d-flex flex-column   container-fluid p-0 m-0 ">
+      
+            <LessonsContent />
+        
+     
       </div>
-   
-   
-   
-   </>
- }
- 
+    </>
+  );
+}

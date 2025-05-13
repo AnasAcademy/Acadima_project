@@ -18,6 +18,8 @@ export default function SideBarWrapper() {
     "/en/forget-password",
     "/ar/reset-password",
     "/en/reset-password",
+    "/ar/bundles/675/course/learning/45",
+    "/en/bundles/675/course/learning/45",
   ];
 
   return <>{!hideSidebarRoutes.includes(Pathname) && <Sidebar />}</>;

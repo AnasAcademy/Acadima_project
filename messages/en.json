@@ -495,5 +495,61 @@
      "days": ["Sat", "Fri", "Thu", "Wed", "Tue", "Mon", "Sun"],
        "tasksTitle": "Tasks for Today:",
     "noTasks": "No tasks or important events for today"
-  }
+  },
+
+
+
+  "lessons":{
+
+   "course_schedule": "Course Schedule",
+  "completion": "Completed",
+  "intelligent_course": "AI for Beginners: Programming Guidance",
+  "content": "Content",
+  "exams": "Exams",
+  "section_title": "Section Title / Content",
+  "lecture_title": "Lecture Title",
+  "lecture_count": "Lecture Count",
+  "additional_content": "Additional Content / Attachments",
+  "attachments": "Attachments / Download Links",
+  "file_name": "File Name / Attachment",
+  "note_text": "This is a sample text used for demonstration. You can replace it with your own content."
+},
+
+
+
+"homework":{
+
+    "exams": "Exams",
+    "content": "Content",
+  "lesson_title": "Lesson Title",
+  "student_gradev1": "Student Exam Grade",
+
+    "titlev1": "Homework Details",
+    "deadline": "13 February",
+    "submission_limit": "Submission Limit",
+    "required_submissions": "Max Submissions",
+    "student_grade": "Student Grade",
+    "pass_score": "Pass Score",
+    "submissions": "0/1",
+    "students_submitted": "0/100",
+
+    "titlev2": "Attachments / Homework Details",
+    "file_name": "File name",
+    "file_size": "File size",
+  
+    "titlev3": "Add Submission",
+    "instructions": "Add a description of your solution",
+    "file_title": "File Title",
+    "upload": "Upload File",
+    "send": "Send",
+      "no_files_uploaded": "No files have been uploaded yet!",
+  "upload_urgency": "Hurry to upload the program requirements",
+
+  "teacher_instruction": "Full Student Name",
+   "deadline_reached": "The deadline has been reached!",
+  "no_more_uploads": "Unfortunately, you can no longer submit files..."
+
+
+}
+
 }

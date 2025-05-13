@@ -3,6 +3,9 @@ import Regpro from "@/components/regpro/Regpro";
 import EnrollProgram from "@/components/EnrollProgram/EnrollProgram";
 import { useTranslations } from "next-intl";
 
+
+
+
 export default function Admissions() {
   const t = useTranslations("RegisteredPrograms");
   const ts = useTranslations("EnrollProgram");

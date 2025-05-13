@@ -2,6 +2,10 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import InstallmentsCard from "@/components/InstallmentsCard/InstallmentsCard";
 
+
+
+
+
 export default function Installments() {
   const t = useTranslations();
   const info = t.raw("installments");

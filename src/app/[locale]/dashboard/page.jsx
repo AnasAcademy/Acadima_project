@@ -6,10 +6,12 @@ import Filescard from "@/components/filescard/Filescard";
 import Calendar from "@/components/Calendarcard/Calendar";
 import ProblemCard from "@/components/problemcard/ProblemCard";
 
+
+
 export default function Home() {
   return (
     <>
-      <div className="   container p-3  ">
+      <div className="  mt-3  container p-3  ">
         <div className=" row     g-3 ">
           <div className="   col-md-12  col-lg-12 col-12 col-xl-7 d-flex flex-column  ">
             <div className=" row     g-3  ">
@@ -27,7 +29,7 @@ export default function Home() {
                   <Filescard />
                 </div>
               </div>
-              <div className=" d-flex flex-column    justify-content-between gap-3 col-md-12  col-lg-6 col-12 col-xl-6 ">
+              <div className=" d-flex flex-column   justify-content-start gap-3 col-md-12  col-lg-6 col-12 col-xl-6  ">
                 <Calendar />
               </div>
               <div className="col-md-12 flex-column  d-none  col-lg-6 col-12 col-xl-6 d-xl-none d-lg-flex d-md-none d-sm-none gap-3">

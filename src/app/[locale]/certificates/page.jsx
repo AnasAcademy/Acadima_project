@@ -2,6 +2,9 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import CertificateCard from "@/components/CertificateCard/CertificateCard";
 
+
+
+
 export default function Services() {
   const t = useTranslations("certificates");
   const certs = t.raw("items");
