@@ -1,0 +1,111 @@
+import React from "react";
+import Namcard from "@/components/namecard/Namcard";
+import WeeklySchedule from "@/components/WeeklyScheduleCard/WeeklySchedule";
+import Smallcard from "@/components/smallCard/Smallcard";
+import Filescard from "@/components/filescard/Filescard";
+import Calendar from "@/components/Calendarcard/Calendar";
+import ProblemCard from "@/components/problemcard/ProblemCard";
+import Frame1 from "@/assets/smallCard assets/Frame_31.svg"
+import Frame2 from '@/assets/smallCard assets/sec.svg'
+
+
+
+
+export default  async function Home({ params }) {
+
+  const locale = params?.locale || "en";
+
+  console.log("Current locale:", locale); 
+
+  const data = await fetch(
+    "https://lms.acadimacollege.com/api/development/panel",
+    {
+      method: "GET",
+      headers: {
+        "x-api-key": "1234",
+        "Content-Type": "application/json",
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xtcy5hY2FkaW1hY29sbGVnZS5jb20vYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzQ4MjUxNzUzLCJuYmYiOjE3NDgyNTE3NTMsImp0aSI6Inc3NGh4dEc0U2ZFTHRQNjkiLCJzdWIiOiIxOTUxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.LvUqo0WvFYUz3ZJBD-T503sxzkPtFeT8FYQrOw4TOXM`, // if needed
+      },
+    }
+  );
+  const respond = await data.json();
+
+  console.log(respond);
+  const dataa = {
+    titles: [
+      {
+        title: "Microsoft Teams",
+        info: "منصة الحضور لجميع المحاضرات",
+        btn: "تسجيل الدخول",
+      },
+      {
+        title: "Microsoft Office365",
+        info: "الوصول لجميع برامج الأوفيس الخاصة بك",
+        btn: "تنزيل التطبيق",
+      },
+    ],
+  };
+
+  console.log(respond);
+
+  return (
+    <>
+      <div
+        className="  mt-3  container-fluid  p-3   "
+        dir={locale === "ar" ? "rtl" : "ltr"}
+      >
+        <div className=" row     g-3 ">
+          <div className="   col-md-12  col-lg-12 col-12 col-xl-8 d-flex flex-column   ">
+            <div className=" row     g-3 d-flex justify-content-center   ">
+              <div className="  col-xl-6 col-lg-6   pt-sm-4 pt-4 pt-lg-0 ">
+                <Namcard
+                  name={respond.user.full_name}
+                  email={respond.user.email}
+                />
+              </div>
+
+              <div className=" d-flex justify-content-around gap-3  col-xl-6 col-lg-6 ">
+                <Smallcard
+                  Frame={Frame1}
+                  title={dataa.titles[0].title}
+                  dis={dataa.titles[0].info}
+                  btn={dataa.titles[0].btn}
+                />
+                <Smallcard
+                  Frame={Frame2}
+                  title={dataa.titles[1].title}
+                  dis={dataa.titles[1].info}
+                  btn={dataa.titles[1].btn}
+                />
+              </div>
+              {/* justify-content-around */}
+              <div className=" d-flex flex-column    gap-3 col-md-12  col-lg-6 col-12 col-xl-6 d-lg-none d-xl-flex  ">
+                <Filescard />
+              </div>
+
+              <div className=" d-flex flex-column   justify-content-start gap-3 col-md-12  col-lg-6 col-12 col-xl-6   ">
+                <Calendar />
+              </div>
+
+              <div className="col-md-12 flex-column  d-none  col-lg-6 col-12 col-xl-6 d-xl-none d-lg-flex d-md-none d-sm-none gap-3 ">
+                <Filescard />
+
+                <ProblemCard />
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-12  col-lg-12 col-12 col-xl-4  d-flex flex-column gap-3   justify-content-between   ">
+            <div>
+              <WeeklySchedule />
+            </div>
+
+            <div className=" d-xl-flex d-lg-none d-md-flex d-sm-flex">
+              <ProblemCard />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

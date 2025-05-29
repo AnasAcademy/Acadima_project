@@ -1,0 +1,31 @@
+.dark-calendar {
+    background-color: transparent;
+    color: white;
+    border: none !important;
+    padding: 10px;
+}
+
+.dark-calendar abbr {
+    color: white;
+    text-decoration: none;
+}
+
+.dark-calendar .react-calendar__tile--now {
+    background: #333;
+    color: white;
+}
+
+.dark-calendar .react-calendar__tile--active {
+    background: #CCF5FF;
+    color: white;
+}
+
+.dark-calendar button {
+    background: transparent;
+    color: white;
+
+}
+
+.dark-calendar button:enabled:hover {
+    background-color: #333;
+}
