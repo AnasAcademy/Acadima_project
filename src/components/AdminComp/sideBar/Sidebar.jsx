@@ -15,30 +15,27 @@ import HelpIcon from "../../../assets/admin/helpIcon.svg";
 import Setting from "../../../assets/admin/setting.svg";
 import bk  from "../../../assets/admin/Background.png"
 import pwr from "@/assets/Sidebar icons/powered.png";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
   const t = useTranslations('SidebarA');
+  const pathname = usePathname();
+  const isPanel = pathname.includes("/org/panel");
+  const isEmployeeprogress = pathname.includes("/org/employeeprogress");
 
-  const [actv, setActv] = useState("das");
+
+  const isSubscriptionmanagement = pathname.includes(
+    "/org/subscription-management"
+  );
+  const isNotfiPage = pathname.includes("/org/notifications");
 
 
   useEffect(() => {
 
-    
-
-  }, [setActv])
-
-
-  
-  function toggle(index){
-      
-                   
-              setActv(index);
-                         
-     
-   }
- 
-   
+      console.log(pathname);
+      console.log(isPanel);
+      console.log(isEmployeeprogress);
+  }, [])
 
 
 
@@ -74,7 +71,7 @@ export default function Sidebar() {
               <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-0   ">
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    actv === "das" ? "cardbg  rounded-4   " : ""
+                    isPanel ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
                     toggle("das");
@@ -82,13 +79,13 @@ export default function Sidebar() {
                 >
                   <Home
                     className={`iconSize2   ${
-                      actv === "das" ? "iconcolor2" : "iconcolor"
+                      isPanel ? "iconcolor2" : "iconcolor"
                     }  `}
                   />
                   <Link
                     className={` nav-link  Tit-14-700 `}
                     aria-current="page"
-                    href="/dashboard"
+                    href="/org/panel"
                   >
                     {t("dashboard")}
                   </Link>
@@ -96,7 +93,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex   p-2  w-100  align-items-center   ${
-                    actv === "stat" ? "cardbg  rounded-2 " : ""
+                    isEmployeeprogress ? "cardbg  rounded-2 " : ""
                   }   `}
                   onClick={() => {
                     toggle("stat");
@@ -104,13 +101,13 @@ export default function Sidebar() {
                 >
                   <Stat
                     className={`iconSize2   ${
-                      actv === "stat" ? "iconcolor2" : "iconcolor"
+                      isEmployeeprogress ? "iconcolor2" : "iconcolor"
                     }  `}
                   />
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800 "
                     aria-current="page"
-                    href="/admissions"
+                    href="/org/employeeprogress"
                   >
                     {t("Employee progress")}
                   </Link>
@@ -118,7 +115,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    actv === "card" ? "cardbg  rounded-4   " : ""
+                    isSubscriptionmanagement ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
                     toggle("card");
@@ -126,13 +123,13 @@ export default function Sidebar() {
                 >
                   <Card
                     className={`iconSize2   ${
-                      actv === "card" ? "iconcolor2" : "iconcolor"
+                      isSubscriptionmanagement ? "iconcolor2" : "iconcolor"
                     }  `}
                   />
                   <Link
                     className="nav-link  Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/insights/user-adoption"
+                    href="/org/subscription-management"
                   >
                     {t("Subscription Management")}
                   </Link>
@@ -140,7 +137,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    actv === "notif" ? "cardbg  rounded-4   " : ""
+                    isNotfiPage ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
                     toggle("notif");
@@ -148,13 +145,13 @@ export default function Sidebar() {
                 >
                   <Notif
                     className={`iconSize2   ${
-                      actv === "notif" ? "iconcolor2" : "iconcolor"
+                      isNotfiPage ? "iconcolor2" : "iconcolor"
                     }  `}
                   />
                   <Link
                     className="nav-link  Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/engagement/progress-tracker"
+                    href="/org/notifications"
                   >
                     {t("Notifications")}
                   </Link>
@@ -162,7 +159,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    actv === "option" ? "cardbg  rounded-4   " : ""
+                    "option" === "opthion" ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
                     toggle("option");
@@ -170,13 +167,13 @@ export default function Sidebar() {
                 >
                   <Option
                     className={`iconSize2   ${
-                      actv === "option" ? "iconcolor2" : "iconcolor"
+                      "option" === "ophtion" ? "iconcolor2" : "iconcolor"
                     }  `}
                   />
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800 "
                     aria-current="page"
-                    href="/org-settings"
+                    href="/org/employeeprogress"
                   >
                     {t("Technical Support")}
                   </Link>
@@ -186,7 +183,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-12-700 Gray-Gray-700 "
                     aria-current="page"
-                    href="/insights/user-adoption"
+                    href="/org/employeeprogress"
                   >
                     {t("Account Management")}
                   </Link>
@@ -194,7 +191,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    actv === "pro" ? "cardbg  rounded-4   " : ""
+                    "pro" === "prho" ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
                     toggle("pro");
@@ -204,7 +201,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/engagement/progress-tracker"
+                    href="/org/employeeprogress"
                   >
                     {t("Organization Profile")}
                   </Link>
@@ -212,7 +209,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    actv === "ai" ? "cardbg  rounded-4   " : ""
+                    "option" === "ai" ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
                     toggle("ai");
@@ -222,7 +219,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org-settings"
+                    href="/org/employeeprogress"
                   >
                     {t("AI Assistant")}
                   </Link>
@@ -230,7 +227,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    actv === "sett" ? "cardbg  rounded-4   " : ""
+                    "option" === "sett" ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
                     toggle("sett");
@@ -240,7 +237,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800 "
                     aria-current="page"
-                    href="/org-settings"
+                    href="/org/employeeprogress"
                   >
                     {t("Settings")}
                   </Link>
@@ -266,7 +263,7 @@ export default function Sidebar() {
         </div>
 
         <div className=" d-flex justify-content-center gap-1 mt-2   ">
-          <Image src={logo} width={60} height={18} priority className=' mt-1' />
+          <Image src={logo} width={60} height={18} priority className=" mt-1" />
           <p>Powered By</p>
         </div>
       </div>

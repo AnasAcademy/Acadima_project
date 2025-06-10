@@ -160,10 +160,10 @@ const Navbar = () => {
             </form>
 
             <div className=" d-flex justify-content-center align-items-center gap-3 p-1 ">
-              <Link href="/dashboard">
+              <Link href="/panel">
                 <button className=" btn  custfontbtn rounded-2">user</button>
               </Link>
-              <Link href="/admin">
+              <Link href="/org/panel">
                 <button className=" btn custfontbtn  rounded-2">
                   Organization
                 </button>

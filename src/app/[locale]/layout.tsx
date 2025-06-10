@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import PayProvider from "@/context/PayContext"
 import NavbarWrapper from "../../components/AdminComp/navbarWrapper/NavbarWrapper";
 import NotificationProvider from "@/context/NotificationContext";
 import BootstrapClient from '@/components/bootstrapClient/BootstrapClient'
@@ -52,7 +51,7 @@ export default async function RootLayout({
             <div className="d-flex">
               <div className="d-none d-sm-none d-md-none d-lg-flex d-xl-flex    ">
                 <SidebarWrapperUser />
-                <SideBarWrapper />
+                <SideBarWrapper  />
               </div>
               <div className=" d-flex flex-column w-100  ">
                 <NavbarWrapper />

@@ -5,12 +5,9 @@ import Sidebar from "../../components/sidebar/sidebarr/Sidebar";
 import { NotificationContext } from "@/context/NotificationContext";
 
 export default function SideBarWrapper() {
-
   const Pathname = usePathname();
 
-
-
-const { notFound } = useContext(NotificationContext);
+  const { notFound } = useContext(NotificationContext);
 
   const hideSidebarRoutes = [
     "/ar/login",
@@ -28,11 +25,20 @@ const { notFound } = useContext(NotificationContext);
     "/en/bundles/675/course/learning/45",
     "/en/installments-conditions",
     "/ar/installments-conditions",
-    "/ar/admin",
-    "/en/admin",
   ];
 
+
+  const adminSidebar = ["ar/org", "en/org"];
+
+  const shouldHideSidebar = adminSidebar.some((route) =>
+   Pathname.includes(route)
+  );
+
+
   return (
-    <>{!hideSidebarRoutes.includes(Pathname) && !notFound && <Sidebar />}</>
+    <>
+      {!hideSidebarRoutes.includes(Pathname) &&
+        !notFound &&   !shouldHideSidebar && <Sidebar />}
+    </>
   );
 }

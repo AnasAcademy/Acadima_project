@@ -1,11 +1,9 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-
 import Image from "next/image";
 import Circle from "@/assets/notifCard/Ellipse 26.svg";
 import PrevCard from "@/components/prevCard/PrevCard";
 import { NotificationContext } from "@/context/NotificationContext";
-
 
 
 

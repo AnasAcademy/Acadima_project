@@ -9,32 +9,33 @@ export default function Filescard() {
   return (
     <>
       <div className="  p-3 rounded-2  w-100 d-flex justify-content-start flex-column align-items-start  cardbg text-white min-file-ht ">
-        <h3 className=" tit-18-700 Gray-Gray-700  "> {t("title")} </h3>
+
+        <h3 className=" tit-18-700 Gray-Gray-700  "> {t("title")}</h3>
 
         <div className=" d-flex flex-column gap-3 mt-4  ">
           <div className=" d-flex  gap-2  ">
             <File className="iconSize1" />
-            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} </p>
+            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} 1 </p>
           </div>
 
           <div className=" d-flex gap-2 ">
             <File className="iconSize1" />
-            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} </p>
+            <p className="tit-16-400 Gray-Gray-700"> {t("guide")}  2</p>
           </div>
 
           <div className=" d-flex gap-2">
             <File className="iconSize1" />
-            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} </p>
+            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} 3</p>
           </div>
 
           <div className=" d-flex gap-2">
             <File className="iconSize1" />
-            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} </p>
+            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} 4</p>
           </div>
 
           <div className=" d-flex gap-2">
             <File className="iconSize1" />
-            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} </p>
+            <p className="tit-16-400 Gray-Gray-700"> {t("guide")} 5</p>
           </div>
         </div>
       </div>

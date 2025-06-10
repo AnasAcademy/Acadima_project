@@ -37,7 +37,10 @@ export default function Login() {
   useEffect(() => {
     setToggle("hide");
 
- 
+    return () => {
+      window.location.reload(); // This reloads the page on unmount
+    };
+
   }, []);
 
   const validationSchema = yup.object({
@@ -115,7 +118,7 @@ export default function Login() {
             console.log("Navigating to /ar/dashboard");
            
             setTimeout(() => {
-              router.push(`/${locale}/dashboard`);
+              router.push(`/${locale}/panel`);
             }, 200);
            
        

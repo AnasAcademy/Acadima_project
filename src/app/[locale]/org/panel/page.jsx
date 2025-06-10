@@ -13,9 +13,40 @@ import TrainigControlPanel from "@/components/AdminComp/Home/TrainigControlPanel
 export default function Admin() {
 
 
-
+const t = useTranslations("HomePageA");
   const tD = useTranslations("Dashboard");
+  
+  const TableHead = [
+  
+    t("tableHead3"),
+    t("tableHead2"),
+    t("tableHead1"),
 
+  ];
+
+  
+
+
+  const trainingData = [
+    {
+      columns: [
+        { type: "text", value: t("tablerow") },
+        { type: "text", value: 6 },
+
+        { type: "progress", value: 60 },
+      ],
+    },
+    {
+      columns: [
+        { type: "text", value: t("tablerow") },
+        { type: "text", value: 6 },
+
+        { type: "progress", value: 70 },
+      ],
+    },
+  ];
+   
+  
 
   return (
     <>
@@ -26,7 +57,7 @@ export default function Admin() {
               <DashboardCards />
             </div>
 
-            <div className="  col-xl-5 col-lg-12 col-md-12 col-12 ">
+            <div className="  col-xl-5 col-lg-12 col-md-12 col-12">
               <TrainingGuideCard />
             </div>
 
@@ -42,12 +73,16 @@ export default function Admin() {
               <ActiveUsersAnalysis />
             </div>
 
-            <div className="col-lg-4 ">
+            <div className=" col-xl-4  col-lg-12 col-12">
               <LatestTrain />
             </div>
 
-            <div className="col-lg-8">
-              <OngoingTrain />
+            <div className=" col-xl-8  col-lg-12 col-12">
+              <OngoingTrain
+                TableHead={TableHead}
+                trainingData={trainingData}
+                button={true}
+              />
             </div>
           </div>
         </div>

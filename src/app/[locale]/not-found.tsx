@@ -20,7 +20,7 @@ export default function NotFound() {
       setNotfound(false); //unmount
     };
 
-   },[])
+   },[setNotfound])
 
 
 

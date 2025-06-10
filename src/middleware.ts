@@ -8,7 +8,7 @@ export default function middleware(request: NextRequest) {
   const token = request.cookies.get('auth_token')?.value;
   const pathname = request.nextUrl.pathname;
   const segments = pathname.split('/').filter(Boolean);
-  const locale = routing.locales.includes(segments[0] as any)
+  const locale = routing.locales.includes(segments[0] as typeof routing.locales[number])
     ? (segments[0] as 'en' | 'ar')
     : routing.defaultLocale;
 

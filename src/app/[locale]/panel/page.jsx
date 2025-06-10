@@ -8,14 +8,13 @@ import ProblemCard from "@/components/problemcard/ProblemCard";
 import Frame1 from "@/assets/smallCard assets/Frame_31.svg"
 import Frame2 from '@/assets/smallCard assets/sec.svg'
 
+import { cookies } from "next/headers";
+
+export default  async function Home() {
 
 
+  const locale = cookies().get("NEXT_LOCALE")?.value;
 
-export default  async function Home({ params }) {
-
-  const locale = params?.locale || "en";
-
-  console.log("Current locale:", locale); 
 
   const data = await fetch(
     "https://lms.acadimacollege.com/api/development/panel",
@@ -30,23 +29,7 @@ export default  async function Home({ params }) {
   );
   const respond = await data.json();
 
-  console.log(respond);
-  const dataa = {
-    titles: [
-      {
-        title: "Microsoft Teams",
-        info: "منصة الحضور لجميع المحاضرات",
-        btn: "تسجيل الدخول",
-      },
-      {
-        title: "Microsoft Office365",
-        info: "الوصول لجميع برامج الأوفيس الخاصة بك",
-        btn: "تنزيل التطبيق",
-      },
-    ],
-  };
 
-  console.log(respond);
 
   return (
     <>
@@ -65,18 +48,8 @@ export default  async function Home({ params }) {
               </div>
 
               <div className=" d-flex justify-content-around gap-3  col-xl-6 col-lg-6 ">
-                <Smallcard
-                  Frame={Frame1}
-                  title={dataa.titles[0].title}
-                  dis={dataa.titles[0].info}
-                  btn={dataa.titles[0].btn}
-                />
-                <Smallcard
-                  Frame={Frame2}
-                  title={dataa.titles[1].title}
-                  dis={dataa.titles[1].info}
-                  btn={dataa.titles[1].btn}
-                />
+                <Smallcard Frame="smallcard" />
+                <Smallcard Frame="smallcardd" />
               </div>
               {/* justify-content-around */}
               <div className=" d-flex flex-column    gap-3 col-md-12  col-lg-6 col-12 col-xl-6 d-lg-none d-xl-flex  ">

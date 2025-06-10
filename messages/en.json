@@ -144,15 +144,19 @@
   },
   "smallcard": {
     "title1": "Microsoft Teams",
-    "title2": " Microsoft office365",
-    "info": "The platform for attending all lectures",
-    "btn": "Login",
+    "info2": "The platform for attending all lectures",
+    "btn2": "Login"
+  },
+
+
+  "smallcardd": {
+    "title1": " Microsoft office365",
      "info2":" Access all your Office programs",
     "btn2":" Download "
   },
   "importantFiles": {
     "title": "Important Files",
-    "guide": "Microsoft Teams User Guide"
+    "guide": "Guide "
   },
   "todaySchedule": {
     "title": "Today's Schedule",
@@ -625,5 +629,108 @@
 
 
 }
+
+,
+
+
+"employee_progress":{
+  "page_title": "Employee Progress Tracking",
+  "add_employee": "Add Employee",
+  "filter": "Filter",
+  "search_placeholder": "Search for an employee, course, department...",
+  "sort_by": "Sort by:",
+  "sort_option": "Alphabetical",
+  "view_option": "View:",
+  "view_all": "All Programs",
+
+  "program_status": "Program Status",
+  "department": "Department",
+  "branch": "Branch",
+  "training_course": "Training Course",
+
+  "branch_option": "Main Branch - Riyadh",
+  "department_option": "HR Department",
+  "program_status_option": "Completed",
+
+    "leaderShip": "Leadership Skills Training  ",
+    "employee_name": "Employee Name",
+
+    "join_date": "Join Date",
+    "completion_rate": "Completion Rate",
+    "profile_access": "Access Profile",
+    "notStarted": "Not Started",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "profile": "Profile"
+  }
+
+
+  ,
+
+
+  "SubMan":{
+   "add_payment_method": "Add payment method",
+  "payment_methods": "Payment Methods",
+  "membership": "Membership Management",
+  "view_plans": "View Plans",
+  "info2": "Subscription State",
+  "title1": "Subscription State",
+  "btn2": "Active",
+  "days_remaining": "21 days remaining in current plan",
+  "company_name": "Company Name",
+  "plan_title": "Current Plan Title",
+  "monthly_price": "500.00",
+  "subscription_date": "Subscription date",
+  "end_date": "End date",
+  "employees": "No. of employees",
+  "tracking": "Employee progress tracking",
+  "your_plan": "Your plan",
+  "emails_sent": "Emails sent",
+  "sms_sent": "SMS sent",
+  "daily_requests": "Daily requests",
+  "upgrade_prompt": "Want more? Make an upgrade",
+  "payment_details": "Payment Operation Details",
+  "download_receipt": "Download receipt",
+  "payment_operation": "Subscription payment operation",
+  "amount": "Amount",
+  "email": "Email",
+  "vat_number": "VAT number",
+  "view_all": "View all payment operations",
+  "subscriptionAmount": "Subscription amount: 500$",
+  "emaill": "Email: oliver@burrito.com",
+  "referenceNumber": "Number: FRB1235476"
+  
+  }
+
+
+
+  ,
+
+
+  "yourplan":{
+  
+  
+    "your_plan": "Your plan",
+    "emails_sent": "Emails sent",
+    "sms_sent": "SMS sent",
+    "of": "of",
+    "want_more": "Want more? Make an upgrade"
+  
+  
+  
+  
+  },
+
+
+
+"adminNotfi":{
+
+  "all": "All",
+  "read": "Read Notifications",
+  "unread": "Unread Notifications",
+ "senderName": "Sender Name"
+}
+
+
 
 }

@@ -21,103 +21,67 @@ import pwr from '@/assets/Sidebar icons/powered.png'
 
 
 
-
 export default function Sidebar() {
-
-
   const t = useTranslations("Sidebar");
-const [isRotating, setIsRotating] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
 
-const [isButtVis, setIsButtVis] = useState(true);
+  const [isButtVis, setIsButtVis] = useState(true);
 
-
-const pathname = usePathname();
+  const pathname = usePathname();
 
   const [actv, setActv] = useState("");
-
 
   const ts = useTranslations("SidebarA");
 
   const isCoursesPage = pathname.includes("/courses");
-  const isDashPage = pathname.includes("/dashboard");
+  const isDashPage = pathname.includes("/panel");
   const isAdminPage = pathname.includes("/admissions");
-  const isCertfiPage  = pathname.includes("/certificates");
+  const isCertfiPage = pathname.includes("/certificates");
   const isPayPage = pathname.includes("/paymentplans");
   const isNotfiPage = pathname.includes("/notifications");
   const isServPage = pathname.includes("/services");
   const isSettPage = pathname.includes("/settings");
-  
+
   function toggle(index) {
-
     setActv(index);
-
   }
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      if (window.innerWidth < 992) {
+        // Bootstrap's 'lg' breakpoint
+        setIsButtVis(true); // Button is visible on smaller screens
+      } else {
+        setIsButtVis(false); // Button is hidden on larger screens
+      }
+    };
 
+    // Check screen size on initial load
+    checkScreenSize();
 
-  useEffect(() => {  
-   
-const checkScreenSize = () => {
-  if (window.innerWidth < 992) {
-    // Bootstrap's 'lg' breakpoint
-    setIsButtVis(true); // Button is visible on smaller screens
-  } else {
-    setIsButtVis(false); // Button is hidden on larger screens
-  }
-};
+    // Add event listener on resize
+    window.addEventListener("resize", checkScreenSize);
 
-// Check screen size on initial load
-checkScreenSize();
-
-// Add event listener on resize
-window.addEventListener("resize", checkScreenSize);
-
-
-
-
-
-
-
-
-
-
-return () => {
-  window.removeEventListener("resize", checkScreenSize);
-};
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
   }, [setActv]);
 
+  useEffect(() => {}, []);
 
-  
-  useEffect(()=>{
+  const handleToggle = () => {
+    const sidebar = document.getElementById("navbarSupportedContent");
+    sidebar.classList.toggle("show");
 
-
-   
-
-
-  },[]);
-
-
-
-
-
-
-
-   const handleToggle = () => {
-     const sidebar = document.getElementById("navbarSupportedContent");
-     sidebar.classList.toggle("show");
-
-     setIsRotating(true);
-     setTimeout(() => setIsRotating(false), 200); // stop after 1 second
-   };
-
-
-
-
-
+    setIsRotating(true);
+    setTimeout(() => setIsRotating(false), 200); // stop after 1 second
+  };
 
   return (
     <>
-      <div className=" p-3 ps-lg-0 pe-lg-0  d-flex flex-column   ">
+      <div
+        className=" p-3 ps-lg-0 pe-lg-0  d-flex flex-column   "
+   >
         <nav className="navbar navbar-light navbar-expand-lg       ">
           <div className="container-fluid  d-flex  flex-sm-row-reverse flex-lg-column flex-row-reverse flex-md-row-reverse flex-xl-column    align-items-start   p-0   ">
             <Link
@@ -161,7 +125,7 @@ return () => {
                   <Link
                     className={` nav-link  Tit-14-700 `}
                     aria-current="page"
-                    href="/dashboard"
+                    href="/panel"
                   >
                     {t("dashboard")}
                   </Link>

@@ -20,7 +20,7 @@ export default function NotificationProvider({ children }) {
 useEffect(()=>{
   const initialFlags = info.map((notifi) => notifi.flag);
   setFlag(initialFlags);
-},[])
+},[info])
 
 
 
