@@ -14,7 +14,7 @@ export default function FilterCard() {
           <Image src={bg} className=" w-100" />
           <h3 className="px-3 position-absolute top-5 text-white d-flex gap-2 align-items-center">
             <HelpIcon className="iconSize2 iconcolor" />
-             {t("Your-AI-CAHT-Assistant")}
+            {t("Your-AI-CAHT-Assistant")}
           </h3>
         </div>
         <div className="d-flex flex-column justify-content-between h-80">
@@ -40,7 +40,7 @@ export default function FilterCard() {
 
             <input
               type="text"
-              className="form-control rounded-pill px-3"
+              className="form-control rounded-4 px-3 bg-body-tertiary"
               placeholder={t("send-placeholder")}
             />
           </div>

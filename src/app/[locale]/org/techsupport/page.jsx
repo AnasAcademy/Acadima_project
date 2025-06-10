@@ -5,9 +5,91 @@ import StartTechCard from "@/components/StartTechCard/StartTechCard";
 import TechFilter from "@/components/TechFilter/TechFilter";
 import AIChat from "@/components/AIChat/AIChat";
 import FrequentlyAskedQues from "@/components/FrequentlyAskedQues/FrequentlyAskedQues";
+import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
+import ticket from "@/assets/admin/ticket.svg";
 
-export default function EmployeeProgress() {
+export default function TechSupport() {
   const t = useTranslations("techSupport");
+
+  const TableHead = [
+    t("ticket_number"),
+    t("subject"),
+    t("status"),
+    t("last_updated"),
+    t("action"),
+  ];
+
+  const trainingData = [
+    {
+      columns: [
+        { type: "text", value: "#20321" },
+        { type: "text", value: t("problem-signing-in") },
+        {
+          type: "button",
+          value: t("inProgress"),
+          icon: false,
+          color: "#FFD900",
+          width: "70%",
+        },
+        { type: "text", value: "05 مايو 2025" },
+        {
+          type: "button",
+          value: t("show-details"),
+          icon: true,
+          textColor: "#216ED7",
+          color: "#fff",
+          decoration: "underline",
+          width: "100%",
+        }
+      ],
+    },
+    {
+      columns: [
+        { type: "text", value: "#20321" },
+        { type: "text", value: t("problem-signing-in") },
+        {
+          type: "button",
+          value: t("completed"),
+          icon: false,
+          color: "#50C1FA",
+          width: "70%",
+        },
+        { type: "text", value: "03 مايو 2025" },
+        {
+          type: "button",
+          value: t("show-details"),
+          icon: true,
+          textColor: "#216ED7",
+          color: "#fff",
+          decoration: "underline",
+          width: "100%",
+        }
+      ],
+    },
+    {
+      columns: [
+        { type: "text", value: "#20321" },
+        { type: "text", value: t("problem-signing-in") },
+        {
+          type: "button",
+          value: t("inProgress"),
+          icon: false,
+          color: "#FFD900",
+          width: "70%",
+        },
+        { type: "text", value: "05 مايو 2025" },
+        {
+          type: "button",
+          value: t("show-details"),
+          icon: true,
+          textColor: "#216ED7",
+          color: "#fff",
+          decoration: "underline",
+          width: "100%",
+        }
+      ],
+    }
+  ];
 
   return (
     <>
@@ -39,12 +121,16 @@ export default function EmployeeProgress() {
             </div>
             <div className="row g-3 m-0">
               <div className="col-xl-9 col-lg-12 ">
-                {/* Table */}
-                <div className="bg-primary">dddd</div>
+                <OngoingTrain
+                  TableHead={TableHead}
+                  trainingData={trainingData}
+                  button={false}
+                  Icon={ticket}
+                  viewAllTickets={true}
+                />
               </div>
               <div className="col-xl-3">
                 <div className=" h-100 ">
-                  {/* Table */}
                   <FrequentlyAskedQues />
                 </div>
               </div>

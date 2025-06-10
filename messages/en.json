@@ -14,7 +14,6 @@
     "tableHead3": "Training program",
     "tablerow": "Leadership skills "
   },
-
   "SidebarA": {
     "dashboard": "Dashboard",
     "Employee progress": "Employee progress",
@@ -29,13 +28,11 @@
     "ad2": "AI-powered chat to instantly answer your inquiries!",
     "ad3": "Talk to your virtual assistant."
   },
-
   "NavbarA": {
     "search": "Search...",
     "dashboard": "Dashboard",
     "home": "Home"
   },
-
   "DashboardA": {
     "employees_registered": "Number of employees registered in training",
     "employees_value": "250 Employees",
@@ -58,7 +55,6 @@
     "ongoing_courses": "Ongoing Courses",
     "issued_certificates": "Issued Certificates"
   },
-
   "Login": {
     "login": "Login ",
     "email": "Email",
@@ -133,7 +129,6 @@
     "info2": "The platform for attending all lectures",
     "btn2": "Login"
   },
-
   "smallcardd": {
     "title1": " Microsoft office365",
     "info2": " Access all your Office programs",
@@ -554,11 +549,18 @@
     "confirm": "Confirm"
   },
   "calendar": {
-    "days": ["Sat", "Fri", "Thu", "Wed", "Tue", "Mon", "Sun"],
+    "days": [
+      "Sat",
+      "Fri",
+      "Thu",
+      "Wed",
+      "Tue",
+      "Mon",
+      "Sun"
+    ],
     "tasksTitle": "Tasks for Today:",
     "noTasks": "No tasks or important events for today"
   },
-
   "lessons": {
     "course_schedule": "Course Schedule",
     "completion": "Completed",
@@ -573,13 +575,11 @@
     "file_name": "File Name / Attachment",
     "note_text": "This is a sample text used for demonstration. You can replace it with your own content."
   },
-
   "homework": {
     "exams": "Exams",
     "content": "Content",
     "lesson_title": "Lesson Title",
     "student_gradev1": "Student Exam Grade",
-
     "titlev1": "Homework Details",
     "deadline": "13 February",
     "submission_limit": "Submission Limit",
@@ -588,11 +588,9 @@
     "pass_score": "Pass Score",
     "submissions": "0/1",
     "students_submitted": "0/100",
-
     "titlev2": "Attachments / Homework Details",
     "file_name": "File name",
     "file_size": "File size",
-
     "titlev3": "Add Submission",
     "instructions": "Add a description of your solution",
     "file_title": "File Title",
@@ -600,12 +598,10 @@
     "send": "Send",
     "no_files_uploaded": "No files have been uploaded yet!",
     "upload_urgency": "Hurry to upload the program requirements",
-
     "teacher_instruction": "Full Student Name",
     "deadline_reached": "The deadline has been reached!",
     "no_more_uploads": "Unfortunately, you can no longer submit files..."
   },
-
   "employee_progress": {
     "page_title": "Employee Progress Tracking",
     "add_employee": "Add Employee",
@@ -615,19 +611,15 @@
     "sort_option": "Alphabetical",
     "view_option": "View:",
     "view_all": "All Programs",
-
     "program_status": "Program Status",
     "department": "Department",
     "branch": "Branch",
     "training_course": "Training Course",
-
     "branch_option": "Main Branch - Riyadh",
     "department_option": "HR Department",
     "program_status_option": "Completed",
-
     "leaderShip": "Leadership Skills Training  ",
     "employee_name": "Employee Name",
-
     "join_date": "Join Date",
     "completion_rate": "Completion Rate",
     "profile_access": "Access Profile",
@@ -636,7 +628,6 @@
     "completed": "Completed",
     "profile": "Profile"
   },
-
   "SubMan": {
     "add_payment_method": "Add payment method",
     "payment_methods": "Payment Methods",
@@ -669,7 +660,6 @@
     "emaill": "Email: oliver@burrito.com",
     "referenceNumber": "Number: FRB1235476"
   },
-
   "yourplan": {
     "your_plan": "Your plan",
     "emails_sent": "Emails sent",
@@ -677,14 +667,12 @@
     "of": "of",
     "want_more": "Want more? Make an upgrade"
   },
-
   "adminNotfi": {
     "all": "All",
     "read": "Read Notifications",
     "unread": "Unread Notifications",
     "senderName": "Sender Name"
   },
-
   "techSupport": {
     "tech-support": "Technical Support",
     "create-new-ticket": "Create a new support ticket",
@@ -717,6 +705,17 @@
         "a4": "Technical tickets are for system or login issues, financial tickets relate to payments and billing, and training tickets are for course-related inquiries."
       }
     ],
-    "view-all-faq": "View All Frequently Asked Questions"
+    "view-all-faq": "View All Frequently Asked Questions",
+    "ticket_number": "Ticket Number",
+    "subject": "Subject",
+    "status": "Status",
+    "last_updated": "Last Updated",
+    "action": "Action",
+    "problem-signing-in": "Problem signing in",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "show-details": "Show Details",
+    "view-all-tickets": "View All Previous Tickets",
+    "previous-tickets": "Previous Tickets"
   }
 }

@@ -8,32 +8,24 @@ export default function FrequentlyAskedQues() {
 
 
   return (
-    <div className="cardbg  p-3 rounded-4">
-      <h2 className="fw-bold mb-3">{t("faq-title")}</h2>
+    <div className="cardbg  p-3 rounded-4 h-100">
+      <h2 className="fw-bold py-3">{t("faq-title")}</h2>
 
       <div className="d-flex flex-column gap-2">
-        {[1, 2, 3, 4].map((num) => (
+        {faqs.map((faq, index) => (
           <button
-            key={num}
-            className={` d-flex justify-content-start gap-2 align-items-center px-3 py-2 rounded  ${
-              num === 2 ? " text-primary" : "bg-light"
-            }`}
+            key={index}
+            className="d-flex justify-content-start gap-2 align-items-center py-3 bg-white border-0 border-bottom"
+            style={{ fontWeight: 500 }}
           >
             <RightArrow size={18} />
-
-            <span>{t(`q${num}`)}</span>
+            <span className="text-end">{faq[`q${index + 1}`]}</span>
           </button>
         ))}
-      </div>
-
-      <div className=" mt-3">
-        <a
-          href="#"
-          className="text-primary fw-bold d-inline-flex align-items-end gap-2"
-        >
-          <Arrow size={16} />
+        <div className="text-primary fw-semibold d-flex align-items-center gap-2 py-3" role="button">
+          <Arrow size={18} />
           {t("view-all-faq")}
-        </a>
+        </div>
       </div>
     </div>
   );

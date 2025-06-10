@@ -10,7 +10,7 @@ export default function StartTechCard() {
   return (
     <>
       <div className=" mt-1  cardbg text-white min-nam-ht position-relative   z-0 ">
-        <Image src={bg} className=" w-100" />
+        <Image src={bg} className=" w-100" alt="start tech" />
         <div className="p-3 position-absolute top-15">
           <h2 className="">{t("direct-contact")}</h2>
           <p className="text-black">{t("direct-contact-p")}</p>

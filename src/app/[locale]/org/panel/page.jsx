@@ -13,18 +13,18 @@ import TrainigControlPanel from "@/components/AdminComp/Home/TrainigControlPanel
 export default function Admin() {
 
 
-const t = useTranslations("HomePageA");
+  const t = useTranslations("HomePageA");
   const tD = useTranslations("Dashboard");
-  
+
   const TableHead = [
-  
+
     t("tableHead3"),
     t("tableHead2"),
     t("tableHead1"),
 
   ];
 
-  
+
 
 
   const trainingData = [
@@ -45,8 +45,8 @@ const t = useTranslations("HomePageA");
       ],
     },
   ];
-   
-  
+
+
 
   return (
     <>
@@ -82,6 +82,7 @@ const t = useTranslations("HomePageA");
                 TableHead={TableHead}
                 trainingData={trainingData}
                 button={true}
+                ContainerTop={true}
               />
             </div>
           </div>

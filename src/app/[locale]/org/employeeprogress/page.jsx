@@ -1,18 +1,18 @@
- import React from 'react'
- import FilterCard from "@/components/FilterCard/FilterCard"
- import SelectCard from "@/components/SelectCard/SelectCard"
- import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
- import { useTranslations } from "next-intl";
- import Pin from "@/assets/admin/pin.svg"
- import Removebin from  "@/assets/admin/removebin.svg";
- import roundimage from "@/assets/admin/personla.png"
- export default function EmployeeProgress() {
-  
-      
-  
+import React from 'react'
+import FilterCard from "@/components/FilterCard/FilterCard"
+import SelectCard from "@/components/SelectCard/SelectCard"
+import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
+import { useTranslations } from "next-intl";
+import Pin from "@/assets/admin/pin.svg"
+import Removebin from "@/assets/admin/removebin.svg";
+import roundimage from "@/assets/admin/personla.png"
+export default function EmployeeProgress() {
+
+
+
   const t = useTranslations("employee_progress");
-  
-  
+
+
   const TableHead = [
     "",
     t("employee_name"),
@@ -22,7 +22,7 @@
     t("completion_rate"),
     t("profile_access"),
   ];
-  
+
   const trainingData = [
     {
       columns: [
@@ -121,8 +121,8 @@
       ],
     },
   ];
-  
-  
+
+
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
@@ -150,5 +150,4 @@
       </div>
     </>
   );
- }
- 
+}
