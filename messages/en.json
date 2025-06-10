@@ -2,18 +2,17 @@
   "HomePageA": {
     "title": "welcome",
     "about": "to mosco",
-    "linchart":"Monitoring the performance of training programs",
-    "linechart":"Visual statistics on trainees' engagement with training courses",
-    "updat":"Latest training updates",
-    "update":"15 new employees have been enrolled in the Leadership and Management course.",
-    "subupdate":"January 22, 2025",
-      "trainpro":"Ongoing training programs",
-    "subtrainpro":"14 training programs were completed within a month.",
-    "tableHead1":"Completion rate",
-    "tableHead2":"Registered employees",
-    "tableHead3":"Training program",
-    "tablerow":"Leadership skills "
-  
+    "linchart": "Monitoring the performance of training programs",
+    "linechart": "Visual statistics on trainees' engagement with training courses",
+    "updat": "Latest training updates",
+    "update": "15 new employees have been enrolled in the Leadership and Management course.",
+    "subupdate": "January 22, 2025",
+    "trainpro": "Ongoing training programs",
+    "subtrainpro": "14 training programs were completed within a month.",
+    "tableHead1": "Completion rate",
+    "tableHead2": "Registered employees",
+    "tableHead3": "Training program",
+    "tablerow": "Leadership skills "
   },
 
   "SidebarA": {
@@ -22,22 +21,21 @@
     "Subscription Management": "Subscription Management",
     "Notifications": "Notifications",
     "Technical Support": "Technical Support",
-    "Account Management":"Account Management",
-    "Organization Profile":"Organization Profile",
+    "Account Management": "Account Management",
+    "Organization Profile": "Organization Profile",
     "AI Assistant": "AI Assistant",
-    "Settings" :"Settings",
-    "ad1":"Do you need help? ",
-    "ad2":"AI-powered chat to instantly answer your inquiries!",
-    "ad3":"Talk to your virtual assistant."
+    "Settings": "Settings",
+    "ad1": "Do you need help? ",
+    "ad2": "AI-powered chat to instantly answer your inquiries!",
+    "ad3": "Talk to your virtual assistant."
   },
 
-
-"NavbarA": {
+  "NavbarA": {
     "search": "Search...",
     "dashboard": "Dashboard",
     "home": "Home"
   },
-  
+
   "DashboardA": {
     "employees_registered": "Number of employees registered in training",
     "employees_value": "250 Employees",
@@ -60,18 +58,6 @@
     "ongoing_courses": "Ongoing Courses",
     "issued_certificates": "Issued Certificates"
   },
-
-
-
-
-
-
-
-
-
-
-
-
 
   "Login": {
     "login": "Login ",
@@ -148,11 +134,10 @@
     "btn2": "Login"
   },
 
-
   "smallcardd": {
     "title1": " Microsoft office365",
-     "info2":" Access all your Office programs",
-    "btn2":" Download "
+    "info2": " Access all your Office programs",
+    "btn2": " Download "
   },
   "importantFiles": {
     "title": "Important Files",
@@ -315,21 +300,21 @@
       "body": "The Technical Department at Anas Academy wishes you continued success and excellence. We are honored to support you on your journey...",
       "button": "View Message",
       "close": "Close Message",
-       "flag":"true"
+      "flag": "true"
     },
     {
       "tit": "Important Update",
       "title": "Your Data Has Been Successfully Updated",
       "date": "November 6, 2024 | 10:00 AM",
       "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment.",
-      "flag":"false"
+      "flag": "false"
     },
     {
       "tit": "Important Update",
       "title": "Your Data Has Been Successfully Updated",
       "date": "November 6, 2024 | 10:00 AM",
       "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment.",
-       "flag":"true"
+      "flag": "true"
     }
   ],
   "payments": {
@@ -568,39 +553,32 @@
     "back": "Back",
     "confirm": "Confirm"
   },
-   "calendar": {
-  
-     "days": ["Sat", "Fri", "Thu", "Wed", "Tue", "Mon", "Sun"],
-       "tasksTitle": "Tasks for Today:",
+  "calendar": {
+    "days": ["Sat", "Fri", "Thu", "Wed", "Tue", "Mon", "Sun"],
+    "tasksTitle": "Tasks for Today:",
     "noTasks": "No tasks or important events for today"
   },
 
+  "lessons": {
+    "course_schedule": "Course Schedule",
+    "completion": "Completed",
+    "intelligent_course": "AI for Beginners: Programming Guidance",
+    "content": "Content",
+    "exams": "Exams",
+    "section_title": "Section Title / Content",
+    "lecture_title": "Lecture Title",
+    "lecture_count": "Lecture Count",
+    "additional_content": "Additional Content / Attachments",
+    "attachments": "Attachments / Download Links",
+    "file_name": "File Name / Attachment",
+    "note_text": "This is a sample text used for demonstration. You can replace it with your own content."
+  },
 
-
-  "lessons":{
-
-   "course_schedule": "Course Schedule",
-  "completion": "Completed",
-  "intelligent_course": "AI for Beginners: Programming Guidance",
-  "content": "Content",
-  "exams": "Exams",
-  "section_title": "Section Title / Content",
-  "lecture_title": "Lecture Title",
-  "lecture_count": "Lecture Count",
-  "additional_content": "Additional Content / Attachments",
-  "attachments": "Attachments / Download Links",
-  "file_name": "File Name / Attachment",
-  "note_text": "This is a sample text used for demonstration. You can replace it with your own content."
-},
-
-
-
-"homework":{
-
+  "homework": {
     "exams": "Exams",
     "content": "Content",
-  "lesson_title": "Lesson Title",
-  "student_gradev1": "Student Exam Grade",
+    "lesson_title": "Lesson Title",
+    "student_gradev1": "Student Exam Grade",
 
     "titlev1": "Homework Details",
     "deadline": "13 February",
@@ -614,43 +592,38 @@
     "titlev2": "Attachments / Homework Details",
     "file_name": "File name",
     "file_size": "File size",
-  
+
     "titlev3": "Add Submission",
     "instructions": "Add a description of your solution",
     "file_title": "File Title",
     "upload": "Upload File",
     "send": "Send",
-      "no_files_uploaded": "No files have been uploaded yet!",
-  "upload_urgency": "Hurry to upload the program requirements",
+    "no_files_uploaded": "No files have been uploaded yet!",
+    "upload_urgency": "Hurry to upload the program requirements",
 
-  "teacher_instruction": "Full Student Name",
-   "deadline_reached": "The deadline has been reached!",
-  "no_more_uploads": "Unfortunately, you can no longer submit files..."
+    "teacher_instruction": "Full Student Name",
+    "deadline_reached": "The deadline has been reached!",
+    "no_more_uploads": "Unfortunately, you can no longer submit files..."
+  },
 
+  "employee_progress": {
+    "page_title": "Employee Progress Tracking",
+    "add_employee": "Add Employee",
+    "filter": "Filter",
+    "search_placeholder": "Search for an employee, course, department...",
+    "sort_by": "Sort by:",
+    "sort_option": "Alphabetical",
+    "view_option": "View:",
+    "view_all": "All Programs",
 
-}
+    "program_status": "Program Status",
+    "department": "Department",
+    "branch": "Branch",
+    "training_course": "Training Course",
 
-,
-
-
-"employee_progress":{
-  "page_title": "Employee Progress Tracking",
-  "add_employee": "Add Employee",
-  "filter": "Filter",
-  "search_placeholder": "Search for an employee, course, department...",
-  "sort_by": "Sort by:",
-  "sort_option": "Alphabetical",
-  "view_option": "View:",
-  "view_all": "All Programs",
-
-  "program_status": "Program Status",
-  "department": "Department",
-  "branch": "Branch",
-  "training_course": "Training Course",
-
-  "branch_option": "Main Branch - Riyadh",
-  "department_option": "HR Department",
-  "program_status_option": "Completed",
+    "branch_option": "Main Branch - Riyadh",
+    "department_option": "HR Department",
+    "program_status_option": "Completed",
 
     "leaderShip": "Leadership Skills Training  ",
     "employee_name": "Employee Name",
@@ -662,75 +635,88 @@
     "inProgress": "In Progress",
     "completed": "Completed",
     "profile": "Profile"
-  }
+  },
 
+  "SubMan": {
+    "add_payment_method": "Add payment method",
+    "payment_methods": "Payment Methods",
+    "membership": "Membership Management",
+    "view_plans": "View Plans",
+    "info2": "Subscription State",
+    "title1": "Subscription State",
+    "btn2": "Active",
+    "days_remaining": "21 days remaining in current plan",
+    "company_name": "Company Name",
+    "plan_title": "Current Plan Title",
+    "monthly_price": "500.00",
+    "subscription_date": "Subscription date",
+    "end_date": "End date",
+    "employees": "No. of employees",
+    "tracking": "Employee progress tracking",
+    "your_plan": "Your plan",
+    "emails_sent": "Emails sent",
+    "sms_sent": "SMS sent",
+    "daily_requests": "Daily requests",
+    "upgrade_prompt": "Want more? Make an upgrade",
+    "payment_details": "Payment Operation Details",
+    "download_receipt": "Download receipt",
+    "payment_operation": "Subscription payment operation",
+    "amount": "Amount",
+    "email": "Email",
+    "vat_number": "VAT number",
+    "view_all": "View all payment operations",
+    "subscriptionAmount": "Subscription amount: 500$",
+    "emaill": "Email: oliver@burrito.com",
+    "referenceNumber": "Number: FRB1235476"
+  },
 
-  ,
-
-
-  "SubMan":{
-   "add_payment_method": "Add payment method",
-  "payment_methods": "Payment Methods",
-  "membership": "Membership Management",
-  "view_plans": "View Plans",
-  "info2": "Subscription State",
-  "title1": "Subscription State",
-  "btn2": "Active",
-  "days_remaining": "21 days remaining in current plan",
-  "company_name": "Company Name",
-  "plan_title": "Current Plan Title",
-  "monthly_price": "500.00",
-  "subscription_date": "Subscription date",
-  "end_date": "End date",
-  "employees": "No. of employees",
-  "tracking": "Employee progress tracking",
-  "your_plan": "Your plan",
-  "emails_sent": "Emails sent",
-  "sms_sent": "SMS sent",
-  "daily_requests": "Daily requests",
-  "upgrade_prompt": "Want more? Make an upgrade",
-  "payment_details": "Payment Operation Details",
-  "download_receipt": "Download receipt",
-  "payment_operation": "Subscription payment operation",
-  "amount": "Amount",
-  "email": "Email",
-  "vat_number": "VAT number",
-  "view_all": "View all payment operations",
-  "subscriptionAmount": "Subscription amount: 500$",
-  "emaill": "Email: oliver@burrito.com",
-  "referenceNumber": "Number: FRB1235476"
-  
-  }
-
-
-
-  ,
-
-
-  "yourplan":{
-  
-  
+  "yourplan": {
     "your_plan": "Your plan",
     "emails_sent": "Emails sent",
     "sms_sent": "SMS sent",
     "of": "of",
     "want_more": "Want more? Make an upgrade"
-  
-  
-  
-  
   },
 
+  "adminNotfi": {
+    "all": "All",
+    "read": "Read Notifications",
+    "unread": "Unread Notifications",
+    "senderName": "Sender Name"
+  },
 
-
-"adminNotfi":{
-
-  "all": "All",
-  "read": "Read Notifications",
-  "unread": "Unread Notifications",
- "senderName": "Sender Name"
-}
-
-
-
+  "techSupport": {
+    "tech-support": "Technical Support",
+    "create-new-ticket": "Create a new support ticket",
+    "create-new-ticket-p": "You can open a new ticket if you encounter any problem or inquiry.",
+    "create-new-ticket-button": "Create a new support ticket",
+    "direct-contact": "Live chat/contact with support",
+    "direct-contact-p": "Contact our support team directly to resolve your inquiry immediately.",
+    "direct-contact-button": "Start the conversation",
+    "ticket-filter": "Ticket Filter",
+    "sort_by": "Sort by",
+    "date": "Date",
+    "Your-AI-CAHT-Assistant": "Your AI CAHT Assistant",
+    "send-placeholder": "How do I recover my password? ......",
+    "faq-title": "Frequently Asked Questions About Support Tickets",
+    "faqs": [
+      {
+        "q1": "How can I open a new support ticket?",
+        "a1": "You can open a new support ticket by clicking the 'Create Support Ticket' button and filling in the required details."
+      },
+      {
+        "q2": "Can I edit the ticket after sending it?",
+        "a2": "Yes, you can edit your ticket after submitting it, but only until it receives a response from the support team."
+      },
+      {
+        "q3": "When should I expect a response to the ticket?",
+        "a3": "You will typically receive a response within 24 to 48 business hours depending on the ticket type and priority."
+      },
+      {
+        "q4": "What’s the difference between ticket types (technical, financial, training)?",
+        "a4": "Technical tickets are for system or login issues, financial tickets relate to payments and billing, and training tickets are for course-related inquiries."
+      }
+    ],
+    "view-all-faq": "View All Frequently Asked Questions"
+  }
 }

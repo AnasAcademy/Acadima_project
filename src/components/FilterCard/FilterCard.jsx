@@ -7,7 +7,6 @@
 
   export default function FilterCard() {
 
-    
     const t = useTranslations("employee_progress");
     return (
       <>

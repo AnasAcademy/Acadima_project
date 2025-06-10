@@ -1582,3 +1582,65 @@ flex-direction: row-reverse;
     right: auto;
     transform: translateX(0%);
 }
+
+.techcardtop {
+  border-radius: 15px 15px 0px 0px;
+}
+.top-15 {
+  top: 15% !important;
+}
+.top-20 {
+  top: 20% !important;
+}
+.top-5 {
+  top: 5% !important;
+}
+
+.chat-box {
+  width: 320px;
+  height: 420px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #001fbd;
+  color: white;
+  text-align: center;
+  line-height: 32px;
+  font-weight: bold;
+}
+
+.chat-body {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.bubble {
+  display: inline-block;
+  padding: 10px 14px;
+  color: #000;
+}
+
+.user-bubble {
+  background-color: #f3e5f5;
+  border-radius: 15px 15px 0 15px;
+}
+
+.ai-bubble {
+  background-color: #e3f2fd;
+  border-radius: 15px 15px 15px 0;
+
+}
+
+.h-80 {
+  height: 80% !important;
+}

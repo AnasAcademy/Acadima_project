@@ -22,6 +22,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const isPanel = pathname.includes("/org/panel");
   const isEmployeeprogress = pathname.includes("/org/employeeprogress");
+  const isTechSupport = pathname.includes("/org/techsupport");
 
 
   const isSubscriptionmanagement = pathname.includes(
@@ -159,7 +160,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    "option" === "opthion" ? "cardbg  rounded-4   " : ""
+                    isTechSupport ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
                     toggle("option");
@@ -167,13 +168,13 @@ export default function Sidebar() {
                 >
                   <Option
                     className={`iconSize2   ${
-                      "option" === "ophtion" ? "iconcolor2" : "iconcolor"
+                      isTechSupport ? "iconcolor2" : "iconcolor"
                     }  `}
                   />
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800 "
                     aria-current="page"
-                    href="/org/employeeprogress"
+                    href="/org/techsupport"
                   >
                     {t("Technical Support")}
                   </Link>

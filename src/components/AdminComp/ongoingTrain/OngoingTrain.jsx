@@ -20,7 +20,7 @@ export default function OngoingTrain({ TableHead, trainingData,  Icon, Icon2 }) 
      <td className=" text-dark   text-nowrap   ">{col.value}</td>
    ),
    button: (col) => (
-     <td className=" d-flex gap-3  align-items-center  justify-content-center  ">
+     <td className=" d-flex gap-3  align-items-center p-3 justify-content-center  ">
        <h4
          className={` Tit-14-700 btncolor  text-white text-center  rounded-4 p-2 w-50  text-nowrap d-flex align-items-center gap-2 justify-content-center`}
          style={{ backgroundColor: col.color }}
