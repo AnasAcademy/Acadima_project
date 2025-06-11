@@ -25,7 +25,7 @@ export default function LessonsNavbar({setFull ,full}) {
 
   return (
     <>
-      <div className="  w-100 d-flex justify-content-around align-items-center cardbg ">
+      <div className="  w-100 d-flex justify-content-around align-items-center cardbg  ">
         <div className=" row w-100  d-flex justify-content-around align-items-center p-3  ">
           <div className=" col-6  d-lg-none   d-sm-flex  d-flex  ">
             <nav className="navbar navbar-light      ">
@@ -78,9 +78,9 @@ export default function LessonsNavbar({setFull ,full}) {
             </div>
           </div>
 
-          <div className=" col-2 d-lg-flex d-md-none d-none col-lg-2">
-            <div className=" d-flex justify-content-center align-items-center gap-3">
-              <button className=" btn  custButt-outline  p-2 ">
+          <div className=" col-2 d-lg-flex d-md-none d-none col-lg-1   justify-content-end    ">
+            <div className=" d-flex justify-content-center align-items-center gap-2">
+              <button className=" btn   custButt-outline  p-2   ">
                 جدول المقررات
               </button>
               <div className=" cursor-pointer" onClick={toggle}>

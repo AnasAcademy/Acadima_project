@@ -110,7 +110,7 @@ export default function Sidebar() {
             >
               <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start  vh-100      pt-sm-4 pt-4 pt-lg-0 ">
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-75  align-items-center   ${
                     isDashPage ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
@@ -132,7 +132,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex   p-2  w-100  align-items-center   ${
+                  className={`nav-item d-flex   p-2  w-75  align-items-center   ${
                     isAdminPage ? "cardbg  rounded-2 " : ""
                   }   `}
                   onClick={() => {
@@ -154,7 +154,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-75  align-items-center   ${
                     isCoursesPage ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
@@ -176,7 +176,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-75  align-items-center   ${
                     isCertfiPage ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
@@ -198,7 +198,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-75  align-items-center   ${
                     isPayPage ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
@@ -220,7 +220,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-75 align-items-center   ${
                     isNotfiPage ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
@@ -242,7 +242,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-75  align-items-center   ${
                     isServPage ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
@@ -264,7 +264,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-75  align-items-center   ${
                     isSettPage ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
@@ -286,7 +286,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-75  align-items-center   ${
                     actv === "log" ? "cardbg  rounded-4   " : ""
                   }   `}
                   onClick={() => {
@@ -321,7 +321,9 @@ export default function Sidebar() {
                   </div>
                 </div>
 
-                <div className=" d-flex justify-content-center gap-1 mt-2    w-100">
+                <div className=" d-flex justify-content-center gap-1 mt-2   powered   w-100">
+                
+                <p>Powered By</p>
                   <Image
                     src={logo}
                     alt="ai"
@@ -330,7 +332,7 @@ export default function Sidebar() {
                     priority
                     className=" mt-1"
                   />
-                  <p>Powered By</p>
+                  
                 </div>
               </ul>
             </div>

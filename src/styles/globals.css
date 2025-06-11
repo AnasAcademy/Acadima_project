@@ -1648,3 +1648,17 @@ flex-direction: row-reverse;
 .width-fit {
   width: fit-content;
 }
+
+.powered{
+
+     display: flex;
+     flex-direction: row;
+}
+
+[dir="rtl"] .powered{
+
+      display: flex;
+     flex-direction: row-reverse;
+
+
+}
