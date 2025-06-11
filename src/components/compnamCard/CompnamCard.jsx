@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <Image src={Backg} className=" w-100" />
+        <Image src={Backg} alt="ai" className=" w-100" />
       </>
     );
   }

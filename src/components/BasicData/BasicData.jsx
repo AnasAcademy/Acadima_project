@@ -130,7 +130,7 @@ const handleSave = () => {
             <Image
               src={preview}
               alt="black circle"
-              class="rounded-circle"
+              className="rounded-circle"
               width={111}
               height={111}
             />
@@ -288,7 +288,7 @@ const handleSave = () => {
               <div className="form-check form-switch  d-flex justify-content-between gap-3   m-0 p-0 ">
                 <label
                   className="d-flex  custfont text-nowrap"
-                  for="flexSwitchCheckDefault"
+                  htmlFor="flexSwitchCheckDefault"
                 >
                   {info.toggle_language}{" "}
                 </label>
@@ -303,7 +303,7 @@ const handleSave = () => {
               <div className="form-check form-switch  d-flex justify-content-between   gap-3  m-0 p-0">
                 <label
                   className="d-flex custfont  text-nowrap"
-                  for="flexSwitchCheckDefault"
+                  htmlFor="flexSwitchCheckDefault"
                 >
                   {info.toggle_profile}{" "}
                 </label>

@@ -1644,3 +1644,7 @@ flex-direction: row-reverse;
 .h-80 {
   height: 80% !important;
 }
+
+.width-fit {
+  width: fit-content;
+}

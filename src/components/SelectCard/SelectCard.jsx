@@ -19,8 +19,9 @@
                      <select
                        className="form-select   cselect  custroundbtn  "
                        aria-label="Default select example"
+                       defaultValue={0}
                      >
-                       <option selected> {t("sort_by")} </option>
+                       <option value="0"> {t("sort_by")} </option>
                        <option value="1">One</option>
                        <option value="2">Two</option>
                        <option value="3">Three</option>
@@ -37,8 +38,9 @@
                      <select
                        className="form-select  custroundbtn"
                        aria-label="Default select example"
+                       defaultValue={0}
                      >
-                       <option selected> {t("sort_by")}</option>
+                       <option value="0"> {t("sort_by")}</option>
                        <option value="1">One</option>
                        <option value="2">Two</option>
                        <option value="3">Three</option>
@@ -55,8 +57,9 @@
                      <select
                        className="form-select  custroundbtn"
                        aria-label="Default select example"
+                       defaultValue={0}
                      >
-                       <option selected> {t("sort_by")} </option>
+                       <option value="0"> {t("sort_by")} </option>
                        <option value="1">One</option>
                        <option value="2">Two</option>
                        <option value="3">Three</option>
@@ -72,8 +75,9 @@
                      <select
                        className="form-select  custroundbtn"
                        aria-label="Default select example"
+                       defaultValue={0}
                      >
-                       <option selected> {t("sort_by")}</option>
+                       <option value="0"> {t("sort_by")}</option>
                        <option value="1">One</option>
                        <option value="2">Two</option>
                        <option value="3">Three</option>
