@@ -23,7 +23,7 @@ export default function Sidebar() {
   const isPanel = pathname.includes("/org/panel");
   const isEmployeeprogress = pathname.includes("/org/employeeprogress");
   const isTechSupport = pathname.includes("/org/techsupport");
-
+  const isOrgprofile = pathname.includes("/org/orgprofile");
 
   const isSubscriptionmanagement = pathname.includes(
     "/org/subscription-management"
@@ -31,12 +31,7 @@ export default function Sidebar() {
   const isNotfiPage = pathname.includes("/org/notifications");
 
 
-  useEffect(() => {
 
-      console.log(pathname);
-      console.log(isPanel);
-      console.log(isEmployeeprogress);
-  }, [])
 
 
 
@@ -74,9 +69,6 @@ export default function Sidebar() {
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
                     isPanel ? "cardbg  rounded-4   " : ""
                   }   `}
-                  onClick={() => {
-                    toggle("das");
-                  }}
                 >
                   <Home
                     className={`iconSize2   ${
@@ -96,9 +88,6 @@ export default function Sidebar() {
                   className={`nav-item d-flex   p-2  w-100  align-items-center   ${
                     isEmployeeprogress ? "cardbg  rounded-2 " : ""
                   }   `}
-                  onClick={() => {
-                    toggle("stat");
-                  }}
                 >
                   <Stat
                     className={`iconSize2   ${
@@ -118,9 +107,6 @@ export default function Sidebar() {
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
                     isSubscriptionmanagement ? "cardbg  rounded-4   " : ""
                   }   `}
-                  onClick={() => {
-                    toggle("card");
-                  }}
                 >
                   <Card
                     className={`iconSize2   ${
@@ -140,9 +126,6 @@ export default function Sidebar() {
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
                     isNotfiPage ? "cardbg  rounded-4   " : ""
                   }   `}
-                  onClick={() => {
-                    toggle("notif");
-                  }}
                 >
                   <Notif
                     className={`iconSize2   ${
@@ -162,9 +145,6 @@ export default function Sidebar() {
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
                     isTechSupport ? "cardbg  rounded-4   " : ""
                   }   `}
-                  onClick={() => {
-                    toggle("option");
-                  }}
                 >
                   <Option
                     className={`iconSize2   ${
@@ -184,7 +164,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-12-700 Gray-Gray-700 "
                     aria-current="page"
-                    href="/org/employeeprogress"
+                    href="/org/orgprofile"
                   >
                     {t("Account Management")}
                   </Link>
@@ -192,17 +172,18 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    "pro" === "prho" ? "cardbg  rounded-4   " : ""
+                    isOrgprofile ? "cardbg  rounded-4   " : ""
                   }   `}
-                  onClick={() => {
-                    toggle("pro");
-                  }}
                 >
-                  <Profile className="iconSize2 iconcolor" />
+                  <Profile
+                    className={`iconSize2   ${
+                      isOrgprofile ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/employeeprogress"
+                    href="/org/orgprofile"
                   >
                     {t("Organization Profile")}
                   </Link>
@@ -212,11 +193,12 @@ export default function Sidebar() {
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
                     "option" === "ai" ? "cardbg  rounded-4   " : ""
                   }   `}
-                  onClick={() => {
-                    toggle("ai");
-                  }}
                 >
-                  <Ai className="iconSize2 iconcolor" />
+                  <Ai
+                    className={`iconSize2   ${
+                      1 == 0 ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
@@ -230,9 +212,6 @@ export default function Sidebar() {
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
                     "option" === "sett" ? "cardbg  rounded-4   " : ""
                   }   `}
-                  onClick={() => {
-                    toggle("sett");
-                  }}
                 >
                   <Setting className="iconSize2 iconcolor" />
                   <Link

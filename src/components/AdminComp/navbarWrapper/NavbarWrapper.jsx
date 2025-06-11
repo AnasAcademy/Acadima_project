@@ -12,6 +12,8 @@ export default function NavbarWrapper() {
       "/en/register",
       "/ar/register",
       "/ar/bundles/4/course/learning/4",
+      "/ar/org/orgprofile",
+      "/en/org/orgprofile",
     ];
 
     return <>{!hideSidebarRoutes.includes(pathname) && <Navbar />}</>;

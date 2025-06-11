@@ -10,12 +10,12 @@
        <div className="cardbg  px-3 py-2 d-flex flex-row justify-content-between align-items-center rounded-4  min-adash-ht">
          <div className="  row d-flex justify-content-between  w-100 ">
            <div className="col-lg-12 col-xl-9 col-12 col-md-12 ">
-             <div className={`  m-2  row  g-4   `}>
-               <div className=" col-lg-6 col-xl-3    col-12 m-0">
+             <div className={`  m-2  row  g-4    `}>
+               <div className=" col-lg-6 col-xl-3    col-12 ">
                  <div className=" d-flex w-100 flex-column  ">
                    <h3 className="h6"> {t("training_course")} </h3>
 
-                   <div className="d-flex justify-content-center  align-items-center  w-100  position-relative  ">
+                   <div className="d-flex justify-content-center  align-items-center  w-100  position-relative   ">
                      <select
                        className="form-select   cselect  custroundbtn  "
                        aria-label="Default select example"

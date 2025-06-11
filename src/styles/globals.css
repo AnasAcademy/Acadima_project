@@ -1644,3 +1644,12 @@ flex-direction: row-reverse;
 .h-80 {
   height: 80% !important;
 }
+
+
+.recstyle{
+
+   position: absolute;
+  top: 120px;
+   right: 0;
+   background-image: url('./../assets//admin//Rectangle41.svg');
+}
