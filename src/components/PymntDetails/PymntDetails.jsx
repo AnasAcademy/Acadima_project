@@ -29,7 +29,7 @@ export default function PymntDetails() {
             </div>
           </div>
 
-          <div class="d-flex justify-content-between">
+          <div className="d-flex justify-content-between">
             <div>
               <h4 className="Tit-14-700"> {t("payment_operation")} </h4>
               <p className=" d-flex flex-column">
@@ -43,7 +43,7 @@ export default function PymntDetails() {
               <h3 className="Tit-12-700"> {t("download_receipt")} </h3>
             </div>
           </div>
-          <div class="d-flex justify-content-between">
+          <div className="d-flex justify-content-between">
             <div>
               <h4 className="Tit-14-700"> {t("payment_operation")} </h4>
               <p className=" d-flex flex-column">
@@ -59,7 +59,7 @@ export default function PymntDetails() {
             </div>
           </div>
 
-          <div class="d-flex justify-content-between">
+          <div className="d-flex justify-content-between">
             <div>
               <h4 className="Tit-14-700"> {t("payment_operation")} </h4>
               <p className=" d-flex flex-column">

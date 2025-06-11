@@ -68,7 +68,7 @@ export default function PersonalData({ tit, save }) {
         <div className=" mt-5 cardbg p-3 pt-2">
           <h3 className=" d-flex gap-1 custsubtitle3">
             {" "}
-            {tit} <h5 className=" custsubtitle3 text-danger">*</h5> :{" "}
+            {tit} <span className=" custsubtitle3 text-danger">*</span> :{" "}
           </h3>
           <div className="container">
             <div className=" row g-5">
@@ -76,7 +76,7 @@ export default function PersonalData({ tit, save }) {
                 <h3 className=" d-flex gap-1 custfont  ">
                   {" "}
                   {info.full_name_arabic}{" "}
-                  <h5 className=" custfont text-danger">*</h5>{" "}
+                  <span className=" custfont text-danger">*</span>{" "}
                 </h3>
                 <input
                   id="fullName"

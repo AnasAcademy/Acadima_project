@@ -119,9 +119,9 @@
     "hello": "Hello",
     "name": "Aisha Mohamed",
     "info": "Diploma Program in Visual Design",
-    "Academic_info": "Academic Information:",
-    "Student ID": "Student ID :",
-    "Academic_Email": "Academic Email:",
+    "Academic_info": "User Information:",
+    "Student ID": "User ID :",
+    "Academic_Email": "Email:",
     "Password": "Password :"
   },
   "smallcard": {
@@ -703,9 +703,18 @@
       {
         "q4": "What’s the difference between ticket types (technical, financial, training)?",
         "a4": "Technical tickets are for system or login issues, financial tickets relate to payments and billing, and training tickets are for course-related inquiries."
+      },
+      {
+        "q5": "What’s the difference between ticket types (technical, financial, training)?",
+        "a5": "Technical tickets are for system or login issues, financial tickets relate to payments and billing, and training tickets are for course-related inquiries."
+      },
+      {
+        "q6": "What’s the difference between ticket types (technical, financial, training)?",
+        "a6": "Technical tickets are for system or login issues, financial tickets relate to payments and billing, and training tickets are for course-related inquiries."
       }
     ],
     "view-all-faq": "View All Frequently Asked Questions",
+    "view-less-faq": "View fewer questions",
     "ticket_number": "Ticket Number",
     "subject": "Subject",
     "status": "Status",

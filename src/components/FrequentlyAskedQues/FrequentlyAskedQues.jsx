@@ -1,3 +1,5 @@
+"use client"
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import Arrow from "@/assets/admin/arrow down.svg";
 import RightArrow from "@/assets/admin/rightArrow.svg";
@@ -6,27 +8,63 @@ export default function FrequentlyAskedQues() {
   const t = useTranslations("techSupport");
   const faqs = t.raw("faqs");
 
+  const [openIndex, setOpenIndex] = useState(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const handleToggle = (index) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  };
+
+  const visibleFaqs = showAll ? faqs : faqs.slice(0, 4);
 
   return (
-    <div className="cardbg  p-3 rounded-4 h-100">
-      <h2 className="fw-bold py-3">{t("faq-title")}</h2>
+    <div className="cardbg p-3 py-lg-5 rounded-4 h-100">
+      <h2 className="fw-bold mb-3">{t("faq-title")}</h2>
 
       <div className="d-flex flex-column gap-2">
-        {faqs.map((faq, index) => (
-          <button
-            key={index}
-            className="d-flex justify-content-start gap-2 align-items-center py-3 bg-white border-0 border-bottom"
-            style={{ fontWeight: 500 }}
-          >
-            <RightArrow size={18} />
-            <span className="text-end">{faq[`q${index + 1}`]}</span>
-          </button>
-        ))}
-        <div className="text-primary fw-semibold d-flex align-items-center gap-2 py-3" role="button">
-          <Arrow size={18} />
-          {t("view-all-faq")}
-        </div>
+        {visibleFaqs.map((faq, index) => {
+          const actualIndex = showAll ? index : index; // maintain proper index for q/a keys
+          const isOpen = openIndex === actualIndex;
+
+          return (
+            <div key={actualIndex} className="bg-white rounded border-bottom">
+              <button
+                onClick={() => handleToggle(actualIndex)}
+                className="w-100 d-flex justify-content-start gap-2 align-items-center py-3 border-0 bg-white"
+                style={{ fontWeight: 500 }}
+              >
+                <div
+                  style={{
+                    transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
+                    transition: "transform 0.2s",
+                  }}
+                >
+                  <RightArrow width={18} height={18} />
+                </div>
+                <span className="width-fit">{faq[`q${actualIndex + 1}`]}</span>
+              </button>
+
+              {isOpen && (
+                <div className="px-3 pb-3 text-secondary" style={{ fontSize: 14 }}>
+                  {faq[`a${actualIndex + 1}`]}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
+
+      {faqs.length > 4 && (
+        <div className="mt-3">
+          <button
+            onClick={() => setShowAll((prev) => !prev)}
+            className="text-primary fw-bold d-inline-flex align-items-end gap-2 border-0 bg-transparent"
+          >
+            <Arrow width={16} height={16} />
+            {showAll ? t("view-less-faq") : t("view-all-faq")}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

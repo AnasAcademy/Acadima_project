@@ -45,7 +45,7 @@ export default function Sidebar() {
               role="button"
               href="/"
             >
-              <Image src={logo} alt="" width={120} height={32} priority />
+              <Image src={logo} alt="ai" width={120} height={32} priority />
             </Link>
 
             <button
@@ -238,12 +238,12 @@ export default function Sidebar() {
           </div>
 
           <div className="   ">
-            <Image src={bk} width={250} height={169.5} />
+            <Image src={bk} alt="ai" width={250} height={169.5} />
           </div>
         </div>
 
         <div className=" d-flex justify-content-center gap-1 mt-2   ">
-          <Image src={logo} width={60} height={18} priority className=" mt-1" />
+          <Image src={logo} alt="ai" width={60} height={18} priority className=" mt-1" />
           <p>Powered By</p>
         </div>
       </div>

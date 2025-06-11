@@ -14,7 +14,7 @@ export default function Admin() {
 
 
   const t = useTranslations("HomePageA");
-  const tD = useTranslations("Dashboard");
+  const tD = useTranslations("DashboardA");
 
   const TableHead = [
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function CoursesTable({ headers, courses, btn, join, reg }) {
@@ -33,9 +34,11 @@ export default function CoursesTable({ headers, courses, btn, join, reg }) {
                             style={{ "--flag": flagColor }}
                           >
                             {isLast ? (
+                                    <Link href="/bundles/4/course/learning/4" >
                               <button className="btn btn-outline-light   custfontbtn">
                                 {td}
                               </button>
+                                 </Link>
                             ) : (
                               td
                             )}
@@ -49,6 +52,7 @@ export default function CoursesTable({ headers, courses, btn, join, reg }) {
             </tbody>
           </table>
         </div>
+  
         {btn ? (
           <button className=" btn  mt-xl-0 mt-sm-3 mt-3  m-auto btn-light custButton border-0 px-5 py-2 text-nowrap">
             {btn}
@@ -56,6 +60,7 @@ export default function CoursesTable({ headers, courses, btn, join, reg }) {
         ) : (
           ""
         )}
+       
         <h4 className=" mt-3">
           {join} {reg}
         </h4>

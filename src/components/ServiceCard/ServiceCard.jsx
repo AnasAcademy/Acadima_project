@@ -10,7 +10,7 @@ export default function ServiceCards() {
   const services = t.raw("items");
 
   return (
-    <div className="container ">
+    <div className=" ">
       <h3 className="custsubtitle mb-4">{t("title")}</h3>
       <div className="row gy-4">
         {services.map((service, index) => (

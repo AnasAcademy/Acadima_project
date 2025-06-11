@@ -11,17 +11,17 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
 
 
   const renderCell = {
-    image: (col) => (
+    image: (col, key) => (
 
-      <td >
-        <Image src={col.value} className=' rounded-circle p-0' />
+      <td key={key}>
+        <Image src={col.value} className=' rounded-circle p-0' alt="col-val"/>
       </td>
     ),
-    text: (col) => (
-      <td className=" text-dark   text-nowrap   ">{col.value}</td>
+    text: (col, key) => (
+      <td key={key} className=" text-dark   text-nowrap   ">{col.value}</td>
     ),
-    button: (col) => (
-      <td className=" d-flex gap-3  align-items-center p-3 justify-content-center  ">
+    button: (col, key) => (
+      <td key={key} className=" d-flex gap-3  align-items-center p-3 justify-content-center  ">
         <h4
           className={` Tit-14-700 btncolor text-center  rounded-4 p-2 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
           style={{ backgroundColor: col.color, color: col.textColor || "#fff", textDecoration: col.decoration || "none", width: col.width || "40%" }}
@@ -48,8 +48,8 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
         )}
       </td>
     ),
-    progress: (col) => (
-      <td className="  ">
+    progress: (col, key) => (
+      <td key={key} className="  ">
         <div className="d-flex align-items-center  flex-row-reverse  gap-2 ">
           <strong className="textcolor">{col.value}%</strong>
 
@@ -62,8 +62,8 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
         </div>
       </td>
     ),
-    icon: (col) => (
-      <td>
+    icon: (col, key) => (
+      <td key={key}>
         <col.value className="iconSize2" />
       </td>
     ),
@@ -108,9 +108,9 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
                 <tr key={index} className="text-center ">
                   {item.columns.map((col, colindex) => {
                     return renderCell[col.type] ? (
-                      renderCell[col.type](col)
+                      renderCell[col.type](col, `${index}-${colindex}`)
                     ) : (
-                      <td key={colindex}></td>
+                      <td key={`${index}-${colindex}`}></td>
                     );
                   })}
                 </tr>

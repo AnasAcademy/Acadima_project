@@ -82,7 +82,7 @@ export default function SettingSidebar() {
                 <h4>{percent}</h4>
               </div>
             </div>
-            <p className=" ad2  text-white  w-75">{info.completion_note}</p>
+            <p className=" ad2   w-75">{info.completion_note}</p>
           </div>
 
           <ul className="   row   p-0   g-2   ">
