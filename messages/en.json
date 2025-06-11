@@ -119,9 +119,9 @@
     "hello": "Hello",
     "name": "Aisha Mohamed",
     "info": "Diploma Program in Visual Design",
-    "Academic_info": "Academic Information:",
-    "Student ID": "Student ID :",
-    "Academic_Email": "Academic Email:",
+    "Academic_info": "User Information:",
+    "Student ID": "User ID :",
+    "Academic_Email": "Email:",
     "Password": "Password :"
   },
   "smallcard": {
