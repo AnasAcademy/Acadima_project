@@ -18,7 +18,7 @@ const t = useTranslations("HomePageA");
   return (
     <>
       <div className="   rounded-3 shadow-sm    container-fluid  p-5 cardbg min-train-ht ">
-        <h3> {t("updat")} </h3>
+        <h3 className=' tit-18-700 '> {t("updat")} </h3>
 
         <div className=" d-flex  mt-5 flex-column gap-2   ">
           <div className=" d-flex gap-3   ">

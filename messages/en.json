@@ -726,5 +726,61 @@
     "show-details": "Show Details",
     "view-all-tickets": "View All Previous Tickets",
     "previous-tickets": "Previous Tickets"
+  },
+
+
+
+
+  "orgProfile":{
+    "username": "Username",
+    "email": "Email",
+    "company_name": "Al Wifaq Future Communications Company",
+    "company_field": "Company field",
+    "number_of_employees": "Number of employees",
+    "city": "City",
+    "training_plan": "Training plan",
+    "registration_date": "Registration date",
+    "subscription_end_date": "Subscription end date",
+    "social_accounts": "Social accounts",
+    "training_performance": "Training performance",
+    "active_trainees": "Number of active trainees",
+    "completed_courses": "Completed courses",
+    "program_engagement": "Program engagement rate",
+    "latest_updates": "Latest updates in your organization",
+    "new_enrollments": "15 new employees enrolled in Leadership & Management course",
+    "course_completed": "10 employees completed the Data Analysis for Advancement course",
+    "incomplete_courses_warning": "Some employees didn't complete their courses on time. Review of their assessments is required",
+    "training_programs": "Training programs",
+    "sort_by": "Sort by",
+    "latest": "Latest",
+    "view": "View",
+    "all_programs": "All programs",
+    "status": "Status",
+    "completed": "Completed",
+    "in_progress": "In progress",
+    "not_started": "Not started yet",
+    "region": "Region",
+    "city_riyadh": "City: Riyadh, Saudi Arabia",
+    "search_by_program": "Search by program name",
+    "program_name": "Program name",
+    "number_of_trainees": "Number of trainees",
+    "start_date": "Start date",
+    "actions": "Actions",
+    "leadership_training": "Leadership Skills Training",
+    "view_more_programs": "View more programs",
+    "delete": "Delete",
+    "edit": "Edit",
+    "company_desc" :  "Future Vision Technologies Company is one of the leading Saudi companies in the field of digital transformation. It strives to empower its workforce through specialized training programs aimed at improving efficiency and enhancing productivity in the workplace."
   }
+
+
+
+
+
+
+
+
+
+
+
 }

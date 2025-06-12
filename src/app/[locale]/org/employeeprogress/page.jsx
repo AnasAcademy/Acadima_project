@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Pin from "@/assets/admin/pin.svg"
 import Removebin from "@/assets/admin/removebin.svg";
 import roundimage from "@/assets/admin/personla.png"
+
 export default function EmployeeProgress() {
 
 

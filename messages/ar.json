@@ -671,6 +671,7 @@
     "unread": "الإشعارات غير المقروءة",
     "senderName": "اسم الجهة المرسلة"
   },
+
   "techSupport": {
     "tech-support": "الدعم الفني",
     "create-new-ticket": "إنشاء  تذكرة دعم جديدة",
@@ -724,5 +725,52 @@
     "show-details": "عرض التفاصيل",
     "view-all-tickets": "عرض المزيد من التذاكر السابقة",
     "previous-tickets": "التذاكر السابقة"
-  }
+  },
+
+
+
+"orgProfile":{
+  "username": "اسم المستخدم",
+  "email": "البريد الإلكتروني",
+  "company_name": "شركة الوفاق المستقبلية للاتصالات",
+  "company_field": "مجال الشركة",
+  "number_of_employees": "عدد الموظفين",
+  "city": "المدينة",
+  "training_plan": "الخطة التدريبية",
+  "registration_date": "تاريخ التسجيل",
+  "subscription_end_date": "تاريخ انتهاء الاشتراك",
+  "social_accounts": "حسابات التواصل",
+  "training_performance": "أداء التدريب",
+  "active_trainees": "عدد المتدربين النشطين",
+  "completed_courses": "عدد الدورات المكتملة",
+  "program_engagement": "نسبة التفاعل مع البرنامج",
+  "latest_updates": "آخر المستجدات في منشأتك",
+  "new_enrollments": "تم تسجيل 15 موظفاً جديداً في دورة القيادة والإدارة",
+  "course_completed": "أكمل 10 موظفين دورة تحليل البيانات للتقدم",
+  "incomplete_courses_warning": "بعض الموظفين لم يكملوا دوراتهم في الوقت المحدد. مراجعة تقييماتهم مطلوبة",
+  "training_programs": "البرامج التدريبية",
+  "sort_by": "الترتيب حسب",
+  "latest": "الأحدث",
+  "view": "عرض",
+  "all_programs": "جميع البرامج",
+  "status": "الحالة",
+  "completed": "مكتمل",
+  "in_progress": "قيد التنفيذ",
+  "not_started": "لم يبدأ بعد",
+  "region": "المنطقة",
+  "city_riyadh": "المدينة: الرياض، السعودية",
+  "search_by_program": "البحث باسم البرنامج",
+  "program_name": "اسم البرنامج",
+  "number_of_trainees": "عدد المتدربين",
+  "start_date": "تاريخ البدء",
+  "actions": "الإجراءات",
+  "leadership_training": "تدريب مهارات القيادة",
+  "view_more_programs": "عرض المزيد من البرامج",
+  "delete": "حذف",
+  "edit": "تعديل",
+ " entity_name_label": "اسم المنشأة:",
+  "company_desc": "شركة الرؤية المستقبلية للتقنيات هي إحدى الشركات السعودية الرائدة في مجال التحول الرقمي، وتسعى إلى تمكين كوادرها من خلال برامج تدريبية متخصصة تهدف إلى رفع الكفاءة وتعزيز الإنتاجية داخل بيئة العمل."
+}
+
+
 }
