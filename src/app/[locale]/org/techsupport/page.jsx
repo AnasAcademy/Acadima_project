@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import NewTechCard from "@/components/NewTechCard/NewTechCard";
 import StartTechCard from "@/components/StartTechCard/StartTechCard";
 import TechFilter from "@/components/TechFilter/TechFilter";
-import AIChat from "@/components/AIChat/AIChat";
+import AiCard from "@/components/AICard/AICard";
 import FrequentlyAskedQues from "@/components/FrequentlyAskedQues/FrequentlyAskedQues";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import ticket from "@/assets/admin/ticket.svg";
@@ -113,10 +113,8 @@ export default function TechSupport() {
               </div>
 
               {/* Right sidebar (bg-danger box) */}
-              <div className="col-xl-3">
-                <div className=" h-100 ">
-                  <AIChat />
-                </div>
+              <div className="col-xl-3 min-file-ht">
+                  <AiCard />
               </div>
             </div>
             <div className="row g-3 m-0">

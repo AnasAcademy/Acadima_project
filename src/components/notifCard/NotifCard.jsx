@@ -79,7 +79,7 @@ export default function NotifCard() {
    
         <div className=" w-100 ">
           <div className="row d-flex gy-4">
-            <div className=" col-lg-4 col-xl-3  col-sm-11 col-11 d-flex   justify-content-start align-items-center flex-column gap-4">
+            <div className=" col-lg-4 col-xl-3  col-sm-12 col-12 d-flex   justify-content-start align-items-center flex-column gap-4">
               {info.map((dat, key) => {
                 return (
                   <div
@@ -156,7 +156,7 @@ export default function NotifCard() {
               })}
             </div>
 
-            <div className=" mt-4 col-lg-8  col-xl-9 col-sm-12 col-12 ">
+            <div className=" mt-4 col-lg-8  col-xl-9  col-12 ">
               {
                 <PrevCard
                   date={date}

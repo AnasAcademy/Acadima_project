@@ -12,7 +12,7 @@ export default function Admissions() {
   return (
     <>
    
-        <div className="  container-fluid  p-3  mt-5 w-100  ">
+        <div className="  container pt-lg-0 pt-5 p-3  mt-5 w-100  ">
           <div>
             <h2 className=" hvvv"> {t("title")}</h2>
 

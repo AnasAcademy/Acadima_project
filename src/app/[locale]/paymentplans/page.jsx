@@ -17,7 +17,7 @@ export default function Paymentplans() {
 
   return (
     <>
-      <div className="  p-3  mt-5 ">
+      <div className="  container p-3 pt-lg-0 pt-5  mt-5 ">
         <div className=" d-flex gap-2">
           <PaymentsIcon className="iconSize2 iconcolor" />
           <h2 className="htitle">{info.title}</h2>

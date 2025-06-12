@@ -726,5 +726,20 @@
     "show-details": "Show Details",
     "view-all-tickets": "View All Previous Tickets",
     "previous-tickets": "Previous Tickets"
+  },
+  "AiAssistant": {
+    "AiAssistant": "Ai-Assistant",
+    "frequent-questions" : "Frequent Questions",
+    "try-asking": "Try asking me about ...",
+    "questions": [
+      "How do I add a new employee to the training program?",
+      "What is the difference between the available subscription packages?",
+      "From which page can I track employee performance?",
+      "Do I have the authority to create an employee account?",
+      "How do I add a new employee to the training program?",
+      "What is the difference between the available subscription packages?"
+    ],
+    "password-recovery": "You can recover your password by clicking on \"Forgot Password\".",
+    "generic-response": "Your inquiry has been received and will be answered shortly."
   }
 }

@@ -97,7 +97,7 @@ export default function Regproaca({ data }) {
         return (
           <div
             key={key}
-            className=" d-flex flex-column gap-3 col-sm-12 col-xl-6 "
+            className=" d-flex flex-column gap-3 col-sm-12 col-lg-4 col-md-6 "
             onClick={() => {
               toggle(key);
             }}

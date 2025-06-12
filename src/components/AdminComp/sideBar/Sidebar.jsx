@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useState } from 'react'
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { Link } from '@/i18n/navigation';
-import logo from '../../../assets/admin/logo2.png'
+import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { Link } from "@/i18n/navigation";
+import logo from "../../../assets/admin/logo2.png";
 import Home from "../../../assets/admin/home.svg";
 import Stat from "../../../assets/admin/stat.svg";
 import Card from "../../../assets/admin/card.svg";
@@ -13,27 +13,23 @@ import Profile from "../../../assets/admin/profile.svg";
 import Ai from "../../../assets/admin/ai.svg";
 import HelpIcon from "../../../assets/admin/helpIcon.svg";
 import Setting from "../../../assets/admin/setting.svg";
-import bk  from "../../../assets/admin/Background.png"
+import bk from "../../../assets/admin/Background.png";
 import pwr from "@/assets/Sidebar icons/powered.png";
 import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
-  const t = useTranslations('SidebarA');
+  const t = useTranslations("SidebarA");
   const pathname = usePathname();
   const isPanel = pathname.includes("/org/panel");
   const isEmployeeprogress = pathname.includes("/org/employeeprogress");
   const isTechSupport = pathname.includes("/org/techsupport");
   const isOrgprofile = pathname.includes("/org/orgprofile");
+  const isAiAssistant = pathname.includes("/org/ai-assistant");
 
   const isSubscriptionmanagement = pathname.includes(
     "/org/subscription-management"
   );
   const isNotfiPage = pathname.includes("/org/notifications");
-
-
-
-
-
 
   return (
     <>
@@ -191,18 +187,18 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    "option" === "ai" ? "cardbg  rounded-4   " : ""
+                    isAiAssistant ? "cardbg  rounded-4   " : ""
                   }   `}
                 >
                   <Ai
                     className={`iconSize2   ${
-                      1 == 0 ? "iconcolor2" : "iconcolor"
+                      isAiAssistant ? "iconcolor2" : "iconcolor"
                     }  `}
                   />
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/employeeprogress"
+                    href="/org/ai-assistant"
                   >
                     {t("AI Assistant")}
                   </Link>
@@ -242,9 +238,17 @@ export default function Sidebar() {
           </div>
         </div>
 
-        <div className=" d-flex justify-content-center gap-1 mt-2   ">
-          <Image src={logo} alt="ai" width={60} height={18} priority className=" mt-1" />
+        <div className="powered d-flex justify-content-center gap-1    ">
           <p>Powered By</p>
+          <Image
+            src={logo}
+            alt="ai"
+            width={60}
+            height={18}
+            priority
+            className=" mt-1"
+          />
+          
         </div>
       </div>
     </>
