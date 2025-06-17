@@ -24,13 +24,12 @@ export default function Sidebar() {
   const isEmployeeprogress = pathname.includes("/org/employeeprogress");
   const isTechSupport = pathname.includes("/org/techsupport");
   const isOrgprofile = pathname.includes("/org/orgprofile");
+  const isSettings = pathname.includes("/org/settings");
 
   const isSubscriptionmanagement = pathname.includes(
     "/org/subscription-management"
   );
   const isNotfiPage = pathname.includes("/org/notifications");
-
-
 
 
 
@@ -210,14 +209,18 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    "option" === "sett" ? "cardbg  rounded-4   " : ""
+                    isSettings ? "cardbg  rounded-4   " : ""
                   }   `}
                 >
-                  <Setting className="iconSize2 iconcolor" />
+                  <Setting
+                    className={`iconSize2   ${
+                      isSettings ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800 "
                     aria-current="page"
-                    href="/org/employeeprogress"
+                    href="/org/settings"
                   >
                     {t("Settings")}
                   </Link>
@@ -243,7 +246,14 @@ export default function Sidebar() {
         </div>
 
         <div className=" d-flex justify-content-center gap-1 mt-2   ">
-          <Image src={logo} alt="ai" width={60} height={18} priority className=" mt-1" />
+          <Image
+            src={logo}
+            alt="ai"
+            width={60}
+            height={18}
+            priority
+            className=" mt-1"
+          />
           <p>Powered By</p>
         </div>
       </div>

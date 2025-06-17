@@ -19,11 +19,12 @@
   --accent-ic-color: #fff;
   --secColor:#1ABFA0;
   --bord-color: #50C1FA;
+  --org-sidebar: #868E96;
 }
 
 @font-face {
   font-family: "ibm";
-  src: url(../assets/fonts/IBMPlexSans-Regular.ttf);
+  src: url(../assets/fonts/IBMPlexSansArabic-Regular.ttf);
 }
 
 html,
@@ -229,7 +230,7 @@ font-size: 30px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-
+   
 }
 
 
@@ -238,6 +239,15 @@ font-size: 30px;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
+  line-height: normal;
+
+}
+
+.tit-16-700 {
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
   line-height: normal;
 
 }
@@ -325,6 +335,7 @@ h4,
 h5,
 h6 {
   text-align: start;
+
 }
 
 /* RTL styles when Arabic is detected */
@@ -1086,12 +1097,23 @@ table tbody td:first-child {
 }
 
 .iconcolor2 {
-
+  
   --svg-pri-col: var(--accent-ic-color);
-    --svg-sec-col: var(--primary-ic-color);
+  --svg-sec-col: var(--primary-ic-color);
 
 }
 
+
+.iconcolor3{
+  --svg-sec-col: var(--org-sidebar);
+    
+}
+
+.textcolside{
+
+    color: var(--org-sidebar);
+
+}
 
 .iconcolors{
   color: var(--background-color);
@@ -1126,6 +1148,11 @@ width: 24px ;
   width: 50px;
     height: 22.5px;
     flex-shrink:0;
+}
+
+.iconSize11{
+  width: 30px;
+  height: 30px;
 }
 
 .iconSize6 {
@@ -1563,6 +1590,11 @@ flex-direction: row-reverse;
   min-height: 528px;
   
 }
+
+.min-prev-ai {
+  min-height: 466px;
+
+}
 .min-train-ht {
   min-height: 500px;
 
@@ -1721,6 +1753,7 @@ flex-direction: row-reverse;
 }
 
 
+
 .form-selectt{
 
    padding: 8px 24px !important;
@@ -1753,4 +1786,12 @@ flex-direction: row-reverse;
 .min-profil-ht{
 
   min-height: 500px;
+}
+
+
+.iconScreens{
+  width: 100%;
+    height: auto;
+    margin-top: -30px;
+  
 }

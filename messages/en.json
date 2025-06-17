@@ -771,16 +771,135 @@
     "delete": "Delete",
     "edit": "Edit",
     "company_desc" :  "Future Vision Technologies Company is one of the leading Saudi companies in the field of digital transformation. It strives to empower its workforce through specialized training programs aimed at improving efficiency and enhancing productivity in the workplace."
-  }
+  },
 
 
 
+"adminSettings":{
+
+  "settings": "Settings",
+  "account": "Account",
+  "appearance": "Appearance",
+  "system": "System",
+  "assistant": "Smart Assistant",
+  "support": "Support",
+  "basic_user_info": "Basic User Information",
+  "username": "Username",
+  "email": "Email",
+  "mobile_number": "Mobile Number",
+  "change_password": "Change Password",
+  "current_password": "Current Password",
+  "new_password": "New Password",
+  "confirm_new_password": "Confirm New Password",
+  "preferences": "Preferences",
+  "theme": "Theme",
+  "language": "Language",
+  "choose_theme": "Choose Theme",
+  "choose_language": "Choose Language",
+  "linked_accounts": "Linked & Secure Accounts",
+  "google": "Google",
+  "linkedin": "LinkedIn",
+  "unlink": "Unlink",
+  "devices": "Devices",
+  "remove_device": "Remove Device",
+  "last_used": "Last Used",
+  "team": "Team",
+  "change": "Change",
+  "save_changes": "Save Changes"
+
+
+},
+
+
+"adminSettingsTeam":{
+
+
+"system_settings": "General System Settings",
+  "upload_logo": "Upload Organization Logo",
+  "organization_name": "Organization / Entity Name",
+  "non_editable": "Company name - non-editable text",
+  "default_language": "System Default Language",
+  "default_region": "System Default Timezone",
+  "select_language": "Select Arabic Language",
+  "select_region": "Select Timezone",
+
+  "login_security": "Login & Security",
+  "enable_2fa": "Enable Two-Factor Authentication (2FA)",
+  "2fa_settings": "Two-Factor Authentication Settings (2FA)",
+  "choose_2fa_method": "Choose preferred 2FA method",
+  "session_duration": "Session Timeout Duration",
+  "logout_all": "Logout from all devices now",
+
+  "customize_interface": "Customize System Interface",
+  "primary_color": "Primary Interface Color",
+  "theme_style": "Interface Theme",
+  "light_mode": "Light Mode",
+  "dark_mode": "Dark Mode",
+
+  "integration_settings": "Integration Settings",
+  "teams": "Teams",
+  "zoom": "Zoom",
+  "office365": "Office 365",
+  "unlink": "Unlink",
+  "relink": "Relink",
+  "last_used": "Last used",
+   "reset_active_sessions":"Reset active sessions"
+   
+},
+
+
+"aihelper":{
+
+  "title_tasks": "Smart Assistant Tasks",
+  "select_tasks": "Select the tasks you prefer the AI assistant to perform for users:",
+  "respond_to_queries": "Respond to user inquiries",
+  "performance_suggestions": "Provide performance improvement suggestions",
+  "smart_notifications": "Send smart notifications",
+  "procedure_guides": "Provide procedural guides",
+  "report_summaries": "Display report summaries",
+  "suggest_new_tasks": "Would you suggest new tasks that can be developed for the assistant?",
+
+  "title_settings": "Smart Assistant Settings",
+  "enable_assistant": "Enable Smart Assistant",
+  "enable_assistant_note": "You can temporarily disable the assistant for all users.",
+  "assistant_tone": "Smart Assistant Tone",
+  "tone_formal": "Formal",
+  "tone_friendly": "Friendly",
+  "tone_short": "Concise",
+  "language_settings": "Language Settings",
+  "language_ar": "Arabic",
+  "language_en": "English",
+  "language_both": "Arabic & English",
+  "restore_defaults": "Restore AI Default Settings",
+  "restore_defaults_note": "You can temporarily disable the assistant for all users."
 
 
 
+},
 
 
+"aisupport":{
+
+  "title_support_settings": "Technical Support Settings",
+  "description_support_settings": "Customize the support experience within the platform and set available channels and options for users.",
+  "title_availability_settings": "Support Availability Settings",
+  "availability_description": "Set the hours when the live support team will be available",
+  "days_available": "Sunday, Monday, Tuesday, Wednesday, Thursday, ... Saturday",
+  "from": "From",
+  "to": "To",
+  "title_response_settings": "Automated Ticket Response",
+  "response_description": "Customize the auto-response message shown when a support ticket is submitted",
+  "default_response": "Hello! We have received your request and will respond within 24 hours.",
+  "edit_response": "Edit Auto-Response",
+  "title_channels": "Available Support Channels",
+  "channels_description": "Select the support methods you'd like to provide to users through the platform",
+  "channel_email": "Email",
+  "channel_chat": "Live Chat",
+  "channel_tickets": "Ticketing System",
+  "channel_ai_assistant": "Smart Assistant Response",
+  "channel_phone": "Phone Number"
 
 
+}
 
 }

@@ -1,17 +1,13 @@
- import React from 'react'
- import Backprofile from "@/assets/admin/Backprofile.svg";
- import Rec from '@/assets/admin/Rectangle41.svg'
- import Logo from '@/assets/admin/73763.svg'
+import React from 'react'
+import Logo from '@/assets/admin/73763.svg'
 import LatestTrain from '@/components/AdminComp/latestTrain/LatestTrain';
 import TechFilter from '@/components/TechFilter/TechFilter';
 import OngoingTrain from '@/components/AdminComp/ongoingTrain/OngoingTrain';
 import { useTranslations } from "next-intl";
 import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
-import roundimage from "@/assets/admin/personla.png";
 import Trianum from '@/assets/admin/VectorGraph.svg'
 import Trainmn from '@/assets/admin/Vectortr12.svg'
-import Back from '@/assets/admin/eraback.svg'
 import Arrow from "@/assets/admin/arrow down.svg";
 import Up from "@/assets/admin/uparows.svg";
 import photo from "@/assets/admin/photo.png"

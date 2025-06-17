@@ -23,7 +23,7 @@ export default  async function Home() {
       headers: {
         "x-api-key": "1234",
         "Content-Type": "application/json",
-        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xtcy5hY2FkaW1hY29sbGVnZS5jb20vYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzQ4MjUxNzUzLCJuYmYiOjE3NDgyNTE3NTMsImp0aSI6Inc3NGh4dEc0U2ZFTHRQNjkiLCJzdWIiOiIxOTUxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.LvUqo0WvFYUz3ZJBD-T503sxzkPtFeT8FYQrOw4TOXM`, // if needed
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xtcy5hY2FkaW1hY29sbGVnZS5jb20vYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwMDU5MTU4LCJuYmYiOjE3NTAwNTkxNTgsImp0aSI6IlpTYkFKRjhaRkJZRTJRS2YiLCJzdWIiOiIxOTcwIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.A3_ZUZmFEb0Nyf5Q0Xji1dioik6r6J2mrlTUOUA1TVM`, // if needed
       },
     }
   );
