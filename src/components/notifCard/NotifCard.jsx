@@ -156,7 +156,7 @@ export default function NotifCard() {
               })}
             </div>
 
-            <div className=" mt-4 col-lg-8  col-xl-9  col-12 ">
+            <div className=" mt-4 col-xl-7 col-lg-8 col-12 ">
               {
                 <PrevCard
                   date={date}

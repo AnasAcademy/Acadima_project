@@ -1,10 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import line from "@/assets/payments icons/Line 54.png";
 import CheckIcon from "@/assets/payments icons/Vector.svg";
 import Line from "@/assets/calendar/Line 50.svg";
-import Rs from '@/assets/payments icons/rs.svg'
-
+import Rs from "@/assets/payments icons/rs.svg";
 
 export default function PaymentsCard({ info, title }) {
   return (
@@ -35,12 +35,11 @@ export default function PaymentsCard({ info, title }) {
                   </div>
                   <div className="d-flex justify-content-start align-items-center  gap-2 mt-1">
                     <div className=" d-xl-flex   d-lg-none  d-none">
-                      <button className="btn btn-light custfontbtn px-3 text-nowrap srv-btn-width">
-                        <a className="d-xl-flex d-lg-flex d-sm-none d-none  ">
-                          {" "}
-                          {info.early_reg.button}
-                        </a>
-                      </button>
+                      <Link href={title === info.install_reg.title ? "/installments-conditions" : "/checkout"}>
+                    <button className="btn btn-light custfontbtn  text-nowrap srv-btn-width">
+                      {info.early_reg.button}
+                    </button>
+                  </Link>
                     </div>
                   </div>
                 </div>
@@ -61,9 +60,11 @@ export default function PaymentsCard({ info, title }) {
                 </div>
 
                 <div className=" d-xl-none d-lg-flex d-flex">
-                  <button className="btn btn-light custfontbtn  text-nowrap srv-btn-width">
-                    <a className=""> {info.early_reg.button}</a>
-                  </button>
+                  <Link href="/checkout">
+                    <button className="btn btn-light custfontbtn  text-nowrap srv-btn-width">
+                      {info.early_reg.button}
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

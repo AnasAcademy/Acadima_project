@@ -5,7 +5,7 @@ import Send from "@/assets/admin/send.svg";
 import UserMessage from "@/components/AIChat/UserMSg";
 import AiMessage from "@/components/AIChat/AIMsg";
 
-export default function AIChat({ maxHeight = "265px", minHeight = "400px", heightClass = "h-80", externalMessage  }) {
+export default function AIChat({ minHeight = "265px", maxHeight = "400px", heightClass = "h-80", externalMessage  }) {
   const t = useTranslations("techSupport");
   const ts = useTranslations("AiAssistant");
   const [messages, setMessages] = useState([]);

@@ -6,12 +6,13 @@ import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import Image from "next/image";
 import Split from "@/assets/lessons/split screen.svg"
+import { useTranslations } from "next-intl";
 
 
 
 export default function LessonsNavbar({setFull ,full}) {
   const [percent, setPrecent] = useState("100%");
-
+  const t = useTranslations("lessons");
    
 
     function toggle(){
@@ -78,10 +79,10 @@ export default function LessonsNavbar({setFull ,full}) {
             </div>
           </div>
 
-          <div className=" col-2 d-lg-flex d-md-none d-none col-lg-1   justify-content-end    ">
+          <div className=" col-2 d-lg-flex d-md-none d-none   justify-content-end    ">
             <div className=" d-flex justify-content-center align-items-center gap-2">
               <button className=" btn   custButt-outline  p-2   ">
-                جدول المقررات
+                 {t("course_schedule")}
               </button>
               <div className=" cursor-pointer" onClick={toggle}>
                 <Split className=" iconSize2 p-1 " />

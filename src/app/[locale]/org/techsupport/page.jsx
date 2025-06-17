@@ -2,11 +2,11 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import NewTechCard from "@/components/NewTechCard/NewTechCard";
 import StartTechCard from "@/components/StartTechCard/StartTechCard";
-import TechFilter from "@/components/TechFilter/TechFilter";
 import AiCard from "@/components/AICard/AICard";
 import FrequentlyAskedQues from "@/components/FrequentlyAskedQues/FrequentlyAskedQues";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import ticket from "@/assets/admin/ticket.svg";
+import SelectCard from "@/components/SelectCard/SelectCard";
 
 export default function TechSupport() {
   const t = useTranslations("techSupport");
@@ -91,6 +91,34 @@ export default function TechSupport() {
     }
   ];
 
+ const selectCardData = {
+  inputs: [
+    {
+      title: "",
+      type: "select",
+      options: ["React", "Next.js", "Laravel"]
+    },
+    {
+      title: "",
+      type: "select",
+      options: ["Cairo", "Alex"]
+    },
+    {
+      title: "",
+      type: "select",
+      options: ["Cairo", "Alex"]
+    },
+    {
+      title: "",
+      type: "select",
+      options: ["on", "off"]
+    },{
+      title: "",
+      type: "search",
+    },
+  ]
+};
+
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column    ">
@@ -107,7 +135,7 @@ export default function TechSupport() {
                     <StartTechCard />
                   </div>
                   <div className="col-12">
-                    <TechFilter />
+                    <SelectCard selectCardData={selectCardData} isTechSupport={true}/>
                   </div>
                 </div>
               </div>

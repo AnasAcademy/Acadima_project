@@ -14,7 +14,7 @@ export default function Admissions() {
    
         <div className="  container pt-lg-0 pt-5 p-3  mt-5 w-100  ">
           <div>
-            <h2 className=" hvvv"> {t("title")}</h2>
+            <h2 className=" hvvv mt-md-4 mt-lg-0"> {t("title")}</h2>
 
             <div className=" row g-3 mt-4">
               <div className=" d-flex flex-column gap-3 col-sm-12 col-md-6  col-xl-6">

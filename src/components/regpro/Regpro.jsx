@@ -18,10 +18,10 @@ export default function Regpro() {
           </div>
 
           <div className=" d-flex  mt-sm-4  mt-4 mt-xl-0 flex-xl-column flex-sm-row gap-3 justify-content-center align-items-center ">
-            <button className="btn  btn-outline-light custButt-outline  px-3 py-2 text-nowrap">
+            <button className="btn  btn-outline-light custButt-outline  px-3 py-2 text-nowrap w-100">
               {t("installments")}
             </button>
-            <button className=" btn  btn-light custButton border-0 px-3 py-2 text-nowrap">
+            <button className=" btn  btn-light custButton border-0 px-3 py-2 text-nowrap w-100">
               {t("goToProgram")}
             </button>
           </div>

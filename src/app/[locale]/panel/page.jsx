@@ -34,7 +34,7 @@ export default  async function Home() {
   return (
     <>
       <div
-        className="  mt-3  container  p-3   "
+        className="  mt-3 container  p-3   "
         dir={locale === "ar" ? "rtl" : "ltr"}
       >
         <div className=" row  mt-lg-0 mt-4   g-3 ">
@@ -42,8 +42,8 @@ export default  async function Home() {
             <div className=" row     g-3 d-flex justify-content-center   ">
               <div className="  col-xl-6 col-lg-6   pt-sm-4 pt-4 pt-lg-0 ">
                 <Namcard
-                  name={respond.user.full_name}
-                  email={respond.user.email}
+                  // name={respond.user.full_name}
+                  // email={respond.user.email}
                 />
               </div>
 

@@ -172,13 +172,13 @@ const Navbar = () => {
           </div>
 
           {/* Right Section: Breadcrumbs */}
-          <div className=" d-none d-sm-none  d-md-none d-lg-flex flex-column ">
+          {/* <div className=" d-none d-sm-none  d-md-none d-lg-flex flex-column ">
             <div className="d-flex ">
               <p className="text-m-black px-1 m-0 text-nowrap">
                 {actvPath && ts(actvPath)}
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </nav>
 

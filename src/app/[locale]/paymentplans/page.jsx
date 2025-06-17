@@ -36,7 +36,7 @@ export default function Paymentplans() {
 
         </div>
 
-        <div className=" mt-5">
+        <div className=" mt-5 d-flex flex-column justify-content-center justify-content-md-start align-items-center align-items-md-start">
           <h4> {info.or_contact}</h4>
           <button className="btn btn-light custfontbtn px-3 text-nowrap srv-btn-width mt-2">
             <a className="  "> {info.book_call}</a>

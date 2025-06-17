@@ -1020,7 +1020,7 @@ table tbody td:first-child {
 }
 
 .bg-white-color {
-  background-color: var(--text-color);
+  background-color: var(--btn-color);
 }
 
 .img-opacity {
@@ -1134,6 +1134,11 @@ width: 24px ;
   width: 80px;
     height: 80px
 
+}
+
+.iconSize7 {
+  width: 50px;
+    height: 50px
 }
 .coverimg{
  margin:80px;
@@ -1663,6 +1668,14 @@ flex-direction: row-reverse;
 .width-fit {
   width: fit-content;
 }
+.hero-height {
+  height: 60vh;
+}
+@media screen and (max-width: 900px) {
+  .hero-height {
+    height: 40vh;
+  }
+}
 
 .powered {
 
@@ -1687,10 +1700,23 @@ flex-direction: row-reverse;
   max-width: 95% !important;
 }
 
+@media screen and (max-width: 991px) {
+  .container {
+    max-width: 100% !important;
+  }
+}
+
 .ai-arrow {
   transform: scaleX(-1);
 
 }
 [dir="rtl"] .ai-arrow {
    transform: scaleX(1);
+}
+
+select.no-native-arrow {
+  appearance: none;            /* Most browsers */
+  -webkit-appearance: none;    /* Safari/Chrome */
+  -moz-appearance: none;       /* Firefox */
+  background-image: none;      /* Remove dropdown icon */
 }

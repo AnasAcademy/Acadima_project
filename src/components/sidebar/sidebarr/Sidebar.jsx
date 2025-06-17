@@ -29,9 +29,11 @@ export default function Sidebar() {
   const isAdminPage = pathname.includes("/admissions");
   const isCertfiPage = pathname.includes("/certificates");
   const isPayPage = pathname.includes("/paymentplans");
+  const isInstallments = pathname.includes("/installments");
   const isNotfiPage = pathname.includes("/notifications");
   const isServPage = pathname.includes("/services");
   const isSettPage = pathname.includes("/settings");
+  const isQuizzesPage = pathname.includes("/quizzes");
 
   const [actv, setActv] = useState("");
 
@@ -135,6 +137,22 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex p-2 w-100 align-items-center ${
+                    isQuizzesPage ? "cardbg rounded-4" : ""
+                  }`}
+                  onClick={() => toggle("cert")}
+                >
+                  <ScheduleIcon
+                    className={`iconSize2 ${
+                      isQuizzesPage ? "iconcolor2" : "iconcolor"
+                    }`}
+                  />
+                  <Link className="nav-link Tit-14-700" href="/quizzes">
+                    {t("quizzes")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex p-2 w-100 align-items-center ${
                     isPayPage ? "cardbg rounded-4" : ""
                   }`}
                   onClick={() => toggle("pay")}
@@ -146,6 +164,22 @@ export default function Sidebar() {
                   />
                   <Link className="nav-link Tit-14-700" href="/paymentplans">
                     {t("pay_pro_fees")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex p-2 w-100 align-items-center ${
+                    isInstallments ? "cardbg rounded-4" : ""
+                  }`}
+                  onClick={() => toggle("pay")}
+                >
+                  <PaymentIcon
+                    className={`iconSize2 ${
+                      isInstallments ? "iconcolor2" : "iconcolor"
+                    }`}
+                  />
+                  <Link className="nav-link Tit-14-700" href="/installments">
+                    {t("installments")}
                   </Link>
                 </li>
 
@@ -229,7 +263,7 @@ export default function Sidebar() {
         </div>
 
         {/* Powered by */}
-        <div className="d-flex justify-content-center gap-1">
+        <div className="powered d-flex justify-content-center gap-1">
           <p>Powered By</p>
           <Image
             src={logo}
