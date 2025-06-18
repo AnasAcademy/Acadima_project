@@ -20,7 +20,7 @@ export default function Regproaca({ data }) {
 
   const tabCourses1 = [
     {
-      flagColor: "green",
+      flagColor: "red",
       data: [
         ts("td.courseNum"),
         ts("td.courseNam"),
@@ -31,7 +31,7 @@ export default function Regproaca({ data }) {
       ],
     },
     {
-      flagColor: "green",
+      flagColor: "red",
       data: [
         ts("td.courseNum"),
         ts("td.courseNam"),
@@ -55,7 +55,7 @@ export default function Regproaca({ data }) {
   ];
   const tabCourses2 = [
     {
-      flagColor: "green",
+      flagColor: "red",
       data: [
         ts("td.courseNum"),
         ts("td.courseNam"),
@@ -66,7 +66,7 @@ export default function Regproaca({ data }) {
       ],
     },
     {
-      flagColor: "green",
+      flagColor: "red",
       data: [
         ts("td.courseNum"),
         ts("td.courseNam"),
@@ -97,7 +97,7 @@ export default function Regproaca({ data }) {
         return (
           <div
             key={key}
-            className=" d-flex flex-column gap-3 col-sm-12 col-xl-6 "
+            className=" d-flex flex-column gap-3 col-sm-12 col-xl-4 col-md-6 "
             onClick={() => {
               toggle(key);
             }}
@@ -154,6 +154,7 @@ export default function Regproaca({ data }) {
           join={ts("join")}
           reg={ts("register")}
           lec={ts("td.lec")}
+          isCourses={true}
         />
       </div>
     </>

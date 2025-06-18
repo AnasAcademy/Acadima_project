@@ -1,51 +1,89 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import HelpIcon from "@/assets/admin/helpIcon.svg";
-import bg from "@/assets/admin/AIbg.png";
-import Image from "next/image";
 import Send from "@/assets/admin/send.svg";
+import UserMessage from "@/components/AIChat/UserMSg";
+import AiMessage from "@/components/AIChat/AIMsg";
 
-export default function FilterCard() {
+export default function AIChat({ minHeight = "265px", maxHeight = "400px", heightClass = "h-80", externalMessage  }) {
   const t = useTranslations("techSupport");
+  const ts = useTranslations("AiAssistant");
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+
+   useEffect(() => {
+    if (externalMessage) {
+      setMessages((prev) => [...prev, { type: "user", text: externalMessage }]);
+
+      // Optional: simulate AI response
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "ai",
+            text: ts("generic-response"),
+          },
+        ]);
+      }, 500);
+    }
+  }, [externalMessage]);
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+
+    const userInput = input; // store it before clearing
+    setMessages((prev) => [...prev, { type: "user", text: userInput }]);
+    setInput("");
+
+    // Simulate AI response
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          type: "ai",
+          text: ts("password-recovery"),
+        },
+      ]);
+    }, 500);
+  };
+
   return (
-    <>
-      <div className=" mt-1  cardbg text-white h-100 position-relative   z-0 ">
-        <div className="">
-          <Image src={bg} className=" w-100" alt="ai"/>
-          <h3 className="px-3 position-absolute top-5 text-white d-flex gap-2 align-items-center">
-            <HelpIcon className="iconSize2 iconcolor" />
-            {t("Your-AI-CAHT-Assistant")}
-          </h3>
-        </div>
-        <div className="d-flex flex-column justify-content-between h-80">
-          <div className="chat-body p-3 d-flex flex-column gap-2 position-relative">
-            <div className="user-message align-self-start">
-              <span className="bubble user-bubble">.............</span>
-            </div>
-
-            <div className="align-self-end">
-              <div className="ai-meta d-flex align-items-center justify-content-end gap-1">
-                <small className="text-muted">AI NAME</small>
-                <HelpIcon className="iconSize2 iconcolor" />
-              </div>
-              <div className="ai-message align-self-end position-relative">
-                <span className="bubble ai-bubble">.............</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Chat input */}
-          <div className="chat-input p-3 d-flex align-items-center gap-2 pb-xl-0 pb-4">
-            <Send width={28} />
-
-            <input
-              type="text"
-              className="form-control rounded-4 px-3 bg-body-tertiary"
-              placeholder={t("send-placeholder")}
-            />
-          </div>
-        </div>
+    <div
+      className={`d-flex flex-column justify-content-between ${heightClass}`}
+    >
+      {/* Chat Area */}
+      <div
+        className="chat-body p-4 d-flex flex-column gap-3 overflow-auto flex-grow-1"
+        style={{ maxHeight, minHeight }}
+      >
+        {messages.map((msg, index) =>
+          msg.type === "user" ? (
+            <UserMessage key={index} message={msg.text} />
+          ) : (
+            <AiMessage key={index} message={msg.text} />
+          )
+        )}
       </div>
-    </>
+
+      {/* Input */}
+      <div className="chat-input p-3 d-flex align-items-center gap-3">
+        <div
+          className="rounded-pill bg-body-tertiary p-2 cursor-pointer"
+          onClick={handleSend}
+        >
+          <Send width={24} />
+        </div>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="form-control rounded-4 border px-3 py-2 bg-body-tertiary"
+          placeholder={t("send-placeholder")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSend();
+          }}
+        />
+      </div>
+    </div>
   );
 }

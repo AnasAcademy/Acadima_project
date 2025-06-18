@@ -17,6 +17,7 @@ export default function SideBarWrapper() {
     "/ar/not-found",
     "/en/not-found",
     "/ar/bundles/4/course/learning/4",
+    "/en/bundles/4/course/learning/4",
     "/ar/forget-password",
     "/en/forget-password",
     "/ar/reset-password",
@@ -25,6 +26,8 @@ export default function SideBarWrapper() {
     "/en/bundles/675/course/learning/45",
     "/en/installments-conditions",
     "/ar/installments-conditions",
+    "/ar/checkout",
+    "/en/checkout",
   ];
 
 

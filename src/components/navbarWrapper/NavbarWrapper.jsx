@@ -13,6 +13,7 @@ export default function NavbarWrapper() {
     "/en/register",
     "/ar/register",
     "/ar/bundles/4/course/learning/4",
+    "/en/bundles/4/course/learning/4",
     "/ar/forget-password",
     "/en/forget-password",
     "/ar/reset-password",

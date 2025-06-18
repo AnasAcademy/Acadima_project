@@ -1041,7 +1041,7 @@ table tbody td:first-child {
 }
 
 .bg-white-color {
-  background-color: var(--text-color);
+  background-color: var(--btn-color);
 }
 
 .img-opacity {
@@ -1189,6 +1189,18 @@ width: 24px ;
   width: 80px;
     height: 80px
 
+}
+
+.iconSize9{
+  width: 44px;
+  height: 40px
+
+}
+
+
+.iconSize7 {
+  width: 50px;
+    height: 50px
 }
 .coverimg{
  margin:80px;
@@ -1664,8 +1676,8 @@ flex-direction: row-reverse;
 }
 
 .chat-box {
-  width: 320px;
-  height: 420px;
+  /* width: 320px;
+  height: 420px; */
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   direction: rtl;
@@ -1673,28 +1685,27 @@ flex-direction: row-reverse;
   flex-direction: column;
   justify-content: space-between;
 }
+.gradient-bg {
+  background: linear-gradient(to right, #216ED7, #A300CC);
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
 
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #001fbd;
-  color: white;
-  text-align: center;
-  line-height: 32px;
-  font-weight: bold;
+[dir="rtl"] .gradient-bg {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 0;
+
 }
 
 .chat-body {
-  flex: 1;
   overflow-y: auto;
-  position: relative;
 }
 
 .bubble {
   display: inline-block;
   padding: 10px 14px;
-  color: #000;
+  font-size: 14px;
+  word-wrap: break-word;
 }
 
 .user-bubble {
@@ -1705,7 +1716,16 @@ flex-direction: row-reverse;
 .ai-bubble {
   background-color: #e3f2fd;
   border-radius: 15px 15px 15px 0;
+}
 
+.chat-input input {
+  border: none;
+  background: #f8f9fa;
+  outline: none;
+}
+
+.left-panel {
+  min-width: 280px;
 }
 
 .h-80 {
@@ -1722,6 +1742,14 @@ flex-direction: row-reverse;
 .width-fit {
   width: fit-content;
 }
+.hero-height {
+  height: 60vh;
+}
+@media screen and (max-width: 900px) {
+  .hero-height {
+    height: 40vh;
+  }
+}
 
 .powered {
 
@@ -1735,6 +1763,36 @@ flex-direction: row-reverse;
   flex-direction: row-reverse;
 
 
+}
+
+.question:hover {
+  background-color: #216ED714 !important;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 95% !important;
+}
+
+@media screen and (max-width: 991px) {
+  .container {
+    max-width: 100% !important;
+  }
+}
+
+.ai-arrow {
+  transform: scaleX(-1);
+
+}
+[dir="rtl"] .ai-arrow {
+   transform: scaleX(1);
+}
+
+select.no-native-arrow {
+  appearance: none;            /* Most browsers */
+  -webkit-appearance: none;    /* Safari/Chrome */
+  -moz-appearance: none;       /* Firefox */
+  background-image: none;      /* Remove dropdown icon */
 }
 
 .trainNum{
@@ -1801,3 +1859,4 @@ flex-direction: row-reverse;
     margin-top: -30px;
   
 }
+
