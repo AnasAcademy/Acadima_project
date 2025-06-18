@@ -115,7 +115,7 @@ const handleSave = () => {
 
   return (
     <>
-      <div className="  bg-prim-color position-relative settCardBorder  m-3">
+      <div className="  bg-prim-color position-relative settCardBorder mx-0 m-3">
         <div className="   position-relative  ">
           <div className="position-absolute z-2   coverimg">
             <label

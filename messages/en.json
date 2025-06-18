@@ -110,9 +110,11 @@
     "Notifications": "Courses",
     "Technical Support": "Certificates",
     "pay_pro_fees": "Pay Program Fees",
+    "installments": "Installments",
     "Account Management": "Notifications",
     "elctro": "E-Services",
     "AI Assistant": "Settings",
+    "quizzes" : "Quizzes",
     "logout": "Logout"
   },
   "Namcard": {
@@ -245,27 +247,27 @@
       {
         "title": "Service Name",
         "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
-        "price": "700 SAR"
+        "price": "700"
       },
       {
         "title": "Service Name",
         "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
-        "price": "700 SAR"
+        "price": "700 "
       },
       {
         "title": "Service Name",
         "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
-        "price": "700 SAR"
+        "price": "700 "
       },
       {
         "title": "Service Name",
         "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
-        "price": "700 SAR"
+        "price": "700 "
       },
       {
         "title": "Service Name",
         "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
-        "price": "700 SAR"
+        "price": "700 "
       }
     ],
     "apply": "Submit Request"
@@ -317,7 +319,7 @@
     "program": "AI with Open IA for Beginners: Programming Guidance",
     "early_reg": {
       "title": "Early Registration Fee",
-      "price": "6233 SAR",
+      "price": "6233",
       "notes": [
         "Save up to 3125 SAR with early registration",
         "Offer ends in 7 days and 7:29 hours"
@@ -326,7 +328,7 @@
     },
     "install_reg": {
       "title": "Installment Registration Fee",
-      "price": "6958 SAR",
+      "price": "6958",
       "notes": [
         "Pay a registration fee of 2346 SAR as a down payment",
         "Then pay 4 monthly installments",
@@ -343,7 +345,7 @@
     "title": "Program Installments",
     "summary": {
       "amount_paid": "Amount Paid",
-      "paid": "SAR 4048",
+      "paid": " 4048",
       "note": "3 installments paid"
     },
     "program_details": {
@@ -513,7 +515,7 @@
     "installmentAmount": "Installment 1 (6431 SAR)",
     "dueDate": "Due Date: Monday, November 1, 2024",
     "termsTitle": "Installment Terms and Conditions",
-    "termsIntro": "By paying the first installment for Acadima programs, you agree to the following terms and conditions:",
+    "termsIntro": "By paying the first installment for Lxera programs, you agree to the following terms and conditions:",
     "terms": [
       {
         "title": "1. Acceptance of Terms:",
@@ -525,11 +527,11 @@
       },
       {
         "title": "3. Late Payment:",
-        "body": "In case of payment delay, acadima reserves the right to take appropriate measures to ensure completion of payments, including freezing the program or restricting access to learning materials."
+        "body": "In case of payment delay, Lxera reserves the right to take appropriate measures to ensure completion of payments, including freezing the program or restricting access to learning materials."
       },
       {
         "title": "4. Refund Policy:",
-        "body": "No payment can be refunded except in special circumstances evaluated by the acadima administration."
+        "body": "No payment can be refunded except in special circumstances evaluated by the Lxera administration."
       },
       {
         "title": "5. Program Access:",
@@ -541,10 +543,10 @@
       },
       {
         "title": "7. Communication & Support:",
-        "body": "Subscribers can contact the acadima support team for inquiries regarding payments or terms."
+        "body": "Subscribers can contact the Lxera support team for inquiries regarding payments or terms."
       }
     ],
-    "importantNote": "Important: By proceeding with the payment, you fully and irrevocably agree to all the terms and conditions, and you commit to complying with them to ensure continued access to Acadima services.",
+    "importantNote": "Important: By proceeding with the payment, you fully and irrevocably agree to all the terms and conditions, and you commit to complying with them to ensure continued access to Lxera services.",
     "back": "Back",
     "confirm": "Confirm"
   },
@@ -626,7 +628,13 @@
     "notStarted": "Not Started",
     "inProgress": "In Progress",
     "completed": "Completed",
-    "profile": "Profile"
+    "profile": "Profile",
+    "from": "From",
+    "to": "To",
+    "quiz": "Quiz / Assessment",
+    "teacher": "Teacher",
+    "status": "Status",
+    "show_results": "Show Results"
   },
   "SubMan": {
     "add_payment_method": "Add payment method",
@@ -725,7 +733,41 @@
     "completed": "Completed",
     "show-details": "Show Details",
     "view-all-tickets": "View All Previous Tickets",
-    "previous-tickets": "Previous Tickets"
+    "previous-tickets": "Previous Tickets",
+    "search-placeholder": "Search ticket code ..."
+  },
+  "AiAssistant": {
+    "AiAssistant": "Ai-Assistant",
+    "frequent-questions" : "Frequent Questions",
+    "try-asking": "Try asking me about ...",
+    "questions": [
+      "How do I add a new employee to the training program?",
+      "What is the difference between the available subscription packages?",
+      "From which page can I track employee performance?",
+      "Do I have the authority to create an employee account?",
+      "How do I add a new employee to the training program?",
+      "What is the difference between the available subscription packages?"
+    ],
+    "password-recovery": "You can recover your password by clicking on \"Forgot Password\".",
+    "generic-response": "Your inquiry has been received and will be answered shortly."
+  },
+  "Quizzes": {
+    "Quizzes": "Quizzes",
+    "my-quizzes": "My Quizzes",
+    "passed": "Passed",
+    "failed": "Failed",
+    "ShowResults": "Show Results",
+    "FilterResults": "Filter Results",
+    "teacher": "teacher",
+    "quiz": "Quiz",
+    "quiz-grade": "Quiz Grade",
+    "my-grade": "My Grade",
+    "status": "Status",
+    "pending": "Pending",
+    "date":"Date",
+    "edit":"Edit",
+    "delete":"Delete",
+    "actions":"Actions"
   },
 
 
@@ -901,5 +943,4 @@
 
 
 }
-
 }

@@ -76,6 +76,7 @@ export default function TechFilter() {
                   </div>
                 </div>
               </div>
+
               <div className=" col-lg-6 col-xl-2 col-md-3 col-12">
                 <div className="d-flex w-100 flex-column">
                   <div className="d-flex justify-content-center  align-items-center  w-100  position-relative  ">
@@ -96,6 +97,7 @@ export default function TechFilter() {
                   </div>
                 </div>
               </div>
+              
               <form className="form-inline d-flex  col-xl-4">
                 <div className="form-control mr-sm-2  d-flex gap-2 align-items-center">
                   <Search className="iconSize" />

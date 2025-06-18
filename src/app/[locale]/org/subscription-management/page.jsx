@@ -19,7 +19,7 @@
           <div className=" p-lg-4  pt-0">
             <div className=" row m-0  p-2 g-3 ">
               <h2 className=" hvvv p-4 pb-0"> {t("tracking")} </h2>
-              <div className="col-lg-8 col-xl-4  position-relative">
+              <div className=" col-xl-4  position-relative">
                 <CompnamCard />
               </div>
 

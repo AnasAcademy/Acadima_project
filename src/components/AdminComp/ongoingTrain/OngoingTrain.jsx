@@ -9,7 +9,6 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
   const t = useTranslations("HomePageA");
   const t2 = useTranslations("techSupport");
 
-
   const renderCell = {
     image: (col, key) => (
 
@@ -23,7 +22,7 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
     button: (col, key) => (
       <td key={key} className=" d-flex gap-3  align-items-center p-3 justify-content-center  ">
         <h4
-          className={` Tit-14-700 btncolor text-center  rounded-4 p-2 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
+          className={` Tit-14-700 btncolor text-center m-0 cursor-pointer rounded-4 p-2 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
           style={{ backgroundColor: col.color, color: col.textColor || "#fff", textDecoration: col.decoration || "none", width: col.width || "40%" }}
         >
           {col.icon ? (
@@ -39,7 +38,7 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
         </h4>
         {col.icon ? (
           Icon2 ? (
-            <Icon2 className="iconSize2   text-white" />
+            <Icon2 className="iconSize2   text-white cursor-pointer" />
           ) : (
             ""
           )
@@ -90,8 +89,8 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
           <h2> {t2("previous-tickets")} </h2>
         )}
 
-        <div className=" table-responsive   mt-4 ">
-          <table className="table  no-flag-style   align-middle   ">
+        <div className=" table-responsive   mt-4  ">
+          <table className="table  no-flag-style   align-middle     ">
             <thead className="  w-100">
               <tr className="text-nowrap   ">
                 {TableHead.map((head, index) => {
@@ -103,9 +102,9 @@ export default function OngoingTrain({ ContainerTop, TableHead, trainingData, Ic
                 })}
               </tr>
             </thead>
-            <tbody>
+            <tbody >
               {trainingData.map((item, index) => (
-                <tr key={index} className="text-center ">
+                <tr key={index} className="text-center  ">
                   {item.columns.map((col, colindex) => {
                     return renderCell[col.type] ? (
                       renderCell[col.type](col, `${index}-${colindex}`)

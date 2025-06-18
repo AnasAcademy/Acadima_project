@@ -26,7 +26,7 @@ export default function NotFound() {
 
 
   return (
-    <div className="container-fluid d-flex flex-column justify-content-center align-items-center bg-white text-center p-4">
+    <div className="container-fluid d-flex flex-column justify-content-center align-items-center text-center p-4">
    
       <div className="w-100 d-flex justify-content-center">
         <BrokenCable style={{ width: "400px", height: "auto" }} />

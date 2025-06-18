@@ -288,7 +288,7 @@ const loc = useLocale();
   };
 
   return (
-    <div className="custom-calendar text-white cardbg w-100    d-flex flex-column gap-4 justify-content-center  min-clan-ht  ">
+    <div className="custom-calendar text-white cardbg w-100    d-flex flex-column gap-4 justify-content-between  min-clan-ht  ">
       {renderHeader()}
       {renderDaysOfWeek()}
       {renderDates()}

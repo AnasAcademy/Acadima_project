@@ -5,7 +5,7 @@ import Line from "@/assets/Sidebar icons/Line 57.svg";
 
   import Image from "next/image";
 
- export default function WatchLessons({title}) {
+ export default function WatchLessons({title, full}) {
 
     
       const t = useTranslations();
@@ -13,9 +13,9 @@ import Line from "@/assets/Sidebar icons/Line 57.svg";
    return (
      <>
        <div className="d-flex justify-content-between flex-column  cardbg vh-100 ">
-         <div className=" mt-3 m-5">
-           <h2 className=" mt-4"> {info.section_title}</h2>
-           <div className="  mt-5 d-flex justify-content-center ">
+         <div className="p-4 p-md-5">
+           <h2 className=""> {info.section_title}</h2>
+           <div className={`  mt-5 d-flex justify-content-center ${full ? "col-lg-9 m-auto" : "col-12" } `}>
              <div className="video-container w-100">
                <iframe
                      className=' w-100'
@@ -32,7 +32,7 @@ import Line from "@/assets/Sidebar icons/Line 57.svg";
            <Line className=" w-100" />
          </div>
 
-         <div className="mt-3 m-5  ">
+         <div className="p-4 p-md-5  ">
            <h2 className=" mt-2"> {info.additional_content}</h2>
            <h4 className=" mt-3 custcalendarti"> {info.lecture_title}</h4>
 

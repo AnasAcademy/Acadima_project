@@ -5,16 +5,19 @@ import { usePathname } from "next/navigation";
 import Navbar from "../../../components/AdminComp/Navbar/Navbar";
 
 export default function NavbarWrapper() {
-    const pathname = usePathname();
-    const hideSidebarRoutes = [
-      "/ar/login",
-      "/en/login",
-      "/en/register",
-      "/ar/register",
-      "/ar/bundles/4/course/learning/4",
-      "/ar/org/orgprofile",
-      "/en/org/orgprofile",
-    ];
+  const pathname = usePathname();
+  const hideSidebarRoutes = [
+    "/ar/login",
+    "/en/login",
+    "/en/register",
+    "/ar/register",
+    "/ar/bundles/4/course/learning/4",
+    "/en/bundles/4/course/learning/4",
+    "/ar/org/orgprofile",
+    "/en/org/orgprofile",
+    "/ar/checkout",
+    "/en/checkout",
+  ];
 
-    return <>{!hideSidebarRoutes.includes(pathname) && <Navbar />}</>;
+  return <>{!hideSidebarRoutes.includes(pathname) && <Navbar />}</>;
 }

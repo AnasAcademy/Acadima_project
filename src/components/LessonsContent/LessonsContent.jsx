@@ -37,13 +37,15 @@ export default function LessonsContent() {
     }
   }
 
-  const components = {
-    watchlessons: <WatchLessons />,
+ 
+
+  const [full, setFull] = useState(false);
+
+   const components = {
+    watchlessons: <WatchLessons full={full}/>,
     examcomp: <ExamComp />,
     homework: <Homework />,
   };
-
-  const [full, setFull] = useState(false);
 
   function fullscreen() {
     setFull(true);

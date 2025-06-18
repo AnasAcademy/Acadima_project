@@ -63,7 +63,7 @@ export default function SettingSidebar() {
   return (
     <>
       <div className="row flex-column flex-lg-row  ">
-        <div className="col-lg-4 col-12">
+        <div className="col-lg-3 col-12">
           <div className=" w-100">
             <h2 className="htitle"> {info.settings_header} </h2>
             <div className=" d-flex flex-row mt-4  align-items-baseline gap-2">
@@ -247,7 +247,7 @@ export default function SettingSidebar() {
           </ul>
         </div>
 
-        <div className=" col-lg-8 col-12 ">{components[tabinfo]}</div>
+        <div className=" col-lg-9 col-12 p-0">{components[tabinfo]}</div>
       </div>
     </>
   );

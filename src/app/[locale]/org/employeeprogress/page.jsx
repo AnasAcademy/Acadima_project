@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import FilterCard from "@/components/FilterCard/FilterCard"
 import SelectCard from "@/components/SelectCard/SelectCard"
@@ -123,6 +124,30 @@ export default function EmployeeProgress() {
     },
   ];
 
+  const selectCardData = {
+  inputs: [
+    {
+      title: "training_course",
+      type: "select",
+      options: ["React", "Next.js", "Laravel"]
+    },
+    {
+      title: "branch",
+      type: "select",
+      options: ["Cairo", "Alex"]
+    },
+    {
+      title: "department",
+      type: "select",
+      options: ["Cairo", "Alex"]
+    },
+    {
+      title: "program_status",
+      type: "select",
+      options: ["on", "off"]
+    },
+  ]
+};
 
   return (
     <>
@@ -134,7 +159,7 @@ export default function EmployeeProgress() {
             </div>
 
             <div className=" col-lg-12 ">
-              <SelectCard />
+              <SelectCard selectCardData={selectCardData} />
             </div>
 
             <div className=" col-12 ">

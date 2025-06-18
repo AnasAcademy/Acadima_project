@@ -92,9 +92,9 @@ const Navbar = () => {
 
   return (
     <div className="  w-100 ">
-      <nav className="            navbar  bg-bluish-white p-3     d-flex align-items-start  justify-content-start   container-fluid  d-none d-sm-none  d-md-none d-lg-flex  ">
+      <nav className="            navbar  bg-bluish-white p-3 px-xl-5 px-lg-4    d-flex align-items-start  justify-content-start   container-fluid  d-none d-sm-none  d-md-none d-lg-flex  ">
         <div className="d-flex justify-content-between align-items-start align-items-md-center  flex-row-reverse w-100 ">
-          <div className="d-flex align-items-center  ps-4 pe-4     ">
+          <div className="d-flex align-items-center    ">
             <form className="       d-flex   gap-2    justify-content-end ">
               <div className=" d-flex justify-content-center align-items-center">
                 <LanguageSwitcher />
@@ -172,13 +172,13 @@ const Navbar = () => {
           </div>
 
           {/* Right Section: Breadcrumbs */}
-          <div className=" d-none d-sm-none  d-md-none d-lg-flex flex-column ">
+          {/* <div className=" d-none d-sm-none  d-md-none d-lg-flex flex-column ">
             <div className="d-flex ">
               <p className="text-m-black px-1 m-0 text-nowrap">
                 {actvPath && ts(actvPath)}
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </nav>
 

@@ -1,73 +1,81 @@
 "use client";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Circle from "@/assets/payments icons/Group 233.svg";
 import Up from "@/assets/payments icons/up.svg";
 import Down from "@/assets/payments icons/down.svg";
 import Paid from "@/assets/payments icons/paid.svg";
+import Rs from "@/assets/payments icons/rs.svg";
 
-export default function InstallSmallCard({ headers, courses }) {
-  const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState("");
+export default function InstallSmallCard({ headers, installments }) {
+  const [expanded, setExpanded] = useState(new Set());
+
+  useEffect(() => {
+    const unpaidIndexes = new Set(
+      installments
+        .map((installment, idx) =>
+          installment.flagColor === "red" ? idx : null
+        )
+        .filter((i) => i !== null)
+    );
+    setExpanded(unpaidIndexes);
+  }, [installments]);
 
   function toggle(key) {
-    if (open) {
-      setOpen(false);
-      setIndex("");
-    } else {
-      setOpen(true);
-      setIndex(key);
-    }
+    setExpanded((prev) => {
+      const newSet = new Set(prev);
+      newSet.has(key) ? newSet.delete(key) : newSet.add(key);
+      return newSet;
+    });
   }
 
   return (
-    <>
-      <div className=" d-flex  flex-column-reverse w-100">
-        {courses.map((course, key) => {
-          return (
-            <div key={key} className=" d-flex flex-column mt-3  ">
-              <div className="bg-white-color ">
-                <div className="bg-white-color d-flex justify-content-around  align-items-center p-3 ">
-                  {course[5] === "مدفوع" ? <Paid /> : <Circle/> }
-                
-                  <h4 className=" h8"> {course[1]} </h4>
-                     
-                     <div onClick={() => {  toggle(key);}} > 
-                              {   open && index === key ? <Up /> : <Down />  }
-                              </div>
-            
+    <div className="d-flex flex-column-reverse w-100">
+      {installments.map((course, key) => {
+        const isOpen = expanded.has(key);
+        const { flagColor, data } = course;
+
+        const renderCell = (value) =>
+          Array.isArray(value) ? (
+            <>
+              {value[0]}
+              {value[1]?.type === "image" && value[1].src === "rs" && (
+                <Rs className="iconcolor ms-1" />
+              )}
+            </>
+          ) : (
+            value
+          );
+
+        return (
+          <div key={key} className="d-flex flex-column mt-3">
+            <div
+              onClick={() => toggle(key)}
+              style={{ cursor: "pointer" }}
+              className="bg-white-color rounded-4 d-flex justify-content-around align-items-center p-3"
+            >
+              {flagColor === "green" ? <Paid /> : <Circle />}
+              <h4 className="h8">{data[1]}</h4>
+              <div>{isOpen ? <Up /> : <Down />}</div>
+            </div>
+
+            {isOpen && (
+              <div className="mt-3">
+                <div className="d-flex gap-4 justify-content-around flex-column pt-3 pb-3">
+                  {[2, 3, 4, 5].map((i) => (
+                    <div
+                      key={i}
+                      className="d-flex text-start justify-content-around p-2 bg-prim-color"
+                    >
+                      <h3 className="custsubtitle3">{headers[i]}</h3>
+                      <h3 className="custsubtitle3">{renderCell(data[i])}</h3>
+                    </div>
+                  ))}
                 </div>
               </div>
-              {open && index === key ? (
-                <div className=" mt-3">
-                  <div className=" d-flex gap-4 justify-content-around  flex-column  pt-3 pb-3 ">
-                    <div className=" d-flex  text-start  justify-content-around  p-2  bg-prim-color  ">
-                      <h3 className=" custsubtitle3 ">{headers[2]} </h3>
-                      <h3 className=" custsubtitle3 ">{course[2]} </h3>
-                    </div>
-                    <div className=" d-flex  text-start  justify-content-around  p-2 bg-prim-color ">
-                      <h3 className=" custsubtitle3"> {headers[3]} </h3>
-                      <h3 className=" custsubtitle3"> {course[3]} </h3>
-                    </div>
-
-                    <div className=" d-flex  text-start  justify-content-around   p-2  bg-prim-color ">
-                      <h3 className=" custsubtitle3"> {headers[4]} </h3>
-                      <h3 className=" custsubtitle3"> {course[4]} </h3>
-                    </div>
-
-                    <div className=" d-flex  text-start   justify-content-around   p-2  bg-prim-color ">
-                      <h3 className=" custsubtitle3"> {headers[5]} </h3>
-                      <h3 className=" custsubtitle3"> {course[5]} </h3>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </>
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 }

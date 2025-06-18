@@ -78,14 +78,14 @@
    return (
      <>
        <div className=" w-100  ">
-         <div className="row d-flex gy-4">
-           <div className=" col-lg-4 col-xl-3  col-sm-11 col-11 d-flex   justify-content-start align-items-center flex-column gap-4  ">
-             <div className=" d-flex justify-content-around justify-content-center align-items-center gap-5   w-100   ">
+         <div className="row d-flex flex-column-reverse flex-lg-row gy-4">
+           <div className=" col-lg-4 col-xl-3  col-sm-12 d-flex   justify-content-start align-items-center flex-column gap-4  ">
+             <div className=" d-flex justify-content-between align-items-center gap-5   w-100   ">
                <h2 className="hvvv m-3">{info[0].tit}</h2>
                <Filterr className="iconSize1" />
              </div>
 
-             <div className=" d-flex gap-3  rounded-5 border-1 p-1 ps-3 pe-3 justify-content-center align-items-center prevcarda">
+             <div className=" d-flex gap-3 col-12  rounded-5 border-1 p-1 ps-3 pe-3 justify-content-center align-items-center prevcarda">
                <h4
                  className="tit-10-700    p-2 rounded-3"
                  style={{ backgroundColor: "#E2E8F0" }}
@@ -168,7 +168,7 @@
              })}
            </div>
 
-           <div className=" mt-4 col-lg-8  col-xl-9 col-sm-12 col-12  prevcarda">
+           <div className=" mt-4 col-lg-8  col-xl-9 col-sm-12 col-12 rounded-4  prevcarda">
              <form className="form-inline my-2 my-lg-0 d-flex  p-3 prevcardta ">
                <div className="form-control mr-sm-2 w-50  d-flex gap-2  cardbg  p-2 ">
                  <Search className="iconSize" />

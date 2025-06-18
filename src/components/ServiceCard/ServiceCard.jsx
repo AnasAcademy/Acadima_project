@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import logo from "@/assets/Sidebar icons/sidebarLogo.png";
+import Rs from "@/assets/payments icons/rs.svg";
+
 
 export default function ServiceCards() {
   const t = useTranslations("services");
@@ -35,6 +37,8 @@ export default function ServiceCards() {
                   }}
                 >
                   {service.price}
+                  <Rs className="iconcolor"  />
+
                 </button>
 
                 <button className="btn btn-light custfontbtn px-3 text-nowrap srv-btn-width">
