@@ -1854,3 +1854,7 @@ select.no-native-arrow {
   
 }
 
+.no-calendar-icon::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: none;
+}

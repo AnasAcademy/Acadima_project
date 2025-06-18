@@ -7,7 +7,7 @@ import Quiz2 from "@/assets/quizzes/quiz2.svg";
 import Quiz3 from "@/assets/quizzes/quiz3.svg";
 import Quiz4 from "@/assets/quizzes/quiz4.svg";
 import roundimage from "@/assets/admin/personla.png";
-import edit from "@/assets/quizzes/edit.svg"
+import edit from "@/assets/quizzes/edit.svg";
 import Removebin from "@/assets/admin/removebin.svg";
 
 import SelectCard from "@/components/SelectCard/SelectCard";
@@ -17,97 +17,116 @@ export default function Quizzes() {
   const t = useTranslations("Quizzes");
 
   const TableHead = [
-    "",
     t("teacher"),
     t("quiz"),
     t("quiz-grade"),
     t("my-grade"),
     t("status"),
     t("date"),
-    t("actions")
+    t("actions"),
   ];
 
   const trainingData = [
     {
       columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("teacher") },
+        {
+          type: "user",
+          name: "Zahra Alicccd vvvvvvvvvvv",
+          email: "zahra.a@anasacademy.uk",
+          img: roundimage, // or full image path
+        },
         { type: "text", value: t("quiz") },
         { type: "text", value: "5" },
         { type: "text", value: "0" },
         { type: "text", value: t("pending") },
         { type: "text", value: "05 مايو 2025" },
-        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" }
+        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" },
       ],
     },
     {
       columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("teacher") },
+        {
+          type: "user",
+          name: t("teacher"),
+          email: "zahra.a@anasacademy.uk",
+          img: roundimage, // or full image path
+        },
         { type: "text", value: t("quiz") },
         { type: "text", value: "5" },
         { type: "text", value: "0" },
         { type: "text", value: t("passed") },
         { type: "text", value: "05 مايو 2025" },
-        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" }
+        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" },
       ],
     },
     {
       columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("teacher") },
+        {
+          type: "user",
+          name: t("teacher"),
+          email: "zahra.a@anasacademy.uk",
+          img: roundimage, // or full image path
+        },
         { type: "text", value: t("quiz") },
         { type: "text", value: "5" },
         { type: "text", value: "0" },
         { type: "text", value: t("passed") },
         { type: "text", value: "05 مايو 2025" },
-        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" }
+        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" },
       ],
     },
     {
       columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("teacher") },
+        {
+          type: "user",
+          name: t("teacher"),
+          email: "zahra.a@anasacademy.uk",
+          img: roundimage, // or full image path
+        },
         { type: "text", value: t("quiz") },
         { type: "text", value: "5" },
         { type: "text", value: "0" },
         { type: "text", value: t("failed") },
         { type: "text", value: "05 مايو 2025" },
-        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" }
+        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" },
       ],
     },
     {
       columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("teacher") },
+        {
+          type: "user",
+          name: t("teacher"),
+          email: "zahra.a@anasacademy.uk",
+          img: roundimage, // or full image path
+        },
         { type: "text", value: t("quiz") },
         { type: "text", value: "5" },
         { type: "text", value: "0" },
         { type: "text", value: t("pending") },
         { type: "text", value: "05 مايو 2025" },
-        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" }
+        { type: "button", value: t("edit"), icon: true, color: "#CBD5E0" },
       ],
     },
   ];
 
-   const selectCardData = {
-  inputs: [
-    { title: "from", type: "date" },
-    { title: "to", type: "date" },
-    {
-      title: "status",
-      type: "select",
-      options: ["جديد", "مكتمل", "جارٍ"]
+  const selectCardData = {
+    inputs: [
+      { title: "from", type: "date" },
+      { title: "to", type: "date" },
+      {
+        title: "status",
+        type: "select",
+        options: ["جديد", "مكتمل", "جارٍ"],
+      },
+      { title: "quiz", type: "search", placeholder: "مثال: Math 101" },
+      { title: "teacher", type: "search", placeholder: "اسم المدرّس" },
+    ],
+    button: {
+      show: true,
+      text: "show_results", // translation key
+      onClick: () => console.log("Filters applied"),
     },
-    { title: "quiz", type: "search", placeholder: "مثال: Math 101" },
-    { title: "teacher", type: "search", placeholder: "اسم المدرّس" }
-  ],
-  button: {
-    show: true,
-    text: "show_results", // translation key
-    onClick: () => console.log("Filters applied"),
-  }
-};
+  };
 
   return (
     <>
@@ -152,6 +171,7 @@ export default function Quizzes() {
             button={false}
             Icon={edit}
             Icon2={Removebin}
+            padding={4}
           />
         </div>
       </div>

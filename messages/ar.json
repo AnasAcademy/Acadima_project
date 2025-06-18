@@ -771,6 +771,7 @@
 },
 
 "orgProfile":{
+  "orgprofile-table-title":"البرامج التدريبية",
   "username": "اسم المستخدم",
   "email": "البريد الإلكتروني",
   "company_name": "شركة الوفاق المستقبلية للاتصالات",
