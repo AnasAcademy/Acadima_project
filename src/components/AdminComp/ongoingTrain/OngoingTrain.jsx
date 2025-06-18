@@ -30,10 +30,10 @@ export default function OngoingTrain({
     button: (col, key) => (
       <td
         key={key}
-        className=" d-flex gap-3  align-items-center p-3 justify-content-center  "
+        className=" d-flex gap-3   align-items-center p-3  justify-content-center      "
       >
         <h4
-          className={` Tit-14-700 btncolor text-center m-0 cursor-pointer rounded-4 p-2 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
+          className={` tit-12-400 btncolor text-center m-0 cursor-pointer rounded-4 p-2  px-5 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
           style={{
             backgroundColor: col.color,
             color: col.textColor || "#fff",
