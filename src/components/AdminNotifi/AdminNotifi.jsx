@@ -87,14 +87,14 @@
 
              <div className=" d-flex gap-3 col-12  rounded-5 border-1 p-1 ps-3 pe-3 justify-content-center align-items-center prevcarda">
                <h4
-                 className="tit-10-700    p-2 rounded-3"
+                 className="tit-10-700  m-0  p-2 rounded-3"
                  style={{ backgroundColor: "#E2E8F0" }}
                >
                  {" "}
                  {t("all")}
                </h4>
-               <h4 className="tit-10-700"> {t("read")}</h4>
-               <h4 className="tit-10-700"> {t("unread")} </h4>
+               <h4 className="tit-10-700 m-0"> {t("read")}</h4>
+               <h4 className="tit-10-700 m-0"> {t("unread")} </h4>
              </div>
 
              {info.map((dat, key) => {

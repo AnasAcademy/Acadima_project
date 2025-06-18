@@ -153,6 +153,7 @@ export default function TechSupport() {
                   button={false}
                   Icon={ticket}
                   viewAllTickets={true}
+                  padding={4}
                 />
               </div>
               <div className="col-xl-3">

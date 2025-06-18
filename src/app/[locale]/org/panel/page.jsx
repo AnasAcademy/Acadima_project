@@ -83,6 +83,7 @@ export default function Admin() {
                 trainingData={trainingData}
                 button={true}
                 ContainerTop={true}
+                padding={5}
               />
             </div>
           </div>

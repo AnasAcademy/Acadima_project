@@ -18,7 +18,7 @@ export default function FrequentlyAskedQues() {
   const visibleFaqs = showAll ? faqs : faqs.slice(0, 4);
 
   return (
-    <div className="cardbg p-3 py-lg-5 rounded-4 h-100">
+    <div className="cardbg p-3 pt-lg-4 rounded-3 h-100">
       <h2 className="fw-bold mb-3">{t("faq-title")}</h2>
 
       <div className="d-flex flex-column gap-2">
