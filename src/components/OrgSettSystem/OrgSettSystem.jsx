@@ -33,7 +33,7 @@ export default function OrgSettSystem() {
             </div>
 
             <div
-              className=" d-flex  justify-content-center align-items-center rounded-3  px-3  gap-2   "
+              className=" d-flex  justify-content-center align-items-center rounded-3  px-3  py-1  gap-2   "
               style={{ border: "1px  solid  #E3E3E3" }}
             >
               <Upload className=" iconSize1   " />
@@ -128,9 +128,9 @@ export default function OrgSettSystem() {
           </div>
         </div>
 
-        <div className=" row bg-success">
+        <div className=" row">
           <div className="col-12 col-xl-5">
-            <div className="  mt-4 cardbg p-4 min-file-ht">
+            <div className="  mt-4 cardbg p-4 min-systm-ht">
               <div>
                 <h3 className=" tit-18-700  textcolor mb-0">
                   {" "}
@@ -189,7 +189,7 @@ export default function OrgSettSystem() {
           </div>
 
           <div className="col-12 col-xl-7">
-            <div className="  mt-4 cardbg p-4">
+            <div className="  mt-4 cardbg p-4 min-systm-ht">
               <div>
                 <h3 className=" tit-18-700  textcolor mb-0">
                   {" "}
@@ -221,7 +221,7 @@ export default function OrgSettSystem() {
                       <Tab />
                     </div>
                     <h3 className=" Tit-14-700"> {t("theme_style")}</h3>
-                    <div className=" d-flex   justify-content-between gap-5">
+                    <div className=" d-flex   justify-content-between gap-3">
                       <div
                         className=" d-flex flex-column  p-3  rounded-2"
                         style={{ border: "1px  solid  #216ED7" }}

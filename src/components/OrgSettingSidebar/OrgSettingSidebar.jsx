@@ -19,7 +19,7 @@ import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
     const t = useTranslations("adminSettings");
 
      const [sel , setSel] = useState(null)
-
+     const [activeTab, setActiveTab] = useState(1);
     const selector = {
       1: <OrgsettingAcc />,
       2: <h2>Team Page</h2>,
@@ -35,16 +35,16 @@ import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
       
         setSel(selector[1])
 
-     
-
+       
     },[])
     
+ 
 
     function select(num){
 
         setSel(selector[num]);
 
-
+        setActiveTab(num);
 
 
    }
@@ -53,15 +53,25 @@ import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
      <>
        <div className=" row m-0   g-3 ">
          <div className="col-12 col-xl-2   ">
-           <div className=" d-flex flex-column gap-4 pt-5 mt-2  pe-4 pb-5 cardbg  mb-3 ">
+           <div className=" d-flex flex-column gap-4 pt-5 mt-2  ps-4 pe-4 pb-5 cardbg  mb-3 align-items-center align-items-lg-start ">
              <div
-               className=" d-flex gap-2  align-items-center cursor-pointer"
+               className=" d-flex gap-2  align-items-center cursor-pointer "
                onClick={() => {
                  select(1);
                }}
              >
-               <Dash className="iconSize1 iconcolor3 " />
-               <h3 className=" Tit-14-700   mb-0 ">{t("account")}</h3>
+               <Dash
+                 className={`iconSize1  ${
+                   activeTab === 1 ? "iconcolor2" : "iconcolor3"
+                 }       `}
+               />
+               <h3
+                 className={` Tit-14-700   mb-0    ${
+                   activeTab === 1 ? " textcolor" : ""
+                 }       `}
+               >
+                 {t("account")}
+               </h3>
              </div>
              <div
                className=" d-flex gap-2  align-items-center cursor-pointer"
@@ -69,8 +79,18 @@ import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
                  select(2);
                }}
              >
-               <Team className="iconSize1 " />
-               <h3 className=" Tit-14-700  mb-0">{t("team")}</h3>
+               <Team
+                 className={`iconSize1  ${
+                   activeTab === 2 ? "iconcolor2" : "iconcolor3"
+                 }       `}
+               />
+               <h3
+                 className={` Tit-14-700   mb-0    ${
+                   activeTab === 2 ? " textcolor" : ""
+                 }       `}
+               >
+                 {t("team")}
+               </h3>
              </div>
              <div
                className=" d-flex gap-2  align-items-center cursor-pointer"
@@ -78,8 +98,18 @@ import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
                  select(3);
                }}
              >
-               <System className="iconSize1" />
-               <h3 className=" Tit-14-700  mb-0">{t("system")}</h3>
+               <System
+                 className={`iconSize1  ${
+                   activeTab === 3 ? "iconcolor2" : "iconcolor3"
+                 }       `}
+               />
+               <h3
+                 className={` Tit-14-700   mb-0    ${
+                   activeTab === 3 ? " textcolor" : ""
+                 }       `}
+               >
+                 {t("system")}
+               </h3>
              </div>
              <div
                className=" d-flex gap-2  align-items-center cursor-pointer"
@@ -87,8 +117,18 @@ import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
                  select(4);
                }}
              >
-               <Helper className="iconSize1" />
-               <h3 className=" Tit-14-700  mb-0">{t("assistant")}</h3>
+               <Helper
+                 className={`iconSize1  ${
+                   activeTab === 4 ? "iconcolor2" : "iconcolor3"
+                 }       `}
+               />
+               <h3
+                 className={` Tit-14-700   mb-0    ${
+                   activeTab === 4 ? " textcolor" : ""
+                 }       `}
+               >
+                 {t("assistant")}
+               </h3>
              </div>
              <div
                className=" d-flex gap-2  align-items-center cursor-pointer"
@@ -96,8 +136,18 @@ import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
                  select(5);
                }}
              >
-               <Support className="iconSize1" />
-               <h3 className=" Tit-14-700  mb-0">{t("support")}</h3>
+               <Support
+                 className={`iconSize1  ${
+                   activeTab === 5 ? "iconcolor2" : "iconcolor3"
+                 }       `}
+               />
+               <h3
+                 className={` Tit-14-700   mb-0    ${
+                   activeTab === 5 ? " textcolor" : ""
+                 }       `}
+               >
+                 {t("support")}
+               </h3>
              </div>
            </div>
            <div>

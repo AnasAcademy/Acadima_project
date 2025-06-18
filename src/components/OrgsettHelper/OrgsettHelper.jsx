@@ -13,7 +13,7 @@
 
    return (
      <>
-       <div className="  container">
+       <div className="   container-fluid ">
          <div className=" row g-3">
            <div className=" col-12 col-lg-12 col-xl-6 ">
              <div className=" cardbg p-4 min-prev-ai">
@@ -43,9 +43,9 @@
                  </div>
                </div>
 
-               <div className=" d-flex flex-column   gap-4 justify-content-center   pt-2 ">
+               <div className=" d-flex flex-column   gap-3 justify-content-center   pt-2 ">
                  <h3 className="   Tit-14-700 mb-0">{t("assistant_tone")}</h3>
-                 <div className=" d-flex gap-4 ">
+                 <div className=" d-flex gap-1 ">
                    <div className=" d-flex gap-2">
                      <div class="form-check">
                        <input
@@ -89,7 +89,7 @@
                  <h3 className="   Tit-14-700 mb-0">
                    {t("language_settings")}
                  </h3>
-                 <div className=" d-flex gap-4">
+                 <div className=" d-flex gap-1">
                    <div className=" d-flex gap-2">
                      <div class="form-check">
                        <input

@@ -38,7 +38,7 @@
              </div>
 
              <div
-               className=" d-flex  justify-content-center align-items-center rounded-3  px-3  gap-2   "
+               className=" d-flex  justify-content-center align-items-center rounded-3  px-3  py-1 gap-2   "
                style={{ border: "1px  solid  #E3E3E3" }}
              >
                <Upload className=" iconSize1   " />
