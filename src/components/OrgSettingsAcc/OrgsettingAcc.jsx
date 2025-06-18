@@ -179,7 +179,7 @@
          </div>
 
          <div className=" row">
-           <div className=" col-12 col-xl-6">
+           <div className=" col-12 col-xl-7">
              <div className="  mt-4 cardbg p-4">
                <div>
                  <h3 className=" tit-18-700  textcolor mb-0">
@@ -192,20 +192,25 @@
 
                <div className=" row pt-3  g-3 ">
                  <div className="col-12 d-flex       align-items-center     justify-content-between">
-                   <div className=" d-flex gap-3  justify-content-center align-items-center ">
-                     <Google className="iconSize11" />
-                     <div className=" d-flex flex-column">
-                       <h3 className=" Tit-14-700"> {t("google")}</h3>
-                       <p className=" tit-12-400">
-                         تم الربط مع: Khaled_Mohammed@gmail.com
-                       </p>
-                     </div>
-                   </div>
-
-                   <button className="btn btn-danger Tit-12-700 px-2  px-xl-5       text-nowrap ">
-                     {" "}
-                     {t("unlink")}{" "}
-                   </button>
+             
+          
+                       <div className=" d-flex gap-3  justify-content-center align-items-center ">
+                         <Google className="iconSize11" />
+                         <div className=" d-flex flex-column">
+                           <h3 className=" Tit-14-700"> {t("google")}</h3>
+                           <p className=" tit-12-400">
+                             تم الربط مع: Khaled_Mohammed@gmail.com
+                           </p>
+                         </div>
+                       </div>
+                
+  
+                       <button className="btn btn-danger Tit-12-700 px-2  px-xl-4       text-nowrap ">
+                         {" "}
+                         {t("unlink")}{" "}
+                       </button>
+                    
+                  
                  </div>
 
                  <div className="col-12 d-flex     align-items-center    justify-content-between">
@@ -219,7 +224,7 @@
                      </div>
                    </div>
 
-                   <button className="btn btn-danger Tit-12-700  px-2  px-xl-5 text-nowrap">
+                   <button className="btn btn-danger Tit-12-700  px-2  px-xl-4 text-nowrap">
                      {" "}
                      {t("unlink")}{" "}
                    </button>
@@ -228,7 +233,7 @@
              </div>
            </div>
 
-           <div className="col-12  col-xl-6">
+           <div className="col-12  col-xl-5">
              <div className="  mt-4 cardbg p-4">
                <div>
                  <h3 className=" tit-18-700  textcolor mb-0">
