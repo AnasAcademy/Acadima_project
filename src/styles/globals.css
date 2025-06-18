@@ -1167,6 +1167,13 @@ width: 24px ;
       margin-top: -130px; 
 }
 
+.iconSize13 {
+  width: 100%;
+  height: auto;
+  margin-top: -130px;
+
+}
+
 .iconSize8 {
   width: 100%;
   height: auto;
@@ -1587,6 +1594,11 @@ flex-direction: row-reverse;
   min-height: 655px;
 }
 
+.min-prf-ht {
+
+
+  min-height: 610px;
+}
 
 .min-pay-ht {
   min-height: 214px;
