@@ -114,26 +114,26 @@ export default function Quizzes() {
       <div className="   container p-3 pt-lg-0 pt-5  mt-5 ">
         <h2 className="hvvv mb-4">{t("Quizzes")}</h2>
         <div className="col-12 cardbg rounded-4 d-flex flex-row p-4 flex-wrap">
-          <div className="col-lg-3 col-md-6 col-6 d-flex flex-column justify-content-center align-items-center">
-            <Quiz1 className="iconSize7" />
+          <div className="col-lg-3 col-md-6 col-6 d-flex flex-column justify-content-center align-items-center   gap-1">
+            <Quiz1 className="iconSize9" />
             <h2 className="fw-bold fs-2">4</h2>
             <h3 className="text-muted">{t("Quizzes")}</h3>
           </div>
 
-          <div className="col-lg-3 col-md-6 col-6 d-flex flex-column justify-content-center align-items-center">
-            <Quiz2 className="iconSize7" />
+          <div className="col-lg-3 col-md-6 col-6 d-flex flex-column justify-content-center align-items-center  gap-1 ">
+            <Quiz2 className="iconSize9" />
             <h2 className="fw-bold fs-2">3</h2>
             <h3 className="text-muted">{t("passed")}</h3>
           </div>
 
-          <div className="col-lg-3 col-md-6 col-6 d-flex flex-column justify-content-center align-items-center">
-            <Quiz3 className="iconSize7" />
+          <div className="col-lg-3 col-md-6 col-6 d-flex flex-column justify-content-center align-items-center gap-1">
+            <Quiz3 className="iconSize9" />
             <h2 className="fw-bold fs-2">1</h2>
             <h3 className="text-muted">{t("failed")}</h3>
           </div>
 
-          <div className="col-lg-3 col-md-6 col-6 d-flex flex-column justify-content-center align-items-center">
-            <Quiz4 className="iconSize7" />
+          <div className="col-lg-3 col-md-6 col-6 d-flex flex-column justify-content-center align-items-center gap-1">
+            <Quiz4 className="iconSize9" />
             <h2 className="fw-bold fs-2">2</h2>
             <h3 className="text-muted">{t("ShowResults")}</h3>
           </div>
