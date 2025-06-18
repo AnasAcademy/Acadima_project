@@ -128,9 +128,9 @@ export default function OrgSettSystem() {
           </div>
         </div>
 
-        <div className=" row">
-          <div className="col-12 col-lg-6">
-            <div className="  mt-4 cardbg p-4">
+        <div className=" row bg-success">
+          <div className="col-12 col-xl-5">
+            <div className="  mt-4 cardbg p-4 min-file-ht">
               <div>
                 <h3 className=" tit-18-700  textcolor mb-0">
                   {" "}
@@ -149,7 +149,7 @@ export default function OrgSettSystem() {
                     </div>
                   </div>
 
-                  <button className="btn btn-danger Tit-12-700  px-5">
+                  <button className="btn btn-danger Tit-12-700  px-4 text-nowrap">
                     {" "}
                     {t("unlink")}{" "}
                   </button>
@@ -164,7 +164,7 @@ export default function OrgSettSystem() {
                     </div>
                   </div>
 
-                  <button className="btn  btn-light btncolor Tit-12-700 px-5 text-white">
+                  <button className="btn  btn-light btncolor Tit-12-700 px-4 text-white text-nowrap">
                     {" "}
                     {t("relink")}{" "}
                   </button>
@@ -179,7 +179,7 @@ export default function OrgSettSystem() {
                     </div>
                   </div>
 
-                  <button className="btn  btn-light  btncolor Tit-12-700 px-5 text-white">
+                  <button className="btn  btn-light  btncolor Tit-12-700 px-4 text-white text-nowrap">
                     {" "}
                     {t("relink")}{" "}
                   </button>
@@ -188,7 +188,7 @@ export default function OrgSettSystem() {
             </div>
           </div>
 
-          <div className="col-12 col-lg-6">
+          <div className="col-12 col-xl-7">
             <div className="  mt-4 cardbg p-4">
               <div>
                 <h3 className=" tit-18-700  textcolor mb-0">
@@ -198,7 +198,7 @@ export default function OrgSettSystem() {
 
                 <Line className="w-100" />
               </div>
-              <div className=" row pt-3  g-3 ">
+              <div className=" row pt-3  g-3  ">
                 <div className="col-12 d-flex    align-items-center    justify-content-between">
                   <div className=" d-flex gap-3   flex-column ">
                     <div className=" d-flex flex-column">
@@ -207,7 +207,7 @@ export default function OrgSettSystem() {
 
                     <div
                       className=" d-flex gap-4 p-2 rounded-3 justify-content-between align-items-center"
-                      style={{ border: "1px  solid  #E3E3E3" }}
+                      style={{ border: "1px  solidrgb(75, 33, 33)" }}
                     >
                       <div className=" d-flex justify-content-between gap-2">
                         <div
@@ -250,7 +250,7 @@ export default function OrgSettSystem() {
                       >
                         <div className="form-check  d-flex flex-row-reverse  gap-4 ">
                           <label
-                            className="form-check-label ms-2 me-2 Tit-12-700"
+                            className="form-check-label ms-2 me-2 Tit-12-700 text-nowrap"
                             for="flexRadioDefault1"
                           >
                             {t("dark_mode")}
