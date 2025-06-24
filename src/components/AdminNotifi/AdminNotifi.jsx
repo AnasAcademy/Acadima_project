@@ -19,10 +19,27 @@
   const t = useTranslations("adminNotfi");
 //false --->  green 
 
+
+function extractCleanMessage(html) {
+  if (!html) return "";
+
+  // 1. Strip HTML tags
+  const text = html.replace(/<[^>]+>/g, "");
+
+  // 2. Match only the part before the second " on "
+  const parts = text.split(" on ");
+  if (parts.length >= 2) {
+    return parts[0]; // "Amani hassan hakami registered on the platform"
+  }
+
+  return text; // fallback
+}
+
+
   function showMessage(key , id) {
 
     setShow("show");
-    setmsgData(adminnotifi[key].message);
+    setmsgData(extractCleanMessage(adminnotifi[key].message));
     setTitle(adminnotifi[key].title);
     setDate(adminnotifi[key].created_at);
    
@@ -34,7 +51,7 @@
     } else {
 
       setIndex(key);
-      setmsgData(adminnotifi[key].message);
+      setmsgData(extractCleanMessage(adminnotifi[key].message));
       setTitle(adminnotifi[key].title);
       setDate(adminnotifi[key].created_at);
       setFlag((prevFlags) => {
@@ -42,7 +59,7 @@
         newFlags[key] = "read";
         return newFlags;
       });
-      editStatus( id);
+      editStatus( key, id);
       
        
     }
@@ -60,7 +77,7 @@
 
     if (key !== null  ) {
       setShow("show");
-      setmsgData(adminnotifi[key].message);
+      setmsgData(extractCleanMessage(adminnotifi[key].message));
       setTitle(adminnotifi[key].title);
       setDate(adminnotifi[key].created_at);
       setFlag((prevFlags) => {
@@ -117,7 +134,7 @@
                            width={10}
                            height={10}
                            className={` ${
-                             dat.status === "read" ? "flg" : " iconcol"
+                             flag[key] === "read" ? "flg" : " iconcol"
                            } `}
                          />
                        </div>
@@ -150,7 +167,7 @@
                                index === key ? " swap" : "  "
                              }`}
                            >
-                             {dat.message.slice(0, 32)}.....
+                             { extractCleanMessage(dat.message)}.....
                            </p>
                            {index === key ? (
                              <p className=" d-xl-none d-lg-none d-sm-flex d-flex">
