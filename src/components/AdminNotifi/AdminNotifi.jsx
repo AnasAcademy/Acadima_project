@@ -9,22 +9,22 @@
  import { useTranslations } from "next-intl";
  export default function AdminNotifi() {
 
-  const { info, key, setKey , flag , setFlag} = useContext(NotificationContext);
+  const { info, key, setKey, flag, setFlag, adminnotifi, editStatus } =
+    useContext(NotificationContext);
   const [show, setShow] = useState("");
   const [index, setIndex] = useState(null);
   const [MsgData, setmsgData] = useState("");
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-
   const t = useTranslations("adminNotfi");
 //false --->  green 
 
-  function showMessage(key) {
+  function showMessage(key , id) {
 
     setShow("show");
-    setmsgData(info[key].body);
-    setTitle(info[key].title);
-    setDate(info[key].date);
+    setmsgData(adminnotifi[key].message);
+    setTitle(adminnotifi[key].title);
+    setDate(adminnotifi[key].created_at);
    
 
     if (index === key) {
@@ -34,18 +34,20 @@
     } else {
 
       setIndex(key);
-      setmsgData(info[key].body);
-      setTitle(info[key].title);
-      setDate(info[key].date);
+      setmsgData(adminnotifi[key].message);
+      setTitle(adminnotifi[key].title);
+      setDate(adminnotifi[key].created_at);
       setFlag((prevFlags) => {
         const newFlags = [...prevFlags];
-        newFlags[key] = "true"; 
+        newFlags[key] = "read";
         return newFlags;
       });
+      editStatus( id);
+      
        
     }
   }
-
+  
   useEffect(() => {
 
 
@@ -58,12 +60,12 @@
 
     if (key !== null  ) {
       setShow("show");
-      setmsgData(info[key].body);
-      setTitle(info[key].title);
-      setDate(info[key].date);
+      setmsgData(adminnotifi[key].message);
+      setTitle(adminnotifi[key].title);
+      setDate(adminnotifi[key].created_at);
       setFlag((prevFlags) => {
         const newFlags = [...prevFlags];
-        newFlags[key] = "true";
+        newFlags[key] = "read";
         return newFlags;
       });
 
@@ -71,20 +73,18 @@
       setShow("hide");
     }
 
- 
-     
+    
   }, [key]);
 
    return (
      <>
        <div className=" w-100  ">
          <div className="row d-flex flex-column-reverse flex-lg-row gy-4">
-           <div className=" col-lg-4 col-xl-3  col-sm-12 d-flex   justify-content-start align-items-center flex-column gap-4  ">
+           <div className=" col-lg-4 col-xl-3  col-sm-12 d-flex  justify-content-start align-items-center flex-column gap-4    ">
              <div className=" d-flex justify-content-between align-items-center gap-5   w-100   ">
                <h2 className="hvvv m-3">{info[0].tit}</h2>
                <Filterr className="iconSize1" />
              </div>
-
              <div className=" d-flex gap-3 col-12  rounded-5 border-1 p-1 ps-3 pe-3 justify-content-center align-items-center prevcarda">
                <h4
                  className="tit-10-700  m-0  p-2 rounded-3"
@@ -97,75 +97,77 @@
                <h4 className="tit-10-700 m-0"> {t("unread")} </h4>
              </div>
 
-             {info.map((dat, key) => {
-               return (
-                 <div
-                   key={key}
-                   className={` " rounded-4 shadow-sm  w-100 d-flex flex-column prevcardta   p-3 min-notfi-ht ${
-                     index === key ? " cardbg swap" : " cardbg "
-                   }    "  `}
-                 >
+             <div className="  d-flex flex-column gap-2 w-100 max-notf-ht    overflow-y-auto ">
+               {adminnotifi.slice(0,7).map((dat, key) => {
+                 return (
                    <div
-                     className=" d-flex gap-1"
-                     onClick={() => {
-                       showMessage(key);
-                     }}
+                     key={key}
+                     className={` " rounded-4 shadow-sm  w-100 d-flex flex-column prevcardta   p-3 max-notfi-ht  ${
+                       index === key ? " cardbg swap" : " cardbg "
+                     }    "  `}
                    >
-                     <div className=" ">
-                       <Circle
-                         width={10}
-                         height={10}
-                         className={` ${
-                           flag[key] === "true" ? "flg" : " iconcol"
-                         } `}
-                       />
-                     </div>
-                     <div className=" d-flex flex-column  w-100">
-                       <div className=" d-flex flex-column w-100 ">
-                         <div className=" d-flex flex-column gap-2 w-100">
-                           <div className=" d-flex justify-content-between g-4 w-100 ">
-                             <h4
-                               className={`custsubtitle3 p-0 m-0 ${
-                                 index === key ? " swap" : "  "
-                               }  `}
-                             >
-                               {dat.title}
-                             </h4>
+                     <div
+                       className=" d-flex gap-1"
+                       onClick={() => {
+                         showMessage(key, dat.id);
+                       }}
+                     >
+                       <div className=" ">
+                         <Circle
+                           width={10}
+                           height={10}
+                           className={` ${
+                             dat.status === "read" ? "flg" : " iconcol"
+                           } `}
+                         />
+                       </div>
+                       <div className=" d-flex flex-column  w-100">
+                         <div className=" d-flex flex-column w-100 ">
+                           <div className=" d-flex flex-column gap-2 w-100">
+                             <div className=" d-flex justify-content-between g-4 w-100 ">
+                               <h4
+                                 className={`custsubtitle3 p-0 m-0 ${
+                                   index === key ? " swap" : "  "
+                                 }  `}
+                               >
+                                 {dat.title}
+                               </h4>
 
-                             <p
-                               className={`ft p-0 m-0  ${
-                                 index === key ? " swap" : "  "
-                               } `}
-                             >
-                               ١٧:١٢
+                               <p
+                                 className={`ft p-0 m-0  ${
+                                   index === key ? " swap" : "  "
+                                 } `}
+                               >
+                                 {dat.created_at}
+                               </p>
+                             </div>
+                             <p className={`ft p-0 m-0  namcolr `}>
+                               {t("senderName")}
                              </p>
                            </div>
-                           <p className={`ft p-0 m-0  namcolr `}>
-                             {t("senderName")}
+                           <p
+                             className={`ft d-xl-flex     mt-3 d-sm-none d-none ${
+                               index === key ? " swap" : "  "
+                             }`}
+                           >
+                             {dat.message.slice(0, 32)}.....
                            </p>
+                           {index === key ? (
+                             <p className=" d-xl-none d-lg-none d-sm-flex d-flex">
+                               <div className=" h6v  message mt-3 p-3  ">
+                                 {MsgData}
+                               </div>
+                             </p>
+                           ) : (
+                             ""
+                           )}
                          </div>
-                         <p
-                           className={`ft d-xl-flex     mt-3 d-sm-none d-none ${
-                             index === key ? " swap" : "  "
-                           }`}
-                         >
-                           {dat.body}
-                         </p>
-                         {index === key ? (
-                           <p className=" d-xl-none d-lg-none d-sm-flex d-flex">
-                             <div className=" h6v  message mt-3 p-3  ">
-                               {MsgData}
-                             </div>
-                           </p>
-                         ) : (
-                           ""
-                         )}
                        </div>
                      </div>
                    </div>
-                 </div>
-               );
-             })}
+                 );
+               })}
+             </div>
            </div>
 
            <div className=" mt-4 col-lg-8  col-xl-9 col-sm-12 col-12 rounded-4  prevcarda">

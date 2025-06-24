@@ -183,14 +183,7 @@ h6 {
 
 }
 
-.tit-10-700 {
 
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-
-}
 
 .tit-10-400 {
 
@@ -1204,6 +1197,17 @@ width: 24px ;
 
 }
 
+.iconSize12{
+
+     width: 14px;
+  height: 14px
+}
+
+.iconSize14 {
+
+  width: 64px;
+  height: 64px
+}
 
 .iconSize7 {
   width: 50px;
@@ -1298,6 +1302,12 @@ padding: 8px;
 .circbgg {
 
   background-color: var(--circ-bgg) !important;
+}
+
+.circbgg2 {
+
+  color:  #A0AEC0
+  
 }
 
 .cardbgv2{
@@ -1526,6 +1536,11 @@ flex-direction: row-reverse;
    
 }
 
+/* .min-comp-ht {
+  min-height: 700px;
+
+} */
+
 .min-dash-ht{
 
   min-height: 74px;
@@ -1610,6 +1625,15 @@ flex-direction: row-reverse;
   
 }
 
+.max-notf-ht{
+
+  max-height: 620px;
+}
+
+.max-notfi-ht{
+
+ max-height: 160px;
+}
 .min-prev-ht {
   min-height: 528px;
   
@@ -1875,4 +1899,20 @@ select.no-native-arrow {
 .no-calendar-icon::-webkit-calendar-picker-indicator {
   opacity: 0;
   display: none;
+}
+
+
+.tit-10-700 {
+
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+}
+
+
+.newbg{
+
+   background-color:  var(--background-color);
 }

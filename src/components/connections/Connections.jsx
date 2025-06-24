@@ -49,9 +49,9 @@ export default function Connections({ save }) {
 
   return (
     <>
-      <div className=" mt-3 position-relative cardbg p-3 pt-2">
+      <div className=" cardbg p-4 mt-2 position-relative ">
         <div className=" d-flex  justify-content-between align-items-center">
-          <h3 className=" d-flex gap-1 custsubtitle3">
+          <h3 className=" tit-18-700  textcolor mb-0">
             {info.workLinks}
             <span className=" custsubtitle3 text-danger">*</span> :{" "}
           </h3>

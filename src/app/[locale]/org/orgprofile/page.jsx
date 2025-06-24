@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "@/assets/admin/73763.svg";
 import LatestTrain from "@/components/AdminComp/latestTrain/LatestTrain";
-import TechFilter from "@/components/TechFilter/TechFilter";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import { useTranslations } from "next-intl";
 import Pin from "@/assets/admin/pin.svg";

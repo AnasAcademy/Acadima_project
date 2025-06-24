@@ -457,9 +457,9 @@
   },
   "settings": {
     "edit": "تعديل",
-    "full_name": "اسم الطالب كامل",
-    "academic_info": "البيانات الأكاديمية",
-    "academic_code": "الكود الأكاديمي",
+    "full_name": "اسم المستخدم كامل",
+    "academic_info": "  بيانات المستخدم",
+    "academic_code": "كود المستخدم",
     "email": "البريد الإلكتروني",
     "birthdate": "تاريخ الميلاد",
     "language": "اللغة",
@@ -664,7 +664,8 @@
     "view_all": "عرض جميع عمليات الدفع",
     "subscriptionAmount": "مبلغ الاشتراك : 500$",
     "emaill": "الإيميل : oliver@burrito.com",
-    "referenceNumber": "رقم : FRB1235476"
+    "referenceNumber": "رقم : FRB1235476",
+    "num": "90 موظف/ة"
   },
   "yourplan": {
     "your_plan": "خطتك",

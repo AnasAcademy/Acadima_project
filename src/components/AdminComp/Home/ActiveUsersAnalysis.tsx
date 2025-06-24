@@ -19,7 +19,7 @@ const data = [
     { name: 'Sep', value: 30 },
 ];
 
-const ActiveUsersAnalysis = () => {
+const ActiveUsersAnalysis = ({dat}) => {
 
     // Get the current locale (language)
     const locale = useLocale();
@@ -84,7 +84,7 @@ const ActiveUsersAnalysis = () => {
               </div>
               <h6 className="mx-1">{t("total_courses")}</h6>
             </div>
-            <h3 className="my-2">30</h3>
+            <h3 className="my-2">{dat.total_webinars}</h3>
             <div
               className="progress"
               style={{ height: "5px", direction: isRTL ? "rtl" : "ltr" }}
@@ -109,7 +109,7 @@ const ActiveUsersAnalysis = () => {
               </div>
               <h6 className="mx-1">{t("completed_courses")}</h6>
             </div>
-            <h3 className="my-2">14</h3>
+            <h3 className="my-2">-</h3>
             <div
               className="progress"
               style={{ height: "5px", direction: isRTL ? "rtl" : "ltr" }}
@@ -134,7 +134,7 @@ const ActiveUsersAnalysis = () => {
               </div>
               <h6 className="mx-1">{t("ongoing_courses")}</h6>
             </div>
-            <h3 className="my-2">16</h3>
+            <h3 className="my-2">{dat.total_active_webinars}</h3>
             <div
               className="progress"
               style={{ height: "5px", direction: isRTL ? "rtl" : "ltr" }}
@@ -161,7 +161,7 @@ const ActiveUsersAnalysis = () => {
               </div>
               <h6 className="mx-1">{t("issued_certificates")}</h6>
             </div>
-            <h3 className="my-2">43</h3>
+            <h3 className="my-2">{dat.total_certificates}</h3>
             <div
               className="progress"
               style={{ height: "5px", direction: isRTL ? "rtl" : "ltr" }}

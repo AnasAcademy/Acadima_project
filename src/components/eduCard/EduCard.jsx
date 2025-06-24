@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Line from "@/assets/admin/Line18.svg";
 
 export default function EduCard({ save }) {
   const t = useTranslations();
@@ -63,215 +64,220 @@ export default function EduCard({ save }) {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div className=" mt-5 cardbg p-3 pt-2">
-          <h3 className=" d-flex gap-1 custsubtitle3">
-            {" "}
-            {info.uni_edu} <span className=" custsubtitle3 text-danger">*</span>{" "}
-            :{" "}
-          </h3>
-          <div className="container">
-            <div className=" row g-5">
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont  ">
-                  {" "}
-                  {info.last_uni_cert}{" "}
-                  <h5 className=" custfont text-danger">*</h5>{" "}
-                </h3>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                  }}
-                />
-
-                {formik.values.fullName &&
-                  formik.touched.fullName &&
-                  formik.errors.fullName && (
-                    <div
-                      className="alert alertFont  mt-2 mb-0 p-2 rounded-3"
-                      style={{ color: "red" }}
-                    >
-                      {formik.errors.fullName}
-                    </div>
-                  )}
-              </div>
-
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.ent_bach_cert_sor}{" "}
-                  <h5 className=" custfont text-danger">*</h5>{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.cert_country}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.uni} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.college} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.major} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.grad_year} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.gpa} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.grad_cert_img}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-            </div>
+        <div className=" cardbg p-4 mt-2">
+          <div>
+            <h3 className="  tit-18-700  textcolor mb-0">
+              {" "}
+              {info.uni_edu}{" "}
+              <span className=" custsubtitle3 text-danger">*</span> :{" "}
+            </h3>
+            <Line className="w-75" />
           </div>
 
-          <h3 className=" d-flex gap-1 custsubtitle3 mt-5 mb-3">
-            {" "}
-            {info.high_edu}{" "}
-            <span className=" custsubtitle3 text-danger">*</span> :{" "}
-          </h3>
-          <div className="container">
-            <div className=" row g-5">
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont  ">
-                  {" "}
-                  {info.high_cert_country}{" "}
-                  <h5 className=" custfont text-danger">*</h5>{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+          <div className=" row  pt-4   g-4">
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700  d-flex ">
+                {" "}
+                {info.last_uni_cert}{" "}
+                {/* <h5 className=" custfont text-danger">*</h5>{" "} */}
+              </h3>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                }}
+              />
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.edu_area} <h5 className=" custfont text-danger">*</h5>{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+              {formik.values.fullName &&
+                formik.touched.fullName &&
+                formik.errors.fullName && (
+                  <div
+                    className="alert alertFont  mt-2 mb-0 p-2 rounded-3"
+                    style={{ color: "red" }}
+                  >
+                    {formik.errors.fullName}
+                  </div>
+                )}
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.high_grad_year}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700 "> {info.ent_bach_cert_sor} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.school} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.cert_country} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+            <div className=" col-lg-6 col-xl-3"> </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.uni} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.high_gpa} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.college} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.high_cert_img}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.major} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+            <div className=" col-lg-6 col-xl-3"> </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.grad_year} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.gpa} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.grad_cert_img} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
             </div>
           </div>
+        </div>
 
-          <h3 className=" d-flex gap-1 custsubtitle3 mt-5 mb-3">
-            {" "}
-            {info.exp} <span className=" custsubtitle3 text-danger">*</span> :{" "}
-          </h3>
-          <div className="container">
-            <div className=" row g-5">
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont  ">
-                  {" "}
-                  {info.exp_field} <h5 className=" custfont text-danger">*</h5>{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+        <div className=" cardbg p-4 mt-2">
+          <div>
+            <h3 className="   tit-18-700  textcolor ">
+              {" "}
+              {info.high_edu}{" "}
+              <span className=" custsubtitle3 text-danger">*</span> :{" "}
+            </h3>
+            <Line className="w-75" />
+          </div>
+          <div className=" row  pt-4   g-4">
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700  ">
+                {" "}
+                {info.high_cert_country}{" "}
+                <h5 className=" custfont text-danger">*</h5>{" "}
+              </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.years_exp} <h5 className=" custfont text-danger">*</h5>{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700">
+                {" "}
+                {info.edu_area} <h5 className=" custfont text-danger">*</h5>{" "}
+              </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.high_grad_year} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3"></div>
+
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.school} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.high_gpa} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.high_cert_img} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className=" cardbg p-4 mt-2">
+          <div>
+            <h3 className=" tit-18-700  textcolor mb-0">
+              {" "}
+              {info.exp} <span className=" custsubtitle3 text-danger">*</span> :{" "}
+            </h3>
+            <Line className="w-75" />
+          </div>
+          <div className=" row  pt-4   g-4">
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700  "> {info.exp_field} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.years_exp} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
             </div>
           </div>
 

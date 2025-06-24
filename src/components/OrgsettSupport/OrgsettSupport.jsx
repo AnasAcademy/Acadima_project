@@ -1,6 +1,4 @@
  import React from 'react'
- import Line from "@/assets/admin/Line18.svg";
- import Ai from "@/assets/admin/ailogo.svg";
  import { useTranslations } from "next-intl";
  export default function OrgsettSupport() {
 

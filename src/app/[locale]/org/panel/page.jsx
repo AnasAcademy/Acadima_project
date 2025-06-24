@@ -10,27 +10,15 @@ import TrainigControlPanel from "@/components/AdminComp/Home/TrainigControlPanel
 
 
 
-export default function Admin() {
+export default  async function Admin() {
 
-
-  const t = useTranslations("HomePageA");
-  const tD = useTranslations("DashboardA");
-
-  const TableHead = [
-
-    t("tableHead3"),
-    t("tableHead2"),
-    t("tableHead1"),
-
-  ];
-
-
-
+let dataa = []
+  const TableHead = ["-", "-","-"];
 
   const trainingData = [
     {
       columns: [
-        { type: "text", value: t("tablerow") },
+        { type: "text", value: "-" },
         { type: "text", value: 6 },
 
         { type: "progress", value: 60 },
@@ -38,23 +26,42 @@ export default function Admin() {
     },
     {
       columns: [
-        { type: "text", value: t("tablerow") },
+        { type: "text", value: "-" },
         { type: "text", value: 6 },
 
         { type: "progress", value: 70 },
       ],
     },
   ];
+  
+try {
+  const data = await fetch(
+    "http://127.0.0.1:8000/api/development/organization/vodafone",
+    {
+      method: "GET",
+      headers: {
+        "x-api-key": "1234",
+        "Content-Type": "application/json",
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwNTkzNDMwLCJuYmYiOjE3NTA1OTM0MzAsImp0aSI6IldHVXZodTNlVkF1WmN0NGciLCJzdWIiOiIxMTkyIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.l9EltPVGErM26K0vtQA1fSbEXp-y5zZhsW3lI-DiSDs`,
+      },
+    }
+  );
 
 
-
+  const  respond = await data.json();
+   dataa = respond.data
+   console.log(dataa)
+} catch (err) {
+  console.error("Fetch error:", err);
+}
+ 
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4 mt-5 mt-lg-0 pt-0">
           <div className=" row m-0  p-2 g-3">
             <div className="col-lg-12">
-              <DashboardCards />
+              <DashboardCards data={dataa} />
             </div>
 
             <div className="  col-xl-5 col-lg-12 col-md-12 col-12">
@@ -65,12 +72,12 @@ export default function Admin() {
               <TrainigControlPanel />
             </div>
 
-            <div className=" col-xl-8 col-lg-12  col-12 ">
+            <div className=" col-xl-7 col-lg-12  col-12 ">
               <LineChart />
             </div>
 
-            <div className=" col-xl-4  col-lg-12 col-12">
-              <ActiveUsersAnalysis />
+            <div className=" col-xl-5  col-lg-12 col-12">
+              <ActiveUsersAnalysis dat={dataa} />
             </div>
 
             <div className=" col-xl-4  col-lg-12 col-12">

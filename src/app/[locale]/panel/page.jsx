@@ -15,7 +15,7 @@ export default  async function Home() {
 
   const locale = cookies().get("NEXT_LOCALE")?.value;
 
-
+try{
   const data = await fetch(
     "https://lms.acadimacollege.com/api/development/panel",
     {
@@ -23,12 +23,16 @@ export default  async function Home() {
       headers: {
         "x-api-key": "1234",
         "Content-Type": "application/json",
-        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xtcy5hY2FkaW1hY29sbGVnZS5jb20vYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwMDU5MTU4LCJuYmYiOjE3NTAwNTkxNTgsImp0aSI6IlpTYkFKRjhaRkJZRTJRS2YiLCJzdWIiOiIxOTcwIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.A3_ZUZmFEb0Nyf5Q0Xji1dioik6r6J2mrlTUOUA1TVM`, // if needed
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xtcy5hY2FkaW1hY29sbGVnZS5jb20vYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwMDU5MTU4LCJuYmYiOjE3NTAwNTkxNTgsImp0aSI6IlpTYkFKRjhaRkJZRTJRS2YiLCJzdWIiOiIxOTcwIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.A3_ZUZmFEb0Nyf5Q0Xji1dioik6r6J2mrlTUOUA1TVM`,
       },
     }
   );
   const respond = await data.json();
+  console.log(respond)
+} catch (err){
 
+   console.log(err)
+}
 
 
   return (

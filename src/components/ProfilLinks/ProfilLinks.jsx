@@ -18,9 +18,9 @@ export default function ProfilLinks({ save }) {
 
   return (
     <>
-      <div className=" mt-5 cardbg p-3 pt-2">
+      <div className="cardbg p-4 mt-2">
         <div className=" d-flex  justify-content-between align-items-center">
-          <h3 className=" d-flex gap-1 custsubtitle3">
+          <h3 className=" tit-18-700  textcolor mb-0">
             {" "}
             {info.workLinks}{" "}
             <span className=" custsubtitle3 text-danger">*</span> :{" "}
@@ -33,7 +33,10 @@ export default function ProfilLinks({ save }) {
         <div className="container">
           <div className=" row g-5">
             <div className=" col-lg-12 ">
-              <div className="d-flex justify-content-between  flex-lg-row flex-sm-column gap-3 align-items-center flex-column bg-prim-color mt-5 p-2">
+              <div
+                className="d-flex justify-content-between  flex-lg-row flex-sm-column gap-3 align-items-center flex-column bg-prim-color mt-5 p-2"
+                
+              >
                 {edit === "edit" ? (
                   <input
                     type="text"

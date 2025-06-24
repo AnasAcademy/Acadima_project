@@ -8,7 +8,6 @@
  import Pen from "@/assets/admin/pen.svg";
  import { useTranslations } from "next-intl";
  import OrgsettingAcc from "@/components/OrgSettingsAcc/OrgsettingAcc"
- import OrgSettTeam from "@/components/OrgsettTeam/OrgSettTeam"
  import OrgSettSystem from "@/components/OrgSettSystem/OrgSettSystem"
 import OrgsettHelper from "@/components/OrgsettHelper/OrgsettHelper"
 import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
