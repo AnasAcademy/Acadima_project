@@ -18,7 +18,7 @@ export default function ProfilLinks({ save }) {
 
   return (
     <>
-      <div className=" mt-5 cardbg p-3 pt-2">
+      <div className=" mt-5 cardbg rounded-4 p-3 pt-2">
         <div className=" d-flex  justify-content-between align-items-center">
           <h3 className=" d-flex gap-1 custsubtitle3">
             {" "}

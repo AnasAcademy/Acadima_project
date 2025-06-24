@@ -26,7 +26,7 @@ export default function LessonsNavbar({setFull ,full}) {
 
   return (
     <>
-      <div className="  w-100 d-flex justify-content-around align-items-center cardbg  ">
+      <div className="  w-100 d-flex justify-content-around align-items-center cardbg  rounded-4 ">
         <div className=" row w-100  d-flex justify-content-around align-items-center p-3  ">
           <div className=" col-6  d-lg-none   d-sm-flex  d-flex  ">
             <nav className="navbar navbar-light      ">

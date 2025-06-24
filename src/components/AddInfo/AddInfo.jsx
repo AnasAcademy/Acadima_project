@@ -62,7 +62,7 @@ export default function AddInfo({ save }) {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div className=" mt-5 cardbg p-3 pt-2">
+        <div className=" mt-5 cardbg rounded-4 p-3 pt-2">
           <h3 className=" d-flex gap-1 custsubtitle3">
             {info.job_info}
             <span className=" custsubtitle3 text-danger">*</span> :{" "}

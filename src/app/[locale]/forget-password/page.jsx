@@ -1,15 +1,15 @@
-'use client'
+"use client";
 import React, { useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
-import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
+// import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
+import logo from "@/assets/admin/logo2.png";
 import MailIcon from "@/assets/Registration/Mail.svg";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-
-
 
 export default function ForgetPassword() {
   const t = useTranslations("Login");
@@ -31,9 +31,17 @@ export default function ForgetPassword() {
       setErrMsg(null);
       setSucMsg(null);
       try {
-        const { data } = await axios.post("https://e.ggg.com/", values);
+        const { data } = await axios.post("https://lms.acadimacollege.com/api/development/forget-password", values,
+          {
+            headers: {
+              "x-api-key": "1234",
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-        if (data.message === "success") {
+        // console.log("Response data:", data);
+        if (data.success) {
           setSucMsg(ts("MailSentSuccessfully"));
           resetForm();
         }
@@ -53,20 +61,15 @@ export default function ForgetPassword() {
           <LanguageSwitcher />
 
           <Link
-            className="text-white text-decoration-none  m-lg-auto p-5 pb-3 pt-2  d-flex justify-content-center "
+            className="text-white text-decoration-none  m-lg-auto  d-flex justify-content-center "
             role="button"
             href="/"
           >
-            <Image
-              alt="Your Company"
-              src={anasAcadlogo}
-              className="m-auto "
-              width={260}
-            />
+            <Image src={logo} alt="" width={190} height={56} priority />
           </Link>
 
           <div className="d-flex justify-content-center  gap-2">
-            <h3 className="textpink  fw-bold h5"> {ts("forgetPassword")}</h3>
+            <h3 className="textcolor  fw-bold h5"> {ts("forgetPassword")}</h3>
           </div>
 
           {/* Email Field */}
@@ -126,8 +129,8 @@ export default function ForgetPassword() {
             <button
               type="submit"
               disabled={!formik.isValid || !formik.dirty}
-              className="btn  text-white rounded-5 ps-4  pe-4 pt-3 pb-3 h2 w-100 w-md-auto"
-              style={{ backgroundColor: "#C14B93", border: "none" }}
+              className="btn  text-white rounded-5 ps-4  pe-4 pt-3 pb-3 h2 w-100 w-md-auto circbg"
+              style={{border: "none" }}
             >
               {ts("forgetPassword")}
             </button>
@@ -136,13 +139,12 @@ export default function ForgetPassword() {
           <div className="mt-20 text-center registertext d-flex flex-column">
             <span className=" ps-1">{ts("or")}</span>
 
-            <a
+            <Link
               href="/login?"
-              className="fw-bold text-decoration-none"
-              style={{ color: "#C14B93" }}
+              className="fw-bold text-decoration-none textcolor"
             >
               {t("login")}
-            </a>
+            </Link>
           </div>
         </form>
       </div>

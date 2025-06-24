@@ -9,7 +9,7 @@ export default function AiCard() {
   const t = useTranslations("techSupport");
   return (
     <>
-      <div className=" mt-1  cardbg text-white h-100 position-relative   z-0 ">
+      <div className=" mt-1  cardbg rounded-4 text-white h-100 position-relative   z-0 ">
         <div className="">
           <Image src={bg} className=" w-100" alt="ai" />
           <h3 className="px-3 position-absolute top-5 text-white d-flex gap-2 align-items-center">

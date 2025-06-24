@@ -105,7 +105,7 @@ export default function Regproaca({ data }) {
           >
             <div className=" d-flex flex-column gap-4  ">
               <div
-                className={`p-4 rounded-2 d-xl-flex  d-sm-flex-column  min-rego-ht  ${
+                className={`p-4 rounded-4 d-xl-flex  d-sm-flex-column  min-rego-ht  ${
                   actv === key ? "tableCardco" : "cardbg"
                 }`}
               >

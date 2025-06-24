@@ -154,7 +154,7 @@ export default function OrgProfile() {
 
   return (
     <>
-      <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
+      <div className="  m-0  container-fluid p-0 d-flex flex-column    ">
         <div className=" p-lg-4 pt-0">
           <div className="  btncolor  rounded-3 position-relative overflow-visible ">
             <div
@@ -217,7 +217,7 @@ export default function OrgProfile() {
           <div className=" row m-0   g-3   ">
             <h2 className=" hvvv p-4 pb-0"> </h2>
             <div className="col-lg-6 col-xl-4 ">
-              <div className=" position-relative rounded-3 shadow-sm     p-5 cardbg   min-profil-ht  ">
+              <div className=" position-relative rounded-4 shadow-sm     p-5 cardbg   min-prf-ht  ">
                 <Logo className=" iconSize4" />
 
                 <p className=" tit-12-400">{ts("company_desc")}</p>
@@ -255,8 +255,8 @@ export default function OrgProfile() {
               </div>
             </div>
 
-            <div className="  col-lg-6 col-xl-4   ">
-              <div className=" d-flex flex-column gap-3 cardbg p-5 min-profil-ht ">
+            <div className="  col-lg-6 col-xl-5   ">
+              <div className=" d-flex flex-column gap-3 cardbg rounded-4 p-5 min-prf-ht ">
                 <div className="  d-flex  justify-content-between">
                   <h4 className="  tit-18-700 "> مؤشرات أداء التدريب </h4>
 
@@ -293,7 +293,7 @@ export default function OrgProfile() {
                           <h4 className=" tit-10-400 text-white">+9%</h4>
                         </div>
                         <div className="   ">
-                          <Trianum className=" iconSize7 " />
+                          <Trianum className=" iconSize13 " />
                         </div>
                       </div>
 
@@ -315,7 +315,7 @@ export default function OrgProfile() {
 
                   <div className="col-6">
                     <div className=" d-flex flex-column gap-3 ">
-                      <div className=" bg-white rounded-4 p-3  cardbg border-1  border-dark-subtle border ">
+                      <div className=" bg-white rounded-4 p-3  cardbg border-1  border-dark-subtle border  ">
                         <h4 className=" tit-12-400"> الشهادات المُصدّرة </h4>
 
                         <div className=" d-flex">
@@ -344,7 +344,7 @@ export default function OrgProfile() {
                           </h4>
                         </div>
                         <div className="      ">
-                          <Trainmn className=" iconSize7 " />
+                          <Trainmn className=" iconSize13 " />
                         </div>
                       </div>
                     </div>
@@ -353,15 +353,12 @@ export default function OrgProfile() {
               </div>
             </div>
 
-            <div className="  col-lg-8 col-xl-4  ">
-              <LatestTrain />
+            <div className="  col-lg-12 col-xl-3    ">
+              <LatestTrain h={"min-prf-ht"} />
             </div>
 
             <div className="col-12">
-              <SelectCard
-                selectCardData={selectCardData}
-                isOrgProfile={true}
-              />
+              <SelectCard selectCardData={selectCardData} isOrgProfile={true} />
             </div>
 
             <div className="col-lg-12  ">

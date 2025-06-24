@@ -162,7 +162,7 @@ const handleSave = () => {
         onSubmit={() => {
           handleSave();
         }}
-        className="cardbg p-3 pt-2"
+        className="cardbg rounded-4 p-3 pt-2"
       >
         <div className=" mt-5  ">
           <h3 className=" d-flex gap-1  custsubtitle3">

@@ -1,6 +1,7 @@
 :root {
  
   --secondary-color: #1024dd ;
+  --secColor:#1ABFA0;
 
 }
 
@@ -97,7 +98,7 @@
 }
 
  .calendar-day.selected:not(.disabled) {
-  background-color: var(--secondary-color); 
+  background-color: var(--secColor); 
   color: var(--White) !important; 
   
   font-weight: bold;

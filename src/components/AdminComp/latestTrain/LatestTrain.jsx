@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 import { useTranslations } from "next-intl";
 import Image from 'next/image'
 import Notif from "../../../assets/admin/notif.svg"
@@ -11,14 +12,21 @@ import Check from "../../../assets/admin/Check_All.svg";
 
 
 
-export default function LatestTrain() {
+export default function LatestTrain({h}) {
      
 const t = useTranslations("HomePageA");
 
+  
+
+
   return (
     <>
-      <div className="   rounded-3 shadow-sm    container-fluid  p-5 cardbg min-train-ht ">
-        <h3 className=' tit-18-700 '> {t("updat")} </h3>
+      <div
+        className={`   rounded-3 shadow-sm    container-fluid  p-5 rounded-4 cardbg  ${
+          h ? h : "min-train-ht "
+        }`}
+      >
+        <h3 className=" tit-18-700 "> {t("updat")} </h3>
 
         <div className=" d-flex  mt-5 flex-column gap-2   ">
           <div className=" d-flex gap-3   ">

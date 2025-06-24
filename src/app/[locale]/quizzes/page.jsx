@@ -172,6 +172,7 @@ export default function Quizzes() {
             Icon={edit}
             Icon2={Removebin}
             padding={4}
+            isUserImg={true}
           />
         </div>
       </div>

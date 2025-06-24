@@ -11,7 +11,7 @@ export default function Smallcard({Frame }) {
 
   return (
     <>
-      <div className=" w-100  p-4 rounded-2  d-flex justify-content-between flex-column align-items-center  gap-2  cardbg text-white min-nam-ht ">
+      <div className=" w-100  p-4 rounded-4  d-flex justify-content-between flex-column align-items-center  gap-2  cardbg text-white min-nam-ht ">
         <Frame className="iconSize2" />
 
         <h3 className=" tit-14-400 custcolor  text-center  ">{t("title1")}</h3>

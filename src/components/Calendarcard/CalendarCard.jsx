@@ -16,7 +16,7 @@ export default function CalendarCard() {
 
   return (
     <>
-      <div className="p-3 rounded-2  d-flex justify-content-center flex-column   cardbg ">
+      <div className="p-3 rounded-4  d-flex justify-content-center flex-column   cardbg ">
         <h3 className="mb-3 tit-18-700 Gray-Gray-700 "> {t("month")} </h3>
         <Calendar
           onChange={setValue}

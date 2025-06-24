@@ -84,7 +84,7 @@ export default function Sidebar() {
 
                 <li
                   className={`nav-item d-flex   p-2  w-100  align-items-center   ${
-                    isEmployeeprogress ? "cardbg  rounded-2 " : ""
+                    isEmployeeprogress ? "cardbg  rounded-4 " : ""
                   }   `}
                 >
                   <Stat

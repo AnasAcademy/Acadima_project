@@ -34,6 +34,7 @@ export default function Sidebar() {
   const isServPage = pathname.includes("/services");
   const isSettPage = pathname.includes("/settings");
   const isQuizzesPage = pathname.includes("/quizzes");
+  const isAssignmentsPage = pathname.includes("/assignments");
 
   const [actv, setActv] = useState("");
 
@@ -132,6 +133,22 @@ export default function Sidebar() {
                   />
                   <Link className="nav-link Tit-14-700" href="/certificates">
                     {t("Technical Support")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex p-2 w-100 align-items-center ${
+                    isAssignmentsPage ? "cardbg rounded-4" : ""
+                  }`}
+                  onClick={() => toggle("cert")}
+                >
+                  <ScheduleIcon
+                    className={`iconSize2 ${
+                      isAssignmentsPage ? "iconcolor2" : "iconcolor"
+                    }`}
+                  />
+                  <Link className="nav-link Tit-14-700" href="/quizzes">
+                    {t("assignments")}
                   </Link>
                 </li>
 

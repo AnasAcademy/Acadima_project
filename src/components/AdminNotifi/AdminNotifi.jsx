@@ -170,7 +170,7 @@
 
            <div className=" mt-4 col-lg-8  col-xl-9 col-sm-12 col-12 rounded-4  prevcarda">
              <form className="form-inline my-2 my-lg-0 d-flex  p-3 prevcardta ">
-               <div className="form-control mr-sm-2 w-50  d-flex gap-2  cardbg  p-2 ">
+               <div className="form-control mr-sm-2 w-50  d-flex gap-2 rounded-4 cardbg  p-2 ">
                  <Search className="iconSize" />
                  <input
                    className="tit-12-400 border-0 "

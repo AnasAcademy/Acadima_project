@@ -113,6 +113,7 @@
     "elctro": "الخدمات الإلكترونية",
     "AI Assistant": "الإعدادات  ",
     "quizzes" : "الإختبارات",
+    "assignments": "الواجبات",
     "logout": " تسجيل الخروج"
   },
   "Namcard": {
@@ -632,7 +633,8 @@
     "quiz": "اختبار / مقرر",
     "teacher": "معلم",
     "status": "الحالة",
-    "show_results": "إظهار النتائج"
+    "show_results": "إظهار النتائج",
+    "course" : "المقرر"
   },
   "SubMan": {
     "add_payment_method": "أضف وسيلة دفع",
@@ -756,7 +758,7 @@
   "my-quizzes": "اختباراتى",
   "passed": "ناجح",
   "failed": "راسب",
-  "ShowResults": "فتح النتائج",
+  "ShowResults": "أظهر النتائج",
   "FilterResults": "فلترة النتائج",
   "teacher": "معلم",
   "quiz": "اختبار",
@@ -767,7 +769,28 @@
   "date":"تاريخ",
   "edit":"تعديل",
   "delete":"حذف",
-  "actions": "الإجراءات"
+  "actions": "الإجراءات",
+  "tries": "المحاولات",
+  "failed-desc": ".للأسف لم تستطيع إجتياز الاختبار",
+  "passed-desc": "تم إجتياز الإختبار بنجاح",
+  "try-again": "حاول مرة أخرى"
+},
+
+"assignments": {
+  "assignments": "الواجبات",
+  "statsHeader": "احصائيات الواجبات",
+  "courseAssignments": "تكليفات المقرر",
+  "pendingReview": "في انتظار المراجعة",
+  "filter-Assignments": "تعيينات التصفية",
+  "course": "المقرر",
+  "my-assignments" : "الواجبات الخاصة بي",
+  "firstSubmission": "التقديم الأول",
+  "lastSubmission": "آخر إرسال",
+  "attempts": "عدد المحاولات",
+  "not-submitted": "لم يتم التسليم",
+  "deadline": "حد أقصى للتسليم",
+  "passing-grade": "درجة النجاح",
+  "show-assignment": "عرض الواجب"
 },
 
 "orgProfile":{

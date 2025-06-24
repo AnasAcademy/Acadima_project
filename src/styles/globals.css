@@ -1167,6 +1167,13 @@ width: 24px ;
       margin-top: -130px; 
 }
 
+.iconSize13 {
+  width: 100%;
+  height: auto;
+  margin-top: -130px;
+
+}
+
 .iconSize8 {
   width: 100%;
   height: auto;
@@ -1201,6 +1208,11 @@ width: 24px ;
 .iconSize7 {
   width: 50px;
     height: 50px
+}
+
+.iconSize11 {
+  width: 300px;
+  height: 250px;
 }
 .coverimg{
  margin:80px;
@@ -1587,6 +1599,11 @@ flex-direction: row-reverse;
   min-height: 655px;
 }
 
+.min-prf-ht {
+
+
+  min-height: 610px;
+}
 
 .min-pay-ht {
   min-height: 214px;
@@ -1776,7 +1793,7 @@ flex-direction: row-reverse;
 
 @media screen and (max-width: 991px) {
   .container {
-    max-width: 100% !important;
+    max-width: 97% !important;
   }
 }
 
@@ -1846,6 +1863,12 @@ select.no-native-arrow {
   min-height: 500px;
 }
 
+
+.min-systm-ht {
+
+  min-height: 370px;
+  
+}
 
 .iconScreens{
   width: 100%;

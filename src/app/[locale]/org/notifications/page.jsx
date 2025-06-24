@@ -10,7 +10,7 @@
 
   return (
     <>
-      <div className="   container p-3  mt-5 cardbg ">
+      <div className="   container p-3  mt-5 cardbg rounded-4">
        
 
         <div className=" d-flex row ">

@@ -28,6 +28,8 @@ export default function SideBarWrapper() {
     "/ar/installments-conditions",
     "/ar/checkout",
     "/en/checkout",
+    "/ar/quiz/4",
+    "/en/quiz/4",
   ];
 
 

@@ -10,7 +10,7 @@
 
     return (
       <>
-        <div className=" d-flex  flex-column w-100  p-3 cardbg min-yourplan-ht ">
+        <div className=" d-flex  flex-column w-100  p-3 rounded-4 cardbg min-yourplan-ht ">
           <div className=" d-flex justify-content-between pt-3   pb-3  ">
             <h3 className="tit-16-600  "> {t("your_plan")}</h3>
             <X />

@@ -11,7 +11,7 @@
       const t = useTranslations("SubMan");
    return (
      <>
-       <div className=" d-flex  flex-column  gap-4  justify-content-center h-100 p-4 cardbg">
+       <div className=" d-flex  flex-column  gap-4  justify-content-center h-100 p-4 cardbg rounded-4">
          <div className=" d-flex align-items-start w-100 justify-content-between">
            <h3 className="Tit-14-700 ">{t("payment_methods")}</h3>
            <button className=" btn  custfontbtn">
