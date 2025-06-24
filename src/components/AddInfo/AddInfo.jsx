@@ -2,6 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
+import Line from "@/assets/admin/Line18.svg";
 
 export default function AddInfo({ save }) {
   const t = useTranslations();
@@ -62,6 +63,7 @@ export default function AddInfo({ save }) {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
+
         <div className=" mt-5 cardbg rounded-4 p-3 pt-2">
           <h3 className=" d-flex gap-1 custsubtitle3">
             {info.job_info}
@@ -84,134 +86,151 @@ export default function AddInfo({ save }) {
                   }}
                 />
 
-                {formik.values.fullName &&
-                  formik.touched.fullName &&
-                  formik.errors.fullName && (
-                    <div
-                      className="alert alertFont  mt-2 mb-0 p-2 rounded-3"
-                      style={{ color: "red" }}
-                    >
-                      {formik.errors.fullName}
-                    </div>
-                  )}
-              </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.job_title} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <Line className="w-75" />
+          </div>
+          <div className=" row  pt-4   g-4">
+            <div className="col-lg-6 col-xl-3">
+              <h3 className="Tit-12-700"> {info.current_job_status} </h3>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                }}
+              />
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.employer} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+              {formik.values.fullName &&
+                formik.touched.fullName &&
+                formik.errors.fullName && (
+                  <div
+                    className="alert alertFont  mt-2 mb-0 p-2 rounded-3"
+                    style={{ color: "red" }}
+                  >
+                    {formik.errors.fullName}
+                  </div>
+                )}
+            </div>
+
+            <div className="col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.job_title} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.employer} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
             </div>
           </div>
+        </div>
+        <div className=" cardbg p-4 mt-2">
+          <div>
+            <h3 className=" tit-18-700  textcolor mb-0 ">
+              {" "}
+              {info.emergency_info} :{" "}
+            </h3>
+            <Line className="w-75" />
+          </div>
+          <div className="row  pt-4   g-4">
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700  "> {info.emergency_contact_name} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.relation} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.emergency_phone} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-          <h3 className=" d-flex gap-1 custsubtitle3 mt-5 mb-3">
-            {" "}
-            {info.emergency_info} :{" "}
-          </h3>
-          <div className="container">
-            <div className=" row g-5">
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont  ">
-                  {" "}
-                  {info.emergency_contact_name}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.relation} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.emergency_phone}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.emergency_email}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3"></div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.emergency_email} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
             </div>
           </div>
+        </div>
 
-          <h3 className=" d-flex gap-1 custsubtitle3 mt-5 mb-3">
-            {" "}
-            {info.health_status}{" "}
-            <span className=" custsubtitle3 text-danger">*</span> :{" "}
-          </h3>
-          <div className="container">
-            <div className=" row g-5">
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont  ">
-                  {" "}
-                  {info.hearing_disability}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.disability} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont  ">
-                  {" "}
-                  {info.health_issue}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.health_issue_detail}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+        <div className=" cardbg p-4 mt-2">
+          <div>
+            <h3 className=" tit-18-700  textcolor mb-0 ">
+              {" "}
+              {info.health_status}{" "}
+              <span className=" custsubtitle3 text-danger">*</span> :{" "}
+            </h3>
+            <Line className="w-75" />
+          </div>
+          <div className="row  pt-4   g-4">
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700  "> {info.hearing_disability} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.disability} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700  "> {info.health_issue} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+
+            <div className=" col-lg-6 col-xl-3 "></div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.health_issue_detail} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
             </div>
           </div>
+        </div>
 
-          <div className=" d-flex justify-content-end mt-5">
-            <button className=" btn btn-light custfontbtn" type="submit">
-              {save}
-            </button>
-          </div>
+        <div className=" d-flex justify-content-end mt-5">
+          <button className=" btn btn-light custfontbtn" type="submit">
+            {save}
+          </button>
         </div>
       </form>
     </>

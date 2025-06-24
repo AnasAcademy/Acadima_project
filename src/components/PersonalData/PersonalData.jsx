@@ -3,6 +3,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import Line from "@/assets/admin/Line18.svg";
+
 export default function PersonalData({ tit, save }) {
   const t = useTranslations();
 
@@ -65,6 +67,7 @@ export default function PersonalData({ tit, save }) {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
+
         <div className=" mt-5 cardbg rounded-4 p-3 pt-2">
           <h3 className=" d-flex gap-1 custsubtitle3">
             {" "}
@@ -179,6 +182,7 @@ export default function PersonalData({ tit, save }) {
                   className="  input-group bg-transparent settCardBorder"
                 />
               </div>
+
             </div>
           </div>
 

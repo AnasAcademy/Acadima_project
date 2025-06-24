@@ -23,6 +23,7 @@ const t = useTranslations("HomePageA");
     <>
       <div
         className={`   rounded-3 shadow-sm    container-fluid  p-5 rounded-4 cardbg  ${
+
           h ? h : "min-train-ht "
         }`}
       >

@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-export default function Smallcard({Frame }) {
+export default function Smallcard({Frame  , Img}) {
   const t = useTranslations(Frame);
 
   

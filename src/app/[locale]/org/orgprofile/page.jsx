@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "@/assets/admin/73763.svg";
 import LatestTrain from "@/components/AdminComp/latestTrain/LatestTrain";
-import TechFilter from "@/components/TechFilter/TechFilter";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import { useTranslations } from "next-intl";
 import Pin from "@/assets/admin/pin.svg";
@@ -218,6 +217,7 @@ export default function OrgProfile() {
             <h2 className=" hvvv p-4 pb-0"> </h2>
             <div className="col-lg-6 col-xl-4 ">
               <div className=" position-relative rounded-4 shadow-sm     p-5 cardbg   min-prf-ht  ">
+
                 <Logo className=" iconSize4" />
 
                 <p className=" tit-12-400">{ts("company_desc")}</p>
@@ -257,6 +257,7 @@ export default function OrgProfile() {
 
             <div className="  col-lg-6 col-xl-5   ">
               <div className=" d-flex flex-column gap-3 cardbg rounded-4 p-5 min-prf-ht ">
+
                 <div className="  d-flex  justify-content-between">
                   <h4 className="  tit-18-700 "> مؤشرات أداء التدريب </h4>
 

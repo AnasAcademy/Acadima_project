@@ -17,7 +17,7 @@ export default  async function Home() {
   const locale = cookies().get("NEXT_LOCALE")?.value;
   const token = cookies().get("auth_token")?.value;
 
-
+try{
   const data = await fetch( apiUrl + "/panel",
     {
       method: "GET",
@@ -29,7 +29,11 @@ export default  async function Home() {
     }
   );
   const respond = await data.json();
+  console.log(respond)
+} catch (err){
 
+   console.log(err)
+}
 
   return (
     <>

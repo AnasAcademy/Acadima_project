@@ -8,7 +8,6 @@
  import Pen from "@/assets/admin/pen.svg";
  import { useTranslations } from "next-intl";
  import OrgsettingAcc from "@/components/OrgSettingsAcc/OrgsettingAcc"
- import OrgSettTeam from "@/components/OrgsettTeam/OrgSettTeam"
  import OrgSettSystem from "@/components/OrgSettSystem/OrgSettSystem"
 import OrgsettHelper from "@/components/OrgsettHelper/OrgsettHelper"
 import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
@@ -54,6 +53,7 @@ import OrgsettSuport from "@/components/OrgsettSupport/OrgsettSupport"
        <div className=" row m-0   g-3 ">
          <div className="col-12 col-xl-2  p-5 pt-0 pb-1 p-xl-0   ">
            <div className=" d-flex flex-column gap-4 pt-5 mt-2  ps-4 pe-4 pb-5 cardbg rounded-4 mb-3 align-items-center align-items-lg-start ">
+
              <div
                className=" d-flex gap-2  align-items-center cursor-pointer "
                onClick={() => {

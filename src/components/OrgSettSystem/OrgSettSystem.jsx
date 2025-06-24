@@ -131,6 +131,7 @@ export default function OrgSettSystem() {
         <div className=" row">
           <div className="col-12 col-xl-5">
             <div className="  mt-4 cardbg rounded-4 p-4 min-systm-ht">
+
               <div>
                 <h3 className=" tit-18-700  textcolor mb-0">
                   {" "}
@@ -190,6 +191,7 @@ export default function OrgSettSystem() {
 
           <div className="col-12 col-xl-7">
             <div className="  mt-4 cardbg rounded-4 p-4 min-systm-ht">
+
               <div>
                 <h3 className=" tit-18-700  textcolor mb-0">
                   {" "}
