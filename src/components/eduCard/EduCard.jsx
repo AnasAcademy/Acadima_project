@@ -64,7 +64,8 @@ export default function EduCard({ save }) {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div className=" cardbg p-4 mt-2">
+
+        <div className=" cardbg rounded-4 p-4 mt-2">
           <div>
             <h3 className="  tit-18-700  textcolor mb-0">
               {" "}

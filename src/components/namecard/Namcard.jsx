@@ -5,8 +5,9 @@ import Image from "next/image";
 
 import ShowIcon from "@/assets/navbar assets/vector.svg";
 
-export default function Namcard({name , email}) {
+export default function Namcard({user}) {
   const t = useTranslations("Namcard");
+
 
   const [toggle, setToggle] = useState("");
 
@@ -24,10 +25,10 @@ export default function Namcard({name , email}) {
 
   return (
     <>
-      <div className="  p-4 rounded-2   cardbg min-nam-ht ">
+      <div className="  p-4 rounded-4   cardbg min-nam-ht ">
         <h1 className="tit-20-700 Gray-Gray-700">
           {" "}
-          {t("hello")} {name}{" "}
+          {t("hello")} {user?.full_name}{" "}
         </h1>
         <h3 className="tit-14-400 Gray-Gray-700 "> {t("info")} </h3>
      
@@ -36,7 +37,7 @@ export default function Namcard({name , email}) {
 
           <div className=" d-flex">
             <h4 className=" Tit-12-700 Gray-Gray-800"> {t("Student ID")}</h4>
-            <h4 className=" Tit-12-700 Gray-Gray-800">000000</h4>
+            <h4 className=" Tit-12-700 Gray-Gray-800">{user?.user_code}</h4>
           </div>
 
           <div className=" d-flex">
@@ -44,7 +45,7 @@ export default function Namcard({name , email}) {
               {" "}
               {t("Academic_Email")}
             </h4>
-            <h4 className=" Tit-12-700 Gray-Gray-800"> {email}</h4>
+            <h4 className=" Tit-12-700 Gray-Gray-800"> {user?.email}</h4>
           </div>
 
           <div className=" d-flex  gap-1">

@@ -73,8 +73,8 @@ const Navbar = () => {
   useEffect(()=>{
 
     
-    console.log(key);
-    console.log(flag);
+    // console.log(key);
+    // console.log(flag);
     if (key !== null) {
    
       setFlag((prevFlags) => {

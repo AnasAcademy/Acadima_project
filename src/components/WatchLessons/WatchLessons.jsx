@@ -12,7 +12,7 @@ import Line from "@/assets/Sidebar icons/Line 57.svg";
       const info = t.raw("lessons");
    return (
      <>
-       <div className="d-flex justify-content-between flex-column  cardbg vh-100 ">
+       <div className="d-flex justify-content-between flex-column rounded-4 cardbg vh-100 ">
          <div className="p-4 p-md-5">
            <h2 className=""> {info.section_title}</h2>
            <div className={`  mt-5 d-flex justify-content-center ${full ? "col-lg-9 m-auto" : "col-12" } `}>

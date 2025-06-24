@@ -42,7 +42,7 @@ export default function CoursesTable({ headers, courses, btn, join, reg, isCours
                         {isLast ? (
                           flagColor === "green" ? (
                             <button
-                              className="btn w-50 custfontbtn btn-secondary"
+                              className="btn custfontbtn btn-secondary"
                               style={{ cursor: "not-allowed" }}
                               disabled
                             >
@@ -50,7 +50,7 @@ export default function CoursesTable({ headers, courses, btn, join, reg, isCours
                             </button>
                           ) : (
                             <Link href={` ${ isCourses ? "/bundles/4/course/learning/4" : "/checkout"} `}>
-                              <button className="btn w-50 custfontbtn btn-outline-light">
+                              <button className="btn custfontbtn btn-outline-light">
                                 {td}
                               </button>
                             </Link>

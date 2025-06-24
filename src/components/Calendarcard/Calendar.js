@@ -39,28 +39,28 @@ const loc = useLocale();
       try {
         const data2 = [
           {
-            date: "2025-05-05",
+            date: "2025-06-05",
             time:"12:00",
             title: "محاضرة أساسيات تجربة المستخدم",
             type: "lecture", 
             link: "",
           },
           {
-            date: "2025-05-22",
+            date: "2025-06-22",
             time:"2:00",
             title: "تسليم مشروع تخرج الفترة الأولى",
             type: "assignment", 
             link: "",
           },
           {
-            date: "2025-05-01",
+            date: "2025-06-01",
             time:"4:00",
             title: "اجتماع مشروع التخرج",
             type: "meeting",
             link: "",
           },
           {
-            date: "2025-05-19",
+            date: "2025-06-19",
             time:"12:00",
             title: "تسليم مشروع تخرج الفترة الأولى",
             type: "assignment", 
@@ -109,7 +109,6 @@ const loc = useLocale();
         console.error("Error fetching events:", error);
       } finally {
         setLoading(false);
-        console.log("enter")
       }
     };
 
@@ -135,7 +134,7 @@ const loc = useLocale();
 
 
     return ( 
-      <div className=" cardbg  d-flex flex-column gap-3 ">
+      <div className=" cardbg rounded-4  d-flex flex-column gap-3 ">
           <div className=" d-flex justify-content-center align-items-center ">
           <Line width={320} />
         </div>
@@ -288,7 +287,7 @@ const loc = useLocale();
   };
 
   return (
-    <div className="custom-calendar text-white cardbg w-100    d-flex flex-column gap-4 justify-content-between  min-clan-ht  ">
+    <div className="custom-calendar text-white cardbg w-100  rounded-4  d-flex flex-column gap-4 justify-content-between  min-clan-ht  ">
       {renderHeader()}
       {renderDaysOfWeek()}
       {renderDates()}

@@ -172,7 +172,8 @@ const handleSave = () => {
         onSubmit={() => {
           handleSave();
         }}
-        className="cardbg p-4 mt-2"
+        className="cardbg rounded-4 p-3 pt-2"
+
       >
         <div>
           <h3 className=" tit-18-700  textcolor mb-0"> {info.academic_info}</h3>

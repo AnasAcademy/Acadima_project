@@ -1,5 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import axios from "axios";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
@@ -14,12 +16,14 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import logo from "@/assets/admin/logo2.png";
 
 export default function Register() {
+  const router = useRouter();
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const bundleIdFromUrl = searchParams.get("bundle_id");
   const [phone, setPhone] = useState("");
@@ -108,9 +112,9 @@ export default function Register() {
           mobile: values.phoneNumber,
           bundle_id: "72",
         };
-        console.log("Submitting payload:", payload);
+        // console.log("Submitting payload:", payload);
     
-        const { data } = await axios.post(
+          const { data } = await axios.post(
           "https://lms.acadimacollege.com/api/development/register",
           payload,
           {
@@ -122,32 +126,26 @@ export default function Register() {
         );
 
         if (data.success) {
-           setSucMsg("registered successfully.");
-           console.log("User registered successfully.");
-          // setTimeout(() => {
-          //   nav("/login");
+          const token = data.data.token;
 
-          //   // localStorage.setItem("tkn", data.token);
-          // }, 1000);
+          await fetch("/api/set-token", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token }),
+          });
+
+          setSucMsg("تم التسجيل بنجاح.");
+          setTimeout(() => {
+           router.push(`/${locale}/paymentplans`);
+          }, 500);
         }
       } catch (err) {
         const errors = err.response?.data?.errors || {};
-      
-      
-           
-            const errorMessages = Object.entries(errors).forEach(([key, messages]) => {
-              messages.forEach((message, index) => {
-                console.log(`${key} [${index}]: ${message}`);
-                setErrMsg( message);
-              });
-            
-            });
-
-            console.log(errorMessages);
-        
+        const allMessages = Object.values(errors).flat();
+        setErrMsg(allMessages[0] || "فشل التسجيل، يرجى المحاولة لاحقاً.");
       }
-
-    }})
+    },
+  });
     
   return (
     <>

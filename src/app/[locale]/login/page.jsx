@@ -1,8 +1,8 @@
 "use client";
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LanguageSwitcher from "@/components/languageSwitcher/LanguageSwitcher";
-import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
+// import anasAcadlogo from "@/assets/Registration/acadima-logo.webp";
 import LockIcon from "@/assets/Registration/Lock.svg";
 import MailIcon from "@/assets/Registration/Mail.svg";
 import HideIcon from "@/assets/Registration/Hide.svg";
@@ -13,7 +13,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import axios from "axios";
 import logo from "@/assets/admin/logo2.png";
-import { routing } from '../../../i18n/routing';
+import { routing } from "../../../i18n/routing";
 import { usePathname, useRouter } from "next/navigation";
 export default function Login() {
   const t = useTranslations("Login");
@@ -29,9 +29,9 @@ export default function Login() {
   }
   const router = useRouter();
   const pathname = usePathname();
-  const segments = pathname.split('/').filter(Boolean);
+  const segments = pathname.split("/").filter(Boolean);
   const locale = routing.locales.includes(segments[0])
-    ? (segments[0])
+    ? segments[0]
     : routing.defaultLocale;
 
   useEffect(() => {
@@ -40,7 +40,6 @@ export default function Login() {
     return () => {
       window.location.reload(); // This reloads the page on unmount
     };
-
   }, []);
 
   const validationSchema = yup.object({
@@ -63,16 +62,12 @@ export default function Login() {
     validationSchema,
     onSubmit: async (values) => {
       try {
-
         setErrMsg(null);
         setSucMsg(null);
         const payload = {
-       
           email: values.email,
           password: values.password,
-  
         };
-
 
         const { data } = await axios.post(
           "https://lms.acadimacollege.com/api/development/login",
@@ -94,9 +89,8 @@ export default function Login() {
           //   setToken(data.token);
           //   localStorage.setItem("tkn", data.token);
           // }, 1000);
-        }else{
-      
-      const token = data.data.token
+        } else {
+          const token = data.data.token;
 
           try {
             const response = await fetch("/api/set-token", {
@@ -107,36 +101,30 @@ export default function Login() {
 
             if (!response.ok) {
               const errorData = await response.json();
-              console.error("Token API error:", errorData);
+              console.error("Token API error:", errorData); 
               return;
             }
 
-            console.log("Token set successfully");
-            console.log("welcome Back");
-           
-            console.log("Router object:", router);
-            console.log("Navigating to /ar/dashboard");
-           
+            // console.log("Token set successfully");
+            // console.log("welcome Back");
+
+            // console.log("Router object:", router);
+            // console.log("Navigating to /ar/dashboard");
+
             setTimeout(() => {
-              router.push(`/${locale}/panel`);
-            }, 200);
-           
-       
-            
+              router.push(`/${locale}/paymentplans`);
+            }, 20);
           } catch (error) {
             console.error("Error in fetch to /api/set-token:", error);
           }
         }
- 
-      } catch (err) {
-                  
-      }
+      } catch (err) {}
     },
   });
 
   return (
     <>
-      <div className="  container d-flex   justify-content-center align-items-center ">
+      <div className="  container d-flex   justify-content-center align-items-center  vh-100">
         <form
           className="col-12 d-flex flex-column  bg-white col-lg-5 col-md-8 m-5 p-5 gap-4  rounded-5 shadow    border border-1  "
           onSubmit={formik.handleSubmit}
@@ -144,12 +132,12 @@ export default function Login() {
           <LanguageSwitcher />
 
           <Link
-                      className="text-white text-decoration-none  m-lg-auto  d-flex justify-content-center "
-                      role="button"
-                      href="/"
-                    >
-                      <Image src={logo} alt="" width={190} height={56} priority />
-                    </Link>
+            className="text-white text-decoration-none  m-lg-auto  d-flex justify-content-center "
+            role="button"
+            href="/"
+          >
+            <Image src={logo} alt="" width={190} height={56} priority />
+          </Link>
 
           <div className="d-flex justify-content-center  gap-2">
             <h3 className="textcolor  fw-bold h5"> {t("login")}</h3>
@@ -258,13 +246,13 @@ export default function Login() {
 
           <div className="d-flex  justify-content-between">
             <div className="text-right forgetpw d-flex justify-content-end text-center ">
-              <a
+              <Link
                 href="/forget-password"
                 target="_blank"
                 className=" mb-30 text-decoration-none textcolor"
               >
                 {t("forgetpass")}
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -283,12 +271,12 @@ export default function Login() {
           <div className="mt-20 text-center registertext textcolor">
             <span className=" ps-1">{t("donthaveacc")}</span>
 
-            <a
+            <Link
               href="/register?"
               className="fw-bold text-decoration-none textcolor"
             >
               {t("register")}
-            </a>
+            </Link>
           </div>
         </form>
       </div>

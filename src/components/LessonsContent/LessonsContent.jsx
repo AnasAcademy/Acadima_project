@@ -64,7 +64,7 @@ export default function LessonsContent() {
         <div
           className={` col-12 ${
             full ? "col-lg-0 d-none" : "col-lg-3"
-          }  cardbg    `}
+          }  cardbg  rounded-4  `}
         >
           <div className=" ">
             <div className=" d-flex m-5 justify-content-around mb-2">

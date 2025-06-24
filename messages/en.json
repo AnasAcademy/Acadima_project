@@ -115,6 +115,7 @@
     "elctro": "E-Services",
     "AI Assistant": "Settings",
     "quizzes" : "Quizzes",
+    "assignments": "Assignments",
     "logout": "Logout"
   },
   "Namcard": {
@@ -634,7 +635,8 @@
     "quiz": "Quiz / Assessment",
     "teacher": "Teacher",
     "status": "Status",
-    "show_results": "Show Results"
+    "show_results": "Show Results",
+    "course": "Course"
   },
   "SubMan": {
     "add_payment_method": "Add payment method",
@@ -768,11 +770,29 @@
     "date":"Date",
     "edit":"Edit",
     "delete":"Delete",
-    "actions":"Actions"
+    "actions":"Actions",
+    "tries": "Number of trials",
+    "failed-desc": "Unfortunately, you did not pass the test.",
+    "passed-desc": "You have successfully passed the test.",
+    "try-again": "Try again"
   },
 
-
-
+"assignments": {
+  "assignments": "Assignments",
+  "statsHeader": "Assignment Statistics",
+  "courseAssignments": "Course Assignments",
+  "pendingReview": "Pending Review",
+  "filter-Assignments": "Filter Assignments",
+  "course": "Course",
+  "my-assignments": "My Assignments",
+  "firstSubmission": "First Submission",
+  "lastSubmission": "Last Submission",
+  "attempts": "Attempts",
+  "not-submitted": "Not Submitted",
+  "deadline": "Deadline",
+  "passing-grade": "Passing Grade",
+  "show-assignment": "Show Assignment"
+},
 
   "orgProfile":{
     "orgprofile-table-title": "Programs",

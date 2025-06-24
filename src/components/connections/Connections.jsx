@@ -49,7 +49,8 @@ export default function Connections({ save }) {
 
   return (
     <>
-      <div className=" cardbg p-4 mt-2 position-relative ">
+      <div className=" mt-3 position-relative rounded-4 cardbg p-3 pt-2">
+
         <div className=" d-flex  justify-content-between align-items-center">
           <h3 className=" tit-18-700  textcolor mb-0">
             {info.workLinks}
@@ -62,7 +63,7 @@ export default function Connections({ save }) {
         </div>
 
         {link && (
-          <div className=" mt-3 position-absolute  w-100 z-3  cardbg pb-5">
+          <div className=" mt-3 position-absolute  w-100 z-3 rounded-4 cardbg pb-5">
             <div className=" container-fluid cardbg">
               <div className="row d-flex justify-content-start ">
                 <div className=" d-flex  col-lg-9 col-11 flex-lg-column flex-sm-column   m-4 gap-4 flex-column bg-prim-color mt-5 p-2">

@@ -10,7 +10,8 @@
        <div className="    container-fluid ">
          <div className=" row g-3 ">
            <div className=" col-12 ">
-             <div className=" cardbg p-4">
+             <div className=" cardbg rounded-4 p-4">
+
                <div>
                  <h3 className=" tit-16-700 textcolor  ">
                    {t("title_support_settings")}
@@ -23,7 +24,8 @@
            </div>
 
            <div className=" col-12 col-lg-12 col-xl-5  ">
-             <div className="  cardbg p-4 min-prev-ai">
+             <div className="  cardbg rounded-4 p-4 min-prev-ai">
+
                <div>
                  <h3 className=" tit-18-700  textcolor d-flex gap-2 ">
                    {t("title_channels")}{" "}
@@ -119,7 +121,7 @@
            </div>
 
            <div className=" col-12 col-lg-12 col-xl-7 ">
-             <div className="  cardbg p-4 min-prev-ai ">
+             <div className="  cardbg rounded-4 p-4 min-prev-ai ">
                <div className=" d-flex flex-column gap-2">
                  <div>
                    <h3 className=" tit-18-700  textcolor d-flex gap-2 ">

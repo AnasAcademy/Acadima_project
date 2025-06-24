@@ -4,9 +4,12 @@ import EnrollProgram from "@/components/EnrollProgram/EnrollProgram";
 import { useTranslations } from "next-intl";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 
+import { cookies } from "next/headers";
 
 
 export default function Admissions() {
+        const token = cookies().get("auth_token")?.value;
+
   const t = useTranslations("RegisteredPrograms");
   const ts = useTranslations("EnrollProgram");
   return (
@@ -32,7 +35,7 @@ export default function Admissions() {
 
             <div className=" row g-3 mt-4">
               <div className=" col-xl-6 mt-4  col-12  ">
-                <EnrollProgram />
+                <EnrollProgram token={token}/>
               </div>
             </div>
           </div>

@@ -63,12 +63,29 @@ export default function AddInfo({ save }) {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div className=" cardbg p-4 mt-2">
-          <div>
-            <h3 className=" tit-18-700  textcolor mb-0">
-              {info.job_info}
-              <span className=" custsubtitle3 text-danger">*</span> :{" "}
-            </h3>
+
+        <div className=" mt-5 cardbg rounded-4 p-3 pt-2">
+          <h3 className=" d-flex gap-1 custsubtitle3">
+            {info.job_info}
+            <span className=" custsubtitle3 text-danger">*</span> :{" "}
+          </h3>
+          <div className="container">
+            <div className=" row g-5">
+              <div className="col-lg-6">
+                <h3 className="d-flex gap-1 custfont">
+                  {" "}
+                  {info.current_job_status}{" "}
+                </h3>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  className="  input-group bg-transparent settCardBorder"
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                  }}
+                />
+
 
             <Line className="w-75" />
           </div>

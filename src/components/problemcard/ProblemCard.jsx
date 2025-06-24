@@ -5,7 +5,7 @@ export default function ProblemCard() {
 
   return (
     <>
-      <div className=" p-3 rounded-2 w-100   mt-1   cardbg text-white min-pro-ht ">
+      <div className=" p-3 rounded-4 w-100   mt-1   cardbg text-white min-pro-ht ">
         <div className=" d-flex flex-column justify-content-center align-items-start  text-white gap-3">
           <h4 className="tit-18-700 Gray-Gray-700 "> {t("title")} </h4>
           <p className="custsubtitle2 mb-3"> {t("description")} </p>

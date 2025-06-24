@@ -7,6 +7,7 @@ import Calendar from "@/components/Calendarcard/Calendar";
 import ProblemCard from "@/components/problemcard/ProblemCard";
 import Frame1 from "@/assets/smallCard assets/Frame_31.svg"
 import Frame2 from '@/assets/smallCard assets/sec.svg'
+import { apiUrl } from "@/API";
 
 import { cookies } from "next/headers";
 
@@ -14,16 +15,16 @@ export default  async function Home() {
 
 
   const locale = cookies().get("NEXT_LOCALE")?.value;
+  const token = cookies().get("auth_token")?.value;
 
 try{
-  const data = await fetch(
-    "https://lms.acadimacollege.com/api/development/panel",
+  const data = await fetch( apiUrl + "/panel",
     {
       method: "GET",
       headers: {
         "x-api-key": "1234",
         "Content-Type": "application/json",
-        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xtcy5hY2FkaW1hY29sbGVnZS5jb20vYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwMDU5MTU4LCJuYmYiOjE3NTAwNTkxNTgsImp0aSI6IlpTYkFKRjhaRkJZRTJRS2YiLCJzdWIiOiIxOTcwIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.A3_ZUZmFEb0Nyf5Q0Xji1dioik6r6J2mrlTUOUA1TVM`,
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -33,7 +34,6 @@ try{
 
    console.log(err)
 }
-
 
   return (
     <>
@@ -46,8 +46,7 @@ try{
             <div className=" row     g-3 d-flex justify-content-center   ">
               <div className="  col-xl-6 col-lg-6   pt-sm-4 pt-4 pt-lg-0 ">
                 <Namcard
-                  // name={respond.user.full_name}
-                  // email={respond.user.email}
+                  user={respond.user}
                 />
               </div>
 

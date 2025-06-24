@@ -21,7 +21,7 @@ import Deadline from "@/assets/lessons/Clip path group.svg"
 
    return (
      <>
-       <div className="d-flex justify-content-between flex-column  cardbg vh-100 ">
+       <div className="d-flex justify-content-between flex-column rounded-4 cardbg vh-100 ">
          <div className=" mt-3 m-5">
            <h2 className=" mt-4"> {info.titlev1}</h2>
            <div className="  mt-5 d-flex justify-content-center ">

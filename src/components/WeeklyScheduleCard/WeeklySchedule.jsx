@@ -24,7 +24,7 @@ export default function WeeklySchedule() {
 
   return (
     <>
-      <div className=" p-4 rounded-2   cardbg texto-white  min-week-ht  pb-0 ">
+      <div className=" p-4 rounded-4   cardbg texto-white  min-week-ht  pb-0 ">
         <div className="  d-flex flex-column align-items-start texto-white">
           <h4 className="tit-18-700  Gray-Gray-700 mb-5 ">{t("title")} </h4>
 

@@ -7,8 +7,9 @@ export default function PymntDetails() {
 
   return (
     <>
-      <div className=" cardbg p-3 min-yourplan-ht ">
-        <h3 className=" hvvv text-dark  tit-18-700    p-3 m-4  mb-0 mt-0  ">
+      <div className=" cardbg rounded-4 p-3 min-yourplan-ht ">
+        <h3 className=" hvvv text-dark  tit-18-700 pt-3   pb-3">
+
           {" "}
           {t("payment_details")}{" "}
         </h3>

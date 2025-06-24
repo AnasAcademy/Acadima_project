@@ -18,7 +18,8 @@ export default function ProfilLinks({ save }) {
 
   return (
     <>
-      <div className="cardbg p-4 mt-2">
+      <div className=" mt-5 cardbg rounded-4 p-3 pt-2">
+
         <div className=" d-flex  justify-content-between align-items-center">
           <h3 className=" tit-18-700  textcolor mb-0">
             {" "}

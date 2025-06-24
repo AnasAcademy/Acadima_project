@@ -7,7 +7,7 @@ export default function Regpro() {
   return (
     <>
       <div className=" d-flex flex-column gap-4     ">
-        <div className="p-4 rounded-2 d-xl-flex  d-sm-flex-column justify-content-between  align-items-center   cardbg min-rego-ht">
+        <div className="p-4 rounded-4 d-xl-flex  d-sm-flex-column justify-content-between  align-items-center   cardbg min-rego-ht">
           <div className=" d-flex justify-content-center flex-column align-items-center align-items-lg-start">
             <h4 className="     "> {t("courseType")} </h4>
             <h2 className=" text-md-center  text-lg-end text-xl-end ">

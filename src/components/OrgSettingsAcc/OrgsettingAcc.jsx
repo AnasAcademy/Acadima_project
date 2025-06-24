@@ -20,7 +20,7 @@
    return (
      <>
        <div className=" d-flex  flex-column">
-         <div className="  cardbg p-4">
+         <div className="  cardbg rounded-4 p-4">
            <div>
              <h3 className=" tit-18-700  textcolor mb-0">
                {" "}
@@ -88,7 +88,7 @@
            </div>
          </div>
 
-         <div className="  mt-4 cardbg p-4">
+         <div className="  mt-4 cardbg rounded-4 p-4">
            <div>
              <h3 className=" tit-18-700  textcolor mb-0">
                {" "}
@@ -132,7 +132,7 @@
            </div>
          </div>
 
-         <div className="  mt-4 cardbg p-4">
+         <div className="  mt-4 cardbg rounded-4 p-4">
            <div>
              <h3 className=" tit-18-700  textcolor mb-0">
                {" "}
@@ -180,7 +180,7 @@
 
          <div className=" row">
            <div className=" col-12 col-xl-7">
-             <div className="  mt-4 cardbg p-4">
+             <div className="  mt-4 cardbg rounded-4 p-4">
                <div>
                  <h3 className=" tit-18-700  textcolor mb-0">
                    {" "}
@@ -234,7 +234,7 @@
            </div>
 
            <div className="col-12  col-xl-5">
-             <div className="  mt-4 cardbg p-4">
+             <div className="  mt-4 cardbg rounded-4 p-4">
                <div>
                  <h3 className=" tit-18-700  textcolor mb-0">
                    {" "}

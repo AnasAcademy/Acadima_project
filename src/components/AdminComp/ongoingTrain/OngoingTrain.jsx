@@ -11,7 +11,8 @@ export default function OngoingTrain({
   Icon,
   Icon2,
   viewAllTickets,
-  padding
+  padding,
+  isUserImg
 }) {
   const t = useTranslations("HomePageA");
   const t2 = useTranslations("techSupport");
@@ -88,13 +89,17 @@ export default function OngoingTrain({
     user: (col, key) => (
       <td key={key} className="" style={{ maxWidth: "150px" }}>
         <div className="d-flex align-items-center gap-2">
-          <Image
-            src={col.img}
-            alt="user"
-            width={40}
-            height={40}
-            className="rounded-circle"
-          />
+
+          {isUserImg && (
+            <Image
+              src={col.img}
+              alt="user"
+              width={40}
+              height={40}
+              className="rounded-circle"
+            />
+          )}
+
           <div className="d-flex flex-column justify-content-start align-items-start">
             <div className="fw-semibold">{col.name}</div>
             <div className="text-muted small">{col.email}</div>
@@ -106,7 +111,9 @@ export default function OngoingTrain({
 
   return (
     <>
-      <div className={`rounded-3 shadow-sm   p-md-${padding}  p-2 container-fluid  cardbg    min-train-ht`} >
+      <div
+        className={`rounded-4 shadow-sm   p-md-${padding}  p-2 container-fluid  cardbg    min-train-ht`}
+      >
         {ContainerTop && (
           <>
             <h3> {t("trainpro")} </h3>

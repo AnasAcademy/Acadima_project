@@ -10,7 +10,8 @@
 
     return (
       <>
-        <div className=" d-flex  flex-column w-100  p-3 cardbg min-yourplan-ht h-100  ">
+
+        <div className=" d-flex  flex-column w-100 rounded-4  p-3 cardbg min-yourplan-ht h-100  ">
           <div className=" d-flex gap-5 flex-column  p-3 pt-3  h-100 ">
             <div className=" newbg mt-5  d-flex flex-column gap-5 h-100 rounded-4 p-3 ">
               <div className="  ">

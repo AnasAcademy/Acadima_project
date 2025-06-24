@@ -16,7 +16,7 @@
        <div className="   container-fluid ">
          <div className=" row g-3">
            <div className=" col-12 col-lg-12 col-xl-6 ">
-             <div className=" cardbg p-4 min-prev-ai">
+             <div className=" cardbg rounded-4 p-4 min-prev-ai">
                <div>
                  <h3 className=" tit-18-700  textcolor mb-0 d-flex gap-2 ">
                    {" "}
@@ -155,7 +155,7 @@
            </div>
 
            <div className=" col-12 col-lg-12 col-xl-6 ">
-             <div className="  cardbg p-4 min-prev-ai">
+             <div className="  cardbg rounded-4 p-4 min-prev-ai">
                <div>
                  <h3 className=" tit-18-700  textcolor mb-0 d-flex gap-2 ">
                    {" "}

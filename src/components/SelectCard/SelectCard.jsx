@@ -103,11 +103,11 @@ export default function SelectCard({ selectCardData, isTechSupport, isOrgProfile
               <div
                 className={`col-lg-${
                   button.col || 2
-                } col-xl-2 col-lg-4 col-md-6 col-12 d-flex align-items-end mb-xl-2  `}
+                } col-xl-2 col-lg-4 col-md-6 col-12 d-flex align-items-end mb-xl-1  `}
               >
                 <button
-                  className={`btn w-100 rounded-2 py-1 ${
-                    button.className || "btn-dark text-white"
+                  className={`btn custfontbtn w-100 rounded-2 py-2 ${
+                    button.className || ""
                   }`}
                   style={button.style}
                   onClick={button.onClick}
