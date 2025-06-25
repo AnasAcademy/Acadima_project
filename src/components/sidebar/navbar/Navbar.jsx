@@ -16,7 +16,7 @@ import { NotificationContext } from "@/context/NotificationContext";
 
 const Navbar = () => {
  
-  const { info, setKey } = useContext(NotificationContext);
+  const { info, setKey, } = useContext(NotificationContext);
   const t = useTranslations("Navbar");
  
   const [isVisible, setIsVisible] = useState(false);
@@ -53,25 +53,24 @@ const handleClickOutside = (event) =>
 
   return (
     <>
-      <div className=" d-flex flex-row-reverse  navbgCol  ">
-        <div className=" row  w-100 d-flex flex-row-reverse m-0  ">
+      <div className=" d-flex flex-row-reverse  navbgCol   ">
+        <div className=" row  w-100 d-flex flex-row-reverse m-0   ">
           <nav className="navbar navbar-expand-lg bg-bluish-white     col-7 col-lg-12  navBg   justify-content-start d-flex align-items-start">
             <div className="d-flex justify-content-center  justify-content-lg-between w-100  align-items-center flex-sm-row flex-row flex-md-row flex-lg-row-reverse   ">
               <div className="d-flex align-items-center">
                 <form
-                  className="d-none d-sm-none  d-md-none d-lg-flex justify-content-end "
+                  className="d-none d-sm-none  d-md-none d-lg-flex justify-content-end  "
                   style={{ gap: "24px" }}
                 >
                   <div className=" d-flex justify-content-center align-items-center">
                     <LanguageSwitcher />
                   </div>
 
-                  <div className=" d-none d-md-flex align-items-center position-relative ">
+                  <div className=" d-none d-md-flex align-items-center position-relative">
                     <NotfiIcon
                       width={24}
                       height={27}
                       onClick={(e) => {
-                      
                         toggle();
                       }}
                     />
@@ -120,7 +119,7 @@ const handleClickOutside = (event) =>
                             className="btn btn-dark custfontbtn border-0"
                           >
                             {" "}
-                           {t("allNotif")}
+                            {t("allNotif")}
                           </Link>
                         </div>
                       </div>

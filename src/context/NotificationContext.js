@@ -21,13 +21,13 @@ export default   function NotificationProvider({ children }) {
   async function fetchNotifications() {
     try {
       const res = await fetch(
-        "http://127.0.0.1:8000/api/development/organization/vodafone/notifications",
+        "https://api.lxera.net/api/development/organization/vodafone/notifications",
         {
           method: "GET",
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwNzU4MDM0LCJuYmYiOjE3NTA3NTgwMzQsImp0aSI6IjBFcXFPelMyaEM0emNpbzEiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.ePv9YP_D3xu_-RenxiLmeRdw-gSBDzsfvKZb4CTpwE0`,
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwODQxODg1LCJuYmYiOjE3NTA4NDE4ODUsImp0aSI6IjltV2lHYngyQ2RzTEZ2anQiLCJzdWIiOiIxMTkyIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9._JykCIXVh7czjOgQqLYFFIt7p5-r2oaSdlaB9re06t4`,
           },
         }
       );

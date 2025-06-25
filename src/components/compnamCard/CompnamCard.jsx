@@ -4,13 +4,16 @@
   import Image from "next/image";
   export default function CompnamCard({dat}) {
 
+      
+               console.log(dat)
 
-
+      
+  
       const t = useTranslations("SubMan");
 
     return (
       <>
-           <h2 className=" hvvv p-4 pb-0"> {t("ref")} </h2>
+        <h2 className=" hvvv p-4 pb-0"> {t("ref")} </h2>
         <div className=" col-xl-4 ">
           <div className="  position-relative ">
             <div className="  text-white position-absolute  z-0    p-5   ">
