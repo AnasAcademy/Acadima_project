@@ -51,10 +51,10 @@ try {
         <div className="  m-0  container-fluid p-0 d-flex flex-column    ">
           <div className="   pt-0">
             <div className=" row m-0  p-2 g-3 ">
-              <h2 className=" hvvv p-4 pb-0"> متابعة تقدم الموظفين </h2>
-              <div className=" col-xl-4  ">
-                <CompnamCard  dat={dataa}   />
-              </div>
+         
+          
+                <CompnamCard dat={dataa} />
+             
 
               <div className="  col-lg-7 col-xl-4  d-flex  gap-2">
                 <AdminSmallCard Frame="SubMan" Img={Blue} />

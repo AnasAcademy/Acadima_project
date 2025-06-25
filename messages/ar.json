@@ -8,13 +8,13 @@
     "trainpro": "برامج التدريب الجارية",
     "subtrainpro": "تم إكمال 14 برنامج تدريبي خلال شهر",
     "tableHead1": "نسبة الإنجاز",
-    "tableHead2": "الموظفين المسجلين",
+    "tableHead2": "المستخدمين المسجلين",
     "tableHead3": "البرنامج التدريبي",
     "tablerow": "تدريب مهارات القيادة"
   },
   "SidebarA": {
     "dashboard": "لوحة التحكم",
-    "Employee progress": "تقدم الموظفين",
+    "Employee progress": "تقدم المستخدمين",
     "Subscription Management": "إدارة الاشتراكات",
     "Notifications": "الإشعارات",
     "Technical Support": "الدعم الفني",
@@ -32,7 +32,7 @@
     "home": "الرئيسية"
   },
   "DashboardA": {
-    "employees_registered": "عدد الموظفين المسجلين في التدريب",
+    "employees_registered": "عدد المستخدمين المسجلين في التدريب",
     "employees_value": "250 موظف",
     "active_courses": "عدد الدورات النشطة:",
     "active_courses_value": "15 دورة تدريبية",
@@ -40,9 +40,9 @@
     "total_certificates_value": "120 شهادة",
     "course_completion": "نسبة إكمال الدورات",
     "completion_value": "78%",
-    "training_dashboard_title": "لوحة تحكم تدريب الموظفين",
+    "training_dashboard_title": "لوحة تحكم تدريب المستخدمين",
     "training_dashboard_desc": "تابع تقدم موظفيك في التدريب وحقق أقصى استفادة من برامج التطوير المهني",
-    "training_dashboard_cta": "متابعة تقدم الموظف",
+    "training_dashboard_cta": "متابعة تقدم المستخدم",
     "training_system_title": " أهلاً بك في نظام Lxera الموحد للتدريب والتعليم ",
     "training_system_desc": "تابع أداء التدريب وطور مهارات موظفيك بسلاسة من خلال لوحة تحكم متكاملة تمنحك تحليلات دقيقة وتقارير فورية عن التقدم والإنجازات.",
     "training_system_cta": "دليل الاستخدام",
@@ -604,7 +604,7 @@
     "no_more_uploads": "لم يعد يمكنك إرسال ملفات مع الأسف ..."
   },
   "employee_progress": {
-    "page_title": "متابعة تقدم الموظفين",
+    "page_title": "متابعة تقدم المستخدمين",
     "add_employee": "إضافة موظف/ة",
     "filter": "فلتر",
     "search_placeholder": "ابحث عن موظف/ة، دورة، قسم...",
@@ -620,10 +620,10 @@
     "branch_option": "الفرع الرئيسي - الرياض",
     "department_option": "قسم إدارة الموارد البشرية",
     "program_status_option": "مكتمل",
-    "employee_name": "اسم الموظف/ة",
+    "employee_name": "اسم المستخدم/ة",
     "join_date": "تاريخ الالتحاق",
     "completion_rate": "نسبة الإنجاز",
-    "profile_access": "الوصول إلى ملف الموظف/ة",
+    "profile_access": "الوصول إلى ملف المستخدم/ة",
     "notStarted": "لم يبدأ",
     "inProgress": "قيد التنفيذ",
     "completed": "مكتمل",
@@ -650,8 +650,8 @@
     "monthly_price": "500.00 ",
     "subscription_date": "تاريخ الإشتراك",
     "end_date": "تاريخ الإنتهاء",
-    "employees": "عدد الموظفين",
-    "tracking": "متابعة تقدم الموظفين",
+    "employees": "عدد المستخدمين",
+    "tracking": "متابعة تقدم المستخدمين",
     "your_plan": "خطتك الحالية",
     "emails_sent": "الرسائل المرسلة",
     "sms_sent": "الرسائل النصية المرسلة",
@@ -667,7 +667,8 @@
     "subscriptionAmount": "مبلغ الاشتراك : 500$",
     "emaill": "الإيميل : oliver@burrito.com",
     "referenceNumber": "رقم : FRB1235476",
-    "num": "90 موظف/ة"
+    "num": "90 موظف/ة",
+    "ref": "متابعة تقدم المستخدمين"
   },
   "yourplan": {
     "your_plan": "خطتك",
@@ -745,7 +746,7 @@
     "questions": [
       "طريقة إضافة موظف جديد للبرنامج التدريبي؟",
       "ما الفرق بين باقات الاشتراك المتاحة في الموقع؟",
-      "من أي صفحة استطيع متابعة أداء الموظفين؟",
+      "من أي صفحة استطيع متابعة أداء المستخدمين؟",
       "هل لدي الصلاحية لإنشاء حساب لموظف؟",
       "طريقة إضافة موظف جديد للبرنامج التدريبي؟",
       "ما الفرق بين باقات الاشتراك المتاحة في الموقع؟"
@@ -800,7 +801,7 @@
   "email": "البريد الإلكتروني",
   "company_name": "شركة الوفاق المستقبلية للاتصالات",
   "company_field": "مجال الشركة",
-  "number_of_employees": "عدد الموظفين",
+  "number_of_employees": "عدد المستخدمين",
   "city": "المدينة",
   "training_plan": "الخطة التدريبية",
   "registration_date": "تاريخ التسجيل",
@@ -813,7 +814,7 @@
   "latest_updates": "آخر المستجدات في منشأتك",
   "new_enrollments": "تم تسجيل 15 موظفاً جديداً في دورة القيادة والإدارة",
   "course_completed": "أكمل 10 موظفين دورة تحليل البيانات للتقدم",
-  "incomplete_courses_warning": "بعض الموظفين لم يكملوا دوراتهم في الوقت المحدد. مراجعة تقييماتهم مطلوبة",
+  "incomplete_courses_warning": "بعض المستخدمين لم يكملوا دوراتهم في الوقت المحدد. مراجعة تقييماتهم مطلوبة",
   "training_programs": "البرامج التدريبية",
   "sort_by": "الترتيب حسب",
   "latest": "الأحدث",

@@ -669,7 +669,8 @@
     "subscriptionAmount": "Subscription amount: 500$",
     "emaill": "Email: oliver@burrito.com",
     "referenceNumber": "Number: FRB1235476",
-    "num": "90 employees"
+    "num": "90 employees",
+    "ref": "User progress tracking"
   },
   "yourplan": {
     "your_plan": "Your plan",
