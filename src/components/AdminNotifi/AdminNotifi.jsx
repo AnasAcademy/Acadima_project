@@ -167,7 +167,7 @@ function extractCleanMessage(html) {
                                index === key ? " swap" : "  "
                              }`}
                            >
-                             { extractCleanMessage(dat.message)}.....
+                             { extractCleanMessage(dat.message.slice(0,45))}.....
                            </p>
                            {index === key ? (
                              <p className=" d-xl-none d-lg-none d-sm-flex d-flex">

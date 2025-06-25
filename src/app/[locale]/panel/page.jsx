@@ -13,10 +13,9 @@ import { cookies } from "next/headers";
 
 export default  async function Home() {
 
-
   const locale = cookies().get("NEXT_LOCALE")?.value;
   const token = cookies().get("auth_token")?.value;
-
+  let dat = []
 try{
   const data = await fetch( apiUrl + "/panel",
     {
@@ -29,7 +28,8 @@ try{
     }
   );
   const respond = await data.json();
-  console.log(respond)
+  dat = respond;
+  console.log(dat.user);
 } catch (err){
 
    console.log(err)
@@ -46,7 +46,7 @@ try{
             <div className=" row     g-3 d-flex justify-content-center   ">
               <div className="  col-xl-6 col-lg-6   pt-sm-4 pt-4 pt-lg-0 ">
                 <Namcard
-                  user={respond.user}
+                  user={dat.user}
                 />
               </div>
 
