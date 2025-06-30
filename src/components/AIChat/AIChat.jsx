@@ -5,13 +5,18 @@ import Send from "@/assets/admin/send.svg";
 import UserMessage from "@/components/AIChat/UserMSg";
 import AiMessage from "@/components/AIChat/AIMsg";
 
-export default function AIChat({ minHeight = "265px", maxHeight = "400px", heightClass = "h-80", externalMessage  }) {
+export default function AIChat({
+  minHeight = "265px",
+  maxHeight = "400px",
+  heightClass = "h-80",
+  externalMessage,
+}) {
   const t = useTranslations("techSupport");
   const ts = useTranslations("AiAssistant");
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
-   useEffect(() => {
+  useEffect(() => {
     if (externalMessage) {
       setMessages((prev) => [...prev, { type: "user", text: externalMessage }]);
 
@@ -28,24 +33,53 @@ export default function AIChat({ minHeight = "265px", maxHeight = "400px", heigh
     }
   }, [externalMessage]);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const handleSend = async () => {
+  if (!input.trim()) return;
 
-    const userInput = input; // store it before clearing
-    setMessages((prev) => [...prev, { type: "user", text: userInput }]);
-    setInput("");
+  const userInput = input;
+  setMessages((prev) => [...prev, { type: "user", text: userInput }]);
+  setInput("");
 
-    // Simulate AI response
-    setTimeout(() => {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/query", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question: userInput }),
+    });
+
+    const data = await response.json();
+
+    if (data?.answer) {
       setMessages((prev) => [
         ...prev,
         {
           type: "ai",
-          text: ts("password-recovery"),
+          text: data.answer,
         },
       ]);
-    }, 500);
-  };
+    } else {
+      setMessages((prev) => [
+        ...prev,
+        {
+          type: "ai",
+          text: ts("generic-response"),
+        },
+      ]);
+    }
+  } catch (error) {
+    console.error("API error:", error);
+    setMessages((prev) => [
+      ...prev,
+      {
+        type: "ai",
+        text: ts("generic-response"),
+      },
+    ]);
+  }
+};
+
 
   return (
     <div
