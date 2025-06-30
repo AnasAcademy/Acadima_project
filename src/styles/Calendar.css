@@ -1,0 +1,241 @@
+:root {
+ 
+  --secondary-color: #1024dd ;
+  --secColor:#1ABFA0;
+
+}
+
+@font-face {
+  font-family: "ibm";
+  src: url(../assets/fonts/IBMPlexSans-Regular.ttf);
+}
+
+.custom-calendar {
+  border-radius: 8px;
+ 
+
+}
+  
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.arrow-button {
+  border: none;
+  background-color: transparent;
+}
+
+.arrow {
+  width: 16px;
+  height: 14px;
+}
+  
+.current-month {
+  color: var(--secondary-color);
+  text-align: right;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+  
+.calendar-week {
+           display: flex; 
+           justify-content: center;
+}
+
+.calendar-days {
+ display: flex;
+  color: var(--Gray-Gray-700);
+    justify-content: space-around;
+    
+  
+}
+
+
+.calendar-dates {
+  display: flex;
+  flex-direction: column; /* Stack rows vertically */
+  gap: 5px; /* Optional spacing between rows */
+
+}
+  
+.calendar-week {
+  display: flex;
+      justify-content: space-around;
+
+
+}
+
+.calendar-day {
+ 
+  cursor: pointer;
+  color: var(--Gray-Gray-700);
+ text-align: center;
+  font-size: 14px; /* Ensures text size is consistent */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  border-radius: 50%; /* Applies consistent rounding */
+
+ width: 30px;
+ margin: auto;
+ 
+
+}
+
+.calendar-day.disabled {
+  color: rgb(97, 9, 197);
+  pointer-events: none;
+  background-color: transparent;
+
+}
+
+.disabled{
+
+  color:  transparent !important;
+}
+
+ .calendar-day.selected:not(.disabled) {
+  background-color: var(--secColor); 
+  color: var(--White) !important; 
+  
+  font-weight: bold;
+}
+
+.calendar-day.current-day:not(.disabled) {
+  background-color: var(--secondary-color);
+  color: var(--White) !important;
+  font-weight: bold;
+} 
+
+
+
+.calendar-day:hover:not(.disabled):not(.selected):not(.current-day) {
+  background-color: rgba(204, 245, 255, 0.5); 
+
+  color: #000000; 
+} 
+
+.calendar-day.disabled:hover {
+  background-color: transparent; 
+
+  cursor: not-allowed; 
+}
+
+
+.calendar-day.has-events {
+  position: relative; /* Ensure the pseudo-element is positioned relative to the day */
+}
+
+.calendar-day.has-events:not(.disabled)::after {
+  content: '';
+  position: absolute;
+   top:31px;
+  bottom: -5%;
+  left: 20%;
+  width: 60%; /* Full width of the day box */
+  height: 2px; /* Thickness of the line */
+  background-color: red; /* Red color for the line */
+  border-radius: 20px; /* Ensures no radius on the line */
+}
+
+.events-container {
+  padding: 15px;
+  color: #000;
+  border-top: 1px solid #D3D2D2;
+  direction: rtl;
+  height: 120px;
+}
+.events-container-title {
+  direction: rtl;
+  text-align: right;
+  margin-top: 0;
+}
+.events-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  max-height: 120px; /* Set a maximum height for the container */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;
+}
+.event-item {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.event-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+.event-time {
+  color: #ABABAB;
+text-align: right;
+font-size: 12px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 183.333% */
+}
+.event-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: var(--secondary-color);
+  text-align: right;
+  font-style: normal;
+width: 200px;
+}
+
+.event-title {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  width: 180px;
+}
+.event-link {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 20px; /* 200% */
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+.no-events {
+  text-align: center;
+  color: #999;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.no-events-placeholder {
+  margin-top: 10px;
+}
+.no-events-title {
+  color: var(--secondary-color);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 200% */
+  font-family: "ibm" !important;
+}
+.noEvents-image {
+  width: 64px;
+  height: 59px;
+}
+
+

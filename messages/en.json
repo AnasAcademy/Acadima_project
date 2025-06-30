@@ -1,0 +1,969 @@
+{
+  "HomePageA": {
+    "title": "welcome",
+    "about": "to mosco",
+    "linchart": "Monitoring the performance of training programs",
+    "linechart": "Visual statistics on trainees' engagement with training courses",
+    "updat": "Latest training updates",
+    "update": "15 new employees have been enrolled in the Leadership and Management course.",
+    "subupdate": "January 22, 2025",
+    "trainpro": "Ongoing training programs",
+    "subtrainpro": "14 training programs were completed within a month.",
+    "tableHead1": "Completion rate",
+    "tableHead2": "Registered employees",
+    "tableHead3": "Training program",
+    "tablerow": "Leadership skills "
+  },
+  "SidebarA": {
+    "dashboard": "Dashboard",
+    "Employee progress": "Employee progress",
+    "Subscription Management": "Subscription Management",
+    "Notifications": "Notifications",
+    "Technical Support": "Technical Support",
+    "Account Management": "Account Management",
+    "Organization Profile": "Organization Profile",
+    "AI Assistant": "AI Assistant",
+    "Settings": "Settings",
+    "ad1": "Do you need help? ",
+    "ad2": "AI-powered chat to instantly answer your inquiries!",
+    "ad3": "Talk to your virtual assistant."
+  },
+  "NavbarA": {
+    "search": "Search...",
+    "dashboard": "Dashboard",
+    "home": "Home"
+  },
+  "DashboardA": {
+    "employees_registered": "Number of employees registered in training",
+    "employees_value": "250 Employees",
+    "active_courses": "Number of active courses:",
+    "active_courses_value": "15 Training Courses",
+    "total_certificates": "Total certificates earned:",
+    "total_certificates_value": "120 Certificates",
+    "course_completion": "Course completion rate",
+    "completion_value": "78%",
+    "training_dashboard_title": "Training Control Panel",
+    "training_dashboard_desc": "Track your employees’ training progress and maximize the benefit from professional development programs.",
+    "training_dashboard_cta": "Track Employee Progress",
+    "training_system_title": "Welcome to Lxera Unified Training and Education System",
+    "training_system_desc": "Monitor training performance and develop your employees’ skills smoothly with an integrated dashboard that provides accurate analytics and instant progress reports.",
+    "training_system_cta": "User Guide",
+    "active_users_analysis_title": "Active Users Analysis",
+    "active_users_analysis_desc": "Monitoring user engagement with training programs during the current period.",
+    "total_courses": "Total Courses",
+    "completed_courses": "Completed Courses",
+    "ongoing_courses": "Ongoing Courses",
+    "issued_certificates": "Issued Certificates"
+  },
+  "Login": {
+    "login": "Login ",
+    "email": "Email",
+    "password": "Password ",
+    "forgetpass": "Forgot password?",
+    "remberme": "Remember Me",
+    "donthaveacc": "Don't have an account?",
+    "register": "Register",
+    "errEmail": "Invalid email format ",
+    "errEmail2": "Email is required",
+    "errPassword": "Password must be at least 6 characters ",
+    "errPassword2": "Password is required",
+    "errPass": " Password must not exceed 12 characters"
+  },
+  "register": {
+    "fullName": "Full name",
+    "phoneNumber": " Mobile Phone",
+    "reg": "Signup ",
+    "email": "Email",
+    "password": "Password ",
+    "forgetpass": "Forgot password?",
+    "remberme": "Remember Me",
+    "donthaveacc": "have an account?",
+    "register": "Login",
+    "errEmail": "Invalid email format ",
+    "errEmail2": "Email is required",
+    "errPassword": "Password must be at least 6 characters ",
+    "errPassword2": "Password is required",
+    "errPass": " Password must not exceed 12 characters",
+    "errFullName": "Full name must only contain letters, spaces",
+    "errFullNameMin": "Full name must be at least 3 characters",
+    "errFullNameReq": "Full name is required.",
+    "errphoneNumber": "Invalid phone number format",
+    "errphoneNumReq": "Mobile number is required"
+  },
+  "ForgetPassword": {
+    "forgetPassword": "Forget Password",
+    "or": "Or",
+    "MailSentSuccessfully": "Mail Sent Successfully",
+    "PasswordUpdatedSuccessfully": "Password Updated Successfully",
+    "resetPassword": "Reset Password",
+    "passwordsMustMatch": "Passwords must match",
+    "confirmPasswordRequired": "Confirm Password Required",
+    "confirmPassword": "Confirm Password"
+  },
+  "Navbar": {
+    "fullName": "Full Student Name",
+    "allNotif": "All Notifications"
+  },
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "Subscription Management": "Admissions",
+    "Notifications": "Courses",
+    "Technical Support": "Certificates",
+    "pay_pro_fees": "Pay Program Fees",
+    "installments": "Installments",
+    "Account Management": "Notifications",
+    "elctro": "E-Services",
+    "AI Assistant": "Settings",
+    "quizzes" : "Quizzes",
+    "assignments": "Assignments",
+    "logout": "Logout"
+  },
+  "Namcard": {
+    "hello": "Hello",
+    "name": "Aisha Mohamed",
+    "info": "Diploma Program in Visual Design",
+    "Academic_info": "User Information:",
+    "Student ID": "User ID :",
+    "Academic_Email": "Email:",
+    "Password": "Password :"
+  },
+  "smallcard": {
+    "title1": "Microsoft Teams",
+    "info2": "The platform for attending all lectures",
+    "btn2": "Login"
+  },
+  "smallcardd": {
+    "title1": " Microsoft office365",
+    "info2": " Access all your Office programs",
+    "btn2": " Download "
+  },
+  "importantFiles": {
+    "title": "Important Files",
+    "guide": "Guide "
+  },
+  "todaySchedule": {
+    "title": "Today's Schedule",
+    "action": "Add action",
+    "month": "Novamber 2024",
+    "event1": {
+      "times": "12:00",
+      "timef": "02:00",
+      "lecture": "User Experience Fundamentals Lecture",
+      "action": "Access the Lecture"
+    },
+    "event2": {
+      "times": "12:00",
+      "timef": "02:00",
+      "lecture": "Design Thinking Session",
+      "action": "Join Now"
+    }
+  },
+  "weeklySchedule": {
+    "title": "Weekly Schedule",
+    "columns": {
+      "tasks": "Assignments & Tasks",
+      "liveLectures": "Live Lectures",
+      "recordedLectures": "Recorded Lectures"
+    },
+    "lectures": {
+      "lecture1": {
+        "title": "User Experience Fundamentals",
+        "number": "Lecture 5",
+        "button": "Go to Lecture"
+      },
+      "lecture2": {
+        "title": "Valuable Design Programs",
+        "number": "Lecture 3",
+        "button": "Go to Lecture"
+      },
+      "lecture3": {
+        "title": "Freelance Business Pricing",
+        "number": "Lecture 1",
+        "button": "Go to Lecture"
+      },
+      "lecture4": {
+        "title": "User Experience Analysis - Level 1",
+        "number": "Lecture 1",
+        "button": "Go to Lecture"
+      }
+    }
+  },
+  "support": {
+    "title": "Facing an issue on the platform?",
+    "description": "Feel free to reach out to us — our team is ready to help you with anything you need.",
+    "newRequest": "Submit New Request",
+    "followUp": "Follow Up on Previous Request"
+  },
+  "RegisteredPrograms": {
+    "title": "Registered Programs",
+    "courseType": "recorded Training Course",
+    "courseName": "Open AI for Beginners: Programming Guidance",
+    "status": "Program Status: in Progress",
+    "installments": "Installments in Progress",
+    "goToProgram": "Go to Program"
+  },
+  "EnrollProgram": {
+    "title": "Enroll in a New Program",
+    "programTypeLabel": "Program Type: *",
+    "programTypePlaceholder": "Select the type of program you wish to study",
+    "courseNameLabel": "Program/Course Name:",
+    "courseNamePlaceholder": "Choose the specialization you wish to study",
+    "checkbox1": "I confirm I have experience with the programs and understand the course is only for test preparation, not teaching from scratch.",
+    "checkbox2": "Trainees must complete the test within 30 days, including preparation.",
+    "submitButton": "Enroll new program"
+  },
+  "RegisteredProgramss": {
+    "title": "Registered Programs",
+    "courseType": "Intermediate Joint Diploma",
+    "courseName": "Jumpstart your cybersecurity career",
+    "status": "Program Status: 100% Complete",
+    "additionalCourse": "Training for the ACP Certification Exam",
+    "additionalCourseProgress": "Progress: 0%"
+  },
+  "CourseSchedule": {
+    "title": "Course Schedule",
+    "programDuration": "Program Duration: 25 hours",
+    "courseNumber": "Course Number",
+    "courseName": "Course Name",
+    "startDate": "Start Date",
+    "numberOfTasks": "Number of Tasks",
+    "numSubmission": "Number of Submissions",
+    "actions": "Actions",
+    "td": {
+      "courseNum": "01",
+      "courseNam": "Fundamentals of Cybersecurity",
+      "startDate": "17 Nov 2024",
+      "numTasks": "0",
+      "numSubmission": "No submissions yet",
+      "actions": "Lectures",
+      "lec": "Lectures"
+    },
+    "dwnldLectable": "Download Lecture Schedule",
+    "join": "Would you like to join another program?",
+    "register": "New Registration Request"
+  },
+  "services": {
+    "title": "Electronic Services",
+    "items": [
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700"
+      },
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 "
+      },
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 "
+      },
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 "
+      },
+      {
+        "title": "Service Name",
+        "description": "A service to book a licensing test for trainers to obtain the approved certificate. This service is applied for upon referral from the professional tests unit.",
+        "price": "700 "
+      }
+    ],
+    "apply": "Submit Request"
+  },
+  "certificates": {
+    "title": "Course Completion Certificates",
+    "message": "Congratulations! You have successfully completed the program.",
+    "downloadPDF": "Download Certificate (PDF)",
+    "downloadJPG": "Download Certificate (JPEG)",
+    "certificateId": "Certificate ID: {id}",
+    "items": [
+      {
+        "id": "A22232D",
+        "title": "ACP Certification Preparation Program"
+      },
+      {
+        "id": "B33445X",
+        "title": "Advanced UX Certification Preparation Program"
+      }
+    ]
+  },
+  "notifications": [
+    {
+      "tit": "Notifications",
+      "title": "A Message from the Technical Department",
+      "date": "November 5, 2024 | 5:12 PM",
+      "body": "The Technical Department at Anas Academy wishes you continued success and excellence. We are honored to support you on your journey...",
+      "button": "View Message",
+      "close": "Close Message",
+      "flag": "true"
+    },
+    {
+      "tit": "Important Update",
+      "title": "Your Data Has Been Successfully Updated",
+      "date": "November 6, 2024 | 10:00 AM",
+      "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment.",
+      "flag": "false"
+    },
+    {
+      "tit": "Important Update",
+      "title": "Your Data Has Been Successfully Updated",
+      "date": "November 6, 2024 | 10:00 AM",
+      "body": "We've successfully updated your profile information in the system. Please review the changes and let us know if anything needs adjustment.",
+      "flag": "true"
+    }
+  ],
+  "payments": {
+    "title": "Pay Program Fees",
+    "program": "AI with Open IA for Beginners: Programming Guidance",
+    "early_reg": {
+      "title": "Early Registration Fee",
+      "price": "6233",
+      "notes": [
+        "Save up to 3125 SAR with early registration",
+        "Offer ends in 7 days and 7:29 hours"
+      ],
+      "button": "Pay Full Fee"
+    },
+    "install_reg": {
+      "title": "Installment Registration Fee",
+      "price": "6958",
+      "notes": [
+        "Pay a registration fee of 2346 SAR as a down payment",
+        "Then pay 4 monthly installments",
+        "1150 SAR per monthly installment"
+      ],
+      "vat_note": "Price includes VAT",
+      "button": "Start Installment Plan"
+    },
+    "or_contact": "Or you can",
+    "book_call": "Book a call now",
+    "savings_difference": "1402.22"
+  },
+  "installments": {
+    "title": "Program Installments",
+    "summary": {
+      "amount_paid": "Amount Paid",
+      "paid": " 4048",
+      "note": "3 installments paid"
+    },
+    "program_details": {
+      "name": "AI with Open IA for Beginners: Programming Guidance",
+      "install_dtls_titl": "Program Installment Details",
+      "reg_date": "Registration Date: December 21, 2024",
+      "status": "Payment Status: In progress",
+      "fee": "Program Fee: 4048 SAR",
+      "installment_info": "Total Installments: 4 | Remaining: 1"
+    },
+    "table": {
+      "title": "Program Installment Schedule",
+      "headers": [
+        "No.",
+        "Installment Details",
+        "Amount",
+        "Installment Finish",
+        "Payment Date",
+        "Payment Status"
+      ],
+      "rows": [
+        [
+          "01",
+          "First Installment (Registration)",
+          "SAR 1150",
+          "-",
+          "Nov 1, 2024",
+          "Paid"
+        ],
+        [
+          "02",
+          "Second Installment",
+          "SAR 966",
+          "Nov 1, 2024",
+          "Nov 1, 2024",
+          "Paid"
+        ],
+        [
+          "03",
+          "Third Installment",
+          "SAR 966",
+          "Nov 1, 2024",
+          "Nov 1, 2024",
+          "Paid"
+        ],
+        [
+          "04",
+          "Fourth Installment",
+          "SAR 966",
+          "Nov 1, 2024",
+          "Nov 1, 2024",
+          "Pay Now"
+        ]
+      ]
+    }
+  },
+  "comp-pay": {
+    "page_title": "Complete Payment",
+    "page_subtitle": "Pay the registration fees for Diploma in Fundamentals of Cybersecurity: Total payment of $599",
+    "section_title": "Secure Checkout",
+    "coupon_instruction": "If you have a coupon, insert the code in the following input and click \"Validate\" button.",
+    "coupon_placeholder": "Enter coupon code here",
+    "validate_button": "Validate",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "total": "Total",
+    "amount_due": "Total amount due today 559$",
+    "pay_button": "Make secure payment"
+  },
+  "settings": {
+    "edit": "Edit",
+    "full_name": "Full Name",
+    "academic_info": "Academic Information",
+    "academic_code": "Academic Code",
+    "email": "Email",
+    "birthdate": "Date of Birth",
+    "language": "Language",
+    "arabic_language": "Arabic Language",
+    "region_unit": "Region / Timezone",
+    "mobile": "Mobile Number",
+    "password": "Password",
+    "save": "Save",
+    "toggle_language": "Enable Arabic Menu",
+    "toggle_profile": "Enable Profile Card",
+    "settings_header": "All Settings",
+    "basic_data": "Basic Data",
+    "personal_data": "Personal Information",
+    "education": "Education & Experience",
+    "extra_info": "Additional Info",
+    "portfolio_links": "Portfolio Links",
+    "connections": "Connections",
+    "completion_note": "Dear student, please make sure to fill out all required fields (marked with a *) correctly to ensure program acceptance.",
+    "progress": "15%"
+  },
+  "personalData": {
+    "academic_data": "Academic Data",
+    "full_name_arabic": "Full Name in Arabic",
+    "birth_date": "Birth Date",
+    "nationality": "Nationality",
+    "country_of_residence": "Country of Residence",
+    "language": "Language",
+    "full_name_english": "Full Name in English",
+    "id_or_passport_number": "National ID or Passport Number",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "city_of_residence": "City of Residence",
+    "upload_id_or_passport": "Upload National ID or Passport",
+    "no_file_uploaded": "No file uploaded"
+  },
+  "eduction": {
+    "uni_edu": "University Education",
+    "edu_area": "Educational Area",
+    "uni": "University",
+    "last_uni_cert": "Last university degree obtained",
+    "dip": "Diploma",
+    "bach": "Bachelor's",
+    "mast": "Master's",
+    "phd": "PhD",
+    "ent_bach_cert_sor": "Enter source of Bachelor's certificate",
+    "cert_country": "Certificate Issuing Country",
+    "college": "College",
+    "grad_year": "Graduation Year",
+    "major": "Major",
+    "gpa": "GPA",
+    "grad_cert_img": "Graduation Certificate Image",
+    "no_file": "No file uploaded",
+    "lang": "Language",
+    "high_edu": "High School Education",
+    "high_cert_country": "High School Certificate Issuing Country",
+    "school": "School",
+    "high_grad_year": "High School Graduation Year",
+    "high_gpa": "High School GPA",
+    "high_cert_img": "High School Certificate Image",
+    "exp": "Experiences",
+    "exp_field": "Field of Experience",
+    "years_exp": "Years of Experience",
+    "add_exp": "Add Experience"
+  },
+  "addInfo": {
+    "job_info": "Job Information",
+    "current_job_status": "Current Job Status",
+    "working": "Working",
+    "not_working": "Not Working",
+    "job_title": "Job Title",
+    "employer": "Employer",
+    "emergency_info": "Emergency Contact Information",
+    "relation": "Relation",
+    "emergency_contact_name": "Emergency Contact Name",
+    "emergency_phone": "Phone Number",
+    "emergency_email": "Email",
+    "health_status": "Health Status",
+    "hearing_disability": "Do you have a hearing disability?",
+    "health_issue": "Do you have a health issue?",
+    "disability": "Are you a person with disabilities?",
+    "health_issue_detail": "Enter your health issue"
+  },
+  "ProfilLinks": {
+    "workLinks": "Work Links",
+    "addLink": "Add Link",
+    "linkTitle": "Link Title"
+  },
+  "installments-conditions": {
+    "title": "Review and Confirm Installments",
+    "overview": "Installment Overview",
+    "programName": "Program Name: UX/UI Design Diploma with Installment Payments",
+    "installmentAmount": "Installment 1 (6431 SAR)",
+    "dueDate": "Due Date: Monday, November 1, 2024",
+    "termsTitle": "Installment Terms and Conditions",
+    "termsIntro": "By paying the first installment for Lxera programs, you agree to the following terms and conditions:",
+    "terms": [
+      {
+        "title": "1. Acceptance of Terms:",
+        "body": "By completing the payment for any installment, the user is considered to have agreed to all the listed terms and conditions."
+      },
+      {
+        "title": "2. Payment Schedule:",
+        "body": "The user must adhere to paying all agreed-upon installments on the specified dates according to the schedule."
+      },
+      {
+        "title": "3. Late Payment:",
+        "body": "In case of payment delay, Lxera reserves the right to take appropriate measures to ensure completion of payments, including freezing the program or restricting access to learning materials."
+      },
+      {
+        "title": "4. Refund Policy:",
+        "body": "No payment can be refunded except in special circumstances evaluated by the Lxera administration."
+      },
+      {
+        "title": "5. Program Access:",
+        "body": "Access to the educational program is granted upon successful completion of the first installment."
+      },
+      {
+        "title": "6. Reminder Notification:",
+        "body": "Notifications will be sent prior to each due date to avoid any delay or service interruption."
+      },
+      {
+        "title": "7. Communication & Support:",
+        "body": "Subscribers can contact the Lxera support team for inquiries regarding payments or terms."
+      }
+    ],
+    "importantNote": "Important: By proceeding with the payment, you fully and irrevocably agree to all the terms and conditions, and you commit to complying with them to ensure continued access to Lxera services.",
+    "back": "Back",
+    "confirm": "Confirm"
+  },
+  "calendar": {
+    "days": [
+      "Sat",
+      "Fri",
+      "Thu",
+      "Wed",
+      "Tue",
+      "Mon",
+      "Sun"
+    ],
+    "tasksTitle": "Tasks for Today:",
+    "noTasks": "No tasks or important events for today"
+  },
+  "lessons": {
+    "course_schedule": "Course Schedule",
+    "completion": "Completed",
+    "intelligent_course": "AI for Beginners: Programming Guidance",
+    "content": "Content",
+    "exams": "Exams",
+    "section_title": "Section Title / Content",
+    "lecture_title": "Lecture Title",
+    "lecture_count": "Lecture Count",
+    "additional_content": "Additional Content / Attachments",
+    "attachments": "Attachments / Download Links",
+    "file_name": "File Name / Attachment",
+    "note_text": "This is a sample text used for demonstration. You can replace it with your own content."
+  },
+  "homework": {
+    "exams": "Exams",
+    "content": "Content",
+    "lesson_title": "Lesson Title",
+    "student_gradev1": "Student Exam Grade",
+    "titlev1": "Homework Details",
+    "deadline": "13 February",
+    "submission_limit": "Submission Limit",
+    "required_submissions": "Max Submissions",
+    "student_grade": "Student Grade",
+    "pass_score": "Pass Score",
+    "submissions": "0/1",
+    "students_submitted": "0/100",
+    "titlev2": "Attachments / Homework Details",
+    "file_name": "File name",
+    "file_size": "File size",
+    "titlev3": "Add Submission",
+    "instructions": "Add a description of your solution",
+    "file_title": "File Title",
+    "upload": "Upload File",
+    "send": "Send",
+    "no_files_uploaded": "No files have been uploaded yet!",
+    "upload_urgency": "Hurry to upload the program requirements",
+    "teacher_instruction": "Full Student Name",
+    "deadline_reached": "The deadline has been reached!",
+    "no_more_uploads": "Unfortunately, you can no longer submit files..."
+  },
+  "employee_progress": {
+    "page_title": "Employee Progress Tracking",
+    "add_employee": "Add Employee",
+    "filter": "Filter",
+    "search_placeholder": "Search for an employee, course, department...",
+    "sort_by": "Sort by:",
+    "sort_option": "Alphabetical",
+    "view_option": "View:",
+    "view_all": "All Programs",
+    "program_status": "Program Status",
+    "department": "Department",
+    "branch": "Branch",
+    "training_course": "Training Course",
+    "branch_option": "Main Branch - Riyadh",
+    "department_option": "HR Department",
+    "program_status_option": "Completed",
+    "leaderShip": "Leadership Skills Training  ",
+    "employee_name": "Employee Name",
+    "join_date": "Join Date",
+    "completion_rate": "Completion Rate",
+    "profile_access": "Access Profile",
+    "notStarted": "Not Started",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "profile": "Profile",
+    "from": "From",
+    "to": "To",
+    "quiz": "Quiz / Assessment",
+    "teacher": "Teacher",
+    "status": "Status",
+    "show_results": "Show Results",
+    "course": "Course"
+  },
+  "SubMan": {
+    "add_payment_method": "Add payment method",
+    "payment_methods": "Payment Methods",
+    "membership": "Membership Management",
+    "view_plans": "View Plans",
+    "info2": "Subscription State",
+    "title1": "Subscription State",
+    "btn2": "Active",
+    "days_remaining": "21 days remaining in current plan",
+    "company_name": "Company Name",
+    "plan_title": "Current Plan Title",
+    "monthly_price": "500.00",
+    "subscription_date": "Subscription date",
+    "end_date": "End date",
+    "employees": "No. of employees",
+    "tracking": "Employee progress tracking",
+    "your_plan": "Your plan",
+    "emails_sent": "Emails sent",
+    "sms_sent": "SMS sent",
+    "daily_requests": "Daily requests",
+    "upgrade_prompt": "Want more? Make an upgrade",
+    "payment_details": "Payment Operation Details",
+    "download_receipt": "Download receipt",
+    "payment_operation": "Subscription payment operation",
+    "amount": "Amount",
+    "email": "Email",
+    "vat_number": "VAT number",
+    "view_all": "View all payment operations",
+    "subscriptionAmount": "Subscription amount: 500$",
+    "emaill": "Email: oliver@burrito.com",
+    "referenceNumber": "Number: FRB1235476",
+    "num": "90 employees",
+    "ref": "User progress tracking"
+  },
+  "yourplan": {
+    "your_plan": "Your plan",
+    "emails_sent": "Emails sent",
+    "sms_sent": "SMS sent",
+    "of": "of",
+    "want_more": "Want more? Make an upgrade"
+  },
+  "adminNotfi": {
+    "all": "All",
+    "read": "Read Notifications",
+    "unread": "Unread Notifications",
+    "senderName": "Sender Name"
+  },
+  "techSupport": {
+    "tech-support": "Technical Support",
+    "create-new-ticket": "Create a new support ticket",
+    "create-new-ticket-p": "You can open a new ticket if you encounter any problem or inquiry.",
+    "create-new-ticket-button": "Create a new support ticket",
+    "direct-contact": "Live chat/contact with support",
+    "direct-contact-p": "Contact our support team directly to resolve your inquiry immediately.",
+    "direct-contact-button": "Start the conversation",
+    "ticket-filter": "Ticket Filter",
+    "sort_by": "Sort by",
+    "date": "Date",
+    "Your-AI-CAHT-Assistant": "Your AI CAHT Assistant",
+    "send-placeholder": "How do I recover my password? ......",
+    "faq-title": "Frequently Asked Questions About Support Tickets",
+    "faqs": [
+      {
+        "q1": "How can I open a new support ticket?",
+        "a1": "You can open a new support ticket by clicking the 'Create Support Ticket' button and filling in the required details."
+      },
+      {
+        "q2": "Can I edit the ticket after sending it?",
+        "a2": "Yes, you can edit your ticket after submitting it, but only until it receives a response from the support team."
+      },
+      {
+        "q3": "When should I expect a response to the ticket?",
+        "a3": "You will typically receive a response within 24 to 48 business hours depending on the ticket type and priority."
+      },
+      {
+        "q4": "What’s the difference between ticket types (technical, financial, training)?",
+        "a4": "Technical tickets are for system or login issues, financial tickets relate to payments and billing, and training tickets are for course-related inquiries."
+      },
+      {
+        "q5": "What’s the difference between ticket types (technical, financial, training)?",
+        "a5": "Technical tickets are for system or login issues, financial tickets relate to payments and billing, and training tickets are for course-related inquiries."
+      },
+      {
+        "q6": "What’s the difference between ticket types (technical, financial, training)?",
+        "a6": "Technical tickets are for system or login issues, financial tickets relate to payments and billing, and training tickets are for course-related inquiries."
+      }
+    ],
+    "view-all-faq": "View All Frequently Asked Questions",
+    "view-less-faq": "View fewer questions",
+    "ticket_number": "Ticket Number",
+    "subject": "Subject",
+    "status": "Status",
+    "last_updated": "Last Updated",
+    "action": "Action",
+    "problem-signing-in": "Problem signing in",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "show-details": "Show Details",
+    "view-all-tickets": "View All Previous Tickets",
+    "previous-tickets": "Previous Tickets",
+    "search-placeholder": "Search ticket code ..."
+  },
+  "AiAssistant": {
+    "AiAssistant": "Ai-Assistant",
+    "frequent-questions" : "Frequent Questions",
+    "try-asking": "Try asking me about ...",
+    "questions": [
+      "How do I add a new employee to the training program?",
+      "What is the difference between the available subscription packages?",
+      "From which page can I track employee performance?",
+      "Do I have the authority to create an employee account?",
+      "How do I add a new employee to the training program?",
+      "What is the difference between the available subscription packages?"
+    ],
+    "password-recovery": "You can recover your password by clicking on \"Forgot Password\".",
+    "generic-response": "Your inquiry has been received and will be answered shortly."
+  },
+  "Quizzes": {
+    "Quizzes": "Quizzes",
+    "my-quizzes": "My Quizzes",
+    "passed": "Passed",
+    "failed": "Failed",
+    "ShowResults": "Show Results",
+    "FilterResults": "Filter Results",
+    "teacher": "teacher",
+    "quiz": "Quiz",
+    "quiz-grade": "Quiz Grade",
+    "my-grade": "My Grade",
+    "status": "Status",
+    "pending": "Pending",
+    "date":"Date",
+    "edit":"Edit",
+    "delete":"Delete",
+    "actions":"Actions",
+    "tries": "Number of trials",
+    "failed-desc": "Unfortunately, you did not pass the test.",
+    "passed-desc": "You have successfully passed the test.",
+    "try-again": "Try again"
+  },
+
+"assignments": {
+  "assignments": "Assignments",
+  "statsHeader": "Assignment Statistics",
+  "courseAssignments": "Course Assignments",
+  "pendingReview": "Pending Review",
+  "filter-Assignments": "Filter Assignments",
+  "course": "Course",
+  "my-assignments": "My Assignments",
+  "firstSubmission": "First Submission",
+  "lastSubmission": "Last Submission",
+  "attempts": "Attempts",
+  "not-submitted": "Not Submitted",
+  "deadline": "Deadline",
+  "passing-grade": "Passing Grade",
+  "show-assignment": "Show Assignment"
+},
+
+  "orgProfile":{
+    "orgprofile-table-title": "Programs",
+    "username": "Username",
+    "email": "Email",
+    "company_name": "Al Wifaq Future Communications Company",
+    "company_field": "Company field",
+    "number_of_employees": "Number of employees",
+    "city": "City",
+    "training_plan": "Training plan",
+    "registration_date": "Registration date",
+    "subscription_end_date": "Subscription end date",
+    "social_accounts": "Social accounts",
+    "training_performance": "Training performance",
+    "active_trainees": "Number of active trainees",
+    "completed_courses": "Completed courses",
+    "program_engagement": "Program engagement rate",
+    "latest_updates": "Latest updates in your organization",
+    "new_enrollments": "15 new employees enrolled in Leadership & Management course",
+    "course_completed": "10 employees completed the Data Analysis for Advancement course",
+    "incomplete_courses_warning": "Some employees didn't complete their courses on time. Review of their assessments is required",
+    "training_programs": "Training programs",
+    "sort_by": "Sort by",
+    "latest": "Latest",
+    "view": "View",
+    "all_programs": "All programs",
+    "status": "Status",
+    "completed": "Completed",
+    "in_progress": "In progress",
+    "not_started": "Not started yet",
+    "region": "Region",
+    "city_riyadh": "City: Riyadh, Saudi Arabia",
+    "search_by_program": "Search by program name",
+    "program_name": "Program name",
+    "number_of_trainees": "Number of trainees",
+    "start_date": "Start date",
+    "actions": "Actions",
+    "leadership_training": "Leadership Skills Training",
+    "view_more_programs": "View more programs",
+    "delete": "Delete",
+    "edit": "Edit",
+    "company_desc" :  "Future Vision Technologies Company is one of the leading Saudi companies in the field of digital transformation. It strives to empower its workforce through specialized training programs aimed at improving efficiency and enhancing productivity in the workplace."
+  },
+
+
+
+"adminSettings":{
+
+  "settings": "Settings",
+  "account": "Account",
+  "appearance": "Appearance",
+  "system": "System",
+  "assistant": "Smart Assistant",
+  "support": "Support",
+  "basic_user_info": "Basic User Information",
+  "username": "Username",
+  "email": "Email",
+  "mobile_number": "Mobile Number",
+  "change_password": "Change Password",
+  "current_password": "Current Password",
+  "new_password": "New Password",
+  "confirm_new_password": "Confirm New Password",
+  "preferences": "Preferences",
+  "theme": "Theme",
+  "language": "Language",
+  "choose_theme": "Choose Theme",
+  "choose_language": "Choose Language",
+  "linked_accounts": "Linked & Secure Accounts",
+  "google": "Google",
+  "linkedin": "LinkedIn",
+  "unlink": "Unlink",
+  "devices": "Devices",
+  "remove_device": "Remove Device",
+  "last_used": "Last Used",
+  "team": "Team",
+  "change": "Change",
+  "save_changes": "Save Changes"
+
+
+},
+
+
+"adminSettingsTeam":{
+
+
+"system_settings": "General System Settings",
+  "upload_logo": "Upload Organization Logo",
+  "organization_name": "Organization / Entity Name",
+  "non_editable": "Company name - non-editable text",
+  "default_language": "System Default Language",
+  "default_region": "System Default Timezone",
+  "select_language": "Select Arabic Language",
+  "select_region": "Select Timezone",
+
+  "login_security": "Login & Security",
+  "enable_2fa": "Enable Two-Factor Authentication (2FA)",
+  "2fa_settings": "Two-Factor Authentication Settings (2FA)",
+  "choose_2fa_method": "Choose preferred 2FA method",
+  "session_duration": "Session Timeout Duration",
+  "logout_all": "Logout from all devices now",
+
+  "customize_interface": "Customize System Interface",
+  "primary_color": "Primary Interface Color",
+  "theme_style": "Interface Theme",
+  "light_mode": "Light Mode",
+  "dark_mode": "Dark Mode",
+
+  "integration_settings": "Integration Settings",
+  "teams": "Teams",
+  "zoom": "Zoom",
+  "office365": "Office 365",
+  "unlink": "Unlink",
+  "relink": "Relink",
+  "last_used": "Last used",
+   "reset_active_sessions":"Reset active sessions"
+   
+},
+
+
+"aihelper":{
+
+  "title_tasks": "Smart Assistant Tasks",
+  "select_tasks": "Select the tasks you prefer the AI assistant to perform for users:",
+  "respond_to_queries": "Respond to user inquiries",
+  "performance_suggestions": "Provide performance improvement suggestions",
+  "smart_notifications": "Send smart notifications",
+  "procedure_guides": "Provide procedural guides",
+  "report_summaries": "Display report summaries",
+  "suggest_new_tasks": "Would you suggest new tasks that can be developed for the assistant?",
+
+  "title_settings": "Smart Assistant Settings",
+  "enable_assistant": "Enable Smart Assistant",
+  "enable_assistant_note": "You can temporarily disable the assistant for all users.",
+  "assistant_tone": "Smart Assistant Tone",
+  "tone_formal": "Formal",
+  "tone_friendly": "Friendly",
+  "tone_short": "Concise",
+  "language_settings": "Language Settings",
+  "language_ar": "Arabic",
+  "language_en": "English",
+  "language_both": "Arabic & English",
+  "restore_defaults": "Restore AI Default Settings",
+  "restore_defaults_note": "You can temporarily disable the assistant for all users."
+
+
+
+},
+
+
+"aisupport":{
+
+  "title_support_settings": "Technical Support Settings",
+  "description_support_settings": "Customize the support experience within the platform and set available channels and options for users.",
+  "title_availability_settings": "Support Availability Settings",
+  "availability_description": "Set the hours when the live support team will be available",
+  "days_available": "Sunday, Monday, Tuesday, Wednesday, Thursday, ... Saturday",
+  "from": "From",
+  "to": "To",
+  "title_response_settings": "Automated Ticket Response",
+  "response_description": "Customize the auto-response message shown when a support ticket is submitted",
+  "default_response": "Hello! We have received your request and will respond within 24 hours.",
+  "edit_response": "Edit Auto-Response",
+  "title_channels": "Available Support Channels",
+  "channels_description": "Select the support methods you'd like to provide to users through the platform",
+  "channel_email": "Email",
+  "channel_chat": "Live Chat",
+  "channel_tickets": "Ticketing System",
+  "channel_ai_assistant": "Smart Assistant Response",
+  "channel_phone": "Phone Number"
+
+
+}
+}
