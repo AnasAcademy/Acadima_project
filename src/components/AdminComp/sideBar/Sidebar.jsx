@@ -26,6 +26,8 @@ export default function Sidebar() {
   const isOrgprofile = pathname.includes("/org/orgprofile");
   const isAiAssistant = pathname.includes("/org/ai-assistant");
   const isSettings = pathname.includes("/org/settings");
+  const isAdmissionReq = pathname.includes("/org/admission-requirements");
+  const isStudentPermission = pathname.includes("/org/student-permission");
 
   const isSubscriptionmanagement = pathname.includes(
     "/org/subscription-management"
@@ -35,7 +37,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className=" p-3  d-flex flex-column ">
+      <div className=" p-3  d-flex flex-column overflow-auto min-vh-100">
         <nav className="navbar navbar-light navbar-expand-lg     mt-md-4">
           <div className="container-fluid  d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column min-vh-lg-100   align-items-start p-0  ">
             <Link
@@ -159,13 +161,57 @@ export default function Sidebar() {
                 </li>
 
                 <li className={`nav-item d-flex  align-items-center  `}>
+                  <h3
+                    className="nav-link Tit-12-700 Gray-Gray-700 m-0"
+                  >
+                    {t("admission")}
+                  </h3>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isAdmissionReq ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isAdmissionReq ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
                   <Link
-                    className="nav-link Tit-12-700 Gray-Gray-700 "
+                    className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/orgprofile"
+                    href="/org/admission-requirements"
+                  >
+                    {t("admission-requirements")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isStudentPermission ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Ai
+                    className={`iconSize2   ${
+                      isStudentPermission ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/student-permission"
+                  >
+                    {t("student-permission")}
+                  </Link>
+                </li>
+
+                <li className={`nav-item d-flex  align-items-center  `}>
+                  <h3
+                    className="nav-link Tit-12-700 Gray-Gray-700 m-0"
                   >
                     {t("Account Management")}
-                  </Link>
+                  </h3>
                 </li>
 
                 <li
