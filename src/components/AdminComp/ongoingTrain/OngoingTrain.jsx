@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Circle from "../../../assets/admin/circle.svg";
-import Arrow from "@/assets/admin/arrow down.svg";
+
+
 
 export default function OngoingTrain({
   ContainerTop,
@@ -10,8 +10,6 @@ export default function OngoingTrain({
   trainingData,
   Icon,
   Icon2,
-  viewAllTickets,
-  padding,
   isUserImg
 }) {
   const t = useTranslations("HomePageA");
@@ -111,22 +109,7 @@ export default function OngoingTrain({
 
   return (
     <>
-      <div
-        className={`rounded-4 shadow-sm   p-md-${padding}  p-2 container-fluid  cardbg    min-train-ht`}
-      >
-        {ContainerTop && (
-          <>
-            <h3> {t("trainpro")} </h3>
-            <div className=" d-flex gap-2">
-              <Circle />
-              <h6 className=" h6v  "> {t("subtrainpro")} </h6>
-            </div>
-          </>
-        )}
-
-        {viewAllTickets && <h2> {t2("previous-tickets")} </h2>}
-
-        <div className=" table-responsive   mt-4  ">
+        <div className=" table-responsive     ">
           <table className="table  no-flag-style   align-middle     ">
             <thead className="  w-100">
               <tr className="text-nowrap   ">
@@ -154,17 +137,6 @@ export default function OngoingTrain({
             </tbody>
           </table>
         </div>
-
-        {viewAllTickets && (
-          <div
-            className="text-primary fw-semibold d-flex align-items-center gap-2 py-3"
-            role="button"
-          >
-            <Arrow size={18} />
-            {t2("view-all-tickets")}
-          </div>
-        )}
-      </div>
     </>
   );
 }

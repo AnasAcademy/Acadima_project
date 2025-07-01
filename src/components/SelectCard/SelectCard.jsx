@@ -1,17 +1,42 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Arrow from "@/assets/admin/arrow down.svg";
 import SearchIcon from "@/assets/admin/search.svg";
 import Calendar from "@/assets/calendar.svg";
 
-export default function SelectCard({ selectCardData, isTechSupport, isOrgProfile }) {
+export default function SelectCard({ selectCardData, isTechSupport, isOrgProfile ,dataa }) {
   const t = useTranslations("employee_progress");
   const t2 = useTranslations("techSupport");
   const t3 = useTranslations("orgProfile");
 
+
+   const [val , setVal]= useState(null)
+
   const { inputs = [], button = { show: false } } = selectCardData;
+
+
+  async function  searchTicket(e){
+    const value = Number(e.target.value);;
+ 
+          const matchingTickets = dataa.supports.filter(
+            (dat) => dat.id === value
+          );
+
+     
+
+
+         
+
+
+
+
+
+   }
+
+
+
 
   return (
     <div className="cardbg p-3 d-flex flex-column justify-content-start align-items-start rounded-4 min-adash-ht">
@@ -81,9 +106,17 @@ export default function SelectCard({ selectCardData, isTechSupport, isOrgProfile
                           type="text"
                           placeholder={
                             input.placeholder || t2("search-placeholder")
+    
                           }
                           className=" tit-12-400 border-0 w-75"
+                         
+                           onChange={
+                                 searchTicket
+                          }
+           
                         />
+
+
                       </div>
                     )}
 
