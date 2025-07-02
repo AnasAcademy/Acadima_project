@@ -8,7 +8,7 @@ import Pin from "@/assets/admin/pin.svg"
 import Removebin from "@/assets/admin/removebin.svg";
 import roundimage from "@/assets/admin/personla.png"
 
-export default function AdmissionReq() {
+export default function StudentCodes() {
 
 
 const ts = useTranslations("SidebarA");
@@ -76,40 +76,14 @@ const ts = useTranslations("SidebarA");
     }
   ];
 
-  const selectCardData = {
-  inputs: [
-    {
-      title: "training_course",
-      type: "select",
-      options: ["React", "Next.js", "Laravel"]
-    },
-    {
-      title: "branch",
-      type: "select",
-      options: ["Cairo", "Alex"]
-    },
-    {
-      title: "department",
-      type: "select",
-      options: ["Cairo", "Alex"]
-    },
-    {
-      title: "program_status",
-      type: "select",
-      options: ["on", "off"]
-    },
-  ]
-};
-
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
-          <h2 class="hvvv">{ts("admission-requirements")}</h2>
-            <div className=" col-lg-12 ">
-              <SelectCard selectCardData={selectCardData} />
-            </div>
+            <h2 class="hvvv">{ts("categories")}</h2>
+
+        
 
             <div className=" col-12 ">
               <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">

@@ -29,7 +29,20 @@
     "ad3": "Talk to your virtual assistant.",
     "admission": "Admission",
     "admission-requirements": "Admission Requirements",
-    "student-permission": "Student Permissions"
+    "student-permission": "Student Permissions",
+    "registrations": "Registrations",
+    "students-list": "Students List",
+    "all-students": "All Students",
+    "create-account-form": "Create Account Form",
+    "seat-reservation-form": "Seat Reservation Form",
+    "program-registration": "Program Registration",
+    "direct-registration": "Direct Registration",
+    "scholarship-registration": "Scholarship Registration",
+    "electronic-services": "Electronic Services",
+    "classes": "Academic Batches",
+    "student-codes": "Student Codes",
+    "instructor-codes": "Teacher Codes",
+    "categories": "Categories"
   },
   "NavbarA": {
     "search": "Search...",

@@ -27,7 +27,20 @@
     "ad3": "تحدث إلى مساعدك الآلي",
     "admission": "القبول والتسجيل",
     "admission-requirements": "متطلبات التسجيل",
-    "student-permission": " صلاحيات الطلاب"
+    "student-permission": " صلاحيات الطلاب",
+    "registrations": "التسجيلات",
+    "students-list": "قائمة الطلاب",
+    "all-students": "كل الطلاب",
+    "create-account-form": "نموذج إنشاء حساب",
+    "seat-reservation-form": "نموذج حجز مقعد",
+    "program-registration": "تسجيل البرامج",
+    "direct-registration": "تسجيل مباشر",
+    "scholarship-registration": "تسجيل المنح الدراسية",
+    "electronic-services": "الخدمات الإلكترونية",
+    "classes": "الدفعات الدراسية",
+    "student-codes": "أكواد الطلاب",
+    "instructor-codes": "أكواد المعلمين",
+    "categories": "اللأقسام"
   },
   "NavbarA": {
     "search": "أريد أن ابحث عن ....",

@@ -16,12 +16,43 @@ export default function AIChat({
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    if (externalMessage) {
-      setMessages((prev) => [...prev, { type: "user", text: externalMessage }]);
+useEffect(() => {
+  if (externalMessage) {
+    // Add external user message to chat
+    setMessages((prev) => [...prev, { type: "user", text: externalMessage }]);
 
-      // Optional: simulate AI response
-      setTimeout(() => {
+    // Immediately send it to the API
+    const sendExternalMessage = async () => {
+      try {
+        const response = await fetch("https://ai.lxera.net/query", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ question: externalMessage }),
+        });
+
+        const data = await response.json();
+
+        if (data?.answer) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              type: "ai",
+              text: data.answer,
+            },
+          ]);
+        } else {
+          setMessages((prev) => [
+            ...prev,
+            {
+              type: "ai",
+              text: ts("generic-response"),
+            },
+          ]);
+        }
+      } catch (error) {
+        console.error("API error:", error);
         setMessages((prev) => [
           ...prev,
           {
@@ -29,9 +60,12 @@ export default function AIChat({
             text: ts("generic-response"),
           },
         ]);
-      }, 500);
-    }
-  }, [externalMessage]);
+      }
+    };
+
+    sendExternalMessage();
+  }
+}, [externalMessage]);
 
   const handleSend = async () => {
   if (!input.trim()) return;
