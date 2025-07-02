@@ -143,7 +143,7 @@ export default function OrgSettSystem() {
               <div className=" row pt-3  g-3 ">
                 <div className="col-12 d-flex    align-items-center    justify-content-between">
                   <div className=" d-flex gap-3  justify-content-center align-items-center ">
-                    <Teams className="iconSize11" />
+                    <Teams className="iconSize110" />
                     <div className=" d-flex flex-column">
                       <h3 className=" Tit-14-700"> teams</h3>
                       <p className=" tit-12-400">{t("last_used")}</p>
@@ -158,7 +158,7 @@ export default function OrgSettSystem() {
 
                 <div className="col-12 d-flex    align-items-center    justify-content-between">
                   <div className=" d-flex gap-3  justify-content-center align-items-center ">
-                    <Office className="iconSize11" />
+                    <Office className="iconSize110" />
                     <div className=" d-flex flex-column">
                       <h3 className=" Tit-14-700"> Office 365</h3>
                       <p className=" tit-12-400">{t("last_used")}</p>
@@ -173,7 +173,7 @@ export default function OrgSettSystem() {
 
                 <div className="col-12 d-flex    align-items-center    justify-content-between">
                   <div className=" d-flex gap-3  justify-content-center align-items-center ">
-                    <Office className="iconSize11" />
+                    <Office className="iconSize110" />
                     <div className=" d-flex flex-column">
                       <h3 className=" Tit-14-700"> Zoom</h3>
                       <p className=" tit-12-400">{t("last_used")}</p>

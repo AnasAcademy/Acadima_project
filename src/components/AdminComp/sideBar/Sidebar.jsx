@@ -37,7 +37,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className=" p-3  d-flex flex-column overflow-auto min-vh-100">
+      <div className=" p-3  d-flex flex-column">
         <nav className="navbar navbar-light navbar-expand-lg     mt-md-4">
           <div className="container-fluid  d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column min-vh-lg-100   align-items-start p-0  ">
             <Link

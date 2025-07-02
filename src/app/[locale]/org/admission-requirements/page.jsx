@@ -106,19 +106,20 @@ export default function AdmissionReq() {
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
-
             <div className=" col-lg-12 ">
               <SelectCard selectCardData={selectCardData} />
             </div>
 
             <div className=" col-12 ">
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={false}
-                Icon={Pin}
-                Icon2={Removebin}
-              />
+              <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+                <OngoingTrain
+                  TableHead={TableHead}
+                  trainingData={trainingData}
+                  button={false}
+                  Icon={Pin}
+                  Icon2={Removebin}
+                />
+              </div>
             </div>
           </div>
         </div>
