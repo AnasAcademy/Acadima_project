@@ -41,7 +41,11 @@ export default function AIChat({
   setInput("");
 
   try {
+<<<<<<< HEAD
     const response = await fetch("http://127.0.0.1:8000/query", {
+=======
+    const response = await fetch("https://ai.lxera.net/query", {
+>>>>>>> 6586ee9 (Modifications_p1)
       method: "POST",
       headers: {
         "Content-Type": "application/json",

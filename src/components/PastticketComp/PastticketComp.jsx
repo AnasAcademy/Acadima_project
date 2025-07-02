@@ -6,7 +6,13 @@ import Arrow from "@/assets/admin/arrow down.svg";
 import { useTranslations, getTranslations } from "next-intl";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import ticket from "@/assets/admin/ticket.svg";
+<<<<<<< HEAD
  export default function PastticketComp({dataa}) {
+=======
+import SelectCard from "@/components/SelectCard/SelectCard"; 
+
+export default function PastticketComp({dataa}) {
+>>>>>>> 6586ee9 (Modifications_p1)
 
     const t = useTranslations("techSupport");
        let num=3
@@ -44,11 +50,42 @@ import ticket from "@/assets/admin/ticket.svg";
       ],
     }));
     
+<<<<<<< HEAD
     
+=======
+    const selectCardData = {
+      inputs: [
+        {
+          title: "",
+          type: "select",
+          options: ["React", "Next.js", "Laravel"]
+        },
+        {
+          title: "",
+          type: "select",
+          options: ["Cairo", "Alex"]
+        },
+        {
+          title: "",
+          type: "select",
+          options: ["Cairo", "Alex"]
+        },
+        {
+          title: "",
+          type: "select",
+          options: ["on", "off"]
+        },{
+          title: "",
+          type: "search",
+        },
+      ]
+    };
+>>>>>>> 6586ee9 (Modifications_p1)
 
 
    return (
      <>
+<<<<<<< HEAD
        <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
          <h2> {t("previous-tickets")} </h2>
          <OngoingTrain
@@ -67,6 +104,39 @@ import ticket from "@/assets/admin/ticket.svg";
          >
            <Arrow size={18} />
            {t("view-all-tickets")}
+=======
+       <div className=" row g-3">
+         <div className="col-12">
+           <SelectCard
+             selectCardData={selectCardData}
+             isTechSupport={true}
+             dataa={dataa}
+           />
+         </div>
+
+         <div className="col-12">
+           <div className="rounded-4 shadow-sm   p-4   container-fluid  cardbg    min-train-ht">
+             <h2> {t("previous-tickets")} </h2>
+             <OngoingTrain
+               TableHead={TableHead}
+               trainingData={trainingData}
+               button={false}
+               Icon={ticket}
+             />
+
+             <div
+               className="text-primary fw-semibold d-flex align-items-center gap-2 mt-2 "
+               role="button"
+               onClick={() => {
+                 num = num + 3;
+                 setMore(num);
+               }}
+             >
+               <Arrow size={18} />
+               {t("view-all-tickets")}
+             </div>
+           </div>
+>>>>>>> 6586ee9 (Modifications_p1)
          </div>
        </div>
      </>

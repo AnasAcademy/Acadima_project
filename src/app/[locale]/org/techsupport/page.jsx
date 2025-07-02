@@ -4,9 +4,12 @@ import NewTechCard from "@/components/NewTechCard/NewTechCard";
 import StartTechCard from "@/components/StartTechCard/StartTechCard";
 import AiCard from "@/components/AICard/AICard";
 import FrequentlyAskedQues from "@/components/FrequentlyAskedQues/FrequentlyAskedQues";
+<<<<<<< HEAD
 
 
 import SelectCard from "@/components/SelectCard/SelectCard";
+=======
+>>>>>>> 6586ee9 (Modifications_p1)
 import PastticketComp from "@/components/PastticketComp/PastticketComp"
 
 
@@ -61,6 +64,7 @@ export default async function TechSupport() {
    }
 
 
+<<<<<<< HEAD
  const selectCardData = {
   inputs: [
     {
@@ -88,10 +92,14 @@ export default async function TechSupport() {
     },
   ]
 };
+=======
+ 
+>>>>>>> 6586ee9 (Modifications_p1)
 
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column    ">
+<<<<<<< HEAD
         <div className=" p-lg-4  pt-0">
           <div className="row m-0 p-2 g-3">
             <h2 className="hvvv p-4 pb-0">{t("tech-support")}</h2>
@@ -127,6 +135,38 @@ export default async function TechSupport() {
               <div className="col-xl-3">
                 <div className=" h-100 ">
                   <FrequentlyAskedQues qestions={qestions} />
+=======
+        <div className=" p-4 ">
+          <h2 className="hvvv py-3 ">{t("tech-support")}</h2>
+
+          <div className="row g-3">
+            <div className="col-xl-8 col-12     ">
+              <div className="row g-3">
+                <div className="col-6  ">
+                  <NewTechCard />
+                </div>
+
+                <div className="col-6 ">
+                  <StartTechCard />
+                </div>
+
+                <div className=" col-12 ">
+                  <PastticketComp dataa={dataa} />
+                </div>
+              </div>
+            </div>
+
+            <div className="col-xl-4 col-12   ">
+              <div className="row g-3">
+                <div className="col-12 min-file-ht ">
+                  <AiCard />
+                </div>
+
+                <div className="col-12">
+                  <div className=" h-100 ">
+                    <FrequentlyAskedQues qestions={qestions} dataa={dataa} />
+                  </div>
+>>>>>>> 6586ee9 (Modifications_p1)
                 </div>
               </div>
             </div>
