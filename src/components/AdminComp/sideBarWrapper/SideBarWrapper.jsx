@@ -10,9 +10,9 @@ export default function SideBarWrapper() {
     const pathname = usePathname(); 
     const hideSidebarRoutes = ["ar/org", "en/org"];
 
-    const shouldHideSidebar = hideSidebarRoutes.some((route) =>
+    const shouldShowSidebar = hideSidebarRoutes.some((route) =>
       pathname.includes(route)
     );
 
-  return <>{shouldHideSidebar && <Sidebar />}</>;
+  return <>{shouldShowSidebar && <Sidebar />}</>;
 }

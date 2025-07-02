@@ -112,6 +112,7 @@ export default function Login() {
             // console.log("Navigating to /ar/dashboard");
 
             setTimeout(() => {
+            
               router.push(`/${locale}/paymentplans`);
             }, 20);
           } catch (error) {

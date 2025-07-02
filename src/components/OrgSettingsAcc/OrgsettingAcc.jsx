@@ -195,7 +195,7 @@
              
           
                        <div className=" d-flex gap-3  justify-content-center align-items-center ">
-                         <Google className="iconSize11" />
+                         <Google className="iconSize110" />
                          <div className=" d-flex flex-column">
                            <h3 className=" Tit-14-700"> {t("google")}</h3>
                            <p className=" tit-12-400">
@@ -215,7 +215,7 @@
 
                  <div className="col-12 d-flex     align-items-center    justify-content-between">
                    <div className=" d-flex gap-3  justify-content-center align-items-center ">
-                     <Linkedin className="iconSize11" />
+                     <Linkedin className="iconSize110" />
                      <div className=" d-flex flex-column">
                        <h3 className=" Tit-14-700"> {t("linkedin")}</h3>
                        <p className=" tit-12-400">
@@ -246,7 +246,7 @@
                <div className=" row pt-3  g-3 ">
                  <div className="col-12 d-flex   flex-lg-column  flex-xl-row  align-items-center    justify-content-between">
                    <div className=" d-flex gap-3  justify-content-center align-items-center ">
-                     <Iphone className="iconSize11" />
+                     <Iphone className="iconSize110" />
                      <div className=" d-flex flex-column">
                        <h3 className=" Tit-14-700"> iphon 16 pro</h3>
                        <p className=" tit-12-400">{t("last_used")}</p>
@@ -261,7 +261,7 @@
 
                  <div className="col-12 d-flex   flex-lg-column   flex-xl-row  align-items-center    justify-content-between">
                    <div className=" d-flex gap-3   justify-content-center align-items-center ">
-                     <Laptop className="iconSize11" />
+                     <Laptop className="iconSize110" />
                      <div className=" d-flex flex-column">
                        <h3 className=" Tit-14-700"> laptop</h3>
                        <p className=" tit-12-400">{t("last_used")}</p>

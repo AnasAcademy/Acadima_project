@@ -1,10 +1,9 @@
 import React from "react";
 import Logo from "@/assets/admin/73763.svg";
 import LatestTrain from "@/components/AdminComp/latestTrain/LatestTrain";
-import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
+import OrgProfileTable from "@/components/OrgProfileTable/OrgProfileTable"
 import { useTranslations } from "next-intl";
-import Pin from "@/assets/admin/pin.svg";
-import Removebin from "@/assets/admin/removebin.svg";
+ 
 import Trianum from "@/assets/admin/VectorGraph.svg";
 import Trainmn from "@/assets/admin/Vectortr12.svg";
 import Arrow from "@/assets/admin/arrow down.svg";
@@ -21,108 +20,7 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 export default function OrgProfile() {
   const t = useTranslations("employee_progress");
   const ts = useTranslations("orgProfile");
-  const TableHead = [
-    t("employee_name"),
-    t("training_course"),
-    t("program_status"),
-    t("join_date"),
-    t("completion_rate"),
-    t("profile_access"),
-  ];
-
-  const trainingData = [
-    {
-      columns: [
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#48BB78",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("inProgress"),
-          icon: false,
-          color: "#50C1FA",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("notStarted"),
-          icon: false,
-          color: "#CBD5E0",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#48BB78",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#48BB78",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#50C1FA",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-  ];
-
+ 
    const selectCardData = {
   inputs: [
     {
@@ -363,13 +261,7 @@ export default function OrgProfile() {
             </div>
 
             <div className="col-lg-12  ">
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={false}
-                Icon={Pin}
-                Icon2={Removebin}
-              />
+                  <OrgProfileTable />
             </div>
           </div>
         </div>

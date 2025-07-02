@@ -67,122 +67,122 @@ export default function PersonalData({ tit, save }) {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
+        <div className="  cardbg rounded-4 p-3 pt-4">
+          <div>
+            <h3 className=" tit-18-700  textcolor mb-0">
+              {" "}
+              {tit} <span className=" custsubtitle3 text-danger">*</span> :{" "}
+            </h3>
+            <Line className="w-75" />
+          </div>
 
-        <div className=" mt-5 cardbg rounded-4 p-3 pt-2">
-          <h3 className=" d-flex gap-1 custsubtitle3">
-            {" "}
-            {tit} <span className=" custsubtitle3 text-danger">*</span> :{" "}
-          </h3>
-          <div className="container">
-            <div className=" row g-5">
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont  ">
-                  {" "}
-                  {info.full_name_arabic}{" "}
-                  <span className=" custfont text-danger">*</span>{" "}
-                </h3>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                  }}
-                />
+          <div className=" row  pt-4   g-4">
+            <div className="col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700 "> {info.full_name_arabic} </h3>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                }}
+              />
 
-                {formik.values.fullName &&
-                  formik.touched.fullName &&
-                  formik.errors.fullName && (
-                    <div
-                      className="alert alertFont  mt-2 mb-0 p-2 rounded-3"
-                      style={{ color: "red" }}
-                    >
-                      {formik.errors.fullName}
-                    </div>
-                  )}
-              </div>
+              {formik.values.fullName &&
+                formik.touched.fullName &&
+                formik.errors.fullName && (
+                  <div
+                    className="alert alertFont  mt-2 mb-0 p-2 rounded-3"
+                    style={{ color: "red" }}
+                  >
+                    {formik.errors.fullName}
+                  </div>
+                )}
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.full_name_english}{" "}
-                  <h5 className=" custfont text-danger">*</h5>{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className="Tit-12-700"> {info.full_name_english} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.birth_date} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className="Tit-12-700"> {info.birth_date} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+            <div className=" col-lg-6 col-xl-3"></div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.id_or_passport_number}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" Tit-12-700"> {info.id_or_passport_number} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.nationality} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" d-flex gap-1 custfont"> {info.nationality} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont"> {info.gender} </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className="col-lg-6 col-xl-3">
+              <h3 className=" d-flex gap-1 custfont"> {info.gender} </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
+                <div className=" col-lg-6 col-xl-3"></div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.country_of_residence}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className="col-lg-6 col-xl-3">
+              <h3 className=" d-flex gap-1 custfont">
+                {" "}
+                {info.country_of_residence}{" "}
+              </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.city_of_residence}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
+            <div className="col-lg-6 col-xl-3">
+              <h3 className=" d-flex gap-1 custfont">
+                {" "}
+                {info.city_of_residence}{" "}
+              </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
+            </div>
 
-              <div className=" col-lg-6">
-                <h3 className=" d-flex gap-1 custfont">
-                  {" "}
-                  {info.upload_id_or_passport}{" "}
-                </h3>
-                <input
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                />
-              </div>
-
+            <div className=" col-lg-6 col-xl-3">
+              <h3 className=" d-flex gap-1 custfont">
+                {" "}
+                {info.upload_id_or_passport}{" "}
+              </h3>
+              <input
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100 "
+                style={{ border: "1px  solid  #E3E3E3" }}
+              />
             </div>
           </div>
 

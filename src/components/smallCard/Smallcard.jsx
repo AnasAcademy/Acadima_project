@@ -12,7 +12,7 @@ export default function Smallcard({Frame  , Img}) {
   return (
     <>
       <div className=" w-100  p-4 rounded-4  d-flex justify-content-between flex-column align-items-center  gap-2  cardbg text-white min-nam-ht ">
-        <Frame className="iconSize2" />
+        <Image src="/" className="iconSize2" width={100}  height={100} alt="uimage"/>
 
         <h3 className=" tit-14-400 custcolor  text-center  ">{t("title1")}</h3>
 

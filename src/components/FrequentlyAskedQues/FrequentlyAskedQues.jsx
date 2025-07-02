@@ -4,9 +4,9 @@ import { useTranslations } from "next-intl";
 import Arrow from "@/assets/admin/arrow down.svg";
 import RightArrow from "@/assets/admin/rightArrow.svg";
 
-export default function FrequentlyAskedQues() {
+export default function FrequentlyAskedQues({ qestions }) {
   const t = useTranslations("techSupport");
-  const faqs = t.raw("faqs");
+  const faqs = qestions.data;
 
   const [openIndex, setOpenIndex] = useState(null);
   const [showAll, setShowAll] = useState(false);
@@ -41,12 +41,15 @@ export default function FrequentlyAskedQues() {
                 >
                   <RightArrow width={18} height={18} />
                 </div>
-                <span className="width-fit">{faq[`q${actualIndex + 1}`]}</span>
+                <span className="width-fit">{faq.question}</span>
               </button>
 
               {isOpen && (
-                <div className="px-3 pb-3 text-secondary" style={{ fontSize: 14 }}>
-                  {faq[`a${actualIndex + 1}`]}
+                <div
+                  className="px-3 pb-3 text-secondary"
+                  style={{ fontSize: 14 }}
+                >
+                  {faq.answer}
                 </div>
               )}
             </div>

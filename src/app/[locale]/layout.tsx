@@ -7,14 +7,16 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import NavbarWrapper from "../../components/AdminComp/navbarWrapper/NavbarWrapper";
 import NotificationProvider from "@/context/NotificationContext";
-import BootstrapClient from "@/components/bootstrapClient/BootstrapClient";
+import BootstrapClient from '@/components/bootstrapClient/BootstrapClient'
 import SideBarWrapper from "@/components/sideBarWrapper/SideBarWrapper";
-import SidebarWrapperUser from "@/components/AdminComp/sideBarWrapper/SideBarWrapper";
+import SidebarWrapperUser from "@/components/AdminComp/sideBarWrapper/SideBarWrapper"
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
+}); 
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",

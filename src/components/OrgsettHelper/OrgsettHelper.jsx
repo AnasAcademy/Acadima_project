@@ -20,7 +20,7 @@
                <div>
                  <h3 className=" tit-18-700  textcolor mb-0 d-flex gap-2 ">
                    {" "}
-                   <Ai className="iconSize11" />
+                   <Ai className="iconSize110" />
                    {t("title_settings")}{" "}
                  </h3>
                  <Line className="w-100" />
@@ -159,7 +159,7 @@
                <div>
                  <h3 className=" tit-18-700  textcolor mb-0 d-flex gap-2 ">
                    {" "}
-                   <Ai className="iconSize11" />
+                   <Ai className="iconSize110" />
                    {t("title_tasks")}{" "}
                  </h3>
                  <Line className="w-100" />

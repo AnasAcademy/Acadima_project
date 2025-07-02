@@ -4,7 +4,7 @@ import LineChart from "@/components/AdminComp/charts/LineChart/LineChart"
 import ActiveUsersAnalysis from '@/components/AdminComp/Home/ActiveUsersAnalysis'
 import DashboardCards from "@/components/AdminComp/Home/DashboardCards"
 import LatestTrain from '@/components/AdminComp/latestTrain/LatestTrain'
-import OngoingTrain from '@/components/AdminComp/ongoingTrain/OngoingTrain'
+import OngoingTraincomp from '@/components/OngoingTraincomp/OngoingTraincomp'
 import TrainingGuideCard from "@/components/AdminComp/Home/TrainingGuideCard";
 import TrainigControlPanel from "@/components/AdminComp/Home/TrainigControlPanel";
 
@@ -13,26 +13,7 @@ import TrainigControlPanel from "@/components/AdminComp/Home/TrainigControlPanel
 export default  async function Admin() {
 
 let dataa = []
-  const TableHead = ["-", "-","-"];
-
-  const trainingData = [
-    {
-      columns: [
-        { type: "text", value: "-" },
-        { type: "text", value: 6 },
-
-        { type: "progress", value: 60 },
-      ],
-    },
-    {
-      columns: [
-        { type: "text", value: "-" },
-        { type: "text", value: 6 },
-
-        { type: "progress", value: 70 },
-      ],
-    },
-  ];
+  
   
 try {
   const data = await fetch(
@@ -85,13 +66,9 @@ try {
             </div>
 
             <div className=" col-xl-8  col-lg-12 col-12">
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={true}
-                ContainerTop={true}
-                padding={5}
-              />
+
+            <OngoingTraincomp/>
+
             </div>
           </div>
         </div>

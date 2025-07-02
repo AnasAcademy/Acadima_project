@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 
 export const NotificationContext = createContext();
@@ -15,10 +15,7 @@ export default   function NotificationProvider({ children }) {
   const [notFound ,setNotfound] =  useState(null);
   const [flag, setFlag] = useState([]);
 
-
-
-
-  async function fetchNotifications() {
+  const fetchNotifications = useCallback(async () => {
     try {
       const res = await fetch(
         "https://api.lxera.net/api/development/organization/vodafone/notifications",
@@ -27,7 +24,7 @@ export default   function NotificationProvider({ children }) {
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwODQxODg1LCJuYmYiOjE3NTA4NDE4ODUsImp0aSI6IjltV2lHYngyQ2RzTEZ2anQiLCJzdWIiOiIxMTkyIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9._JykCIXVh7czjOgQqLYFFIt7p5-r2oaSdlaB9re06t4`,
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMjY5MjAyLCJuYmYiOjE3NTEyNjkyMDIsImp0aSI6IlB1MnZVem1LSDVLa3hZVlMiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.aby5XfjzjNVVkMBsmb2ERzGsLl83sWSgh2osWFOIHNc`,
           },
         }
       );
@@ -39,14 +36,14 @@ export default   function NotificationProvider({ children }) {
       const initialFlags = json.data.notifications.map((notifi) => notifi.status);
 
       setFlag(initialFlags);
-      console.log(flag)
+     
   
       
     } catch (error) {
       console.error("Notification fetch error:", error);
       setNotfound(true); // Or set some error flag
     }
-  }
+  }, []);
 
 
 
@@ -60,7 +57,7 @@ export default   function NotificationProvider({ children }) {
 
 
     
-  }, []);
+  }, [fetchNotifications]);
 
 
   async function editStatus(key, id){
@@ -75,7 +72,7 @@ export default   function NotificationProvider({ children }) {
         
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/development/organization/vodafone/notifications/${id}/seen`,
+        `http://api.lxera.net/api/development/organization/vodafone/notifications/${id}/seen`,
         {
           method: "post",
           headers: {

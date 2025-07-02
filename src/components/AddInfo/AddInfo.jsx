@@ -63,33 +63,29 @@ export default function AddInfo({ save }) {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-
-        <div className=" mt-5 cardbg rounded-4 p-3 pt-2">
-          <h3 className=" d-flex gap-1 custsubtitle3">
+        <div className="  cardbg rounded-4 p-3 pt-2">
+          <h3 className="  tit-18-700  textcolor mb-0">
             {info.job_info}
             <span className=" custsubtitle3 text-danger">*</span> :{" "}
           </h3>
-          <div className="container">
-            <div className=" row g-5">
-              <div className="col-lg-6">
-                <h3 className="d-flex gap-1 custfont">
-                  {" "}
-                  {info.current_job_status}{" "}
-                </h3>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  className="  input-group bg-transparent settCardBorder"
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                  }}
-                />
 
-
-            <Line className="w-75" />
-          </div>
           <div className=" row  pt-4   g-4">
+            <div className="col-lg-6 col-xl-3">
+              <h3 className="Tit-12-700"> {info.current_job_status} </h3>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
+                style={{ border: "1px  solid  #E3E3E3" }}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                }}
+              />
+
+              <Line className="w-75" />
+            </div>
+
             <div className="col-lg-6 col-xl-3">
               <h3 className="Tit-12-700"> {info.current_job_status} </h3>
               <input
@@ -123,7 +119,7 @@ export default function AddInfo({ save }) {
                 style={{ border: "1px  solid  #E3E3E3" }}
               />
             </div>
-
+            <div className=" col-lg-6 col-xl-3"></div>
             <div className=" col-lg-6 col-xl-3">
               <h3 className=" Tit-12-700"> {info.employer} </h3>
               <input

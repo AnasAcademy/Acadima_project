@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/[locale]/login/layout.jsx", "src/components/AdminComp/Navbar/Navbar.jsx", "src/app/api/set-token/route.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/[locale]/login/layout.jsx", "src/components/AdminComp/Navbar/Navbar.jsx", "src/app/api/set-token/route.ts", "src/components/AdminComp/Home/ActiveUsersAnalysis.jsx", "src/components/AdminComp/Home/DashboardCards.jsx"],
   "exclude": ["node_modules"]
 }
