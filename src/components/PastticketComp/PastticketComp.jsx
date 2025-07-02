@@ -6,13 +6,9 @@ import Arrow from "@/assets/admin/arrow down.svg";
 import { useTranslations, getTranslations } from "next-intl";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import ticket from "@/assets/admin/ticket.svg";
-<<<<<<< HEAD
- export default function PastticketComp({dataa}) {
-=======
 import SelectCard from "@/components/SelectCard/SelectCard"; 
 
 export default function PastticketComp({dataa}) {
->>>>>>> 6586ee9 (Modifications_p1)
 
     const t = useTranslations("techSupport");
        let num=3
@@ -50,9 +46,6 @@ export default function PastticketComp({dataa}) {
       ],
     }));
     
-<<<<<<< HEAD
-    
-=======
     const selectCardData = {
       inputs: [
         {
@@ -80,31 +73,10 @@ export default function PastticketComp({dataa}) {
         },
       ]
     };
->>>>>>> 6586ee9 (Modifications_p1)
 
 
    return (
      <>
-<<<<<<< HEAD
-       <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-         <h2> {t("previous-tickets")} </h2>
-         <OngoingTrain
-           TableHead={TableHead}
-           trainingData={trainingData}
-           button={false}
-           Icon={ticket}
-         />
-
-         <div
-           className="text-primary fw-semibold d-flex align-items-center gap-2 "
-           role="button"  onClick={()=>{
-                  num = num + 3
-               setMore(num)
-           }}
-         >
-           <Arrow size={18} />
-           {t("view-all-tickets")}
-=======
        <div className=" row g-3">
          <div className="col-12">
            <SelectCard
@@ -136,7 +108,6 @@ export default function PastticketComp({dataa}) {
                {t("view-all-tickets")}
              </div>
            </div>
->>>>>>> 6586ee9 (Modifications_p1)
          </div>
        </div>
      </>

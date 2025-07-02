@@ -55,11 +55,7 @@ export default function NewTechCard() {
 
   return (
     <>
-<<<<<<< HEAD
-      <div className="p-0 w-100   mt-1 rounded-4  cardbg text-white min-nam-ht ">
-=======
       <div className="p-0 w-100   mt-1 rounded-4  cardbg text-white   ">
->>>>>>> 6586ee9 (Modifications_p1)
         <div className=" d-flex flex-column justify-content-center align-items-start  text-white">
           <div className="circbg w-100 techcardtop">
             <h2 className="p-3 py-4 m-0 text-white">
