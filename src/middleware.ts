@@ -30,10 +30,10 @@ export default function middleware(request: NextRequest) {
     return intlMiddleware(request);
   }
 
-  if (!token && isProtectedRoute) {
-    // No token in cookies, redirect to login
-    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
-  }
+  // if (!token && isProtectedRoute) {
+  //   // No token in cookies, redirect to login
+  //   return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+  // }
 
   // If token exists or route is not protected, continue
   return intlMiddleware(request);

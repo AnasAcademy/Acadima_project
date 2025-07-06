@@ -60,7 +60,7 @@ export default async function RootLayout({
                 <NavbarWrapper />
 
                 {/* Scrollable content area */}
-                <div className="flex-grow-1">{children}</div>
+                <div className="flex-grow-1 mt-5 mt-lg-0 pt-5 pt-lg-0">{children}</div>
               </div>
             </div>
           </NotificationProvider>

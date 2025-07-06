@@ -40,8 +40,32 @@
     "classes": "الدفعات الدراسية",
     "student-codes": "أكواد الطلاب",
     "instructor-codes": "أكواد المعلمين",
-    "categories": "اللأقسام"
+    "categories": "اللأقسام",
+    "enrollment": "التسجيل",
+    "enrollment-history": "تاريخ التسجيل",
+    "add-student-to-class": "إضافة طالب إلى المقرر الدراسي",
+    "education": "التعليم",
+    "programs-statistics": "إحصائيات البرامج",
+    "bundles": "البرامج",
+    "webinars":"الدورات",
+    "quizzes": "الاختبارات",
+    "assignments": "الواجبات",
+    "courses-registration": "تسجيل الدورات",
+    "courses": "الفصول",
+    "financial": "الماليات",
+    "balances": "المستندات",
+    "sales-list": "قائمة المبيعات",
+    "offline-payments": "المدفوعات الاوفلاين",
+    "installments": "الأقساط",
+    "discount-codes": "أكواد الخصم"
+
   },
+
+  "add-student-to-class": {
+    "class": "المقرر الدراسي",
+    "user": "المستخدم"
+  },
+
   "NavbarA": {
     "search": "أريد أن ابحث عن ....",
     "dashboard": "لوحة التحكم",

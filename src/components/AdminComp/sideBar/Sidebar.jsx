@@ -26,19 +26,36 @@ export default function Sidebar() {
   const isOrgprofile = pathname.includes("/org/orgprofile");
   const isAiAssistant = pathname.includes("/org/ai-assistant");
   const isSettings = pathname.includes("/org/settings");
-  const isAdmissionReq = pathname.includes("/org/admission-requirements");
-  const isStudentPermission = pathname.includes("/org/student-permission");
-  const isAllStudents = pathname.includes("/org/students-records/all-students");
-  const isCreateAccount = pathname.includes("/org/students-records/create-account");
-  const isSeatReservation = pathname.includes("/org/students-records/seat-reservation");
-  const isProgramRegistration = pathname.includes("/org/students-records/program-registration");
-  const isDirectRegistration = pathname.includes("/org/students-records/direct-registration");
-  const isScholarshipRegistration = pathname.includes("/org/students-records/scholarship-registration");
-  const isElectronicServices = pathname.includes("/org/electronic-services");
-  const isClasses = pathname.includes("/org/classes");
-  const isStudentsCodes = pathname.includes("/org/students-codes");
-  const isInstructorCodes = pathname.includes("/org/instructor-codes");
-  const isCategories = pathname.includes("/org/categories");
+
+  const isAdmissionReq = pathname.includes("/org/admission/admission-requirements");
+  const isStudentPermission = pathname.includes("/org/admission/student-permission");
+  const isAllStudents = pathname.includes("/org/admission/students-records/all-students");
+  const isCreateAccount = pathname.includes("/org/admission/students-records/create-account");
+  const isSeatReservation = pathname.includes("/org/admission/students-records/seat-reservation");
+  const isProgramRegistration = pathname.includes( "/org/admission/students-records/program-registration");
+  const isDirectRegistration = pathname.includes("/org/admission/students-records/direct-registration");
+  const isScholarshipRegistration = pathname.includes("/org/admission/students-records/scholarship-registration");
+  const isElectronicServices = pathname.includes("/org/admission/electronic-services");
+  const isClasses = pathname.includes("/org/admission/classes");
+  const isStudentsCodes = pathname.includes("/org/admission/students-codes");
+  const isInstructorCodes = pathname.includes("/org/admission/instructor-codes");
+  const isCategories = pathname.includes("/org/admission/categories");
+  const isEnrollmentHistory = pathname.includes("/org/admission/enrollment/history");
+  const isAddStudent = pathname.includes("/org/admission/enrollment/add-student-to-class");
+
+  const isBundlesStats = pathname.includes("/org/education/programs-statistics/bundles");
+  const isWebinarsStats = pathname.includes("/org/education/programs-statistics/webinars");
+  const isQuizzes = pathname.includes("/org/education/quizzes");
+  const isAssignments = pathname.includes("/org/education/assignments");
+  const isCourses = pathname.includes("/org/education/courses");
+  const isCoursesRegistration = pathname.includes("/org/education/course-registration");
+  const isBundles = pathname.includes("/org/education/bundles");
+
+  const isBalances = pathname.includes("/org/financial/balances");
+  const isSalesList = pathname.includes("/org/financial/sales-list");
+  const isOfflinePayments = pathname.includes("/org/financial/offline-payments");
+  const isInstallments = pathname.includes("/org/financial/installments");
+  const isDiscountCodes = pathname.includes("/org/financial/discount-codes");
 
   const isSubscriptionmanagement = pathname.includes(
     "/org/subscription-management"
@@ -189,7 +206,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/admission-requirements"
+                    href="/org/admission/admission-requirements"
                   >
                     {t("admission-requirements")}
                   </Link>
@@ -208,7 +225,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/student-permission"
+                    href="/org/admission/student-permission"
                   >
                     {t("student-permission")}
                   </Link>
@@ -227,7 +244,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/electronic-services"
+                    href="/org/admission/electronic-services"
                   >
                     {t("electronic-services")}
                   </Link>
@@ -246,7 +263,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/classes"
+                    href="/org/admission/classes"
                   >
                     {t("classes")}
                   </Link>
@@ -265,7 +282,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/students-codes"
+                    href="/org/admission/students-codes"
                   >
                     {t("student-codes")}
                   </Link>
@@ -284,7 +301,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/instructor-codes"
+                    href="/org/admission/instructor-codes"
                   >
                     {t("instructor-codes")}
                   </Link>
@@ -303,7 +320,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/categories"
+                    href="/org/admission/categories"
                   >
                     {t("categories")}
                   </Link>
@@ -328,7 +345,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/students-records/all-students"
+                    href="/org/admission/students-records/all-students"
                   >
                     {t("all-students")}
                   </Link>
@@ -347,12 +364,12 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/students-records/create-account"
+                    href="/org/admission/students-records/create-account"
                   >
                     {t("create-account-form")}
                   </Link>
                 </li>
-                
+
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
                     isSeatReservation ? "cardbg  rounded-4   " : ""
@@ -366,7 +383,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/students-records/seat-reservations"
+                    href="/org/admission/students-records/seat-reservations"
                   >
                     {t("seat-reservation-form")}
                   </Link>
@@ -385,7 +402,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/students-records/program-registration"
+                    href="/org/admission/students-records/program-registration"
                   >
                     {t("program-registration")}
                   </Link>
@@ -404,7 +421,7 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/students-records/direct-registration"
+                    href="/org/admission/students-records/direct-registration"
                   >
                     {t("direct-registration")}
                   </Link>
@@ -423,9 +440,242 @@ export default function Sidebar() {
                   <Link
                     className="nav-link Tit-14-700 Gray-Gray-800"
                     aria-current="page"
-                    href="/org/students-records/scholarship-registration"
+                    href="/org/admission/students-records/scholarship-registration"
                   >
                     {t("scholarship-registration")}
+                  </Link>
+                </li>
+
+                <li className={`nav-item d-flex  align-items-center  `}>
+                  <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
+                    {t("enrollment")}
+                  </h3>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isEnrollmentHistory ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isEnrollmentHistory ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/admission/enrollment/history"
+                  >
+                    {t("enrollment-history")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isAddStudent ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isAddStudent ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/admission/enrollment/add-student-to-class"
+                  >
+                    {t("add-student-to-class")}
+                  </Link>
+                </li>
+
+                <li className={`nav-item d-flex  align-items-center  `}>
+                  <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
+                    {t("education")}
+                  </h3>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isQuizzes ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isQuizzes ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/quizzes"
+                  >
+                    {t("quizzes")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isAssignments ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isAssignments ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/assignments"
+                  >
+                    {t("assignments")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isCourses ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isCourses ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/courses"
+                  >
+                    {t("courses")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isCoursesRegistration ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isCoursesRegistration ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/course-registration"
+                  >
+                    {t("courses-registration")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isBundles ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isBundles ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/bundles"
+                  >
+                    {t("bundles")}
+                  </Link>
+                </li>
+
+                <li className={`nav-item d-flex  align-items-center  `}>
+                  <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
+                    {t("programs-statistics")}
+                  </h3>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isBundlesStats ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isBundlesStats ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/programs-statistics/bundles"
+                  >
+                    {t("bundles")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isWebinarsStats ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isWebinarsStats ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/programs-statistics/webinars"
+                  >
+                    {t("webinars")}
+                  </Link>
+                </li>
+
+                <li className={`nav-item d-flex  align-items-center  `}>
+                  <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
+                    {t("financial")}
+                  </h3>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isBundlesStats ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isBundlesStats ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/programs-statistics/bundles"
+                  >
+                    {t("bundles")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isWebinarsStats ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Profile
+                    className={`iconSize2   ${
+                      isWebinarsStats ? "iconcolor2" : "iconcolor"
+                    }  `}
+                  />
+                  <Link
+                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    aria-current="page"
+                    href="/org/education/programs-statistics/webinars"
+                  >
+                    {t("webinars")}
                   </Link>
                 </li>
 

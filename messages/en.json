@@ -42,7 +42,25 @@
     "classes": "Academic Batches",
     "student-codes": "Student Codes",
     "instructor-codes": "Teacher Codes",
-    "categories": "Categories"
+    "categories": "Categories",
+    "enrollment": "Registration",
+    "enrollment-history": "Enrollment History",
+    "add-student-to-class": "Add Student to Class",
+    "education": "Education",
+    "programs-statistics": "Programs Statistics",
+    "bundles": "Bundles",
+    "webinars":"Webinars",
+    "quizzes": "Quizzes",
+    "assignments": "Assignments",
+    "courses-registration": "Courses Registration",
+    "courses": "Courses",
+    "financial": "Financial",
+    "balances": "Balances",
+    "sales-list": "Sales",
+    "offline-payments": "Offline Payments",
+    "installments": "Installments",
+    "discount-codes": "Discount Codes"
+
   },
   "NavbarA": {
     "search": "Search...",
