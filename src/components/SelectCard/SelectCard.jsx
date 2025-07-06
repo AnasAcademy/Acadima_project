@@ -6,7 +6,7 @@ import Arrow from "@/assets/admin/arrow down.svg";
 import SearchIcon from "@/assets/admin/search.svg";
 import Calendar from "@/assets/calendar.svg";
 
-export default function SelectCard({ selectCardData, isTechSupport, isOrgProfile ,dataa }) {
+export default function SelectCard({ selectCardData, isTechSupport, isOrgProfile , data , filterr, setFilter }) {
   const t = useTranslations("employee_progress");
   const t2 = useTranslations("techSupport");
   const t3 = useTranslations("orgProfile");
@@ -18,20 +18,22 @@ export default function SelectCard({ selectCardData, isTechSupport, isOrgProfile
 
 
   async function  searchTicket(e){
+
     const value = Number(e.target.value);;
- 
-          const matchingTickets = dataa.supports.filter(
+    console.log("dfgf");
+    console.log(filterr);
+    const filteredData = filterr.filter(
             (dat) => dat.id === value
-          );
+          ); 
+    console.log(filteredData);
 
-     
+     if (filteredData.length > 0) {
+       setFilter(filteredData);
+     }   else {
 
+      setFilter(data.supports);
 
-         
-
-
-
-
+     }
 
    }
 

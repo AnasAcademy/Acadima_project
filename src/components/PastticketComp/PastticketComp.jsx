@@ -13,6 +13,8 @@ export default function PastticketComp({dataa}) {
     const t = useTranslations("techSupport");
        let num=3
       const [more , setMore] = useState(num)
+    
+      const [filter, setFilter] = useState(dataa.supports);
 
     const TableHead = [
       t("ticket_number"),
@@ -22,7 +24,7 @@ export default function PastticketComp({dataa}) {
       t("action"),
     ];
 
-    const trainingData = dataa.supports.slice(0, more).map((ticket, index) => ({
+    const trainingData = filter.slice(0, more).map((ticket, index) => ({
       columns: [
         { type: "text", value: ticket.id },
         { type: "text", value: ticket.title },
@@ -56,7 +58,7 @@ export default function PastticketComp({dataa}) {
         {
           title: "",
           type: "select",
-          options: ["Cairo", "Alex"]
+          options: ["open", "close"]
         },
         {
           title: "",
@@ -82,7 +84,9 @@ export default function PastticketComp({dataa}) {
            <SelectCard
              selectCardData={selectCardData}
              isTechSupport={true}
-             dataa={dataa}
+             filterr= {filter}
+             setFilter = {setFilter}
+             data ={dataa}
            />
          </div>
 

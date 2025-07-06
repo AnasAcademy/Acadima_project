@@ -9,11 +9,7 @@ export default function StartTechCard() {
 
   return (
     <>
-<<<<<<< HEAD
       <div className=" mt-1  cardbg rounded-4 text-white min-nam-ht position-relative   z-0 ">
-=======
-      <div className=" mt-1  cardbg rounded-4 text-white  position-relative   z-0  min-tr-ht ">
->>>>>>> 6586ee9 (Modifications_p1)
         <Image src={bg} className=" w-100" alt="start tech" />
         <div className="p-3 position-absolute top-15">
           <h2 className="">{t("direct-contact")}</h2>

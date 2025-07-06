@@ -10,7 +10,7 @@ import NotificationProvider from "@/context/NotificationContext";
 import BootstrapClient from '@/components/bootstrapClient/BootstrapClient'
 import SideBarWrapper from "@/components/sideBarWrapper/SideBarWrapper";
 import SidebarWrapperUser from "@/components/AdminComp/sideBarWrapper/SideBarWrapper"
-
+import NewSideBar from "@/components/AdminComp/NewSideBar/NewSideBar"
 
 
 const geistSans = Geist({
@@ -50,7 +50,8 @@ export default async function RootLayout({
             <div className="d-flex vh-100">
               {/* Sidebar – visible on lg and xl only */}
               <div className="d-none d-sm-none d-md-none d-lg-flex d-xl-flex">
-                <SidebarWrapperUser />
+              {/* <SidebarWrapperUser />   */}
+                <NewSideBar />
                 <SideBarWrapper />
               </div>
 
