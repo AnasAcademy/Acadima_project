@@ -27,35 +27,75 @@ export default function Sidebar() {
   const isAiAssistant = pathname.includes("/org/ai-assistant");
   const isSettings = pathname.includes("/org/settings");
 
-  const isAdmissionReq = pathname.includes("/org/admission/admission-requirements");
-  const isStudentPermission = pathname.includes("/org/admission/student-permission");
-  const isAllStudents = pathname.includes("/org/admission/students-records/all-students");
-  const isCreateAccount = pathname.includes("/org/admission/students-records/create-account");
-  const isSeatReservation = pathname.includes("/org/admission/students-records/seat-reservation");
-  const isProgramRegistration = pathname.includes( "/org/admission/students-records/program-registration");
-  const isDirectRegistration = pathname.includes("/org/admission/students-records/direct-registration");
-  const isScholarshipRegistration = pathname.includes("/org/admission/students-records/scholarship-registration");
-  const isElectronicServices = pathname.includes("/org/admission/electronic-services");
+  const isAdmissionReq = pathname.includes(
+    "/org/admission/admission-requirements"
+  );
+  const isStudentPermission = pathname.includes(
+    "/org/admission/student-permission"
+  );
+  const isAllStudents = pathname.includes(
+    "/org/admission/students-records/all-students"
+  );
+  const isCreateAccount = pathname.includes(
+    "/org/admission/students-records/create-account"
+  );
+  const isSeatReservation = pathname.includes(
+    "/org/admission/students-records/seat-reservation"
+  );
+  const isProgramRegistration = pathname.includes(
+    "/org/admission/students-records/program-registration"
+  );
+  const isDirectRegistration = pathname.includes(
+    "/org/admission/students-records/direct-registration"
+  );
+  const isScholarshipRegistration = pathname.includes(
+    "/org/admission/students-records/scholarship-registration"
+  );
+  const isElectronicServices = pathname.includes(
+    "/org/admission/electronic-services"
+  );
   const isClasses = pathname.includes("/org/admission/classes");
   const isStudentsCodes = pathname.includes("/org/admission/students-codes");
-  const isInstructorCodes = pathname.includes("/org/admission/instructor-codes");
+  const isInstructorCodes = pathname.includes(
+    "/org/admission/instructor-codes"
+  );
   const isCategories = pathname.includes("/org/admission/categories");
-  const isEnrollmentHistory = pathname.includes("/org/admission/enrollment/history");
-  const isAddStudent = pathname.includes("/org/admission/enrollment/add-student-to-class");
+  const isEnrollmentHistory = pathname.includes(
+    "/org/admission/enrollment/history"
+  );
+  const isAddStudent = pathname.includes(
+    "/org/admission/enrollment/add-student-to-class"
+  );
 
-  const isBundlesStats = pathname.includes("/org/education/programs-statistics/bundles");
-  const isWebinarsStats = pathname.includes("/org/education/programs-statistics/webinars");
+  const isBundlesStats = pathname.includes(
+    "/org/education/programs-statistics/bundles"
+  );
+  const isWebinarsStats = pathname.includes(
+    "/org/education/programs-statistics/webinars"
+  );
   const isQuizzes = pathname.includes("/org/education/quizzes");
   const isAssignments = pathname.includes("/org/education/assignments");
   const isCourses = pathname.includes("/org/education/courses");
-  const isCoursesRegistration = pathname.includes("/org/education/course-registration");
+  const isCoursesRegistration = pathname.includes(
+    "/org/education/course-registration"
+  );
   const isBundles = pathname.includes("/org/education/bundles");
 
   const isBalances = pathname.includes("/org/financial/balances");
   const isSalesList = pathname.includes("/org/financial/sales-list");
-  const isOfflinePayments = pathname.includes("/org/financial/offline-payments");
+  const isOfflinePayments = pathname.includes(
+    "/org/financial/offline-payments"
+  );
   const isInstallments = pathname.includes("/org/financial/installments");
   const isDiscountCodes = pathname.includes("/org/financial/discount-codes");
+
+  const isStaff = pathname.includes("/org/user-management/users/staff");
+  const isStudents = pathname.includes("/org/user-management/users/students");
+  const isInstructors = pathname.includes("/org/user-management/users/instructors");
+  const isNewUser = pathname.includes("/org/user-management/users/new-user");
+  const isRoles = pathname.includes("/org/user-management/roles");
+  const isGroups = pathname.includes("/org/user-management/groups");
+  const isNotAccessToContent = pathname.includes("/org/user-management/not-access-to-content");
 
   const isSubscriptionmanagement = pathname.includes(
     "/org/subscription-management"
@@ -641,41 +681,225 @@ export default function Sidebar() {
                   </h3>
                 </li>
 
-                <li
+                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    isBundlesStats ? "cardbg  rounded-4   " : ""
+                    isBalances ? "cardbg  rounded-4   " : ""
                   }   `}
                 >
-                  <Profile
-                    className={`iconSize2   ${
-                      isBundlesStats ? "iconcolor2" : "iconcolor"
-                    }  `}
+                  <Home
+                    className={`iconSize2     ${
+                      isBalances ? "iconcolor" : "iconcolor2"
+                    } `}
                   />
                   <Link
-                    className="nav-link Tit-14-700 Gray-Gray-800"
-                    aria-current="page"
-                    href="/org/education/programs-statistics/bundles"
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/financial/balances"
                   >
-                    {t("bundles")}
+                    {t("balances")}
+                  </Link>
+                </li>
+
+                 <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isSalesList ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isSalesList ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/financial/sales-list"
+                  >
+                    {t("sales-list")}
                   </Link>
                 </li>
 
                 <li
                   className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                    isWebinarsStats ? "cardbg  rounded-4   " : ""
+                    isOfflinePayments ? "cardbg  rounded-4   " : ""
                   }   `}
                 >
-                  <Profile
-                    className={`iconSize2   ${
-                      isWebinarsStats ? "iconcolor2" : "iconcolor"
-                    }  `}
+                  <Home
+                    className={`iconSize2     ${
+                      isOfflinePayments ? "iconcolor" : "iconcolor2"
+                    } `}
                   />
                   <Link
-                    className="nav-link Tit-14-700 Gray-Gray-800"
-                    aria-current="page"
-                    href="/org/education/programs-statistics/webinars"
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/financial/offline-payments"
                   >
-                    {t("webinars")}
+                    {t("offline-payments")}
+                  </Link>
+                </li>
+
+                 <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isInstallments ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isInstallments ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/financial/installments"
+                  >
+                    {t("installments")}
+                  </Link>
+                </li>
+
+                 <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isDiscountCodes ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isDiscountCodes ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/financial/discount-codes"
+                  >
+                    {t("discount-codes")}
+                  </Link>
+                </li>
+
+                <li className={`nav-item d-flex  align-items-center  `}>
+                  <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
+                    {t("users")}
+                  </h3>
+                </li>   
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isStaff ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isStaff ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/user-management/users/staff"
+                  >
+                    {t("staff")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isStudents ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isStudents ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/user-management/users/students"
+                  >
+                    {t("students")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isInstructors ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isInstructors ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/user-management/users/instructors"
+                  >
+                    {t("instructors")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isNewUser ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isNewUser ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/user-management/users/new-user"
+                  >
+                    {t("new-user")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isRoles ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isRoles ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/user-management/roles"
+                  >
+                    {t("roles")}
+                  </Link>
+                </li>
+
+                <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isGroups ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isGroups ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/user-management/groups"
+                  >
+                    {t("groups")}
+                  </Link>
+                </li>
+
+                 <li
+                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                    isNotAccessToContent ? "cardbg  rounded-4   " : ""
+                  }   `}
+                >
+                  <Home
+                    className={`iconSize2     ${
+                      isNotAccessToContent ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                  <Link
+                    className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                    href="/org/user-management/not-access-to-content"
+                  >
+                    {t("not-access-to-content")}
                   </Link>
                 </li>
 

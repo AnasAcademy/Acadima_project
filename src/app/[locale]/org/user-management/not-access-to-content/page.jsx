@@ -8,7 +8,7 @@ import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
 import roundimage from "@/assets/admin/personla.png";
 
-export default function Balances() {
+export default function NotAccessToContent() {
   const ts = useTranslations("SidebarA");
   const t = useTranslations("employee_progress");
 

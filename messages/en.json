@@ -59,7 +59,16 @@
     "sales-list": "Sales",
     "offline-payments": "Offline Payments",
     "installments": "Installments",
-    "discount-codes": "Discount Codes"
+    "discount-codes": "Discount Codes",
+    "user-management": " User Management ",
+    "users": "Users",
+    "roles": "Roles ",
+    "groups": "Groups",
+    "not-access-to-content": "Not Access to Content",
+    "staff": "Staff",
+    "students": "Students",
+    "instructors": "Instructors",
+    "new-user": " New User"
 
   },
   "NavbarA": {
