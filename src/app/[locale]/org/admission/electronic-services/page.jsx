@@ -103,7 +103,7 @@ export default function ElectronicServicesList() {
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
-            <h2 class="hvvv">{ts("electronic-services")}</h2>
+            <h2 className="hvvv">{ts("electronic-services")}</h2>
 
             {/* <div className=" col-lg-12 ">
               <SelectCard selectCardData={selectCardData} />

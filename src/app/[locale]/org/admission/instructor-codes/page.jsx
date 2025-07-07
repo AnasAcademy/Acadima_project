@@ -82,7 +82,7 @@ const ts = useTranslations("SidebarA");
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
-            <h2 class="hvvv">{ts("instructor-codes")}</h2>
+            <h2 className="hvvv">{ts("instructor-codes")}</h2>
             <div className=" col-12 ">
               <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
                 <OngoingTrain
