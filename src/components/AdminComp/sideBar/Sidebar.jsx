@@ -194,7 +194,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-100  align-items-center  bg-danger  ${
                     isAdmissionReq ? "cardbg  rounded-4   " : ""
                   }   `}
                 >
@@ -400,7 +400,7 @@ export default function Sidebar() {
                     }  `}
                   />
                   <Link
-                    className="nav-link Tit-14-700 Gray-Gray-800"
+                    className="nav-link Tit-14-700 Gray-Gray-800 bg-danger"
                     aria-current="page"
                     href="/org/admission/students-records/program-registration"
                   >
@@ -446,7 +446,7 @@ export default function Sidebar() {
                   </Link>
                 </li>
 
-                <li className={`nav-item d-flex  align-items-center  `}>
+                <li className={`nav-item d-flex  align-items-center   bg-success`}>
                   <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
                     {t("enrollment")}
                   </h3>

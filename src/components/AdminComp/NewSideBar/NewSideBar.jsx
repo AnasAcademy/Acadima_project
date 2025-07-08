@@ -19,7 +19,7 @@
         
         export default function NewSideBar() {
 
-            const [actv , setActv] = useState(null)
+            const [actv , setActv] = useState(false)
  
 
              
@@ -33,11 +33,14 @@
             const isOrgprofile = pathname.includes("/org/orgprofile");
             const isAiAssistant = pathname.includes("/org/ai-assistant");
             const isSettings = pathname.includes("/org/settings");
+            const isAdminssion = pathname.includes(
+              "/org/admission/"
+            );
             const isAdmissionReq = pathname.includes(
-              "/org/admission-requirements"
+              "/org/admission/admission-requirements"
             );
             const isStudentPermission = pathname.includes(
-              "/org/student-permission"
+              "/org/admission/student-permission"
             );
             const isAllStudents = pathname.includes(
               "/org/students-records/all-students"
@@ -70,88 +73,214 @@
             const isSubscriptionmanagement = pathname.includes(
               "/org/subscription-management"
             );
+            
             const isNotfiPage = pathname.includes("/org/notifications");
-              const [tit ,setTit ] = useState([])
+            const admission = [
+              {
+                tit: "admission-requirements",
+                href: "/org/admission/admission-requirements",
+                bg: isAdmissionReq,
+              },
+              {
+                tit: "student-permission",
+                href: "/org/admission/student-permission",
+                bg: isStudentPermission,
+              },
+              {
+                tit: "electronic-services",
+                href: "/org/admission-requirements",
+                bg: isStudentPermission,
+              },
+              {
+                tit: "classes",
+                href: "/org/admission-requirements",
+                bg: isStudentPermission,
+              },
+              {
+                tit: "student-codes",
+                href: "/org/admission-requirements",
+                bg: isStudentPermission,
+              },
+            ];
+
+            const isRegistered = [
+              {
+                tit: "all-students",
+                href: "/org/admission-requirements",
+                
+              },
+              {
+                tit: "create-account-form",
+                href: "/org/admission-requirements",
+              },
+              {
+                tit: "seat-reservation-form",
+                href: "/org/admission-requirements",
+              },
+              {
+                tit: "direct-registration",
+                href: "/org/admission-requirements",
+              },
+              {
+                tit: "scholarship-registration",
+                href: "/org/admission-requirements",
+              },
+              
+            ];
+           const enrollment = [
+             {
+               tit: "enrollment-history",
+               href: "/org/admission-requirements",
+             },
+             {
+               tit: "add-student-to-class",
+               href: "/org/admission-requirements",
+             },
+           ];
+
+         
+            const [tit ,setTit ] = useState([])
              const comp = {
-               panel: (
-                 <Link
-                   className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-                   aria-current="page"
-                   href="/org/panel"
-                 >
-                   {t("dashboard")}
-                 </Link>
-               ),
-               isEmployee: (
-                 <Link
-                   className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-                   aria-current="page"
-                   href="/org/panel"
-                 >
-                   {t("Employee progress")}
-                 </Link>
-               ),
-               isSubscription: (
-                 <Link
-                   className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-                   aria-current="page"
-                   href="/org/panel"
-                 >
-                   {t("Subscription Management")}
-                 </Link>
-               ),
-               isNotfiPage: (
-                 <Link
-                   className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-                   aria-current="page"
-                   href="/org/panel"
-                 >
-                   {t("Notifications")}
-                 </Link>
-               ),
-               isTech: (
-                 <Link
-                   className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-                   aria-current="page"
-                   href="/org/panel"
-                 >
-                   {t("Technical Support")}
-                 </Link>
-               ),
                isAdmission: (
+                 <>
+                   <Link
+                     className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+                     aria-current="page"
+                   >
+                     {t("admission")}
+                   </Link>
+
+                   <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-3 pt-1    ">
+                     {admission.map((item, index) => {
+                       return (
+                         <li
+                           className={`nav-item d-flex  p-2   w-100  align-items-center  ${item.bg ?  " bg-dark-subtle rounded-3" : ""  }  `}
+                           title={t("dashboard")}
+                         >
+                           <Home className={`iconSize2 iconcolor `} />
+                           <Link
+                             className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                             href={item.href}
+                           >
+                             {t(item.tit)}
+                           </Link>
+                         </li>
+                       );
+                     })}
+                   </ul>
+                 </>
+               ),
+               isRegistered: (
                  <>
                    <Link
                      className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
                      aria-current="page"
                      href="/org/panel"
                    >
-                     القبول والتسجيل
+                     {t("registrations")}
                    </Link>
+
+                   <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-3 pt-1    ">
+                     {isRegistered.map((item, index) => {
+                       return (
+                         <li
+                           className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                           title={t("dashboard")}
+                         >
+                           <Home className={`iconSize2 iconcolor `} />
+                           <Link
+                             className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                           >
+                             {t(item.tit)}
+                           </Link>
+                         </li>
+                       );
+                     })}
+                   </ul>
+                 </>
+               ),
+               isenrollment: (
+                 <>
+                   <Link
+                     className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+                     aria-current="page"
+                   >
+                     {t("enrollment")}
+                   </Link>
+
+                   {enrollment.map((item, index) => {
+                     return (
+                       <li
+                         className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                         title={t("dashboard")}
+                       >
+                         <Home className={`iconSize2 iconcolor `} />
+                         <Link
+                           className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                         >
+                           {t(item.tit)}
+                         </Link>
+                       </li>
+                     );
+                   })}
+                 </>
+               ),
+               isEdu: (
+                 <>
+                   <Link
+                     className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+                     aria-current="page"
+                     href="/org/panel"
+                   >
+                     {t("education")}
+                   </Link>
+
                    <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-3 pt-1    ">
                      <li
                        className={`nav-item d-flex  p-2   w-100  align-items-center   `}
                        title={t("dashboard")}
-                       onClick={() => {
-                         setactvv("panel");
-                       }}
                      >
-                       <Home
-                         className={`iconSize2     ${
-                           isPanel ? "iconcolor" : "iconcolor2"
-                         } `}
-                       />
+                       <Home className={`iconSize2 iconcolor `} />
                        <Link
                          className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
                        >
-                         {t("student-permission")}
+                         {t("quizzes")}
                        </Link>
                      </li>
 
                      <li
                        className={`nav-item d-flex   p-2  w-100  align-items-center     `}
-                       onClick={() => {
-                         setactvv("isEmployee");
-                       }}
+                     >
+                       <Stat className={`iconSize2 iconcolor `} />
+                       <Link
+                         className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                       >
+                         {t("assignments")}
+                       </Link>
+                     </li>
+
+                     <li
+                       className={`nav-item d-flex   p-2  w-100  align-items-center     `}
+                     >
+                       <Stat className={`iconSize2 iconcolor `} />
+                       <Link
+                         className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                       >
+                         {t("courses")}
+                       </Link>
+                     </li>
+                     <li
+                       className={`nav-item d-flex   p-2  w-100  align-items-center     `}
+                     >
+                       <Stat className={`iconSize2 iconcolor`} />
+                       <Link
+                         className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                       >
+                         {t("courses-registration")}
+                       </Link>
+                     </li>
+                     <li
+                       className={`nav-item d-flex   p-2  w-100  align-items-center     `}
                      >
                        <Stat
                          className={`iconSize2   ${
@@ -161,24 +290,7 @@
                        <Link
                          className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
                        >
-                         {t("student-permission")}
-                       </Link>
-                     </li>
-                     <li
-                       className={`nav-item d-flex  p-2   w-100  align-items-center   `}
-                       onClick={() => {
-                         setactvv("isSubscription");
-                       }}
-                     >
-                       <Card
-                         className={`iconSize2    ${
-                           isSubscriptionmanagement ? "iconcolor" : "iconcolor2"
-                         }  `}
-                       />
-                       <Link
-                         className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
-                       >
-                         {t("student-permission")}
+                         {t("bundles")}
                        </Link>
                      </li>
                    </ul>
@@ -188,6 +300,10 @@
 
 
             function setactvv(loc){
+                  
+           
+                   setActv(!actv)
+                   
                   setTit(loc)
                         
             }
@@ -195,9 +311,9 @@
 
           return (
             <>
-              <div className=" d-flex flex-column">
-                <div className="  p-3   d-flex flex-column ">
-                  <div className=" pe-3">
+              <div className=" d-flex flex-column ">
+                <div className="  p-3   d-flex flex-column  ">
+                  <div className=" pe-3 ">
                     <Link
                       className="text-white text-decoration-none  m-lg-auto  d-flex justify-content-center "
                       role="button"
@@ -212,8 +328,8 @@
                       />
                     </Link>
                   </div>
-                  <div className=" d-flex  mt-md-4  ">
-                    <nav className="navbar navbar-light navbar-expand-lg  p-0     ">
+                  <div className=" d-flex  mt-md-4   justify-content-center ">
+                    <nav className="navbar navbar-light navbar-expand-lg  p-0    ">
                       <div className=" d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column min-vh-lg-100   align-items-start p-0   ">
                         <button
                           className="navbar-toggler"
@@ -228,97 +344,98 @@
                         </button>
 
                         <div
-                          className="collapse navbar-collapse  mt-5  btncolor   "
+                          className="collapse navbar-collapse  mt-5  btncolor     h-auto "
                           id="navbarSupportedContent"
                         >
                           <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start      ">
                             <li
                               className={`nav-item d-flex  p-2   w-100  align-items-center   `}
                               title={t("dashboard")}
-                              onClick={() => {
-                                setactvv("panel");
-                              }}
                             >
-                              <Home
-                                className={`iconSize2     ${
-                                  isPanel ? "iconcolor" : "iconcolor2"
-                                } `}
-                              />
+                              <Link
+                                href="/org/panel"
+                                onClick={() => {
+                                  setactvv("");
+                                }}
+                              >
+                                <Home
+                                  className={`iconSize2     ${
+                                    isPanel ? "iconcolor" : "iconcolor2"
+                                  } `}
+                                />
+                              </Link>
                             </li>
 
                             <li
                               className={`nav-item d-flex   p-2  w-100  align-items-center     `}
-                              onClick={() => {
-                                setactvv("isEmployee");
-                              }}
                             >
-                              <Stat
-                                className={`iconSize2   ${
-                                  isEmployeeprogress
-                                    ? "iconcolor"
-                                    : "iconcolor2"
-                                } `}
+                              <Link href="/org/employeeprogress">
+                                <Stat
+                                  className={`iconSize2   ${
+                                    isEmployeeprogress
+                                      ? "iconcolor"
+                                      : "iconcolor2"
+                                  } `}
+                                />
+                              </Link>
+                            </li>
 
-                                
-                              />
+                            <li
+                              className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                            >
+                              <Link href="/org/subscription-management">
+                                <Card
+                                  className={`iconSize2    ${
+                                    isSubscriptionmanagement
+                                      ? "iconcolor"
+                                      : "iconcolor2"
+                                  }  `}
+                                />
+                              </Link>
                             </li>
                             <li
                               className={`nav-item d-flex  p-2   w-100  align-items-center   `}
-                              onClick={() => {
-                                setactvv("isSubscription");
-                              }}
                             >
-                              <Card
-                                className={`iconSize2    ${
-                                  isSubscriptionmanagement
-                                    ? "iconcolor"
-                                    : "iconcolor2"
-                                }  `}
-                              />
-                            </li>
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   `}
-                              onClick={() => {
-                                setactvv("isNotfiPage");
-                              }}
-                            >
-                              <Notif
-                                className={`iconSize2   ${
-                                  isNotfiPage ? "iconcolor" : "iconcolor2"
-                                }  `}
-                              />
+                              <Link href="/org/notifications">
+                                <Notif
+                                  className={`iconSize2   ${
+                                    isNotfiPage ? "iconcolor" : "iconcolor2"
+                                  }  `}
+                                />
+                              </Link>
                             </li>
                             <li
                               className={`nav-item d-flex  p-2   w-100  align-items-center `}
-                              onClick={() => {
-                                setactvv("isTech");
-                              }}
                             >
-                              <Option
-                                className={`iconSize2    ${
-                                  isTechSupport ? "iconcolor" : "iconcolor2"
-                                }  `}
-                              />
+                              <Link href="/org/techsupport">
+                                <Option
+                                  className={`iconSize2    ${
+                                    isTechSupport ? "iconcolor" : "iconcolor2"
+                                  }  `}
+                                />
+                              </Link>
                             </li>
 
                             <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                              className={`nav-item d-flex  p-2   w-100  align-items-center     `}
                               onClick={() => {
                                 setactvv("isAdmission");
                               }}
                             >
-                              <Profile
-                                className={`iconSize2    ${
-                                  isAdmissionReq ? "iconcolor" : "iconcolor2"
-                                }  `}
-                              />
+                              <Link href="/org/admission/admission-requirements">
+                                <Profile
+                                  className={`iconSize2    ${
+                                    isAdminssion ? "iconcolor" : "iconcolor2"
+                                  }  `}
+                                />
+                              </Link>
                             </li>
+
                             <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isStudentPermission
-                                  ? "cardbg  rounded-4   "
-                                  : ""
-                              }   `}
+                              className={`nav-item d-flex  p-2   w-100  align-items-center     `}
+                              onClick={() => {
+                                setactvv("isRegistered");
+                              }}
                             >
                               <Ai
                                 className={`iconSize2   iconcolor2 ${
@@ -336,11 +453,10 @@
                           </Link> */}
                             </li>
                             <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isElectronicServices
-                                  ? "cardbg  rounded-4   "
-                                  : ""
-                              }   `}
+                              className={`nav-item d-flex  p-2   w-100  align-items-center      `}
+                              onClick={() => {
+                                setactvv("isenrollment");
+                              }}
                             >
                               <Profile
                                 className={`iconSize2  iconcolor2  ${
@@ -358,9 +474,10 @@
                           </Link> */}
                             </li>
                             <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isClasses ? "cardbg  rounded-4   " : ""
-                              }   `}
+                              className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                              onClick={() => {
+                                setactvv("isEdu");
+                              }}
                             >
                               <Profile
                                 className={`iconSize2  iconcolor2  ${
@@ -376,9 +493,7 @@
                           </Link> */}
                             </li>
                             <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isStudentsCodes ? "cardbg  rounded-4   " : ""
-                              }   `}
+                              className={`nav-item d-flex  p-2   w-100  align-items-center   `}
                             >
                               <Profile
                                 className={`iconSize2  iconcolor2  ${
@@ -429,197 +544,13 @@
                             {t("categories")}
                           </Link> */}
                             </li>
-                            {/* <li className={`nav-item d-flex  align-items-center  `}>
-                          <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
-                            {t("registrations")}
-                          </h3>
-                        </li> */}
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isAllStudents ? "cardbg  rounded-4   " : ""
-                              }   `}
-                            >
-                              <Profile
-                                className={`iconSize2  iconcolor2 ${
-                                  isAllStudents ? "iconcolor2" : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800 text-white "
-                            aria-current="page"
-                            href="/org/students-records/all-students"
-                          >
-                            {t("all-students")}
-                          </Link> */}
-                            </li>
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isCreateAccount ? "cardbg  rounded-4   " : ""
-                              }   `}
-                            >
-                              <Profile
-                                className={`iconSize2  iconcolor2  ${
-                                  isCreateAccount ? "iconcolor2" : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800 text-white "
-                            aria-current="page"
-                            href="/org/students-records/create-account"
-                          >
-                            {t("create-account-form")}
-                          </Link> */}
-                            </li>
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isSeatReservation ? "cardbg  rounded-4   " : ""
-                              }   `}
-                            >
-                              <Profile
-                                className={`iconSize2   iconcolor2 ${
-                                  isSeatReservation ? "iconcolor2" : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800 text-white "
-                            aria-current="page"
-                            href="/org/students-records/seat-reservations"
-                          >
-                            {t("seat-reservation-form")}
-                          </Link> */}
-                            </li>
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isProgramRegistration
-                                  ? "cardbg  rounded-4   "
-                                  : ""
-                              }   `}
-                            >
-                              <Profile
-                                className={`iconSize2 iconcolor2   ${
-                                  isProgramRegistration
-                                    ? "iconcolor2"
-                                    : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800 text-white "
-                            aria-current="page"
-                            href="/org/students-records/program-registration"
-                          >
-                            {t("program-registration")}
-                          </Link> */}
-                            </li>
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isDirectRegistration
-                                  ? "cardbg  rounded-4   "
-                                  : ""
-                              }   `}
-                            >
-                              <Profile
-                                className={`iconSize2   iconcolor2 ${
-                                  isDirectRegistration
-                                    ? "iconcolor2"
-                                    : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800 text-white "
-                            aria-current="page"
-                            href="/org/students-records/direct-registration"
-                          >
-                            {t("direct-registration")}
-                          </Link> */}
-                            </li>
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isScholarshipRegistration
-                                  ? "cardbg  rounded-4   "
-                                  : ""
-                              }   `}
-                            >
-                              <Profile
-                                className={`iconSize2  iconcolor2  ${
-                                  isScholarshipRegistration
-                                    ? "iconcolor2"
-                                    : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800 text-white "
-                            aria-current="page"
-                            href="/org/students-records/scholarship-registration"
-                          >
-                            {t("scholarship-registration")}
-                          </Link> */}
-                            </li>
-                            {/* <li className={`nav-item d-flex  align-items-center  `}>
-                          <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
-                            {t("Account Management")}
-                          </h3>
-                        </li> */}
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isOrgprofile ? "cardbg  rounded-4   " : ""
-                              }   `}
-                            >
-                              <Profile
-                                className={`iconSize2   ${
-                                  isOrgprofile ? "iconcolor2" : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800 text-white "
-                            aria-current="page"
-                            href="/org/orgprofile"
-                          >
-                            {t("Organization Profile")}
-                          </Link> */}
-                            </li>
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isAiAssistant ? "cardbg  rounded-4   " : ""
-                              }   `}
-                            >
-                              <Ai
-                                className={`iconSize2   ${
-                                  isAiAssistant ? "iconcolor2" : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800"
-                            aria-current="page"
-                            href="/org/ai-assistant"
-                          >
-                            {t("AI Assistant")}
-                          </Link> */}
-                            </li>
-                            <li
-                              className={`nav-item d-flex  p-2   w-100  align-items-center   ${
-                                isSettings ? "cardbg  rounded-4   " : ""
-                              }   `}
-                            >
-                              <Setting
-                                className={`iconSize2   ${
-                                  isSettings ? "iconcolor2" : "iconcolor"
-                                }  `}
-                              />
-                              {/* <Link
-                            className="nav-link Tit-14-700 Gray-Gray-800 "
-                            aria-current="page"
-                            href="/org/settings"
-                          >
-                            {t("Settings")}
-                          </Link> */}
-                            </li>
                           </ul>
                         </div>
                       </div>
                     </nav>
 
                     <div className=" bg-white  d-flex  flex-column mt-5  ">
-                      <div>{comp[tit]}</div>
+                      <div> {actv && comp[tit]}</div>
                     </div>
                   </div>
                 </div>
