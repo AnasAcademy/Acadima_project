@@ -57,8 +57,16 @@
     "sales-list": "قائمة المبيعات",
     "offline-payments": "المدفوعات الاوفلاين",
     "installments": "الأقساط",
-    "discount-codes": "أكواد الخصم"
-
+    "discount-codes": "أكواد الخصم",
+    "user-management": " المستخدمين",
+    "users": "المستخدمين",
+    "roles": "أدوار المستخدمين",
+    "groups": "المجموعات",
+    "not-access-to-content": "إدارة الوصول",
+    "staff": "طاقم العمل",
+    "students": "الطلاب",
+    "instructors": "المعلمين",
+    "new-user": "إنشاء مستخدم جديد"
   },
 
   "add-student-to-class": {

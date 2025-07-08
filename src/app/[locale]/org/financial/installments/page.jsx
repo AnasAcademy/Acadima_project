@@ -8,7 +8,7 @@ import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
 import roundimage from "@/assets/admin/personla.png";
 
-export default function WebinarsStat() {
+export default function OrgInstallments() {
   const ts = useTranslations("SidebarA");
   const t = useTranslations("employee_progress");
 
@@ -103,7 +103,7 @@ export default function WebinarsStat() {
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
-            <h2 class="hvvv">{ts("students-list")}</h2>
+            <h2 className="hvvv">{ts("students-list")}</h2>
 
             <div className=" col-lg-12 ">
               <SelectCard selectCardData={selectCardData} />
