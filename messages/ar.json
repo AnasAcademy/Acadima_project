@@ -785,7 +785,8 @@
     "show-details": "عرض التفاصيل",
     "view-all-tickets": "عرض المزيد من التذاكر السابقة",
     "previous-tickets": "التذاكر السابقة",
-    "search-placeholder": "البحث برقم التذكرة ...."
+    "search-placeholder": "البحث برقم التذكرة ....",
+    "view-more": "عرض المزيد"
   },
   "AiAssistant": {
     "AiAssistant": "مساعد الذكاء الاصطناعي",
@@ -1015,6 +1016,28 @@
 
 
 
-}
+},
+"tables": {
+  "admission-requirements": "متطلبات القبول",
+  "user-code": "كود الطالب",
+  "user-name": "اسم الطالب",
+  "registered-program-type": "البرنامج المسجل اليه  ",
+  "registered-program": "التخصص",
+  "identity-file": "مرفق الهوية",
+  "requirements" : "مرفق متطلبات القبول",
+  "user-status": "حالة الطلب",
+  "admin": "الادمن",
+  "submission-date": "تاريخ ارسال الطلب",
+  "actions" : "اجرائات",
+  "user-mail": "بريد الطالب",
+  "user-phone": "هاتف الطالب",
+  "accept": "قبول",
+  "reject": "رفض",
+  "batch-number": "رقم الدفعة",
+  "user-access": "صلاحيات المستخدم",
+  "show-details": "عرض التفاصيل",
+  "view-more": "عرض المزيد"
 
+  
+}
 }

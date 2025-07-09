@@ -781,7 +781,8 @@
     "show-details": "Show Details",
     "view-all-tickets": "View All Previous Tickets",
     "previous-tickets": "Previous Tickets",
-    "search-placeholder": "Search ticket code ..."
+    "search-placeholder": "Search ticket code ...",
+    "view-more": "View More"
   },
   "AiAssistant": {
     "AiAssistant": "Ai-Assistant",
@@ -1008,5 +1009,26 @@
   "channel_phone": "Phone Number"
 
 
+},
+"tables": {
+  "admission-requirements": "Admission Requirements",
+  "user-code": "User Code",
+  "user-name": "User Name",
+  "registered-program-type": "Registered Program Type",
+  "registered-program": "Registered Program",
+  "identity-file": "Identity File",
+  "requirements" : "Requirements",
+  "user-status": "User Status",
+  "admin": "Admin",
+  "submission-date": "Submission Date",
+  "actions" : "Actions",
+  "user-mail": "User Mail",
+  "user-phone": "User Phone",
+  "accept": "Accept",
+  "reject": "Reject",
+  "batch-number": "Batch number",
+  "user-access": "User Access",
+  "show-details": "Show Details",
+  "view-more": "View More"
 }
 }
