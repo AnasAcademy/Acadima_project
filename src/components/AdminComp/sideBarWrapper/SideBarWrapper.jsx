@@ -2,8 +2,8 @@
 
 import React from 'react'
 import {usePathname} from 'next/navigation';
-import Sidebar from '../../../components/AdminComp/sideBar/Sidebar';
-
+// import Sidebar from '../../../components/AdminComp/sideBar/Sidebar';
+import NewSideBar from '@/components/AdminComp/NewSideBar/NewSideBar';
 
 export default function SideBarWrapper() {
 
@@ -14,5 +14,5 @@ export default function SideBarWrapper() {
       pathname.includes(route)
     );
 
-  return <>{shouldShowSidebar && <Sidebar />}</>;
+  return <>{shouldShowSidebar && <NewSideBar />}</>;
 }

@@ -50,8 +50,8 @@ export default async function RootLayout({
             <div className="d-flex vh-100">
               {/* Sidebar – visible on lg and xl only */}
               <div className="d-none d-sm-none d-md-none d-lg-flex d-xl-flex">
-              {/* <SidebarWrapperUser />   */}
-                <NewSideBar />
+              <SidebarWrapperUser />  
+                {/* <NewSideBar /> */}
                 <SideBarWrapper />
               </div>
 
