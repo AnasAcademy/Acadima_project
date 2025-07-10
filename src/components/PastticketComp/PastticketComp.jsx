@@ -5,18 +5,17 @@ import Arrow from "@/assets/admin/arrow down.svg";
 import { useTranslations } from "next-intl";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import SelectCard from "@/components/SelectCard/SelectCard";
-import { formatTrainingData } from "@/components/AdminComp/TrainigDataFormatter/trainingDataFormatter";
 
-export default function PastticketComp({
-  dataa = [],
-}) {
+export default function PastticketComp({ dataa = [] }) {
   const t = useTranslations("techSupport");
 
- 
-  const [more, setMore] = useState(3);
+  const [more, setMore] = useState(5); // Controls number of tickets shown
   const [filter, setFilter] = useState(dataa);
 
-  const trainingData = filter.map((item) => ({
+  // Slice the filtered array based on 'more'
+  const slicedFilter = filter.slice(0, more);
+
+  const trainingData = slicedFilter.map((item) => ({
     columns: [
       { type: "text", value: item.id },
       { type: "text", value: item.title },
@@ -40,7 +39,7 @@ export default function PastticketComp({
     ],
   }));
 
-const TableHead = [
+  const TableHead = [
     t("ticket_number"),
     t("subject"),
     t("status"),
@@ -90,34 +89,31 @@ const TableHead = [
     <div className="row g-3">
       <div className="col-12">
         <SelectCard
-          search="id"
-          searchtwo="status"
           selectCardData={selectCardData}
           isTechSupport={true}
           setFilter={setFilter}
-          data={filter}
-          dataa={dataa}
+          data={dataa}
         />
       </div>
 
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-          {/* <h2>{t("previous-tickets")}</h2> */}
-
           <OngoingTrain
             TableHead={TableHead}
             trainingData={trainingData}
             button={false}
           />
 
-          <div
-            className="text-primary fw-semibold d-flex align-items-center gap-2 mt-2"
-            role="button"
-            onClick={() => setMore((prev) => prev + 3)}
-          >
-            <Arrow size={18} />
-            {t("view-more")}
-          </div>
+          {more < filter.length && (
+            <div
+              className="text-primary fw-semibold d-flex align-items-center gap-2 mt-2"
+              role="button"
+              onClick={() => setMore((prev) => prev + 5)}
+            >
+              <Arrow size={18} />
+              {t("view-more")}
+            </div>
+          )}
         </div>
       </div>
     </div>

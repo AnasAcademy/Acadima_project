@@ -27,18 +27,14 @@ export default async function AdmissionReq() {
     console.error("Error fetching data:", error);
   }
 
-
- 
-
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
             <h2 className="hvvv">{t("admission-requirements")}</h2>
-            <div className=" col-lg-12 ">
-                  
-                   <AdmissionReqTable  dataa={dataa} />
+            <div className=" col-lg-12 ">    
+              <AdmissionReqTable  dataa={dataa} />
             </div>
           </div>
         </div>

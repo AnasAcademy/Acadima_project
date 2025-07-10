@@ -26,7 +26,7 @@ export default function OngoingTrain({
       </td>
     ),
     text: (col, key) => (
-      <td key={key} className=" text-dark   text-nowrap   ">
+      <td key={key} className=" text-dark   text-wrap   ">
         {col.value}
       </td>
     ),
@@ -74,7 +74,7 @@ export default function OngoingTrain({
         key={key}
         className=" d-flex gap-3   align-items-center p-3  justify-content-center      "
       >
-        <h4
+        <button
           className={` tit-12-400 btncolor text-center m-0 cursor-pointer rounded-4 p-2  px-5 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
           style={{
             backgroundColor: col.color1,
@@ -82,6 +82,7 @@ export default function OngoingTrain({
             textDecoration: col.decoration || "none",
             width: col.width || "40%",
           }}
+          onClick={col.action1}
         >
           {col.icon ? (
             Icon ? (
@@ -96,8 +97,8 @@ export default function OngoingTrain({
             ""
           )}
           {col.value1}
-        </h4>
-        <h4
+        </button>
+        <button
           className={` tit-12-400 btncolor text-center m-0 cursor-pointer rounded-4 p-2  px-5 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
           style={{
             backgroundColor: col.color2,
@@ -105,6 +106,7 @@ export default function OngoingTrain({
             textDecoration: col.decoration || "none",
             width: col.width || "40%",
           }}
+          onClick={col.action2}
         >
           {col.icon ? (
             Icon ? (
@@ -119,7 +121,7 @@ export default function OngoingTrain({
             ""
           )}
           {col.value2}
-        </h4>
+        </button>
         {col.icon ? (
           Icon2 ? (
             <Icon2 className="iconSize2   text-white cursor-pointer" />
@@ -163,8 +165,9 @@ export default function OngoingTrain({
             />
           )}
 
-          <div className="d-flex flex-column justify-content-start align-items-start">
+          <div className="d-flex flex-column justify-content-start align-items-center">
             <div className="fw-semibold">{col.name}</div>
+            <div className="text-muted small">{col.phone}</div>
             <div className="text-muted small">{col.email}</div>
           </div>
         </div>
@@ -187,7 +190,7 @@ export default function OngoingTrain({
       <div className=" table-responsive     ">
         <table className="table  no-flag-style   align-middle     ">
           <thead className="  w-100">
-            <tr className="text-nowrap   ">
+            <tr className="text-nowrap text-center  ">
               {TableHead.map((head, index) => {
                 return (
                   <th key={index} className="   text-center   ">

@@ -1,12 +1,11 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Arrow from "@/assets/admin/arrow down.svg";
 import SearchIcon from "@/assets/admin/search.svg";
 import Calendar from "@/assets/calendar.svg";
-
+ 
 export default function SelectCard({
   selectCardData,
   isTechSupport,
@@ -24,14 +23,12 @@ export default function SelectCard({
   function getNestedValue(obj, path) {
     return path?.split(".").reduce((acc, key) => acc?.[key], obj);
   }
-
   // When a filter value changes
   function handleFilterChange(key, value) {
     const updated = { ...filters, [key]: value };
     setFilters(updated);
     applyFilters(updated);
   }
-
   // Apply all filters dynamically
   function applyFilters(currentFilters) {
     const filtered = dataa.filter((item) => {
@@ -39,7 +36,6 @@ export default function SelectCard({
         const filterKey = input.filter;
         const value = currentFilters[filterKey];
         if (!value) return true;
-
         const itemValue = getNestedValue(item, filterKey);
         return itemValue
           ?.toString()
@@ -59,21 +55,21 @@ export default function SelectCard({
       {isOrgProfile && (
         <h2 className="px-3 my-2">{t3("orgprofile-table-title")}</h2>
       )}
-
+ 
       <div className="row d-flex justify-content-between w-100 m-0">
         <div className="p-0">
           <div className="m-2 row g-4">
             {inputs.map((input, index) => {
               const defaultCol = input.col || "col-xl-2";
               const fullCol = `${defaultCol} col-lg-4 col-md-6 col-12`;
-
+ 
               return (
                 <div className={fullCol} key={index}>
                   <div className="d-flex w-100 flex-column position-relative">
                     {input.title && (
                       <label className="h6 mb-1 text-end">{input.title}</label>
                     )}
-
+ 
                     {input.type === "select" && (
                       <div className="d-flex justify-content-center align-items-center w-100 position-relative">
                         <select
@@ -93,7 +89,6 @@ export default function SelectCard({
                         <Arrow className="iconSize5 position-absolute selclass p-1" />
                       </div>
                     )}
-
                     {input.type === "search" && (
                       <div className="form-control mr-sm-2 d-flex gap-2">
                         {input.icon !== false && (
@@ -128,7 +123,22 @@ export default function SelectCard({
                         />
                       </div>
                     )}
-
+ 
+                    {input.type === "date" && (
+                      <div className="d-flex custroundbtn overflow-hidden border border-light">
+                        <div className="bgprim d-flex align-items-center justify-content-center px-3">
+                          <Calendar className="iconSize3" />
+                        </div>
+                        <input
+                          type="date"
+                          className="form-control shadow-none rounded-0 ps-3 no-calendar-icon"
+                          onChange={(e) =>
+                            handleFilterChange(input.filter, e.target.value)
+                          }
+                        />
+                      </div>
+                    )}
+ 
                     {input.type === "text" && (
                       <input
                         type="text"
@@ -143,7 +153,7 @@ export default function SelectCard({
                 </div>
               );
             })}
-
+ 
             {button?.show && (
               <div
                 className={`col-lg-${
