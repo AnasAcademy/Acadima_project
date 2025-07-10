@@ -1,7 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import PastticketComp from "@/components/PastticketComp/PastticketComp";
-
+import AdmissionReqTable  from "@/components/Tables&filters/AdmissionReqTable/AdmissionReqTable"
 
 export default async function AdmissionReq() {
   const t = await getTranslations("tables");
@@ -21,46 +20,15 @@ export default async function AdmissionReq() {
       }
     );
     const respond = await res.json();
+
     dataa = respond;
+
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 
-  const TableHead = [
-    "#",
-    t("user-code"),
-    t("user-name"),
-    t("registered-program-type"),
-    t("registered-program"),
-    t("identity-file"),
-    t("requirements"),
-    t("user-status"),
-    t("admin"),
-    t("submission-date"),
-    t("actions"),
-  ];
 
-  const selectCardData = {
-    inputs: [
-      {
-        title: t("user-code"),
-        type: "search",
-      },
-      {
-        title: t("user-mail"),
-        type: "search",
-      },
-      {
-        title: t("user-name"),
-        type: "search",
-      },
-      {
-        title: t("user-phone"),
-        type: "search",
-      },
-
-    ],
-  };
+ 
 
   return (
     <>
@@ -69,12 +37,8 @@ export default async function AdmissionReq() {
           <div className=" row m-0  p-2 g-3">
             <h2 className="hvvv">{t("admission-requirements")}</h2>
             <div className=" col-lg-12 ">
-              <PastticketComp
-                dataa={dataa?.data}
-                selectCardData={selectCardData}
-                TableHead={TableHead}
-                type="admin-req"
-              />
+                  
+                   <AdmissionReqTable  dataa={dataa} />
             </div>
           </div>
         </div>

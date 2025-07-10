@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Arrow from "@/assets/admin/arrow down.svg";
@@ -11,9 +11,14 @@ export default function SelectCard({
   isTechSupport,
   isOrgProfile,
   data,
+  dataa,
   filterr,
   setFilter,
+  search,
+  searchtwo
 }) {
+
+
   const t = useTranslations("employee_progress");
   const t2 = useTranslations("techSupport");
   const t3 = useTranslations("orgProfile");
@@ -22,15 +27,41 @@ export default function SelectCard({
 
   const { inputs = [], button = { show: false } } = selectCardData;
 
-  async function searchTicket(e) {
-    const value = e.target.value.trim();
-    const filteredData = data.filter((dat) => dat.id.toString() === value);
+  
 
+  function getNestedValue(obj, path) {
+    return path.split(".").reduce((acc, key) => acc?.[key], obj)
+  }
+    
+  async function searchTicket(e) {
+    
+    const value = e.target.value.trim();
+    
+
+    const filteredData = data.filter(
+      (dat) => getNestedValue(dat, search)?.toString() === value
+    );
+    console.log(filteredData);
     if (filteredData.length > 0) {
       setFilter(filteredData);
     } else {
       setFilter(data); // reset to original full list
     }
+  }
+
+   function selector(e) {
+
+    setFilter(dataa);//6
+    console.log(dataa);
+  
+    const value = e;
+    console.log(e);
+    console.log(data);
+    const filteredData = data.filter(
+      (dat) => getNestedValue(dat, searchtwo) === value
+    );
+      setFilter(filteredData);
+     console.log(filteredData);//3
   }
 
   return (
@@ -54,9 +85,7 @@ export default function SelectCard({
                 <div className={fullCol} key={index}>
                   <div className="d-flex w-100 flex-column position-relative">
                     {input.title && (
-                      <label className="h6 mb-1 text-end">
-                        {input.title}
-                      </label>
+                      <label className="h6 mb-1 text-end">{input.title}</label>
                     )}
 
                     {input.type === "select" && (
@@ -64,6 +93,13 @@ export default function SelectCard({
                         <select
                           className="form-select custroundbtn"
                           defaultValue={input.defaultValue || ""}
+                          onChange={(e) => {
+
+                            const selectedValue = e.target.value;
+                        
+                            
+                            selector(selectedValue);
+                          }}
                         >
                           <option value="">{t("sort_by")}</option>
                           {input.options?.map((option, i) => (

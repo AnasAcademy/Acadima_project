@@ -9,30 +9,87 @@ import { formatTrainingData } from "@/components/AdminComp/TrainigDataFormatter/
 
 export default function PastticketComp({
   dataa = [],
-  selectCardData,
-  TableHead,
-  type = "supports",
 }) {
-  const t = useTranslations("tables");
+  const t = useTranslations("techSupport");
 
-  const initialData = Array.isArray(dataa) ? dataa : [];
+ 
   const [more, setMore] = useState(3);
-  const [filter, setFilter] = useState(initialData);
+  const [filter, setFilter] = useState(dataa);
 
-  const trainingData = useMemo(() => {
-    const safeSlice = Array.isArray(filter) ? filter.slice(0, more) : [];
-    return formatTrainingData(type, safeSlice, t);
-  }, [filter, more, type, t]);
+  const trainingData = filter.map((item) => ({
+    columns: [
+      { type: "text", value: item.id },
+      { type: "text", value: item.title },
+      {
+        type: "button",
+        value: item.status,
+        icon: false,
+        color: "#FFD900",
+        width: "70%",
+      },
+      { type: "text", value: item.updated_at },
+      {
+        type: "button",
+        value: t("show-details"),
+        icon: true,
+        textColor: "#216ED7",
+        color: "#fff",
+        decoration: "underline",
+        width: "100%",
+      },
+    ],
+  }));
+
+const TableHead = [
+    t("ticket_number"),
+    t("subject"),
+    t("status"),
+    t("last_updated"),
+    t("action"),
+  ];
+
+  const selectCardData = {
+    inputs: [
+      {
+        title: "",
+        type: "select",
+        options: ["open", "close", "replied"],
+      },
+      {
+        title: "",
+        type: "select",
+        options: ["open", "close"],
+      },
+      {
+        title: "",
+        type: "select",
+        options: ["Cairo", "Alex"],
+      },
+      {
+        title: "",
+        type: "select",
+        options: ["on", "off"],
+      },
+      {
+        title: "",
+        type: "search",
+      },
+    ],
+  };
+
+
 
   return (
     <div className="row g-3">
       <div className="col-12">
         <SelectCard
+          search="id"
+          searchtwo="status"
           selectCardData={selectCardData}
           isTechSupport={true}
-          filterr={filter}
           setFilter={setFilter}
-          data={initialData}
+          data={filter}
+          dataa={dataa}
         />
       </div>
 

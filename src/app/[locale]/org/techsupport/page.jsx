@@ -8,10 +8,8 @@ import PastticketComp from "@/components/PastticketComp/PastticketComp";
 
 export default async function TechSupport() {
   const t = await getTranslations("techSupport");
-
   let dataa = { supports: [] };
   let qestions = [];
-
   try {
     const res = await fetch(
       "https://api.lxera.net/api/development/organization/vodafone/supports",
@@ -26,6 +24,7 @@ export default async function TechSupport() {
     );
     const respond = await res.json();
     dataa = respond;
+    console.log(dataa.supports)
   } catch (error) {
     console.error("Error fetching supports:", error);
   }
@@ -48,42 +47,6 @@ export default async function TechSupport() {
     console.error("Error fetching questions:", error);
   }
 
-  const TableHead = [
-    t("ticket_number"),
-    t("subject"),
-    t("status"),
-    t("last_updated"),
-    t("action"),
-  ];
-
-  const selectCardData = {
-    inputs: [
-      {
-        title: "",
-        type: "select",
-        options: ["React", "Next.js", "Laravel"],
-      },
-      {
-        title: "",
-        type: "select",
-        options: ["open", "close"],
-      },
-      {
-        title: "",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "",
-        type: "select",
-        options: ["on", "off"],
-      },
-      {
-        title: "",
-        type: "search",
-      },
-    ],
-  };
 
   return (
     <div className="m-0 container-fluid p-0 d-flex flex-column">
@@ -102,9 +65,7 @@ export default async function TechSupport() {
               <div className="col-12">
                 <PastticketComp
                   dataa={dataa?.supports}
-                  selectCardData={selectCardData}
-                  TableHead={TableHead}
-                  type="support"
+               
                 />
               </div>
             </div>

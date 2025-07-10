@@ -10,7 +10,7 @@ import NotificationProvider from "@/context/NotificationContext";
 import BootstrapClient from '@/components/bootstrapClient/BootstrapClient'
 import SideBarWrapper from "@/components/sideBarWrapper/SideBarWrapper";
 import SidebarWrapperUser from "@/components/AdminComp/sideBarWrapper/SideBarWrapper"
-import NewSideBar from "@/components/AdminComp/NewSideBar/NewSideBar"
+
 
 
 const geistSans = Geist({
