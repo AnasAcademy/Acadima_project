@@ -282,6 +282,47 @@ export default function NewSideBar() {
     },
   ];
 
+  const users = [
+    {
+      icon: Dot,
+      tit: "staff",
+      href: "/org/financial/balances",
+      bg: isBundlesStats,
+    },
+    {
+      icon: Dot,
+      tit: "students",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+    {
+      icon: Dot,
+      tit: "new-user",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+    {
+      icon: Dot,
+      tit: "roles",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+    {
+      icon: Dot,
+      tit: "groups",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+    {
+      icon: Dot,
+      tit: "not-access-to-content",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+
+  ];
+
+
 
 
   const [tit, setTit] = useState([]);
@@ -464,6 +505,35 @@ export default function NewSideBar() {
         </ul>
       </>
     ),
+    users: (
+      <>
+        <Link
+          className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+          aria-current="page"
+        >
+          {t("users")}
+        </Link>
+        <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-4  pt-1    ">
+          {users.map((item, index) => {
+            return (
+              <li
+                className={`nav-item d-flex    w-100  align-items-center   ${
+                  item.bg ? " bg-dark-subtle rounded-3" : ""
+                }   `}
+              >
+                <item.icon className={`iconSize2 iconcolor `} />
+                <Link
+                  className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                  href={item.href}
+                >
+                  {t(item.tit)}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </>
+    ),
   };
 
   function setactvv(loc) {
@@ -620,6 +690,7 @@ export default function NewSideBar() {
                         />
                       </Link>
                     </li>
+
                     <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center      `}
                       onClick={() => {
@@ -681,6 +752,20 @@ export default function NewSideBar() {
                       </Link>
                     </li>
 
+                    <li
+                      className={`nav-item d-flex  p-2   w-100  align-items-center     `}
+                      onClick={() => {
+                        setactvv("users");
+                      }}
+                    >
+                      <Link href="/org/financial/balances">
+                        <AdmissionIcon
+                          className={`iconSize2    ${
+                            isAdminssion ? "iconcolor" : "iconcolor2"
+                          }  `}
+                        />
+                      </Link>
+                    </li>
                     <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center   `}
                     >
