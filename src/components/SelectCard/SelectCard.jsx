@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -10,75 +11,60 @@ export default function SelectCard({
   selectCardData,
   isTechSupport,
   isOrgProfile,
-  data,
   dataa,
-  filterr,
   setFilter,
-  search,
-  searchtwo
 }) {
-
-
   const t = useTranslations("employee_progress");
   const t2 = useTranslations("techSupport");
   const t3 = useTranslations("orgProfile");
 
-  const [val, setVal] = useState(null);
+  const [filters, setFilters] = useState({});
+
+  // Utility to get nested object value by path
+  function getNestedValue(obj, path) {
+    return path?.split(".").reduce((acc, key) => acc?.[key], obj);
+  }
+
+  // When a filter value changes
+  function handleFilterChange(key, value) {
+    const updated = { ...filters, [key]: value };
+    setFilters(updated);
+    applyFilters(updated);
+  }
+
+  // Apply all filters dynamically
+  function applyFilters(currentFilters) {
+    const filtered = dataa.filter((item) => {
+      return selectCardData.inputs.every((input) => {
+        const filterKey = input.filter;
+        const value = currentFilters[filterKey];
+        if (!value) return true;
+
+        const itemValue = getNestedValue(item, filterKey);
+        return itemValue
+          ?.toString()
+          .toLowerCase()
+          .includes(value.toString().toLowerCase());
+      });
+    });
+
+    setFilter(filtered);
+  }
 
   const { inputs = [], button = { show: false } } = selectCardData;
 
-  
-
-  function getNestedValue(obj, path) {
-    return path.split(".").reduce((acc, key) => acc?.[key], obj)
-  }
-    
-  async function searchTicket(e) {
-    
-    const value = e.target.value.trim();
-    
-
-    const filteredData = data.filter(
-      (dat) => getNestedValue(dat, search)?.toString() === value
-    );
-    console.log(filteredData);
-    if (filteredData.length > 0) {
-      setFilter(filteredData);
-    } else {
-      setFilter(data); // reset to original full list
-    }
-  }
-
-   function selector(e) {
-
-    setFilter(dataa);//6
-    console.log(dataa);
-  
-    const value = e;
-    console.log(e);
-    console.log(data);
-    const filteredData = data.filter(
-      (dat) => getNestedValue(dat, searchtwo) === value
-    );
-      setFilter(filteredData);
-     console.log(filteredData);//3
-  }
-
   return (
     <div className="cardbg p-3 d-flex flex-column justify-content-start align-items-start rounded-4 min-adash-ht">
-      {isTechSupport && <h2 className="px-3 my-2"> {t2("ticket-filter")} </h2>}
+      {isTechSupport && <h2 className="px-3 my-2">{t2("ticket-filter")}</h2>}
       {isOrgProfile && (
-        <h2 className="px-3 my-2"> {t3("orgprofile-table-title")} </h2>
+        <h2 className="px-3 my-2">{t3("orgprofile-table-title")}</h2>
       )}
 
       <div className="row d-flex justify-content-between w-100 m-0">
         <div className="p-0">
           <div className="m-2 row g-4">
             {inputs.map((input, index) => {
-              // Define column size per type (can be overridden with input.col)
-              const defaultCol =
-                input.col ||
-                (input.type === "search" ? "col-xl-2" : "col-xl-2");
+              const defaultCol = input.col || "col-xl-2";
               const fullCol = `${defaultCol} col-lg-4 col-md-6 col-12`;
 
               return (
@@ -92,14 +78,10 @@ export default function SelectCard({
                       <div className="d-flex justify-content-center align-items-center w-100 position-relative">
                         <select
                           className="form-select custroundbtn"
-                          defaultValue={input.defaultValue || ""}
-                          onChange={(e) => {
-
-                            const selectedValue = e.target.value;
-                        
-                            
-                            selector(selectedValue);
-                          }}
+                          defaultValue=""
+                          onChange={(e) =>
+                            handleFilterChange(input.filter, e.target.value)
+                          }
                         >
                           <option value="">{t("sort_by")}</option>
                           {input.options?.map((option, i) => (
@@ -112,24 +94,8 @@ export default function SelectCard({
                       </div>
                     )}
 
-                    {input.type === "date" && (
-                      <div className="d-flex custroundbtn overflow-hidden border border-light">
-                        {/* Icon container */}
-                        <div className="bgprim d-flex align-items-center justify-content-center px-3">
-                          <Calendar className="iconSize3" />
-                        </div>
-
-                        {/* Date input */}
-                        <input
-                          type="date"
-                          className="form-control shadow-none rounded-0 ps-3 no-calendar-icon"
-                          placeholder="mm/dd/yyyy"
-                        />
-                      </div>
-                    )}
-
                     {input.type === "search" && (
-                      <div className="form-control mr-sm-2  d-flex gap-2 ">
+                      <div className="form-control mr-sm-2 d-flex gap-2">
                         {input.icon !== false && (
                           <span className="" style={{ zIndex: 2 }}>
                             <SearchIcon width={15} height={15} />
@@ -141,7 +107,24 @@ export default function SelectCard({
                             input.placeholder || t2("search-placeholder")
                           }
                           className=" tit-12-400 border-0 w-75"
-                          onChange={searchTicket}
+                          onChange={(e) =>
+                            handleFilterChange(input.filter, e.target.value)
+                          }
+                        />
+                      </div>
+                    )}
+
+                    {input.type === "date" && (
+                      <div className="d-flex custroundbtn overflow-hidden border border-light">
+                        <div className="bgprim d-flex align-items-center justify-content-center px-3">
+                          <Calendar className="iconSize3" />
+                        </div>
+                        <input
+                          type="date"
+                          className="form-control shadow-none rounded-0 ps-3 no-calendar-icon"
+                          onChange={(e) =>
+                            handleFilterChange(input.filter, e.target.value)
+                          }
                         />
                       </div>
                     )}
@@ -151,6 +134,9 @@ export default function SelectCard({
                         type="text"
                         placeholder={input.placeholder || ""}
                         className="form-control custroundbtn"
+                        onChange={(e) =>
+                          handleFilterChange(input.filter, e.target.value)
+                        }
                       />
                     )}
                   </div>
@@ -162,7 +148,7 @@ export default function SelectCard({
               <div
                 className={`col-lg-${
                   button.col || 2
-                } col-xl-2 col-lg-4 col-md-6 col-12 d-flex align-items-end mb-xl-1  `}
+                } col-xl-2 col-lg-4 col-md-6 col-12 d-flex align-items-end mb-xl-1`}
               >
                 <button
                   className={`btn custfontbtn w-100 rounded-2 py-2 ${

@@ -235,7 +235,52 @@ export default function NewSideBar() {
     },
   ];
 
-
+  const proreg = [
+    {
+      icon: Dot,
+      tit: "bundles",
+      href: "/org/education/programs-statistics/bundles",
+      bg: isBundlesStats,
+    },
+    {
+      icon: Dot,
+      tit: "webinars",
+      href: "/org/education/programs-statistics/webinars",
+      bg: isWebinarsStats,
+    },
+  ];
+  const finan = [
+    {
+      icon: Dot,
+      tit: "balances",
+      href: "/org/financial/balances",
+      bg: isBundlesStats,
+    },
+    {
+      icon: Dot,
+      tit: "sales-list",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+    {
+      icon: Dot,
+      tit: "offline-payments",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+    {
+      icon: Dot,
+      tit: "installments",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+    {
+      icon: Dot,
+      tit: "discount-codes",
+      href: "/org/financial/sales-list",
+      bg: isWebinarsStats,
+    },
+  ];
 
 
 
@@ -341,6 +386,65 @@ export default function NewSideBar() {
         </Link>
         <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-4  pt-1    ">
           {edu.map((item, index) => {
+            return (
+              <li
+                className={`nav-item d-flex    w-100  align-items-center   ${
+                  item.bg ? " bg-dark-subtle rounded-3" : ""
+                }   `}
+              >
+                <item.icon className={`iconSize2 iconcolor `} />
+                <Link
+                  className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                  href={item.href}
+                >
+                  {t(item.tit)}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </>
+    ),
+
+    isprogramreg: (
+      <>
+        <Link
+          className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+          aria-current="page"
+        >
+          {t("programs-statistics")}
+        </Link>
+        <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-4  pt-1    ">
+          {proreg.map((item, index) => {
+            return (
+              <li
+                className={`nav-item d-flex    w-100  align-items-center   ${
+                  item.bg ? " bg-dark-subtle rounded-3" : ""
+                }   `}
+              >
+                <item.icon className={`iconSize2 iconcolor `} />
+                <Link
+                  className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
+                  href={item.href}
+                >
+                  {t(item.tit)}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </>
+    ),
+    isFinancial: (
+      <>
+        <Link
+          className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+          aria-current="page"
+        >
+          {t("financial")}
+        </Link>
+        <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-4  pt-1    ">
+          {finan.map((item, index) => {
             return (
               <li
                 className={`nav-item d-flex    w-100  align-items-center   ${
@@ -546,6 +650,37 @@ export default function NewSideBar() {
                         />
                       </Link>
                     </li>
+
+                    <li
+                      className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                      onClick={() => {
+                        setactvv("isprogramreg");
+                      }}
+                    >
+                      <Link href="/org/education/programs-statistics/bundles">
+                        <Quiz
+                          className={`iconSize2    ${
+                            education ? "iconcolor" : "iconcolor2"
+                          }  `}
+                        />
+                      </Link>
+                    </li>
+
+                    <li
+                      className={`nav-item d-flex  p-2   w-100  align-items-center     `}
+                      onClick={() => {
+                        setactvv("isFinancial");
+                      }}
+                    >
+                      <Link href="/org/financial/balances">
+                        <AdmissionIcon
+                          className={`iconSize2    ${
+                            isAdminssion ? "iconcolor" : "iconcolor2"
+                          }  `}
+                        />
+                      </Link>
+                    </li>
+
                     <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center   `}
                     >
@@ -591,14 +726,11 @@ export default function NewSideBar() {
                       >
                         <Setting
                           className={`iconSize2    ${
-                           isSettings
-                              ? "iconcolor"
-                              : "iconcolor2"
+                            isSettings ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                       </Link>
                     </li>
-                
                   </ul>
                 </div>
               </div>

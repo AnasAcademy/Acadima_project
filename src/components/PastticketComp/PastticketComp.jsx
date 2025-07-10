@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Arrow from "@/assets/admin/arrow down.svg";
 import { useTranslations } from "next-intl";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
@@ -53,31 +53,38 @@ const TableHead = [
       {
         title: "",
         type: "select",
+        filter: "status",
         options: ["open", "close", "replied"],
       },
       {
         title: "",
         type: "select",
-        options: ["open", "close"],
+        filter: "id",
+        options: ["43", "41"],
       },
       {
         title: "",
         type: "select",
-        options: ["Cairo", "Alex"],
+        filter: "title",
+        options: ["شكوى عن التدريب", "استفسار عن البرنامج"],
       },
       {
         title: "",
         type: "select",
+        filter: "place3",
         options: ["on", "off"],
       },
       {
         title: "",
         type: "search",
+        filter: "id",
       },
     ],
   };
 
-
+  useEffect(() => {
+    console.log("Filter state updated", filter);
+  }, [filter]);
 
   return (
     <div className="row g-3">

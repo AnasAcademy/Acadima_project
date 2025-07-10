@@ -578,7 +578,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center   ${
+                  className={`nav-item d-flex  p-2   w-100  align-items-center  bg-danger  ${
                     isCourses ? "cardbg  rounded-4   " : ""
                   }   `}
                 >
@@ -634,7 +634,7 @@ export default function Sidebar() {
                   </Link>
                 </li>
 
-                <li className={`nav-item d-flex  align-items-center  `}>
+                <li className={`nav-item d-flex  align-items-center bg-success  `}>
                   <h3 className="nav-link Tit-12-700 Gray-Gray-700 m-0">
                     {t("programs-statistics")}
                   </h3>
