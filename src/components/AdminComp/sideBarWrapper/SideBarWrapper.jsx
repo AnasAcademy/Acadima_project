@@ -16,7 +16,7 @@ export default function SideBarWrapper() {
 
   return <>{shouldShowSidebar  && (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <NewSideBar />
     </>
   )}

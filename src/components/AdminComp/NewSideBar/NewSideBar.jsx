@@ -4,36 +4,36 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import logo from "../../../assets/admin/logo2.png";
-import Home from "../../../assets/admin/home.svg";
-import Stat from "../../../assets/admin/stat.svg";
-import Card from "../../../assets/admin/card.svg";
-import Notif from "../../../assets/admin/notif.svg";
-import Option from "../../../assets/admin/option.svg";
-
+import Home from "../../../assets/admin/Homdoor.svg";
+import Stat from "../../../assets/admin/Reports.svg";
+import Card from "../../../assets/admin/sidecard.svg";
+import Notif from "../../../assets/admin/Bell.svg";
+import Option from "../../../assets/admin/Settings.svg";
+import SmallLogo from "@/assets/admin/Logo.svg";
 import Ai from "../../../assets/admin/ai.svg";
 import HelpIcon from "../../../assets/admin/helpIcon.svg";
-import Setting from "../../../assets/admin/setting.svg";
+import Setting from "../../../assets/admin/Settings.svg";
 import bk from "../../../assets/admin/Background.png";
 import pwr from "@/assets/Sidebar icons/powered.png";
-import Employpro from "@/assets/admin/employpro.svg"
-import Allstudent from "@/assets/admin/allstudent.svg"
-import Quiz from "@/assets/admin/quiz.svg"
-import Studentper from "@/assets/admin/studentper.svg"
-import Electric from "@/assets/admin/elctric.svg"
-import Classes from "@/assets/admin/classes.svg"
-import StudentCode from "@/assets/admin/studentcode.svg"
-import Instruc from "@/assets/admin/instruc.svg"
-import Cat from "@/assets/admin/category.svg"
-import CreateAcc from "@/assets/admin/createacc.svg"
-import Seat from "@/assets/admin/seatreserv.svg"
-import Direct from "@/assets/admin/direct.svg"
-import Scholarship from "@/assets/admin/scholarship.svg"
-import History from "@/assets/admin/history.svg"
-import Exam from "@/assets/admin/exam.svg"
-import Homework from "@/assets/admin/homework.svg"
-import Courses from "@/assets/admin/courses.svg"
-import Dot from "@/assets/admin/dot.svg"
-import AdmissionIcon from "@/assets/Sidebar icons/admission.svg";
+import Employpro from "@/assets/admin/employpro.svg";
+import Allstudent from "@/assets/admin/allstudent.svg";
+import Quiz from "@/assets/admin/quiz.svg";
+import Studentper from "@/assets/admin/studentper.svg";
+import Electric from "@/assets/admin/elctric.svg";
+import Classes from "@/assets/admin/classes.svg";
+import StudentCode from "@/assets/admin/studentcode.svg";
+import Instruc from "@/assets/admin/instruc.svg";
+import Cat from "@/assets/admin/category.svg";
+import CreateAcc from "@/assets/admin/createacc.svg";
+import Seat from "@/assets/admin/seatreserv.svg";
+import Direct from "@/assets/admin/direct.svg";
+import Scholarship from "@/assets/admin/scholarship.svg";
+import History from "@/assets/admin/history.svg";
+import Exam from "@/assets/admin/exam.svg";
+import Homework from "@/assets/admin/homework.svg";
+import Courses from "@/assets/admin/courses.svg";
+import Dot from "@/assets/admin/dot.svg";
+import AdmissionIcon from "@/assets/admin/admission.svg";
 import ObjectIcon from "@/assets/settings/OBJECTS.svg";
 import ClassesIcon from "@/assets/Sidebar icons/classes.svg";
 import Profile from "@/assets/admin/profile.svg";
@@ -78,9 +78,7 @@ export default function NewSideBar() {
   const isStudentPermission = pathname.includes(
     "/org/admission/student-permission"
   );
-  const studentsRecords = pathname.includes(
-    "/org/students-records"
-  );
+  const studentsRecords = pathname.includes("/org/students-records");
   const isAllStudents = pathname.includes("/org/students-records/all-students");
   const isCreateAccount = pathname.includes(
     "/org/students-records/create-account"
@@ -319,43 +317,41 @@ export default function NewSideBar() {
       href: "/org/financial/sales-list",
       bg: isWebinarsStats,
     },
-
   ];
-
-
-
 
   const [tit, setTit] = useState([]);
   const comp = {
     isAdmission: (
       <>
-        <Link
-          className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-          aria-current="page"
-        >
-          {t("admission")}
-        </Link>
+        <div className=" d-flex   flex-column h-100  ps-5 pe-2 ">
+          <Link
+            className={` nav-link  Tit-14-700 text-dark text-nowrap  p-3 `}
+            aria-current="page"
+          >
+            {t("admission")}
+          </Link>
 
-        <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-4  pt-1    ">
-          {admission.map((item, index) => {
-            return (
-              <li
-                className={`nav-item d-flex     w-100  align-items-center  ${
-                  item.bg ? " bg-dark-subtle rounded-3" : ""
-                }  `}
-                title={t("dashboard")}
-              >
-                <item.icon className={`iconSize2 iconcolor `} />
-                <Link
-                  className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
-                  href={item.href}
+          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start  newsidebarr    ">
+            {admission.map((item, index) => {
+              return (
+                <li
+                  className={`nav-item d-flex w-100  align-items-center   ${
+                    item.bg ? " bgNewSidebar rounded-3" : ""
+                  }  `}
+                  title={t("dashboard")}
                 >
-                  {t(item.tit)}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                  <item.icon className={`iconSize2 iconcolor `} />
+                  <Link
+                    className={` nav-link   tit-14-400 text-dark text-nowrap  `}
+                    href={item.href}
+                  >
+                    {t(item.tit)}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </>
     ),
     isRegistered: (
@@ -555,9 +551,9 @@ export default function NewSideBar() {
               <Image src={logo} alt="ai" width={120} height={32} priority />
             </Link>
           </div>
-          <div className=" d-flex  mt-md-4   justify-content-center  ">
-            <nav className="navbar navbar-light navbar-expand-lg  p-0     ">
-              <div className=" d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column min-vh-lg-100   align-items-start p-0   ">
+          <div className=" d-flex  mt-md-4   justify-content-center     ">
+            <nav className="navbar navbar-light navbar-expand-lg  p-0       mt-5   ">
+              <div className=" d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column h-100  align-items-start p-0   ">
                 <button
                   className="navbar-toggler"
                   type="button"
@@ -571,13 +567,30 @@ export default function NewSideBar() {
                 </button>
 
                 <div
-                  className="collapse navbar-collapse  mt-5  btncolor     h-auto "
+                  className={` d-flex   w-100    justify-content-center  NewsideLogo   p-3  m-0  `}
+                >
+                  <SmallLogo
+                    className={`iconSize1     ${
+                      isPanel ? "iconcolor" : "iconcolor2"
+                    } `}
+                  />
+                </div>
+
+                <div
+                  className="collapse navbar-collapse       d-flex flex-column   "
                   id="navbarSupportedContent"
                 >
-                  <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start      ">
+                  <ul className="navbar-nav   d-lg-flex w-100 flex-lg-column    p-3    bg-white    newSidebar  ">
+                    <div className="d-flex align-items-center justify-content-center">
+                      <h6 className=" text-center text-nowrap tit-10-400">
+                        لوحة الإدارة
+                      </h6>
+                    </div>
+
                     <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center   `}
-                      title={t("dashboard")}
+                      className={`nav-item d-flex  p-2     align-items-center  besideHover  ${
+                        isPanel && "onSelect"
+                      }  `}
                     >
                       <Link
                         href="/org/panel"
@@ -586,15 +599,20 @@ export default function NewSideBar() {
                         }}
                       >
                         <Home
-                          className={`iconSize2     ${
+                          className={`iconSize1      ${
                             isPanel ? "iconcolor" : "iconcolor2"
                           } `}
                         />
                       </Link>
+                      <span className=" tooltipText text-white">
+                        {t("dashboard")}
+                      </span>
                     </li>
 
                     <li
-                      className={`nav-item d-flex   p-2  w-100  align-items-center     `}
+                      className={`nav-item d-flex   p-2   align-items-center  besideHover  ${
+                        isEmployeeprogress && "onSelect"
+                      }  `}
                     >
                       <Link
                         href="/org/employeeprogress"
@@ -603,15 +621,20 @@ export default function NewSideBar() {
                         }}
                       >
                         <Stat
-                          className={`iconSize2   ${
+                          className={`iconSize1  ${
                             isEmployeeprogress ? "iconcolor" : "iconcolor2"
                           } `}
                         />
                       </Link>
+                      <span className=" tooltipText text-white">
+                        {t("Employee progress")}
+                      </span>
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                      className={`nav-item d-flex  p-2    align-items-center  besideHover  ${
+                        isSubscriptionmanagement && "onSelect"
+                      }  `}
                     >
                       <Link
                         href="/org/subscription-management"
@@ -620,16 +643,21 @@ export default function NewSideBar() {
                         }}
                       >
                         <Card
-                          className={`iconSize2    ${
+                          className={`iconSize1    ${
                             isSubscriptionmanagement
                               ? "iconcolor"
                               : "iconcolor2"
                           }  `}
                         />
                       </Link>
+                      <span className=" tooltipText text-white">
+                        {t("Subscription Management")}
+                      </span>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                      className={`nav-item d-flex  p-2    align-items-center    besideHover  ${
+                        isNotfiPage && "onSelect"
+                      }   `}
                     >
                       <Link
                         href="/org/notifications"
@@ -638,14 +666,19 @@ export default function NewSideBar() {
                         }}
                       >
                         <Notif
-                          className={`iconSize2   ${
+                          className={`iconSize1   ${
                             isNotfiPage ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                       </Link>
+                      <span className=" tooltipText text-white">
+                        {t("Notifications")}
+                      </span>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center `}
+                      className={`nav-item d-flex  p-2    align-items-center  besideHover  ${
+                        isTechSupport && "onSelect"
+                      } `}
                     >
                       <Link
                         href="/org/techsupport"
@@ -654,28 +687,39 @@ export default function NewSideBar() {
                         }}
                       >
                         <Option
-                          className={`iconSize2    ${
+                          className={`iconSize1    ${
                             isTechSupport ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                       </Link>
+                      <span className=" tooltipText text-white">
+                        {t("Technical Support")}
+                      </span>
                     </li>
+                  </ul>
+                  <ul className="navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    newSidebar  ">
+                    <div className="d-flex align-items-center justify-content-center">
+                      <h6 className=" text-center text-nowrap tit-10-400 ">
+                        الأكاديمية{" "}
+                      </h6>
+                    </div>
 
                     <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center     `}
+                      className={`nav-item d-flex  p-2   align-items-center  besideHover   `}
                       onClick={() => {
                         setactvv("isAdmission");
                       }}
                     >
                       <Link href="/org/admission/admission-requirements">
                         <AdmissionIcon
-                          className={`iconSize2    ${
+                          className={`iconSize1    ${
                             isAdminssion ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                       </Link>
                     </li>
-
+                  </ul>
+                  {/* 
                     <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center     `}
                       onClick={() => {
@@ -689,16 +733,15 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                    </li>
-
+                    </li> */}
+                  {/* 
                     <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center      `}
                       onClick={() => {
                         setactvv("isenrollment");
                       }}
                     >
-                      {/* 
-                      fgafhfdh */}
+                    
                       <Link href="/org/enrollment/history">
                         <Profile
                           className={`iconSize2    ${
@@ -706,8 +749,8 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                    </li>
-                    <li
+                    </li> */}
+                  {/* <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center   `}
                       onClick={() => {
                         setactvv("isEdu");
@@ -720,9 +763,9 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                    </li>
+                    </li> */}
 
-                    <li
+                  {/* <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center   `}
                       onClick={() => {
                         setactvv("isprogramreg");
@@ -735,9 +778,9 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                    </li>
+                    </li> */}
 
-                    <li
+                  {/* <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center     `}
                       onClick={() => {
                         setactvv("isFinancial");
@@ -750,9 +793,9 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                    </li>
+                    </li> */}
 
-                    <li
+                  {/* <li
                       className={`nav-item d-flex  p-2   w-100  align-items-center     `}
                       onClick={() => {
                         setactvv("users");
@@ -781,9 +824,9 @@ export default function NewSideBar() {
                           } `}
                         />
                       </Link>
-                    </li>
+                    </li> */}
 
-                    <li
+                  {/* <li
                       className={`nav-item d-flex   p-2  w-100  align-items-center     `}
                     >
                       <Link
@@ -815,14 +858,28 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                    </li>
-                  </ul>
+                    </li> */}
                 </div>
               </div>
             </nav>
 
-            <div className=" bg-white  d-flex  flex-column mt-5  ">
-              <div> {actv && comp[tit]}</div>
+            <div className=" bg-white  d-flex  flex-column   bg-warning  NewsideLogov2 mt-5    ">
+              <div className=" d-flex flex-column ">
+                {actv && (
+                  <>
+                    <div
+                      className={` d-flex  justify-content-center  p-3  NewsideLogov3  `}
+                    >
+                      <SmallLogo
+                        className={`iconSize1  opacity-0    ${
+                          isPanel ? "iconcolor" : "iconcolor2"
+                        } `}
+                      />
+                    </div>
+                    {comp[tit]}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
