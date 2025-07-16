@@ -91,7 +91,7 @@ const Navbar = () => {
  
 
   return (
-    <div className="  w-100 ">
+    <div className="  w-100 bg-white ">
       <nav className="            navbar  bg-bluish-white p-3 px-xl-5 px-lg-4    d-flex align-items-start  justify-content-start   container-fluid  d-none d-sm-none  d-md-none d-lg-flex  ">
         <div className="d-flex justify-content-between align-items-start align-items-md-center  flex-row-reverse w-100 ">
           <div className="d-flex align-items-center    ">

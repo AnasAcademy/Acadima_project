@@ -1644,14 +1644,14 @@ select.no-native-arrow {
 
 .newSidebar {
   border: 1px solid #d9d9d9;
-  border-top: none;
+
 }
 .NewsideLogo {
   background-color: #fafafa;
   border: 1px solid #d9d9d9;
   border-bottom: 1px solid #d9d9d9;
-  border-left: none;
-  /* border-top-left-radius: 15px; */
+
+  border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
 
@@ -1659,18 +1659,44 @@ select.no-native-arrow {
   background-color: #fafafa;
   border: 1px solid #d9d9d9;
   border-bottom: 1px solid #d9d9d9;
-  border-right: none;
+    border-left: none;
+
     border-top: none;
    
 }
+[dir="rtl"] .NewsideLogov2 {
+    border-left: 1px solid #d9d9d9;
+  border-right: none;
+
+   
+}
+
+
+
+
+
 .NewsideLogov3 {
   background-color: #fafafa;
   border: 1px solid #d9d9d9;
   border-bottom: 1px solid #d9d9d9;
   border-right: none;
-  
-     border-left: none;
+  border-left: none;
    
+}
+
+.NewsideLogov3actv {
+
+   border-top-left-radius: 15px;
+  border-top-right-radius: 0px;
+
+   
+}
+
+[dir="rtl"] .NewsideLogov3actv{
+
+  border-top-left-radius: 0px;
+  border-top-right-radius: 15px;
+
 }
 
 
@@ -1752,4 +1778,47 @@ select.no-native-arrow {
 
  
 background: rgba(24, 20, 243, 0.04);
+}
+
+.lastPart{
+
+
+
+border: 1px solid #d9d9d9;
+  border-top: none;
+
+  
+
+}
+
+.newSidebarpadding{
+
+     padding-right: 3rem;
+padding-left: 0.5rem;
+
+
+}
+
+[dir="rtl"] .newSidebarpadding{
+
+
+   padding-left: 3rem;
+padding-right: 0.5rem;
+}
+
+
+.newSiebarMargin{
+
+ margin-left: 1rem;
+
+
+}
+
+[dir="rtl"] .newSiebarMargin{
+
+  margin-left: auto;
+
+margin-right: 1rem;
+
+
 }

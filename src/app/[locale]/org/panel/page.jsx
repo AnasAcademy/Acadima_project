@@ -39,7 +39,7 @@ try {
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
-        <div className=" p-lg-4 mt-5 mt-lg-0 pt-0">
+        <div className=" p-lg-4 mt-5 mt-lg-0 pt-lg-0">
           <div className=" row m-0  p-2 g-3">
             <div className="col-lg-12">
               <DashboardCards data={dataa} />
