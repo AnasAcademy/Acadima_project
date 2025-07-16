@@ -1029,6 +1029,14 @@
   "batch-number": "Batch number",
   "user-access": "User Access",
   "show-details": "Show Details",
-  "view-more": "View More"
+  "view-more": "View More",
+  "name-search": " Search by name ",
+  "mail-search": " Search by mail ",
+  "phone-search": " Search by phone ",
+  "code-search": " Search by user code ",
+  "study-classes": "Study Classes",
+  "next-page": "Next Page",
+  "previous-page": "Previous Page",
+  "page" : "Page"
 }
 }

@@ -30,107 +30,34 @@ export default function OngoingTrain({
         {col.value}
       </td>
     ),
-    button: (col, key) => (
-      <td
-        key={key}
-        className=" d-flex gap-3   align-items-center p-3  justify-content-center      "
-      >
-        <h4
-          className={` tit-12-400 btncolor text-center m-0 cursor-pointer rounded-4 p-2  px-5 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
-          style={{
-            backgroundColor: col.color,
-            color: col.textColor || "#fff",
-            textDecoration: col.decoration || "none",
-            width: col.width || "40%",
-          }}
-        >
-          {col.icon ? (
-            Icon ? (
-              <Icon
-                className="iconSize"
-                style={{ color: col.textColor || "#fff" }}
-              />
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
-          {col.value}
-        </h4>
-        {col.icon ? (
-          Icon2 ? (
-            <Icon2 className="iconSize2   text-white cursor-pointer" />
-          ) : (
-            ""
-          )
-        ) : (
-          ""
-        )}
-      </td>
-    ),
     buttons: (col, key) => (
       <td
         key={key}
-        className=" d-flex gap-3   align-items-center p-3  justify-content-center      "
+        className="d-flex gap-3 align-items-center px-1 py-5 justify-content-center"
       >
-        <button
-          className={` tit-12-400 btncolor text-center m-0 cursor-pointer rounded-4 p-2  px-5 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
-          style={{
-            backgroundColor: col.color1,
-            color: col.textColor || "#fff",
-            textDecoration: col.decoration || "none",
-            width: col.width || "40%",
-          }}
-          onClick={col.action1}
-        >
-          {col.icon ? (
-            Icon ? (
-              <Icon
+        {col.buttons?.map((btn, index) => (
+          <button
+            key={index}
+            className="tit-12-400 btncolor text-center m-0 cursor-pointer rounded-2 p-2 px-5 text-nowrap d-flex align-items-center gap-2 justify-content-center"
+            style={{
+              backgroundColor: btn.color || "#007bff",
+              color: btn.textColor || "#fff",
+              textDecoration: btn.decoration || "none",
+              width: btn.width || "40%",
+            }}
+            onClick={btn.action}
+          >
+            {btn.icon && (
+              <span
                 className="iconSize"
-                style={{ color: col.textColor || "#fff" }}
-              />
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
-          {col.value1}
-        </button>
-        <button
-          className={` tit-12-400 btncolor text-center m-0 cursor-pointer rounded-4 p-2  px-5 text-nowrap d-flex align-items-center gap-2 justify-content-center`}
-          style={{
-            backgroundColor: col.color2,
-            color: col.textColor || "#fff",
-            textDecoration: col.decoration || "none",
-            width: col.width || "40%",
-          }}
-          onClick={col.action2}
-        >
-          {col.icon ? (
-            Icon ? (
-              <Icon
-                className="iconSize"
-                style={{ color: col.textColor || "#fff" }}
-              />
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
-          {col.value2}
-        </button>
-        {col.icon ? (
-          Icon2 ? (
-            <Icon2 className="iconSize2   text-white cursor-pointer" />
-          ) : (
-            ""
-          )
-        ) : (
-          ""
-        )}
+                style={{ color: btn.textColor || "#fff" }}
+              >
+                {btn.icon}
+              </span>
+            )}
+            {btn.label}
+          </button>
+        ))}
       </td>
     ),
     progress: (col, key) => (
@@ -154,7 +81,7 @@ export default function OngoingTrain({
     ),
     user: (col, key) => (
       <td key={key} className="" style={{ maxWidth: "150px" }}>
-        <div className="d-flex align-items-center gap-2">
+        <div className="d-flex align-items-center justify-content-center gap-2">
           {isUserImg && (
             <Image
               src={col.img}
@@ -166,21 +93,27 @@ export default function OngoingTrain({
           )}
 
           <div className="d-flex flex-column justify-content-start align-items-center">
-            <div className="fw-semibold">{col.name}</div>
-            <div className="text-muted small">{col.phone}</div>
-            <div className="text-muted small">{col.email}</div>
+            <h4 className="fw-semibold m-0">{col.name}</h4>
+            <h4 className="fw-semibold m-0">{col.id}</h4>
+            <h4 className="text-muted small m-0">{col.phone}</h4>
+            <h4 className="text-muted small m-0">{col.email}</h4>
           </div>
         </div>
       </td>
     ),
-    radio: (col, key) => (
+    toggleAccess: (col, key) => (
       <td key={key}>
-        <input
-          type="radio"
-          name="selectOption"
-          value={col.value}
-          onChange={() => console.log("Selected:", key)}
-        />
+        <div className="d-flex justify-content-center align-items-center">
+          <label className="form-check form-switch d-flex align-items-center gap-2">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              checked={col.value === 1}
+              onChange={() => col.onToggle?.(col.id, col.value)}
+            />
+          </label>
+          <span>Access</span>
+        </div>
       </td>
     ),
   };
