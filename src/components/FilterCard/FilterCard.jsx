@@ -10,7 +10,7 @@
     const t = useTranslations("employee_progress");
     return (
       <>
-        <h2 className=" hvvv p-4"> {t("page_title")}</h2>
+        <h2 className=" hvvv p-4 pt-0"> {t("page_title")}</h2>
         <div className="cardbg  px-3 py-2 d-flex flex-row justify-content-between align-items-center rounded-4  min-adash-ht">
           <div className="  row d-flex justify-content-between  w-100  m-lg-5">
             <div className=" col-6 ">

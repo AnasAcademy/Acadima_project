@@ -1541,11 +1541,18 @@ table tbody td:first-child {
 .container {
   max-width: 95% !important;
 }
-
+@media screen and (max-width: 1200px) {
+  table {
+  min-width: 150%
+}
+ }
 @media screen and (max-width: 991px) {
   .container {
     max-width: 97% !important;
   }
+  table {
+  min-width: 180%
+}
 }
 
 .ai-arrow {
@@ -1822,3 +1829,4 @@ margin-right: 1rem;
 
 
 }
+

@@ -27,7 +27,8 @@ export default function StudentPerTable() {
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -35,8 +36,8 @@ export default function StudentPerTable() {
       setDataa(result.sales.data || []);
       setFilter(result.sales.data || []);
       setStudyClasses(result.studyClasses || []);
-      setCurrentPage(result.sales?.current_page || 1); 
-      setTotalPages(result.sales?.last_page || 1); 
+      setCurrentPage(result.sales?.current_page || 1);
+      setTotalPages(result.sales?.last_page || 1);
     } catch (err) {
       console.error("Failed to fetch permissions:", err);
     } finally {
@@ -55,7 +56,7 @@ export default function StudentPerTable() {
         }
       });
 
-      query.append("page", pageNumber); 
+      query.append("page", pageNumber);
 
       const res = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/permission/user_access?${query.toString()}`,
@@ -64,16 +65,17 @@ export default function StudentPerTable() {
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
 
       const result = await res.json();
       setFilter(result.sales.data || []);
-      setCurrentPage(result.sales?.current_page || 1); 
-      setTotalPages(result.sales?.last_page || 1); 
-      setActiveFilters(searchFilters); 
+      setCurrentPage(result.sales?.current_page || 1);
+      setTotalPages(result.sales?.last_page || 1);
+      setActiveFilters(searchFilters);
     } catch (err) {
       console.error("Failed to search:", err);
     } finally {
@@ -85,7 +87,7 @@ export default function StudentPerTable() {
     if (activeFilters) {
       handleSearch(activeFilters, page);
     } else {
-      fetchData(page); 
+      fetchData(page);
     }
   }, [page]);
 
@@ -173,6 +175,41 @@ export default function StudentPerTable() {
     ],
   };
 
+  const DownloadExcel = async () => {
+    try {
+      const response = await fetch(
+        "https://api.lxera.net/api/development/organization/vodafone/permission/export",
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to download file");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "report.xlsx";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+      alert("Download succeded");
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert("Download failed. Please try again.");
+    }
+  };
+
   return (
     <div className="row g-3">
       <div className="col-12">
@@ -190,6 +227,13 @@ export default function StudentPerTable() {
 
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+          <button
+            className="btn custfontbtn rounded-4 mb-3"
+            onClick={DownloadExcel}
+          >
+            Excel
+          </button>
+
           {loading ? (
             <div className="text-center py-4">جاري التحميل...</div>
           ) : (

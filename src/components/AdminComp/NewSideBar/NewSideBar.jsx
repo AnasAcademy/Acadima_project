@@ -591,8 +591,8 @@ export default function NewSideBar() {
             </Link>
           </div>
 
-          <div className=" d-flex  mt-md-4      newbg  pt-4 ">
-            <nav className="navbar navbar-light navbar-expand-lg  p-0          ">
+          <div className=" d-flex  mt-md-4      newbg  pt-4   ">
+            <nav className="navbar navbar-light navbar-expand-lg  p-0       ">
               <div className=" d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column h-100  align-items-start p-0   ">
                 <button
                   className="navbar-toggler"
