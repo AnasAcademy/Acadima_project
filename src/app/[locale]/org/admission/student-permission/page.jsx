@@ -33,11 +33,10 @@ export default async function StudentPermissions() {
           <div className=" row m-0  p-2 g-3">
             <h2 className="hvvv">{ts("student-permission")}</h2>
             <div className=" col-lg-12 ">
-              {Array.isArray(dataa) && dataa.length > 0 ? (
-                <StudentPerTable dataa={dataa} />
-              ) : (
-                <div className="text-muted">{t("no-data")}</div> // or just "No data available"
-              )}
+           
+                <StudentPerTable />
+        
+             
             </div>
           </div>
         </div>
