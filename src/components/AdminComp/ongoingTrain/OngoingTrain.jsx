@@ -80,7 +80,7 @@ export default function OngoingTrain({
       </td>
     ),
     user: (col, key) => (
-      <td key={key} className="" style={{ maxWidth: "150px" }}>
+      <td key={key} className="col-2" style={{ maxWidth: "150px" }}>
         <div className="d-flex align-items-center justify-content-center gap-2">
           {isUserImg && (
             <Image
@@ -93,10 +93,10 @@ export default function OngoingTrain({
           )}
 
           <div className="d-flex flex-column justify-content-start align-items-center">
-            <h4 className="fw-semibold m-0">{col.name}</h4>
-            <h4 className="fw-semibold m-0">{col.id}</h4>
-            <h4 className="text-muted small m-0">{col.phone}</h4>
-            <h4 className="text-muted small m-0">{col.email}</h4>
+            <h4 className="fw-semibold m-0 text-center">{col.name}</h4>
+            <h4 className="fw-semibold m-0 text-center">{col.id}</h4>
+            <h4 className="text-muted small m-0 text-center">{col.phone}</h4>
+            <h4 className="text-muted small m-0 text-center">{col.email}</h4>
           </div>
         </div>
       </td>

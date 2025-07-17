@@ -51,7 +51,7 @@ export default async function TechSupport() {
   return (
     <div className="m-0 container-fluid p-0 d-flex flex-column">
       <div className="p-4">
-        <h2 className="hvvv py-3">{t("tech-support")}</h2>
+        <h2 className="hvvv pb-3">{t("tech-support")}</h2>
 
         <div className="row g-3">
           <div className="col-xl-8 col-12">
