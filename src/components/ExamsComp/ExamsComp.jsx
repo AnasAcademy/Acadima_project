@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 
 
-      const t = useTranslations();
+      const t = useTranslations("Quizzes");
       const info = t.raw("lessons");
 
 
@@ -26,7 +26,7 @@ import Link from 'next/link';
                 className=" btn    custfontbtn btncolor white-c   d-flex justify-content-center"
                 type="button"
               >
-                start exam{" "}
+                {t("start-exam")}{" "}
               </button>
               </Link>
             </div>

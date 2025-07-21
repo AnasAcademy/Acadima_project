@@ -819,7 +819,8 @@
     "tries": "Number of trials",
     "failed-desc": "Unfortunately, you did not pass the test.",
     "passed-desc": "You have successfully passed the test.",
-    "try-again": "Try again"
+    "try-again": "Try again",
+    "start-exam": "Start Quiz"
   },
 
 "assignments": {

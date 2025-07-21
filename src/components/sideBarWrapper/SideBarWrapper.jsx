@@ -21,6 +21,8 @@ export default function SideBarWrapper() {
     "/login",
     "/register",
     "/forget-password",
+    "/ar/bundles/4/course/learning/4",
+    "/en/bundles/4/course/learning/4",
   ];
 
   const shouldShowSidebaruser = SidebarRoutes.some((route) =>

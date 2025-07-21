@@ -790,8 +790,9 @@ table tbody td:first-child {
 .message {
   border: 1px white solid;
   border-radius: 10px 10px 10px 0px;
-  color: var(--icon-color);
+  color: #000;
   box-shadow: 0px 3.5px 5.5px 0px rgba(0, 0, 0, 0.02);
+  background: #fff;
 }
 
 [dir="rtl"] .message {
@@ -1404,9 +1405,9 @@ table tbody td:first-child {
 /* cards heights */
 
 .tableCardco {
-  background-color: #1de1b8;
-
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.05) !important;
+  background-color: #fff;
+  border:2px solid var(--btn-color);
+  box-shadow: 0 5px 10px 0 rgba(29, 26, 213, 0.05) !important;
 }
 
 .form-select {
@@ -1726,7 +1727,7 @@ select.no-native-arrow {
   top: 50%;
   transform: translateY(-50%);
   background-color: #000;
-  color: white;
+  color: white !important;
   padding: 6px 12px;
   font-size: small;
   border-radius: 6px;

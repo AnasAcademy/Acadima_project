@@ -85,7 +85,7 @@ export default function NotifCard() {
                   <div
                     key={key}
                     className={` " rounded-4 shadow-sm  w-100 d-flex flex-column    p-3 min-notfi-ht ${
-                      index === key ? " cardbg swap" : " cardbg "
+                      index === key ? " tableCardco swap" : " cardbg "
                     }    "  `}
                   >
                     <div className=" d-flex gap-1">
