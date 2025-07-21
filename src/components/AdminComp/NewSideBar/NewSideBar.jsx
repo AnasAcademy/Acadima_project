@@ -10,6 +10,7 @@ import Card from "../../../assets/admin/sidecard.svg";
 import Notif from "../../../assets/admin/Bell.svg";
 import Option from "../../../assets/admin/Settings.svg";
 import SmallLogo from "@/assets/admin/Logo.svg";
+import Regper from "@/assets/admin/regreq.svg"
 import Ai from "../../../assets/admin/ai.svg";
 import HelpIcon from "../../../assets/admin/helpIcon.svg";
 import Setting from "../../../assets/admin/Settings.svg";
@@ -20,6 +21,7 @@ import Allstudent from "@/assets/admin/allstudent.svg";
 import Quiz from "@/assets/admin/quiz.svg";
 import Studentper from "@/assets/admin/studentper.svg";
 import Electric from "@/assets/admin/elctric.svg";
+import Programs from "@/assets/admin/programs.svg"
 import Classes from "@/assets/admin/classes.svg";
 import StudentCode from "@/assets/admin/studentcode.svg";
 import Instruc from "@/assets/admin/instruc.svg";
@@ -38,7 +40,10 @@ import ObjectIcon from "@/assets/settings/OBJECTS.svg";
 import ClassesIcon from "@/assets/admin/classes.svg";
 import Profile from "@/assets/admin/profile.svg";
 import Personal from "@/assets/admin/personal.svg"
-
+import Elctronc from "@/assets/admin/Electronc.svg"
+import AddStud from "@/assets/admin/addStudent.svg"
+import Regcourse from  "@/assets/admin/regcourse.svg"
+import Balance from "@/assets/admin/balance.svg"
 import { usePathname } from "next/navigation";
 
 export default function NewSideBar() {
@@ -113,43 +118,43 @@ export default function NewSideBar() {
   const isNotfiPage = pathname.includes("/org/notifications");
   const admission = [
     {
-      icon: Dot,
+      icon: Regper,
       tit: "admission-requirements",
       href: "/org/admission/admission-requirements",
       bg: isAdmissionReq,
     },
     {
-      icon: Dot,
+      icon: Studentper,
       tit: "student-permission",
       href: "/org/admission/student-permission",
       bg: isStudentPermission,
     },
     {
-      icon: Dot,
+      icon: Elctronc,
       tit: "electronic-services",
       href: "/org/admission/electronic-services",
       bg: isElectronicServices,
     },
     {
-      icon: Dot,
+      icon: Classes,
       tit: "classes",
       href: "/org/admission/classes",
       bg: isClasses,
     },
     {
-      icon: Dot,
+      icon: StudentCode,
       tit: "student-codes",
       href: "/org/admission/students-codes",
       bg: isStudentsCodes,
     },
     {
-      icon: Dot,
+      icon: Instruc,
       tit: "instructor-codes",
       href: "/org/admission/instructor-codes",
       bg: isInstructorCodes,
     },
     {
-      icon: Dot,
+      icon: Cat,
       tit: "categories",
       href: "/org/admission/categories",
       bg: isCategories,
@@ -158,31 +163,31 @@ export default function NewSideBar() {
 
   const isRegistered = [
     {
-      icon: Dot,
+      icon: Allstudent,
       tit: "all-students",
       href: "/org/students-records/all-students",
       bg: isAllStudents,
     },
     {
-      icon: Dot,
+      icon: CreateAcc,
       tit: "create-account-form",
       href: "/org/students-records/create-account",
       bg: isCreateAccount,
     },
     {
-      icon: Dot,
+      icon:Seat,
       tit: "seat-reservation-form",
       href: "/org/students-records/seat-reservations",
       bg: isSeatReservation,
     },
     {
-      icon: Dot,
+      icon: Direct,
       tit: "direct-registration",
       href: "/org/students-records/direct-registration",
       bg: isDirectRegistration,
     },
     {
-      icon: Dot,
+      icon: Scholarship,
       tit: "scholarship-registration",
       href: "/org/students-records/scholarship-registration",
       bg: isScholarshipRegistration,
@@ -190,13 +195,13 @@ export default function NewSideBar() {
   ];
   const enrollment = [
     {
-      icon: Dot,
+      icon: History,
       tit: "enrollment-history",
       href: "/org/enrollment/history",
       bg: iSenrollmentHis,
     },
     {
-      icon: Dot,
+      icon: AddStud,
       tit: "add-student-to-class",
       href: "/org/enrollment/add-student-to-class",
       bg: iSenrollmentAddClass,
@@ -205,31 +210,31 @@ export default function NewSideBar() {
 
   const edu = [
     {
-      icon: Dot,
+      icon: Exam,
       tit: "quizzes",
       href: "/org/education/quizzes",
       bg: isQuizzes,
     },
     {
-      icon: Dot,
+      icon: Homework,
       tit: "assignments",
       href: "/org/education/assignments",
       bg: isAssignments,
     },
     {
-      icon: Dot,
+      icon: Courses,
       tit: "courses",
       href: "/org/education/assignments",
       bg: isAssignments,
     },
     {
-      icon: Dot,
+      icon: Regcourse,
       tit: "courses-registration",
       href: "/org/education/assignments",
       bg: isAssignments,
     },
     {
-      icon: Dot,
+      icon:Programs,
       tit: "bundles",
       href: "/org/education/assignments",
       bg: isAssignments,
@@ -252,7 +257,7 @@ export default function NewSideBar() {
   ];
   const finan = [
     {
-      icon: Dot,
+      icon: Balance,
       tit: "balances",
       href: "/org/financial/balances",
       bg: isBundlesStats,
@@ -338,12 +343,12 @@ export default function NewSideBar() {
             {admission.map((item, index) => {
               return (
                 <li
-                  className={`nav-item d-flex w-100  align-items-center   ${
+                  className={`nav-item d-flex w-100  align-items-center  p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }  `}
                   title={t("dashboard")}
                 >
-                  <item.icon className={`iconSize2 iconcolor `} />
+                  <item.icon className={`iconSize1 iconcolor m-1 `} />
                   <Link
                     className={` nav-link   tit-14-400 text-dark text-nowrap  `}
                     href={item.href}
@@ -371,11 +376,11 @@ export default function NewSideBar() {
             {isRegistered.map((item, index) => {
               return (
                 <li
-                  className={`nav-item d-flex     w-100  align-items-center  ${
+                  className={`nav-item d-flex     w-100  align-items-center p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
                 >
-                  <item.icon className={`iconSize2 iconcolor `} />
+                  <item.icon className={`iconSize1 iconcolor m-1 `} />
                   <Link
                     className={` nav-link  tit-14-400 text-dark text-nowrap  `}
                     href={item.href}
@@ -402,11 +407,11 @@ export default function NewSideBar() {
             {enrollment.map((item, index) => {
               return (
                 <li
-                  className={`nav-item d-flex    w-100  align-items-center   ${
+                  className={`nav-item d-flex    w-100  align-items-center p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
                 >
-                  <item.icon className={`iconSize2 iconcolor `} />
+                  <item.icon className={`iconSize1 iconcolor m-1 `} />
                   <Link
                     className={` nav-link  tit-14-400 text-dark text-nowrap  `}
                     href={item.href}
@@ -429,15 +434,15 @@ export default function NewSideBar() {
           >
             {t("education")}
           </Link>
-          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
+          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start       ">
             {edu.map((item, index) => {
               return (
                 <li
-                  className={`nav-item d-flex    w-100  align-items-center   ${
+                  className={`nav-item d-flex    w-100  align-items-center  p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
                 >
-                  <item.icon className={`iconSize2 iconcolor `} />
+                  <item.icon className={`iconSize1 iconcolor  m-1 `} />
                   <Link
                     className={` nav-link  tit-14-400 text-dark text-nowrap  `}
                     href={item.href}
@@ -454,60 +459,64 @@ export default function NewSideBar() {
 
     isprogramreg: (
       <>
-        <Link
-          className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-          aria-current="page"
-        >
-          {t("programs-statistics")}
-        </Link>
-        <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-4  pt-1    ">
-          {proreg.map((item, index) => {
-            return (
-              <li
-                className={`nav-item d-flex    w-100  align-items-center   ${
-                  item.bg ? " bg-dark-subtle rounded-3" : ""
-                }   `}
-              >
-                <item.icon className={`iconSize2 iconcolor `} />
-                <Link
-                  className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
-                  href={item.href}
+        <div className=" d-flex   flex-column h-100  newSidebarpadding ">
+          <Link
+            className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+            aria-current="page"
+          >
+            {t("programs-statistics")}
+          </Link>
+          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
+            {proreg.map((item, index) => {
+              return (
+                <li
+                  className={`nav-item d-flex    w-100  align-items-center  p-2  ${
+                    item.bg ? " bg-dark-subtle rounded-3" : ""
+                  }   `}
                 >
-                  {t(item.tit)}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                  <item.icon className={`iconSize1 iconcolor `} />
+                  <Link
+                    className={` nav-link  tit-14-400 text-dark text-nowrap  `}
+                    href={item.href}
+                  >
+                    {t(item.tit)}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </>
     ),
     isFinancial: (
       <>
-        <Link
-          className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-          aria-current="page"
-        >
-          {t("financial")}
-        </Link>
-        <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-4  pt-1    ">
-          {finan.map((item, index) => {
-            return (
-              <li
-                className={`nav-item d-flex    w-100  align-items-center   ${
-                  item.bg ? " bg-dark-subtle rounded-3" : ""
-                }   `}
-              >
-                <item.icon className={`iconSize2 iconcolor `} />
-                <Link
-                  className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
-                  href={item.href}
+        <div className=" d-flex   flex-column h-100  newSidebarpadding ">
+          <Link
+            className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+            aria-current="page"
+          >
+            {t("financial")}
+          </Link>
+          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
+            {finan.map((item, index) => {
+              return (
+                <li
+                  className={`nav-item d-flex    w-100  align-items-center  p-2 ${
+                    item.bg ? " bg-dark-subtle rounded-3" : ""
+                  }   `}
                 >
-                  {t(item.tit)}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                  <item.icon className={`iconSize1 iconcolor `} />
+                  <Link
+                    className={` nav-link  tit-14-400 text-dark text-nowrap  `}
+                    href={item.href}
+                  >
+                    {t(item.tit)}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </>
     ),
     users: (
@@ -587,12 +596,12 @@ export default function NewSideBar() {
               role="button"
               href="/"
             >
-              <Image src={logo} alt="ai" width={120} height={28} priority />
+              <Image src={logo} alt="ai" width={120} height={33} priority />
             </Link>
           </div>
 
-          <div className=" d-flex  mt-md-4      newbg  pt-4   ">
-            <nav className="navbar navbar-light navbar-expand-lg  p-0       ">
+          <div className=" d-flex       newbg  pt-4  mt-3  ">
+            <nav className="navbar navbar-light navbar-expand-lg  p-0  ">
               <div className=" d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column h-100  align-items-start p-0   ">
                 <button
                   className="navbar-toggler"
@@ -825,7 +834,7 @@ export default function NewSideBar() {
                         {t("education")}
                       </span>
                     </li>
-                    {/* <li
+                    <li
                       className={`nav-item d-flex  p-2     align-items-center  besideHover ${
                         isOrgprofile && "onSelect"
                       } `}
@@ -843,40 +852,47 @@ export default function NewSideBar() {
                       <span className=" tooltipText text-white">
                         {t("programs-statistics")}
                       </span>
-                    </li> */}
+                    </li>
                   </ul>
-
-                  {/* <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center     `}
+                  <ul
+                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPart    `}
+                  >
+                    <div className="d-flex align-items-center justify-content-center">
+                      <h6 className=" text-center text-nowrap tit-10-400 ">
+                        التقارير والمالية
+                      </h6>
+                    </div>
+                    <li
+                      className={`nav-item d-flex  p-2     align-items-center     `}
                       onClick={() => {
                         setactvv("isFinancial");
                       }}
                     >
                       <Link href="/org/financial/balances">
                         <AdmissionIcon
-                          className={`iconSize2    ${
+                          className={`iconSize1    ${
                             isAdminssion ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                       </Link>
-                    </li> */}
+                    </li>
 
-                  {/* <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center     `}
+                    <li
+                      className={`nav-item d-flex  p-2    align-items-center     `}
                       onClick={() => {
                         setactvv("users");
                       }}
                     >
                       <Link href="/org/financial/balances">
                         <AdmissionIcon
-                          className={`iconSize2    ${
+                          className={`iconSize1    ${
                             isAdminssion ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                       </Link>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                      className={`nav-item d-flex  p-2    align-items-center   `}
                     >
                       <Link
                         href="/org/orgprofile"
@@ -885,46 +901,47 @@ export default function NewSideBar() {
                         }}
                       >
                         <Profile
-                          className={`iconSize2     ${
+                          className={`iconSize1     ${
                             isOrgprofile ? "iconcolor" : "iconcolor2"
                           } `}
                         />
                       </Link>
-                    </li> */}
-
-                  {/* <li
-                      className={`nav-item d-flex   p-2  w-100  align-items-center     `}
-                    >
-                      <Link
-                        href="/org/ai-assistant"
-                        onClick={() => {
-                          setactvv("");
-                        }}
-                      >
-                        <Ai
-                          className={`iconSize2   ${
-                            isAiAssistant ? "iconcolor" : "iconcolor2"
-                          } `}
-                        />
-                      </Link>
                     </li>
-
-                    <li
-                      className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                  </ul>
+                  {/* 
+                  <li
+                    className={`nav-item d-flex   p-2  w-100  align-items-center     `}
+                  >
+                    <Link
+                      href="/org/ai-assistant"
+                      onClick={() => {
+                        setactvv("");
+                      }}
                     >
-                      <Link
-                        href="/org/settings"
-                        onClick={() => {
-                          setactvv("");
-                        }}
-                      >
-                        <Setting
-                          className={`iconSize2    ${
-                            isSettings ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                      </Link>
-                    </li> */}
+                      <Ai
+                        className={`iconSize2   ${
+                          isAiAssistant ? "iconcolor" : "iconcolor2"
+                        } `}
+                      />
+                    </Link>
+                  </li> */}
+                  {/* 
+                  <li
+                    className={`nav-item d-flex  p-2   w-100  align-items-center   `}
+                  >
+                    <Link
+                      href="/org/settings"
+                      onClick={() => {
+                        setactvv("");
+                      }}
+                    >
+                      <Setting
+                        className={`iconSize2    ${
+                          isSettings ? "iconcolor" : "iconcolor2"
+                        }  `}
+                      />
+                    </Link>
+                  </li> */}
                 </div>
               </div>
             </nav>
