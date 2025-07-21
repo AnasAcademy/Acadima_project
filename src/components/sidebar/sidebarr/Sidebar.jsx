@@ -147,7 +147,7 @@ export default function Sidebar() {
                       isAssignmentsPage ? "iconcolor2" : "iconcolor"
                     }`}
                   />
-                  <Link className="nav-link Tit-14-700" href="/quizzes">
+                  <Link className="nav-link Tit-14-700" href="/assignments">
                     {t("assignments")}
                   </Link>
                 </li>

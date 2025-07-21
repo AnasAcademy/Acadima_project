@@ -8,7 +8,7 @@
     import Marksuc from "@/assets/lessons/Group 217.svg";
  import Submit from "@/assets/lessons/Group 215.svg";
 import Miss from "@/assets/lessons/Group 218.svg"
-import Deadline from "@/assets/lessons/Clip path group.svg"
+import Deadline from "@/assets/quizzes/quiz-failed.svg"
 
 
  export default function Homework() {

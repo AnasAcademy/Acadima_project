@@ -44,6 +44,10 @@ import Elctronc from "@/assets/admin/Electronc.svg"
 import AddStud from "@/assets/admin/addStudent.svg"
 import Regcourse from  "@/assets/admin/regcourse.svg"
 import Balance from "@/assets/admin/balance.svg"
+import Personal from "@/assets/admin/personal.svg";
+
+import toggle from "@/assets/admin/sidebar-toggle.png";
+
 import { usePathname } from "next/navigation";
 
 export default function NewSideBar() {
@@ -116,6 +120,9 @@ export default function NewSideBar() {
     "/org/subscription-management"
   );
   const isNotfiPage = pathname.includes("/org/notifications");
+
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   const admission = [
     {
       icon: Regper,
@@ -550,40 +557,21 @@ export default function NewSideBar() {
     ),
   };
 
-  
-
-
-
-
-
   function setactvv(loc) {
+    setSidebarOpen(true);
+    if (loc !== "") {
+      if (actv === true) {
+        setTit(loc);
 
-
-      if(loc !== ""){
-
-          if (actv === true) {
-            setTit(loc);
-          }
-          else{
-
-      setActv(!actv);
-
-      setTit(loc);
-          }
-  
-
-      }else {
-       
-        if( actv === true){
-
-              setActv(!actv);
-        }
-       
-
+      } else {
+        setActv(!actv);
+        setTit(loc);
       }
-
-
-  
+    } else {
+      if (actv === true) {
+        setActv(!actv);
+      }
+    }
   }
 
   return (
@@ -599,9 +587,18 @@ export default function NewSideBar() {
               <Image src={logo} alt="ai" width={120} height={33} priority />
             </Link>
           </div>
+          <Image
+            src={toggle}
+            alt="toggle"
+            width={20}
+            height={20}
+            className="position-absolute"
+            style={{ top: "12%", right: "0.5%", zIndex: "100" }}
+            onClick={() => setSidebarOpen((prev) => !prev)}
+          />
 
-          <div className=" d-flex       newbg  pt-4  mt-3  ">
-            <nav className="navbar navbar-light navbar-expand-lg  p-0  ">
+          <div className=" d-flex  mt-md-4      newbg  pt-4  position-relative">
+            <nav className="navbar navbar-light navbar-expand-lg  p-0       ">
               <div className=" d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column h-100  align-items-start p-0   ">
                 <button
                   className="navbar-toggler"
@@ -655,7 +652,13 @@ export default function NewSideBar() {
                           } `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
                         {t("dashboard")}
                       </span>
                     </li>
@@ -677,7 +680,13 @@ export default function NewSideBar() {
                           } `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
                         {t("Employee progress")}
                       </span>
                     </li>
@@ -701,7 +710,13 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
                         {t("Subscription Management")}
                       </span>
                     </li>
@@ -722,7 +737,13 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
                         {t("Notifications")}
                       </span>
                     </li>
@@ -743,7 +764,13 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
                         {t("Technical Support")}
                       </span>
                     </li>
@@ -771,8 +798,14 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
-                        {t("admission-requirements")}
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
+                        {t("admission")}
                       </span>
                     </li>
                     <li
@@ -790,7 +823,13 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
                         {t("registrations")}
                       </span>
                     </li>
@@ -809,7 +848,13 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
                         {t("enrollment")}
                       </span>
                     </li>
@@ -830,7 +875,13 @@ export default function NewSideBar() {
                         />
                       </Link>
 
-                      <span className=" tooltipText text-white">
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
                         {t("education")}
                       </span>
                     </li>
@@ -849,7 +900,9 @@ export default function NewSideBar() {
                           }  `}
                         />
                       </Link>
-                      <span className=" tooltipText text-white">
+                      <span
+  className={`text-nowrap ${sidebarOpen ? "tooltipText text-body-secondary" : "w-100 text-center"}`}
+>
                         {t("programs-statistics")}
                       </span>
                     </li>
