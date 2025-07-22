@@ -8,21 +8,12 @@ import Home from "../../../assets/admin/Homdoor.svg";
 import Stat from "../../../assets/admin/Reports.svg";
 import Card from "../../../assets/admin/sidecard.svg";
 import Notif from "../../../assets/admin/Bell.svg";
-import Option from "../../../assets/admin/Settings.svg";
-import SmallLogo from "@/assets/admin/Logo.svg";
 import Regper from "@/assets/admin/regreq.svg"
-import Ai from "../../../assets/admin/ai.svg";
-import HelpIcon from "../../../assets/admin/helpIcon.svg";
-import Setting from "../../../assets/admin/Settings.svg";
-import bk from "../../../assets/admin/Background.png";
-import pwr from "@/assets/Sidebar icons/powered.png";
-import Employpro from "@/assets/admin/employpro.svg";
 import Allstudent from "@/assets/admin/allstudent.svg";
 import Quiz from "@/assets/admin/quiz.svg";
 import Studentper from "@/assets/admin/studentper.svg";
-import Electric from "@/assets/admin/elctric.svg";
 import Programs from "@/assets/admin/programs.svg"
-import Classes from "@/assets/admin/classes.svg";
+import Classess from "@/assets/admin/classess.svg";
 import StudentCode from "@/assets/admin/studentcode.svg";
 import Instruc from "@/assets/admin/instruc.svg";
 import Cat from "@/assets/admin/category.svg";
@@ -34,46 +25,64 @@ import History from "@/assets/admin/history.svg";
 import Exam from "@/assets/admin/exam.svg";
 import Homework from "@/assets/admin/homework.svg";
 import Courses from "@/assets/admin/courses.svg";
-import Dot from "@/assets/admin/dot.svg";
 import AdmissionIcon from "@/assets/admin/admission.svg";
-import ObjectIcon from "@/assets/settings/OBJECTS.svg";
 import ClassesIcon from "@/assets/admin/classes.svg";
-import Profile from "@/assets/admin/profile.svg";
-import Personal from "@/assets/admin/personal.svg"
+import User1 from "@/assets/admin/user1.svg"
 import Elctronc from "@/assets/admin/Electronc.svg"
 import AddStud from "@/assets/admin/addStudent.svg"
 import Regcourse from  "@/assets/admin/regcourse.svg"
 import Balance from "@/assets/admin/balance.svg"
-import Personal from "@/assets/admin/personal.svg";
-
+import User2 from "@/assets/admin/user2.svg"
 import toggle from "@/assets/admin/sidebar-toggle.png";
-
+import User3 from "@/assets/admin/user3.svg"
+import User4 from "@/assets/admin/user4.svg"
+import User5 from "@/assets/admin/user5.svg"
+import User6 from "@/assets/admin/user6.svg"
+import User7 from "@/assets/admin/user7.svg"
+import User8 from "@/assets/admin/user8.svg";
+import User9 from "@/assets/admin/user9.svg";
+import User10 from "@/assets/admin/user10.svg"
+import User11 from "@/assets/admin/user11.svg";
+import User12 from "@/assets/admin/user12.svg";
+import Accmanage from "@/assets/admin/accmange.svg"
+import Acc1 from "@/assets/admin/accmange1.svg"
+import Acc2 from "@/assets/admin/accmange2.svg";
+import Acc3 from "@/assets/admin/accmange3.svg";
+import Userss from "@/assets/admin/userss.svg"
+import Statics from "@/assets/admin/stattics.svg";
+import Submange from "@/assets/admin/submange.svg";
+import Frame15 from "@/assets/admin/Frame15.svg"
+import Supports from "@/assets/admin/supports.svg"
 import { usePathname } from "next/navigation";
+import AIChat from "@/components/AIChat/AIChat";
+import Animate from "@/assets/admin/animate.gif"
+
 
 export default function NewSideBar() {
   const [actv, setActv] = useState(false);
-
+  const [message, setMessage] = useState(false);
   const t = useTranslations("SidebarA");
   const pathname = usePathname();
   const isPanel = pathname.includes("/org/panel");
   const isEmployeeprogress = pathname.includes("/org/employeeprogress");
   const isTechSupport = pathname.includes("/org/techsupport");
-  const isOrgprofile = pathname.includes(
-    "r/org/education/programs-statistics/"
-  );
+  const isOrgprofile = pathname.includes("/org/orgprofile");
   const isAiAssistant = pathname.includes("/org/ai-assistant");
   const isSettings = pathname.includes("/org/settings");
   const isAdminssion = pathname.includes("/org/admission/");
   const iSenrollment = pathname.includes("/org/enrollment/");
+  const isprostatic = pathname.includes("/org/education/programs-statistics");
   const isBundlesStats = pathname.includes(
     "/org/education/programs-statistics/bundles"
   );
+  const isFin = pathname.includes("/org/financial/");
   const isWebinarsStats = pathname.includes(
     "/org/education/programs-statistics/webinars"
   );
-  const education = pathname.includes("/org/education/");
-  const isQuizzes = pathname.includes("/org/education/quizzes");
-  const isAssignments = pathname.includes("/org/education/assignments");
+const isQuizzes = pathname.includes("/org/education/quizzes");
+const isAssignments = pathname.includes("/org/education/assignments");
+const education = isQuizzes || isAssignments;
+ 
   const isCourses = pathname.includes("/org/education/courses");
   const isCoursesRegistration = pathname.includes(
     "/org/education/course-registration"
@@ -83,7 +92,6 @@ export default function NewSideBar() {
   const iSenrollmentAddClass = pathname.includes(
     "/org/enrollment/add-student-to-class"
   );
-
   const isAdmissionReq = pathname.includes(
     "/org/admission/admission-requirements"
   );
@@ -119,9 +127,40 @@ export default function NewSideBar() {
   const isSubscriptionmanagement = pathname.includes(
     "/org/subscription-management"
   );
+  const isUsers = pathname.includes("/org/user-management");
+    const isUsersStaff = pathname.includes(
+      "/org/user-management/users/staff"
+    );
+  const isUsersStudent = pathname.includes("/org/user-management/users/students");
+  const isUsersNewacc = pathname.includes("/org/user-management/users/new-user");
+  const isUsersRoles = pathname.includes("/org/user-management/users/roles");
+  const isUsersgroups = pathname.includes("/org/user-management/users/groups");
+  const isUsersaccs = pathname.includes("/org/user-management/users/not-access-to-content");
   const isNotfiPage = pathname.includes("/org/notifications");
-
+  const isAccMange = isOrgprofile || isAiAssistant || isSettings;
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [AiChatOpen, setAiChatOpen] = useState(false);
+
+  const accmange = [
+    {
+      icon: Acc1,
+      tit: "Organization Profile",
+      href: "/org/orgprofile",
+      bg: isOrgprofile,
+    },
+    {
+      icon: Acc2,
+      tit: "AI Assistant",
+      href: "/org/ai-assistant",
+      bg: isAiAssistant,
+    },
+    {
+      icon: Acc3,
+      tit: "Settings",
+      href: "/org/settings",
+      bg: isSettings,
+    },
+  ];
 
   const admission = [
     {
@@ -143,7 +182,7 @@ export default function NewSideBar() {
       bg: isElectronicServices,
     },
     {
-      icon: Classes,
+      icon: Classess,
       tit: "classes",
       href: "/org/admission/classes",
       bg: isClasses,
@@ -182,7 +221,7 @@ export default function NewSideBar() {
       bg: isCreateAccount,
     },
     {
-      icon:Seat,
+      icon: Seat,
       tit: "seat-reservation-form",
       href: "/org/students-records/seat-reservations",
       bg: isSeatReservation,
@@ -241,7 +280,7 @@ export default function NewSideBar() {
       bg: isAssignments,
     },
     {
-      icon:Programs,
+      icon: Programs,
       tit: "bundles",
       href: "/org/education/assignments",
       bg: isAssignments,
@@ -250,13 +289,13 @@ export default function NewSideBar() {
 
   const proreg = [
     {
-      icon: Dot,
+      icon: User7,
       tit: "bundles",
       href: "/org/education/programs-statistics/bundlesStats",
       bg: isBundlesStats,
     },
     {
-      icon: Dot,
+      icon: User8,
       tit: "webinars",
       href: "/org/education/programs-statistics/webinars",
       bg: isWebinarsStats,
@@ -270,25 +309,25 @@ export default function NewSideBar() {
       bg: isBundlesStats,
     },
     {
-      icon: Dot,
+      icon: User9,
       tit: "sales-list",
       href: "/org/financial/sales-list",
       bg: isWebinarsStats,
     },
     {
-      icon: Dot,
+      icon: User10,
       tit: "offline-payments",
       href: "/org/financial/sales-list",
       bg: isWebinarsStats,
     },
     {
-      icon: Dot,
+      icon: User11,
       tit: "installments",
       href: "/org/financial/sales-list",
       bg: isWebinarsStats,
     },
     {
-      icon: Dot,
+      icon: User12,
       tit: "discount-codes",
       href: "/org/financial/sales-list",
       bg: isWebinarsStats,
@@ -297,40 +336,40 @@ export default function NewSideBar() {
 
   const users = [
     {
-      icon: Dot,
+      icon: User1,
       tit: "staff",
-      href: "/org/financial/balances",
-      bg: isBundlesStats,
+      href: "/org/user-management/users/staff",
+      bg: isUsersStaff,
     },
     {
-      icon: Dot,
+      icon: User2,
       tit: "students",
-      href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      href: "/org/user-management/users/students",
+      bg: isUsersStudent,
     },
     {
-      icon: Dot,
+      icon: User3,
       tit: "new-user",
-      href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      href: "/org/user-management/users/new-user",
+      bg: isUsersNewacc,
     },
     {
-      icon: Dot,
+      icon: User4,
       tit: "roles",
-      href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      href: "/org/user-management/roles",
+      bg: isUsersRoles,
     },
     {
-      icon: Dot,
+      icon: User5,
       tit: "groups",
-      href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      href: "/org/user-management/groups",
+      bg: isUsersgroups,
     },
     {
-      icon: Dot,
+      icon: User6,
       tit: "not-access-to-content",
-      href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      href: "/org/user-management/not-access-to-content",
+      bg: isUsersaccs,
     },
   ];
 
@@ -398,12 +437,7 @@ export default function NewSideBar() {
               );
             })}
           </ul>
-        </div>
-      </>
-    ),
-    isenrollment: (
-      <>
-        <div className=" d-flex   flex-column h-100  newSidebarpadding ">
+
           <Link
             className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
             aria-current="page"
@@ -432,6 +466,7 @@ export default function NewSideBar() {
         </div>
       </>
     ),
+
     isEdu: (
       <>
         <div className=" d-flex   flex-column h-100  newSidebarpadding ">
@@ -478,7 +513,7 @@ export default function NewSideBar() {
               return (
                 <li
                   className={`nav-item d-flex    w-100  align-items-center  p-2  ${
-                    item.bg ? " bg-dark-subtle rounded-3" : ""
+                    item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
                 >
                   <item.icon className={`iconSize1 iconcolor `} />
@@ -509,7 +544,7 @@ export default function NewSideBar() {
               return (
                 <li
                   className={`nav-item d-flex    w-100  align-items-center  p-2 ${
-                    item.bg ? " bg-dark-subtle rounded-3" : ""
+                    item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
                 >
                   <item.icon className={`iconSize1 iconcolor `} />
@@ -528,31 +563,65 @@ export default function NewSideBar() {
     ),
     users: (
       <>
-        <Link
-          className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
-          aria-current="page"
-        >
-          {t("users")}
-        </Link>
-        <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   p-4  pt-1    ">
-          {users.map((item, index) => {
-            return (
-              <li
-                className={`nav-item d-flex    w-100  align-items-center   ${
-                  item.bg ? " bg-dark-subtle rounded-3" : ""
-                }   `}
-              >
-                <item.icon className={`iconSize2 iconcolor `} />
-                <Link
-                  className={` nav-link  Tit-14-700 text-dark text-nowrap  `}
-                  href={item.href}
+        <div className=" d-flex   flex-column h-100  newSidebarpadding ">
+          <Link
+            className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+            aria-current="page"
+          >
+            {t("users")}
+          </Link>
+          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
+            {users.map((item, index) => {
+              return (
+                <li
+                  className={`nav-item d-flex    w-100  align-items-center  p-2 ${
+                    item.bg ? "bgNewSidebar rounded-3" : ""
+                  }   `}
                 >
-                  {t(item.tit)}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                  <item.icon className={`iconSize1 iconcolor `} />
+                  <Link
+                    className={` nav-link  tit-14-400 text-dark text-nowrap  `}
+                    href={item.href}
+                  >
+                    {t(item.tit)}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </>
+    ),
+
+    accmange: (
+      <>
+        <div className=" d-flex   flex-column h-100  newSidebarpadding ">
+          <Link
+            className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+            aria-current="page"
+          >
+            اداراة الحساب
+          </Link>
+          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
+            {accmange.map((item, index) => {
+              return (
+                <li
+                  className={`nav-item d-flex    w-100  align-items-center  p-2 ${
+                    item.bg ? " bgNewSidebar rounded-3" : ""
+                  }   `}
+                >
+                  <item.icon className={`iconSize1 iconcolor `} />
+                  <Link
+                    className={` nav-link  tit-14-400 text-dark text-nowrap  `}
+                    href={item.href}
+                  >
+                    {t(item.tit)}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </>
     ),
   };
@@ -562,7 +631,6 @@ export default function NewSideBar() {
     if (loc !== "") {
       if (actv === true) {
         setTit(loc);
-
       } else {
         setActv(!actv);
         setTit(loc);
@@ -577,8 +645,8 @@ export default function NewSideBar() {
   return (
     <>
       <div className=" d-flex flex-column  ">
-        <div className="     d-flex flex-column  pt-4  bg-white  newSiebarMargin ">
-          <div className=" pe-3  ps-3  ">
+        <div className="     d-flex flex-column       newSiebarMargin  ">
+          {/* <div className=" pe-3  ps-3  ">
             <Link
               className="text-white text-decoration-none  m-lg-auto  d-flex  "
               role="button"
@@ -586,7 +654,7 @@ export default function NewSideBar() {
             >
               <Image src={logo} alt="ai" width={120} height={33} priority />
             </Link>
-          </div>
+          </div> */}
           <Image
             src={toggle}
             alt="toggle"
@@ -596,8 +664,61 @@ export default function NewSideBar() {
             style={{ top: "12%", right: "0.5%", zIndex: "100" }}
             onClick={() => setSidebarOpen((prev) => !prev)}
           />
+          <div
+            className="position-fixed"
+            style={{
+              top: message ? "33%" : "46%",
+              left: "2%",
+              zIndex: 100,
+            }}
+          >
+            {AiChatOpen ? (
+              <div
+                className=" bg-white"
+                style={{
+                  borderRadius: "5%",
+                  cursor: "pointer",
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+                }}
+              >
+                <div className=" d-flex justify-content-between align-items-center p-4">
+                  {" "}
+                  <Acc2 width={40} height={40} /> <h3>AI Chat Boat</h3>
+                </div>
 
-          <div className=" d-flex  mt-md-4      newbg  pt-4  position-relative">
+                <div className=" d-flex justify-content-center flex-column align-items-center ">
+                  {message && (
+                    <div className=" d-flex justify-content-center flex-column align-items-center ">
+                      <Image
+                        src={Animate}
+                        alt="Loading animation"
+                        width={94}
+                        height={94}
+                      />
+                      <h4>كيف يمكنني مساعدتك اليوم ..؟</h4>
+                    </div>
+                  )}
+                </div>
+
+                <AIChat
+                  minHeight="260px"
+                  maxHeight="230px"
+                  setMessage={setMessage}
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div
+            className="position-fixed m-1"
+            style={{ top: "92%", left: "1.5%", zIndex: "100" }}
+            onClick={() => setAiChatOpen((prev) => !prev)}
+          >
+            <Frame15 width={70} height={70} />
+          </div>
+          <div className=" d-flex  mt-md-4      newbg    position-relative">
             <nav className="navbar navbar-light navbar-expand-lg  p-0       ">
               <div className=" d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column h-100  align-items-start p-0   ">
                 <button
@@ -628,7 +749,7 @@ export default function NewSideBar() {
                   className="collapse navbar-collapse       d-flex flex-column   "
                   id="navbarSupportedContent"
                 >
-                  <ul className="navbar-nav   d-lg-flex w-100 flex-lg-column    p-3    bg-white    newSidebar  ">
+                  <ul className="navbar-nav   d-lg-flex w-100 flex-lg-column    p-3    bg-white    newSidebar     ">
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400">
                         لوحة الإدارة
@@ -692,35 +813,6 @@ export default function NewSideBar() {
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2    align-items-center  besideHover  ${
-                        isSubscriptionmanagement && "onSelect"
-                      }  `}
-                    >
-                      <Link
-                        href="/org/subscription-management"
-                        onClick={() => {
-                          setactvv("");
-                        }}
-                      >
-                        <Card
-                          className={`iconSize1    ${
-                            isSubscriptionmanagement
-                              ? "iconcolor"
-                              : "iconcolor2"
-                          }  `}
-                        />
-                      </Link>
-                      <span
-                        className={`text-nowrap ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
-                        }`}
-                      >
-                        {t("Subscription Management")}
-                      </span>
-                    </li>
-                    <li
                       className={`nav-item d-flex  p-2    align-items-center    besideHover  ${
                         isNotfiPage && "onSelect"
                       }   `}
@@ -758,7 +850,7 @@ export default function NewSideBar() {
                           setactvv("");
                         }}
                       >
-                        <Option
+                        <Supports
                           className={`iconSize1    ${
                             isTechSupport ? "iconcolor" : "iconcolor2"
                           }  `}
@@ -772,6 +864,33 @@ export default function NewSideBar() {
                         }`}
                       >
                         {t("Technical Support")}
+                      </span>
+                    </li>
+                    <li
+                      className={`nav-item d-flex  p-2    align-items-center  besideHover  ${
+                        isAccMange && "onSelect"
+                      } `}
+                    >
+                      <Link
+                        href="/org/orgprofile"
+                        onClick={() => {
+                          setactvv("accmange");
+                        }}
+                      >
+                        <Accmanage
+                          className={`iconSize1    ${
+                            isAccMange ? "iconcolor" : "iconcolor2"
+                          }  `}
+                        />
+                      </Link>
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
+                        {t("Account Management")}
                       </span>
                     </li>
                   </ul>
@@ -833,31 +952,6 @@ export default function NewSideBar() {
                         {t("registrations")}
                       </span>
                     </li>
-                    <li
-                      className={`nav-item d-flex  p-2     align-items-center  besideHover ${
-                        iSenrollment && "onSelect"
-                      }    `}
-                      onClick={() => {
-                        setactvv("isenrollment");
-                      }}
-                    >
-                      <Link href="/org/enrollment/history">
-                        <Profile
-                          className={`iconSize1    ${
-                            iSenrollment ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                      </Link>
-                      <span
-                        className={`text-nowrap ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
-                        }`}
-                      >
-                        {t("enrollment")}
-                      </span>
-                    </li>
 
                     <li
                       className={`nav-item d-flex  p-2     align-items-center besideHover ${
@@ -885,116 +979,124 @@ export default function NewSideBar() {
                         {t("education")}
                       </span>
                     </li>
+
                     <li
-                      className={`nav-item d-flex  p-2     align-items-center  besideHover ${
-                        isOrgprofile && "onSelect"
-                      } `}
+                      className={`nav-item d-flex  p-2    align-items-center    besideHover ${
+                        isUsers && "onSelect"
+                      }  `}
                       onClick={() => {
-                        setactvv("isprogramreg");
+                        setactvv("users");
                       }}
                     >
-                      <Link href="/org/education/programs-statistics/bundlesStats">
-                        <Personal
+                      <Link href="/org/user-management/users/staff">
+                        <Userss
                           className={`iconSize1    ${
-                            isOrgprofile ? "iconcolor" : "iconcolor2"
+                            isUsers ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                       </Link>
                       <span
-  className={`text-nowrap ${sidebarOpen ? "tooltipText text-body-secondary" : "w-100 text-center"}`}
->
-                        {t("programs-statistics")}
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
+                        {t("users")}
                       </span>
                     </li>
                   </ul>
                   <ul
-                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPart    `}
+                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPartt    `}
                   >
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400 ">
                         التقارير والمالية
                       </h6>
                     </div>
+
                     <li
-                      className={`nav-item d-flex  p-2     align-items-center     `}
+                      className={`nav-item d-flex  p-2     align-items-center  besideHover ${
+                        isprostatic && "onSelect"
+                      } `}
+                      onClick={() => {
+                        setactvv("isprogramreg");
+                      }}
+                    >
+                      <Link href="/org/education/programs-statistics/bundlesStats">
+                        <Statics
+                          className={`iconSize1    ${
+                            isprostatic ? "iconcolor" : "iconcolor2"
+                          }  `}
+                        />
+                      </Link>
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
+                        {t("programs-statistics")}
+                      </span>
+                    </li>
+
+                    <li
+                      className={`nav-item d-flex  p-2     align-items-center    besideHover ${
+                        isFin && "onSelect"
+                      }   `}
                       onClick={() => {
                         setactvv("isFinancial");
                       }}
                     >
                       <Link href="/org/financial/balances">
-                        <AdmissionIcon
+                        <Card
                           className={`iconSize1    ${
-                            isAdminssion ? "iconcolor" : "iconcolor2"
+                            isFin ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                       </Link>
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
+                        {t("financial")}
+                      </span>
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2    align-items-center     `}
-                      onClick={() => {
-                        setactvv("users");
-                      }}
-                    >
-                      <Link href="/org/financial/balances">
-                        <AdmissionIcon
-                          className={`iconSize1    ${
-                            isAdminssion ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                      </Link>
-                    </li>
-                    <li
-                      className={`nav-item d-flex  p-2    align-items-center   `}
+                      className={`nav-item d-flex  p-2    align-items-center  besideHover  ${
+                        isSubscriptionmanagement && "onSelect"
+                      }  `}
                     >
                       <Link
-                        href="/org/orgprofile"
+                        href="/org/subscription-management"
                         onClick={() => {
                           setactvv("");
                         }}
                       >
-                        <Profile
-                          className={`iconSize1     ${
-                            isOrgprofile ? "iconcolor" : "iconcolor2"
-                          } `}
+                        <Submange
+                          className={`iconSize1    ${
+                            isSubscriptionmanagement
+                              ? "iconcolor"
+                              : "iconcolor2"
+                          }  `}
                         />
                       </Link>
+                      <span
+                        className={`text-nowrap ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100 text-center"
+                        }`}
+                      >
+                        {t("Subscription Management")}
+                      </span>
                     </li>
                   </ul>
-                  {/* 
-                  <li
-                    className={`nav-item d-flex   p-2  w-100  align-items-center     `}
-                  >
-                    <Link
-                      href="/org/ai-assistant"
-                      onClick={() => {
-                        setactvv("");
-                      }}
-                    >
-                      <Ai
-                        className={`iconSize2   ${
-                          isAiAssistant ? "iconcolor" : "iconcolor2"
-                        } `}
-                      />
-                    </Link>
-                  </li> */}
-                  {/* 
-                  <li
-                    className={`nav-item d-flex  p-2   w-100  align-items-center   `}
-                  >
-                    <Link
-                      href="/org/settings"
-                      onClick={() => {
-                        setactvv("");
-                      }}
-                    >
-                      <Setting
-                        className={`iconSize2    ${
-                          isSettings ? "iconcolor" : "iconcolor2"
-                        }  `}
-                      />
-                    </Link>
-                  </li> */}
                 </div>
               </div>
             </nav>
@@ -1006,35 +1108,6 @@ export default function NewSideBar() {
             </div>
           </div>
         </div>
-        {/* 
-                <div>
-                  <div className="bg-container m-4 d-lg-flex d-sm-none d-none   position-relative ">
-                    <div className="d-flex  flex-column  position-absolute  gap-1  p-3 ">
-                      <HelpIcon className="iconSize2 iconcolor" />
-                      <h4 className="Tit-14-700 white-c  mb-0">{t("ad1")}</h4>
-                      <h6 className="tit-12-400 white-c ">{t("ad2")}</h6>
-                      <button className="btn btn-light tit-10-700  Gray-Gray-700 btn-custom ">
-                        {t("ad3")}
-                      </button>
-                    </div>
-
-                    <div className="   ">
-                      <Image src={bk} alt="ai" width={250} height={169.5} />
-                    </div>
-                  </div>
-
-                  <div className="powered d-flex justify-content-center gap-1  mt-2  ">
-                    <p>Powered By</p>
-                    <Image
-                      src={logo}
-                      alt="ai"
-                      width={60}
-                      height={18}
-                      priority
-                      className=" mt-1"
-                    />
-                  </div>
-                </div> */}
       </div>
     </>
   );

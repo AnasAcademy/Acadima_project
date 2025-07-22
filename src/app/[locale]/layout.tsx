@@ -43,25 +43,32 @@ export default async function RootLayout({
   console.log(locale);
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} `}>
         <BootstrapClient />
         <NextIntlClientProvider>
           <NotificationProvider>
-            <div className="d-flex vh-100">
+            <div className="d-flex flex-column   ">
+              <div className=" d-flex  w-100  ">
+              <NavbarWrapper />
+            </div>
               {/* Sidebar – visible on lg and xl only */}
-              <div className="d-none d-sm-none d-md-none d-lg-flex d-xl-flex">
-              <SidebarWrapperUser />  
-                {/* <NewSideBar /> */}
-                <SideBarWrapper />
-              </div>
+              <div className=" d-flex  w-100 ">
+                <div className="d-none d-md-none d-lg-flex d-xl-flex ">
+                  <SidebarWrapperUser />
+                  {/* <NewSideBar /> */}
+                  <SideBarWrapper />
+                </div>
 
+                <div className=" mt-5 mt-lg-0 pt-5 pt-lg-0 w-100 ">
+                  {children}
+                </div>
+              </div>
               {/* Main content area */}
-              <div className="d-flex flex-column w-100">
-                <NavbarWrapper />
+              {/* <div className="d-flex flex-column w-100 bg-warning"> */}
+              {/* <NavbarWrapper /> */}
 
-                {/* Scrollable content area */}
-                <div className="flex-grow-1 mt-5 mt-lg-0 pt-5 pt-lg-0">{children}</div>
-              </div>
+              {/* Scrollable content area */}
+              {/* </div> */}
             </div>
           </NotificationProvider>
         </NextIntlClientProvider>

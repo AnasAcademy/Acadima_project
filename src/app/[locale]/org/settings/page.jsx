@@ -11,8 +11,8 @@ import { useTranslations } from "next-intl";
      
    return (
      <>
-       <div className="  m-0  container-fluid p-0 d-flex flex-column    ">
-         <h2 className=" hvvv p-5  pe-0 ps-0 pb-3"> {t("settings")}</h2>
+       <div className="  m-0  container  d-flex flex-column    ">
+         <h2 className=" hvvv p-5   pb-3"> {t("settings")}</h2>
                       <OrgSettingSidebar />
        </div>
      </>

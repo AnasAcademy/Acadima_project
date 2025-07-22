@@ -53,7 +53,7 @@ const handleClickOutside = (event) =>
 
   return (
     <>
-      <div className=" d-flex flex-row-reverse  navbgCol   ">
+      <div className=" d-flex flex-row-reverse  navbgCol    ">
         <div className=" row  w-100 d-flex flex-row-reverse m-0   ">
           <nav className="navbar navbar-expand-lg bg-bluish-white     col-7 col-lg-12  navBg   justify-content-start d-flex align-items-start">
             <div className="d-flex justify-content-center  justify-content-lg-between w-100  align-items-center flex-sm-row flex-row flex-md-row flex-lg-row-reverse   ">

@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useState, useEffect, useContext } from "react";
 import { useTranslations } from "next-intl";
 import { IoNotifications } from "react-icons/io5";
@@ -10,7 +10,7 @@ import { NotificationContext } from "@/context/NotificationContext";
 import Circle from "@/assets/notifCard/Ellipse 26.svg";
 import Link from "next/link";
 import Sidebar from "../../sidebar/sidebarr/Sidebar";
-
+import logo from "../../../assets/admin/logo2.png";
 const Navbar = () => {
   const tn = useTranslations("Navbar");
   const ts = useTranslations("Sidebar");
@@ -91,7 +91,7 @@ const Navbar = () => {
  
 
   return (
-    <div className="  w-100 bg-white ">
+    <div className="   w-100 bg-white ">
       <nav className="            navbar  bg-bluish-white p-3 px-xl-5 px-lg-4    d-flex align-items-start  justify-content-start   container-fluid  d-none d-sm-none  d-md-none d-lg-flex  ">
         <div className="d-flex justify-content-between align-items-start align-items-md-center  flex-row-reverse w-100 ">
           <div className="d-flex align-items-center    ">
@@ -171,6 +171,15 @@ const Navbar = () => {
             </div>
           </div>
 
+          <div className=" pe-3  ps-3  ">
+            <Link
+              className="text-white text-decoration-none  m-lg-auto  d-flex  "
+              role="button"
+              href="/"
+            >
+              <Image src={logo} alt="ai" width={120} height={33} priority />
+            </Link>
+          </div>
           {/* Right Section: Breadcrumbs */}
           {/* <div className=" d-none d-sm-none  d-md-none d-lg-flex flex-column ">
             <div className="d-flex ">
@@ -182,8 +191,9 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <div className="  d-lg-none position-relative  mb-5  ">
+      <div className="  d-lg-none position-relative  mb-5   ">
         <div className=" navbgCol position-absolute top-0 end-0  z-3  w-100">
+          
           <Sidebar />
         </div>
       </div>

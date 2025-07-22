@@ -47,14 +47,15 @@ export default function Sidebar() {
       <div className="p-3 d-flex flex-column ">
         <nav className="navbar navbar-light navbar-expand-lg mt-md-4">
           <div className="container-fluid d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column min-vh-lg-100 align-items-start p-0">
-            <Link
+            <div className="   d-lg-none d-flex">
+              <Link
               className="text-white text-decoration-none m-lg-auto d-flex justify-content-center"
               role="button"
               href="/"
             >
               <Image src={logo} alt="ai" width={120} height={32} priority />
             </Link>
-
+            </div>
             <button
               className="navbar-toggler"
               type="button"
@@ -68,7 +69,7 @@ export default function Sidebar() {
             </button>
 
             <div
-              className="collapse navbar-collapse ms-4 me-4 mt-5"
+              className="collapse navbar-collapse ms-4 me-4 "
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav d-lg-flex flex-lg-column justify-content-start align-items-start p-0">
@@ -259,7 +260,6 @@ export default function Sidebar() {
                       actv === "log" ? "iconcolor2" : "iconcolor"
                     }`}
                   />
-                  
                 </li>
               </ul>
             </div>

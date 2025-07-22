@@ -10,39 +10,72 @@ export default function AIChat({
   maxHeight = "400px",
   heightClass = "h-80",
   externalMessage,
+  setMessage,
 }) {
   const t = useTranslations("techSupport");
   const ts = useTranslations("AiAssistant");
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
-useEffect(() => {
-  if (externalMessage) {
-    // Add external user message to chat
-    setMessages((prev) => [...prev, { type: "user", text: externalMessage }]);
 
-    // Immediately send it to the API
-    const sendExternalMessage = async () => {
-      try {
-        const response = await fetch("https://ai.lxera.net/query", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ question: externalMessage }),
-        });
+   useEffect(() => {
+   
+    if (setMessage){
+      if(messages.length > 0){
 
-        const data = await response.json();
+      setMessage(false);
 
-        if (data?.answer) {
-          setMessages((prev) => [
-            ...prev,
-            {
-              type: "ai",
-              text: data.answer,
+      } else{
+
+          setMessage(true);
+      }
+    }
+
+
+
+   }, [messages]);
+  
+
+  useEffect(() => {
+
+    
+
+    if (externalMessage) {
+      // Add external user message to chat
+      setMessages((prev) => [...prev, { type: "user", text: externalMessage }]);
+
+      // Immediately send it to the API
+      const sendExternalMessage = async () => {
+        try {
+          const response = await fetch("https://ai.lxera.net/query", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          ]);
-        } else {
+            body: JSON.stringify({ question: externalMessage }),
+          });
+
+          const data = await response.json();
+
+          if (data?.answer) {
+            setMessages((prev) => [
+              ...prev,
+              {
+                type: "ai",
+                text: data.answer,
+              },
+            ]);
+          } else {
+            setMessages((prev) => [
+              ...prev,
+              {
+                type: "ai",
+                text: ts("generic-response"),
+              },
+            ]);
+          }
+        } catch (error) {
+          console.error("API error:", error);
           setMessages((prev) => [
             ...prev,
             {
@@ -51,8 +84,39 @@ useEffect(() => {
             },
           ]);
         }
-      } catch (error) {
-        console.error("API error:", error);
+      };
+
+      sendExternalMessage();
+    }
+  }, [externalMessage]);
+
+  const handleSend = async () => {
+    if (!input.trim()) return;
+
+    const userInput = input;
+    setMessages((prev) => [...prev, { type: "user", text: userInput }]);
+    setInput("");
+
+    try {
+      const response = await fetch("https://ai.lxera.net/query", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ question: userInput }),
+      });
+
+      const data = await response.json();
+
+      if (data?.answer) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "ai",
+            text: data.answer,
+          },
+        ]);
+      } else {
         setMessages((prev) => [
           ...prev,
           {
@@ -61,39 +125,8 @@ useEffect(() => {
           },
         ]);
       }
-    };
-
-    sendExternalMessage();
-  }
-}, [externalMessage]);
-
-  const handleSend = async () => {
-  if (!input.trim()) return;
-
-  const userInput = input;
-  setMessages((prev) => [...prev, { type: "user", text: userInput }]);
-  setInput("");
-
-  try {
-    const response = await fetch("https://ai.lxera.net/query", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ question: userInput }),
-    });
-
-    const data = await response.json();
-
-    if (data?.answer) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          type: "ai",
-          text: data.answer,
-        },
-      ]);
-    } else {
+    } catch (error) {
+      console.error("API error:", error);
       setMessages((prev) => [
         ...prev,
         {
@@ -102,18 +135,7 @@ useEffect(() => {
         },
       ]);
     }
-  } catch (error) {
-    console.error("API error:", error);
-    setMessages((prev) => [
-      ...prev,
-      {
-        type: "ai",
-        text: ts("generic-response"),
-      },
-    ]);
-  }
-};
-
+  };
 
   return (
     <div
