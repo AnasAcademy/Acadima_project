@@ -28,6 +28,7 @@ import Courses from "@/assets/admin/courses.svg";
 import AdmissionIcon from "@/assets/admin/admission.svg";
 import ClassesIcon from "@/assets/admin/classes.svg";
 import User1 from "@/assets/admin/user1.svg"
+import Profile from "@/assets/admin/profile.svg";
 import Elctronc from "@/assets/admin/Electronc.svg"
 import AddStud from "@/assets/admin/addStudent.svg"
 import Regcourse from  "@/assets/admin/regcourse.svg"

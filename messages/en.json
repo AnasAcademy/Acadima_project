@@ -461,7 +461,12 @@
   },
   "settings": {
     "edit": "Edit",
+    "edit_user": "Edit User Data",
     "full_name": "Full Name",
+    "en_name": "Full Name in English",
+    "user_role": "User Role",
+    "bio": "User Bio",
+    "statuds": "Status",
     "academic_info": "Academic Information",
     "academic_code": "Academic Code",
     "email": "Email",
@@ -1038,6 +1043,14 @@
   "study-classes": "Study Classes",
   "next-page": "Next Page",
   "previous-page": "Previous Page",
-  "page" : "Page"
+  "page" : "Page",
+  "not-found": "Not Uploaded",
+  "registration_date": "Registration Date",
+  "edit": "Edit",
+  "delete": "Delete",
+  "login": "Login",
+  "active": "Active",
+  "inactive": "Inactive",
+  "pending": "Pending"
 }
 }

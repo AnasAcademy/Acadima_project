@@ -10,35 +10,47 @@ export default function OngoingTrain({
   Icon2,
   isUserImg,
 }) {
-  const t = useTranslations("HomePageA");
-  const t2 = useTranslations("techSupport");
+  const t = useTranslations("tables");
 
   const renderCell = {
     image: (col, key) => (
       <td key={key}>
-        <Image
-          src={`/store/${col.value}`}
-          className=" rounded-circle p-0"
-          alt="col-val"
-          width={50}
-          height={50}
-        />
+        {col.value ? (
+          <Image
+            src={`/store/${col.value}`}
+            className="rounded-circle p-0"
+            alt="col-val"
+            width={50}
+            height={50}
+          />
+        ) : (
+          <span className="text-danger">{t("not-found")}</span>
+        )}
       </td>
     ),
-    text: (col, key) => (
-      <td key={key} className=" text-dark   text-wrap   ">
-        {col.value}
-      </td>
-    ),
+    text: (col, key) => {
+      let textClass = "text-dark";
+      let textVal = col.value;
+
+      if (col.value === "active") {textClass = "text-success"; textVal=t("active")}// Green
+      else if (col.value === "pending") {textClass = "text-warning"; textVal=t("pending")} // Yellow
+      else if (col.value === "inactive") {textClass = "text-danger"; textVal=t("inactive")} // Red
+
+      return (
+        <td key={key} className={`text-wrap ${textClass}`}>
+          {textVal}
+        </td>
+      );
+    },
     buttons: (col, key) => (
       <td
         key={key}
-        className="d-flex gap-3 align-items-center px-1 py-5 justify-content-center"
+        className="d-flex gap-1 align-items-center px-1 py-5 justify-content-center"
       >
         {col.buttons?.map((btn, index) => (
           <button
             key={index}
-            className="tit-12-400 btncolor text-center m-0 cursor-pointer rounded-2 p-2 px-5 text-nowrap d-flex align-items-center gap-2 justify-content-center"
+            className="tit-12-400 btncolor text-center m-0 cursor-pointer rounded-2 p-2 px-3 text-nowrap d-flex align-items-center gap-2 justify-content-center"
             style={{
               backgroundColor: btn.color || "#007bff",
               color: btn.textColor || "#fff",
@@ -92,7 +104,7 @@ export default function OngoingTrain({
             />
           )}
 
-          <div className="d-flex flex-column justify-content-start align-items-center">
+          <div className="d-flex flex-column justify-content-start align-items-start">
             <h4 className="fw-semibold m-0 text-center">{col.name}</h4>
             <h4 className="fw-semibold m-0 text-center">{col.id}</h4>
             <h4 className="text-muted small m-0 text-center">{col.phone}</h4>
