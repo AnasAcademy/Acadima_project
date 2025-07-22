@@ -20,7 +20,8 @@ export default function SelectCard({
   useEffect(() => {
     const delay = setTimeout(() => {
       handleSearch(filters);
-    }, 0);
+    }, 300);
+
     return () => clearTimeout(delay);
   }, [filters]);
 
@@ -34,7 +35,9 @@ export default function SelectCard({
   return (
     <div className="cardbg p-3 d-flex flex-column justify-content-start align-items-start rounded-4 min-adash-ht">
       {isTechSupport && <h2 className="px-3 my-2">{t2("ticket-filter")}</h2>}
-      {isOrgProfile && <h2 className="px-3 my-2">{t3("orgprofile-table-title")}</h2>}
+      {isOrgProfile && (
+        <h2 className="px-3 my-2">{t3("orgprofile-table-title")}</h2>
+      )}
 
       <div className="row d-flex justify-content-between w-100 m-0">
         <div className="p-0">
@@ -46,7 +49,9 @@ export default function SelectCard({
               return (
                 <div className={fullCol} key={index}>
                   <div className="d-flex w-100 flex-column position-relative">
-                    {input.title && <label className="h6 mb-1 text-end">{input.title}</label>}
+                    {input.title && (
+                      <label className="h6 mb-1 text-end">{input.title}</label>
+                    )}
 
                     {input.type === "search" && (
                       <div className="form-control mr-sm-2 d-flex gap-2">
@@ -57,9 +62,13 @@ export default function SelectCard({
                         )}
                         <input
                           type="text"
-                          placeholder={input.placeholder || t2("search-placeholder")}
+                          placeholder={
+                            input.placeholder || t2("search-placeholder")
+                          }
                           className=" tit-12-400 border-0 w-75"
-                          onChange={(e) => handleFilterChange(input.filter, e.target.value)}
+                          onChange={(e) =>
+                            handleFilterChange(input.filter, e.target.value)
+                          }
                         />
                       </div>
                     )}
@@ -69,7 +78,9 @@ export default function SelectCard({
                         <select
                           className="form-select custroundbtn"
                           defaultValue=""
-                          onChange={(e) => handleFilterChange(input.filter, e.target.value)}
+                          onChange={(e) =>
+                            handleFilterChange(input.filter, e.target.value)
+                          }
                         >
                           <option value="">{t("sort_by")}</option>
                           {input.options?.map((option, i) => (
@@ -81,7 +92,6 @@ export default function SelectCard({
                         <Arrow className="iconSize5 position-absolute selclass p-1" />
                       </div>
                     )}
-
                   </div>
                 </div>
               );

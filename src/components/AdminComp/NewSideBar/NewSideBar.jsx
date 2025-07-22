@@ -39,7 +39,6 @@ import AdmissionIcon from "@/assets/admin/admission.svg";
 import ObjectIcon from "@/assets/settings/OBJECTS.svg";
 import ClassesIcon from "@/assets/admin/classes.svg";
 import Profile from "@/assets/admin/profile.svg";
-import Personal from "@/assets/admin/personal.svg"
 import Elctronc from "@/assets/admin/Electronc.svg"
 import AddStud from "@/assets/admin/addStudent.svg"
 import Regcourse from  "@/assets/admin/regcourse.svg"
