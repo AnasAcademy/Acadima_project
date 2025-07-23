@@ -754,7 +754,7 @@ const education = isQuizzes || isAssignments;
                     </div>
 
                     <li
-                      className={`nav-item d-flex  p-2     align-items-center  besideHover  ${
+                      className={`nav-item d-flex  p-2   gap-2  align-items-end  besideHover  ${
                         isPanel && "onSelect"
                       }  `}
                     >
@@ -771,10 +771,10 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100 "
                         }`}
                       >
                         {t("dashboard")}
@@ -782,7 +782,7 @@ const education = isQuizzes || isAssignments;
                     </li>
 
                     <li
-                      className={`nav-item d-flex   p-2   align-items-center  besideHover  ${
+                      className={`nav-item d-flex   p-2 gap-2  align-items-end  besideHover  ${
                         isEmployeeprogress && "onSelect"
                       }  `}
                     >
@@ -799,10 +799,10 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("Employee progress")}
@@ -810,7 +810,7 @@ const education = isQuizzes || isAssignments;
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2    align-items-center    besideHover  ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end    besideHover  ${
                         isNotfiPage && "onSelect"
                       }   `}
                     >
@@ -827,17 +827,17 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100 "
                         }`}
                       >
                         {t("Notifications")}
                       </span>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2    align-items-center  besideHover  ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
                         isTechSupport && "onSelect"
                       } `}
                     >
@@ -854,17 +854,17 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("Technical Support")}
                       </span>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2    align-items-center  besideHover  ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
                         isAccMange && "onSelect"
                       } `}
                     >
@@ -881,10 +881,10 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("Account Management")}
@@ -900,7 +900,7 @@ const education = isQuizzes || isAssignments;
                       </h6>
                     </div>
                     <li
-                      className={`nav-item d-flex  p-2   align-items-center  besideHover  ${
+                      className={`nav-item d-flex  p-2 gap-2  align-items-end  besideHover  ${
                         isAdminssion && "onSelect"
                       }  `}
                       onClick={() => {
@@ -915,17 +915,17 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("admission")}
                       </span>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2    align-items-center besideHover  ${
+                      className={`nav-item d-flex  p-2 gap-2   align-items-end besideHover  ${
                         studentsRecords && "onSelect"
                       }      `}
                       onClick={() => {
@@ -940,10 +940,10 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("registrations")}
@@ -951,7 +951,7 @@ const education = isQuizzes || isAssignments;
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2     align-items-center besideHover ${
+                      className={`nav-item d-flex  p-2  gap-2   align-items-end besideHover ${
                         education && "onSelect"
                       }  `}
                       onClick={() => {
@@ -967,10 +967,10 @@ const education = isQuizzes || isAssignments;
                       </Link>
 
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("education")}
@@ -978,7 +978,7 @@ const education = isQuizzes || isAssignments;
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2    align-items-center    besideHover ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end    besideHover ${
                         isUsers && "onSelect"
                       }  `}
                       onClick={() => {
@@ -993,10 +993,10 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("users")}
@@ -1013,7 +1013,7 @@ const education = isQuizzes || isAssignments;
                     </div>
 
                     <li
-                      className={`nav-item d-flex  p-2     align-items-center  besideHover ${
+                      className={`nav-item d-flex  p-2  gap-2   align-items-end  besideHover ${
                         isprostatic && "onSelect"
                       } `}
                       onClick={() => {
@@ -1028,10 +1028,10 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("programs-statistics")}
@@ -1039,7 +1039,7 @@ const education = isQuizzes || isAssignments;
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2     align-items-center    besideHover ${
+                      className={`nav-item d-flex  p-2  gap-2   align-items-end    besideHover ${
                         isFin && "onSelect"
                       }   `}
                       onClick={() => {
@@ -1054,10 +1054,10 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("financial")}
@@ -1065,7 +1065,7 @@ const education = isQuizzes || isAssignments;
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2    align-items-center  besideHover  ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
                         isSubscriptionmanagement && "onSelect"
                       }  `}
                     >
@@ -1084,10 +1084,10 @@ const education = isQuizzes || isAssignments;
                         />
                       </Link>
                       <span
-                        className={`text-nowrap ${
+                        className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
-                            : "w-100 text-center"
+                            : "w-100"
                         }`}
                       >
                         {t("Subscription Management")}
@@ -1098,7 +1098,7 @@ const education = isQuizzes || isAssignments;
               </div>
             </nav>
 
-            <div className=" bg-white  d-flex  flex-column        ">
+            <div className=" bg-white  d-flex  flex-column">
               <div className=" d-flex flex-column h-100">
                 {actv && <>{comp[tit]}</>}
               </div>
