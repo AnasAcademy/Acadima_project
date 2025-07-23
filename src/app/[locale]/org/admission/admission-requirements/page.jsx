@@ -5,6 +5,11 @@ import AdmissionReqTable  from "@/components/Tables&filters/AdmissionReqTable/Ad
 export default async function AdmissionReq() {
   const t = await getTranslations("tables");
 
+
+  
+
+
+
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">

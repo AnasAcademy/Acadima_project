@@ -14,7 +14,6 @@ export default function AdmissionReqTable() {
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
   const [showModal, setShowModal] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
   const [detailedRejectionReason, setDetailedRejectionReason] = useState("");
@@ -303,9 +302,7 @@ export default function AdmissionReqTable() {
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
           <button className="btn custfontbtn rounded-4 mb-3" onClick={DownloadExcel}>Excel</button>
 
-          {loading ? (
-            <div className="text-center py-4">جاري التحميل...</div>
-          ) : (
+       
             <>
               <OngoingTrain
                 TableHead={TableHead}
@@ -332,7 +329,7 @@ export default function AdmissionReqTable() {
                 </button>
               </div>
             </>
-          )}
+      
         </div>
       </div>
 
