@@ -37,7 +37,7 @@
                  <div className=" d-flex gap-2">
                    <div className="form-check form-check-inline m-0 ">
                      <input
-                       class="form-check-input p-2 "
+                       className="form-check-input p-2 "
                        type="checkbox"
                        id="inlineCheckbox1"
                        value="option1"
@@ -53,7 +53,7 @@
                  <div className=" d-flex gap-2 ">
                    <div className="form-check form-check-inline m-0">
                      <input
-                       class="form-check-input p-2"
+                       className="form-check-input p-2"
                        type="checkbox"
                        id="inlineCheckbox1"
                        value="option1"
@@ -70,7 +70,7 @@
                  <div className=" d-flex gap-2">
                    <div className="form-check form-check-inline m-0">
                      <input
-                       class="form-check-input p-2"
+                       className="form-check-input p-2"
                        type="checkbox"
                        id="inlineCheckbox1"
                        value="option1"
@@ -87,7 +87,7 @@
                  <div className="d-flex gap-2 ">
                    <div className="form-check form-check-inline m-0">
                      <input
-                       class="form-check-input p-2"
+                       className="form-check-input p-2"
                        type="checkbox"
                        id="inlineCheckbox1"
                        value="option1"
@@ -103,7 +103,7 @@
                  <div className="d-flex gap-2">
                    <div className="form-check form-check-inline m-0">
                      <input
-                       class="form-check-input p-2"
+                       className="form-check-input p-2"
                        type="checkbox"
                        id="inlineCheckbox1"
                        value="option1"
@@ -187,9 +187,9 @@
                              <h3 className=" tit-12-400 text-nowrap">
                                {t("edit_response")}
                              </h3>
-                             <div class="form-check form-switch  ">
+                             <div className="form-check form-switch  ">
                                <input
-                                 class="form-check-input  p-0"
+                                 className="form-check-input  p-0"
                                  type="checkbox"
                                  role="switch"
                                  id="flexSwitchCheckChecked"

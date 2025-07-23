@@ -1,122 +1,57 @@
-"use client";
-import React from "react";
-import { useTranslations } from "next-intl";
-import { use } from 'react';
-
-export default function edit({ params }) {
+import { getTranslations } from "next-intl/server";
+import EditStudentForm from "@/components/EditStudentForm/EditStudentForm";
+import Editform from "@/components/Editform/Editform";
+export default async function EditStudentPage({ params }) {
+  const t = await getTranslations("settings");
   const { id } = params;
-  const t = useTranslations("settings");
 
-  
-
-  return (
-    <>
-      <div className="  m-0  container-fluid p-0   ">
-        <div className=" p-lg-4   d-flex flex-column gap-4">
-           <div className="col-11   col-lg-6    ">
-            <h1 className=" hvvv mb-4"> {t("edit_user")}</h1>
-               <div>
-                 <h3 className=" Tit-12-700"> {t("full_name")}</h3>
-
-                 <input
-                   type="text"
-                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
-                   style={{ border: "1px  solid  #E3E3E3" }}
-                 />
-               </div>
-             </div>
-
-             <div className="col-11   col-lg-6   ">
-               <div>
-                 <h3 className=" Tit-12-700"> {t("en_name")}</h3>
-
-                 <input
-                   type="text"
-                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
-                   style={{ border: "1px  solid  #E3E3E3" }}
-                 />
-               </div>
-             </div>
-
-             <div className="col-11   col-lg-6   ">
-               <div>
-                {/* select not input */}
-                 <h3 className=" Tit-12-700"> {t("user_role")}</h3>
-
-                 <input
-                   type="text"
-                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
-                   style={{ border: "1px  solid  #E3E3E3" }}
-                 />
-               </div>
-             </div>
-
-             <div className="col-11   col-lg-6   ">
-               <div>
-                 <h3 className=" Tit-12-700"> {t("email")}</h3>
-
-                 <input
-                   type="text"
-                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
-                   style={{ border: "1px  solid  #E3E3E3" }}
-                 />
-               </div>
-             </div>
-
-             <div className="col-11   col-lg-6   ">
-               <div>
-                 <h3 className=" Tit-12-700"> {t("mobile")}</h3>
-
-                 <input
-                   type="text"
-                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
-                   style={{ border: "1px  solid  #E3E3E3" }}
-                 />
-               </div>
-             </div>
-
-             <div className="col-11   col-lg-6   ">
-               <div>
-                 <h3 className=" Tit-12-700"> {t("password")}</h3>
-
-                 <input
-                   type="text"
-                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
-                   style={{ border: "1px  solid  #E3E3E3" }}
-                 />
-               </div>
-             </div>
-
-              <div className="col-11   col-lg-6   ">
-               <div>
-                 <h3 className=" Tit-12-700"> {t("bio")}</h3>
-
-                 <input
-                   type="text"
-                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
-                   style={{ border: "1px  solid  #E3E3E3" }}
-                 />
-               </div>
-             </div>
-
-             <div className="col-11   col-lg-6   ">
-               <div>
-                {/* radio button */}
-                 <h3 className=" Tit-12-700"> {t("status")}</h3>
-
-                 <input
-                   type="text"
-                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
-                   style={{ border: "1px  solid  #E3E3E3" }}
-                 />
-               </div>
-             </div>
-
-             <div class=" d-flex justify-content-start">
-                <button class=" btn btn-light custfontbtn" type="submit">حفظ</button>
-            </div>
-          </div>
-      </div>
-    </>
+  const res = await fetch(
+    `https://api.lxera.net/api/development/organization/vodafone/students/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "x-api-key": "1234",
+        "Content-Type": "application/json",
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+      },
+      cache: "no-store",
+    }
   );
+
+  const json = await res.json();
+  const student = json?.[0]?.[0] ?? {}; 
+
+  const response2 = await fetch(
+    `https://api.lxera.net/api/development/organization/vodafone/users/roles`,
+    {
+      method: "GET",
+      headers: {
+        "x-api-key": "1234",
+        "Content-Type": "application/json",
+        "Authorization" : `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  const response = await response2.json();
+  const roles = Array.isArray(response?.roles) ? response.roles : [];
+
+    const fields = [
+    { label: "full_name", type: "text" },
+    { label: "en_name", type: "text" },
+
+    { label: "email", type: "email" },
+    { label: "mobile", type: "text" },
+    { label: "password", type: "password" },
+    { label: "bio", type: "text" },
+    { label: "status", type: "text" },
+  ];
+
+  return  <Editform
+      fields={fields}
+      data={student}
+      
+      submitUrl={`https://api.lxera.net/api/development/organization/vodafone/students/edit/${student.id}`}
+    />;
 }

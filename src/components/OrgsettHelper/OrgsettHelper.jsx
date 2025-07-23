@@ -31,9 +31,9 @@
                    <h3 className="Tit-14-700">{t("enable_assistant")}</h3>
                    <h4 className="tit-12-400"> {t("enable_assistant_note")}</h4>
                  </div>
-                 <div class="form-check form-switch">
+                 <div className="form-check form-switch">
                    <input
-                     class="form-check-input"
+                     className="form-check-input"
                      type="checkbox"
                      role="switch"
                      id="flexSwitchCheckChecked"
@@ -47,9 +47,9 @@
                  <h3 className="   Tit-14-700 mb-0">{t("assistant_tone")}</h3>
                  <div className=" d-flex gap-1 ">
                    <div className=" d-flex gap-2">
-                     <div class="form-check">
+                     <div className="form-check">
                        <input
-                         class="form-check-input "
+                         className="form-check-input "
                          type="radio"
                          name="exampleRadios"
                          id="exampleRadios1"
@@ -61,9 +61,9 @@
                    </div>
 
                    <div className=" d-flex gap-2">
-                     <div class="form-check">
+                     <div className="form-check">
                        <input
-                         class="form-check-input "
+                         className="form-check-input "
                          type="radio"
                          name="exampleRadios"
                          id="exampleRadios1"
@@ -74,9 +74,9 @@
                    </div>
 
                    <div className=" d-flex gap-2">
-                     <div class="form-check">
+                     <div className="form-check">
                        <input
-                         class="form-check-input "
+                         claclassNamess="form-check-input "
                          type="radio"
                          name="exampleRadios"
                          id="exampleRadios1"
@@ -91,9 +91,9 @@
                  </h3>
                  <div className=" d-flex gap-1">
                    <div className=" d-flex gap-2">
-                     <div class="form-check">
+                     <div className="form-check">
                        <input
-                         class="form-check-input "
+                         className="form-check-input "
                          type="radio"
                          name="exampleRadios"
                          id="exampleRadios1"
@@ -105,9 +105,9 @@
                    </div>
 
                    <div className=" d-flex gap-2">
-                     <div class="form-check">
+                     <div className="form-check">
                        <input
-                         class="form-check-input "
+                         className="form-check-input "
                          type="radio"
                          name="exampleRadios"
                          id="exampleRadios1"
@@ -118,9 +118,9 @@
                    </div>
 
                    <div className=" d-flex gap-2">
-                     <div class="form-check">
+                     <div className="form-check">
                        <input
-                         class="form-check-input "
+                         className="form-check-input "
                          type="radio"
                          name="exampleRadios"
                          id="exampleRadios1"
@@ -139,9 +139,9 @@
                        {t("restore_defaults_note")}
                      </h4>
                    </div>
-                   <div class="form-check form-switch">
+                   <div className="form-check form-switch">
                      <input
-                       class="form-check-input"
+                       className="form-check-input"
                        type="checkbox"
                        role="switch"
                        id="flexSwitchCheckChecked"
@@ -172,7 +172,7 @@
                      {" "}
                      <div className="form-check form-check-inline">
                        <input
-                         class="form-check-input p-2"
+                         className="form-check-input p-2"
                          type="checkbox"
                          id="inlineCheckbox1"
                          value="option1"
@@ -185,7 +185,7 @@
                      {" "}
                      <div className="form-check form-check-inline">
                        <input
-                         class="form-check-input p-2"
+                         className="form-check-input p-2"
                          type="checkbox"
                          id="inlineCheckbox1"
                          value="option1"
@@ -198,7 +198,7 @@
                      {" "}
                      <div className="form-check form-check-inline">
                        <input
-                         class="form-check-input p-2"
+                         className="form-check-input p-2"
                          type="checkbox"
                          id="inlineCheckbox1"
                          value="option1"
@@ -211,7 +211,7 @@
                      {" "}
                      <div className="form-check form-check-inline">
                        <input
-                         class="form-check-input p-2"
+                         className="form-check-input p-2"
                          type="checkbox"
                          id="inlineCheckbox1"
                          value="option1"
@@ -224,7 +224,7 @@
                      {" "}
                      <div className="form-check form-check-inline">
                        <input
-                         class="form-check-input p-2"
+                         className="form-check-input p-2"
                          type="checkbox"
                          id="inlineCheckbox1"
                          value="option1"

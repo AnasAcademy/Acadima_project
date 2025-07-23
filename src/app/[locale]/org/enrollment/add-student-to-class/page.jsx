@@ -35,8 +35,8 @@ export default function EnrollmentList() {
                </div>
              </div>
 
-             <div class=" d-flex justify-content-start">
-                <button class=" btn btn-light custfontbtn" type="submit">حفظ</button>
+             <div className=" d-flex justify-content-start">
+                <button className=" btn btn-light custfontbtn" type="submit">حفظ</button>
             </div>
           </div>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
@@ -7,6 +8,7 @@ import AlertModal from "@/components/AlertModal/AlertModal";
 
 export default function AdmissionReqTable() {
   const t = useTranslations("tables");
+  const router = useRouter();
 
   const [dataa, setDataa] = useState([]);
   const [filter, setFilter] = useState([]);
@@ -16,13 +18,9 @@ export default function AdmissionReqTable() {
   const [totalPages, setTotalPages] = useState(1);
 
   const [showModal, setShowModal] = useState(false);
-  const [rejectionReason, setRejectionReason] = useState("");
-  const [detailedRejectionReason, setDetailedRejectionReason] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  const [resultMessage, setResultMessage] = useState("");
-  const [showResultModal, setShowResultModal] = useState(false);
-  const[statuses, setStatuses] = useState([]);
-  const[categories, setCategories] = useState([]);
+  const [statuses, setStatuses] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
@@ -157,7 +155,7 @@ export default function AdmissionReqTable() {
           },
           {
             label: t("edit"),
-            action: () => router.push(`/edit/${item.id}`),
+            action: () => router.push(`/org/students-records/all-students/edit/${item.id}`),
             color: "#28a745",
           },
           {
