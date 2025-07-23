@@ -1051,6 +1051,15 @@
   "login": "Login",
   "active": "Active",
   "inactive": "Inactive",
-  "pending": "Pending"
+  "pending": "Pending",
+   "title": "title",
+    "desc" : "description",
+    "price": "price",
+      "status": "Status",
+       "creator": "Creator",
+  "creation_date": "Creation Date",
+  "start_date": "Start Date",
+  "end_date": "End Date"
+
 }
 }

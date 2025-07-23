@@ -646,7 +646,7 @@ const education = isQuizzes || isAssignments;
   return (
     <>
       <div className=" d-flex flex-column  ">
-        <div className="     d-flex flex-column       newSiebarMargin  ">
+        <div className="     d-flex flex-column       newSiebarMargin    ">
           {/* <div className=" pe-3  ps-3  ">
             <Link
               className="text-white text-decoration-none  m-lg-auto  d-flex  "
@@ -661,16 +661,13 @@ const education = isQuizzes || isAssignments;
             alt="toggle"
             width={20}
             height={20}
-            className="position-absolute"
-            style={{ top: "12%", right: "0.5%", zIndex: "100" }}
+            className=" sidebarimgToggle"
             onClick={() => setSidebarOpen((prev) => !prev)}
           />
           <div
-            className="position-fixed"
+            className="position-fixed Aichat"
             style={{
               top: message ? "33%" : "46%",
-              left: "2%",
-              zIndex: 100,
             }}
           >
             {AiChatOpen ? (
@@ -713,8 +710,7 @@ const education = isQuizzes || isAssignments;
           </div>
 
           <div
-            className="position-fixed m-1"
-            style={{ top: "92%", left: "1.5%", zIndex: "100" }}
+            className="position-fixed m-1 Aichatt"
             onClick={() => setAiChatOpen((prev) => !prev)}
           >
             <Frame15 width={70} height={70} />
