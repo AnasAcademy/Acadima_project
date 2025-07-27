@@ -7,7 +7,7 @@ import { getTranslations } from "next-intl/server";
 import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
 import roundimage from "@/assets/admin/personla.png";
-import ElectronicServiceTable from "@/components/ElectronicServiceTable/ElectronicServiceTable"
+import ElectronicServiceTable from "@/components/Tables&filters/ElectronicServiceTable/ElectronicServiceTable"
 
 
 export default async function ElectronicServicesList() {

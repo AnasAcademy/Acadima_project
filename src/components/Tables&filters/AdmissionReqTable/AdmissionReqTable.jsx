@@ -5,15 +5,16 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 
-export default function AdmissionReqTable() {
+export default function AdmissionReqTable({ initialData = [], initialPage = 1, initialTotalPages = 1 }) {
   const t = useTranslations("tables");
 
-  const [dataa, setDataa] = useState([]);
-  const [filter, setFilter] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [dataa, setDataa] = useState(initialData);
+  const [filter, setFilter] = useState(initialData);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(initialPage);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [totalPages, setTotalPages] = useState(initialTotalPages);
+  const [isInitialRender, setIsInitialRender] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
   const [detailedRejectionReason, setDetailedRejectionReason] = useState("");
@@ -41,6 +42,7 @@ export default function AdmissionReqTable() {
       setFilter(data); // show full data initially
       setCurrentPage(respond.data.current_page || 1);
       setTotalPages(respond.data.last_page || 1);
+      setPage(respond.data.current_page || 1);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -48,7 +50,12 @@ export default function AdmissionReqTable() {
     }
   };
 
+  // Only fetch data on page change, not on initial mount since we have initialData
   useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      return; // Skip fetch on initial mount
+    }
     fetchData(page);
   }, [page]);
 
@@ -85,8 +92,10 @@ export default function AdmissionReqTable() {
     const data = respond.data?.data || [];
 
     setFilter(data);
+    setDataa(data); // Also update dataa to keep it in sync
     setCurrentPage(respond.data?.current_page || 1);
     setTotalPages(respond.data?.last_page || 1);
+    setPage(respond.data?.current_page || 1); // Update page state
   } catch (error) {
     console.error("Search error:", error);
   } finally {
@@ -311,21 +320,21 @@ export default function AdmissionReqTable() {
               />
               <div className="row justify-content-center align-items-center gap-3 mt-3">
                 <button
-                  disabled={page === 1}
+                  disabled={currentPage === 1 || loading}
                   className="btn custfontbtn col-1"
-                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
                 >
-                  {t("previous-page")}
+                  {loading ? "..." : t("previous-page")}
                 </button>
                 <span className="px-2 align-self-center col-1 text-center">
                   {t("page")} {currentPage}
                 </span>
                 <button
-                  disabled={page >= totalPages}
+                  disabled={currentPage >= totalPages || loading}
                   className="btn custfontbtn col-1"
-                  onClick={() => setPage((prev) => prev + 1)}
+                  onClick={() => setPage(currentPage + 1)}
                 >
-                 {t("next-page")}
+                  {loading ? "..." : t("next-page")}
                 </button>
               </div>
             </>

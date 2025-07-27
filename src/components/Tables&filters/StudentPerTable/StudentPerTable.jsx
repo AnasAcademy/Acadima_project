@@ -3,22 +3,29 @@ import React, { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
+import AlertModal from "@/components/AlertModal/AlertModal";
 import Arrow from "@/assets/admin/arrow down.svg";
 
-export default function StudentPerTable() {
+export default function StudentPerTable({ 
+  initialData = [], 
+  initialStudyClasses = [], 
+  initialPage = 1, 
+  initialTotalPages = 1 
+}) {
   const t = useTranslations("tables");
 
-  const [dataa, setDataa] = useState([]);
-  const [studyClasses, setStudyClasses] = useState([]);
-  const [filter, setFilter] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [dataa, setDataa] = useState(initialData);
+  const [studyClasses, setStudyClasses] = useState(initialStudyClasses);
+  const [filter, setFilter] = useState(initialData);
+  const [page, setPage] = useState(initialPage);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [totalPages, setTotalPages] = useState(initialTotalPages);
   const [activeFilters, setActiveFilters] = useState(null);
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [resultMessage, setResultMessage] = useState("");
 
   const fetchData = async (pageNumber = 1) => {
-    setLoading(true);
     try {
       const res = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/permission/user_access?page=${pageNumber}`,
@@ -28,7 +35,7 @@ export default function StudentPerTable() {
             "x-api-key": "1234",
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MVBhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -38,15 +45,13 @@ export default function StudentPerTable() {
       setStudyClasses(result.studyClasses || []);
       setCurrentPage(result.sales?.current_page || 1);
       setTotalPages(result.sales?.last_page || 1);
+      setPage(result.sales?.current_page || 1);
     } catch (err) {
       console.error("Failed to fetch permissions:", err);
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleSearch = async (searchFilters, pageNumber = 1) => {
-    setLoading(true);
     try {
       const query = new URLSearchParams();
       selectCardData.inputs.forEach((input) => {
@@ -75,15 +80,19 @@ export default function StudentPerTable() {
       setFilter(result.sales.data || []);
       setCurrentPage(result.sales?.current_page || 1);
       setTotalPages(result.sales?.last_page || 1);
+      setPage(result.sales?.current_page || 1);
       setActiveFilters(searchFilters);
     } catch (err) {
       console.error("Failed to search:", err);
-    } finally {
-      setLoading(false);
     }
   };
 
+  // Only fetch data on page change, not on initial mount since we have initialData
   useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      return; // Skip fetch on initial mount
+    }
     if (activeFilters) {
       handleSearch(activeFilters, page);
     } else {
@@ -108,8 +117,15 @@ export default function StudentPerTable() {
         }
       );
 
+      const data = await response.json();
+      
       if (!response.ok) throw new Error("Failed to toggle access");
 
+      // Show success message from response
+      setResultMessage(data.message || "تم تحديث حالة الوصول بنجاح");
+      setShowResultModal(true);
+
+      // Refresh data
       if (activeFilters) {
         handleSearch(activeFilters, page);
       } else {
@@ -117,7 +133,9 @@ export default function StudentPerTable() {
       }
     } catch (err) {
       console.error("Toggle failed:", err);
-      alert("تعذر تعديل حالة الوصول");
+      // Show error message
+      setResultMessage("تعذر تعديل حالة الوصول");
+      setShowResultModal(true);
     }
   };
 
@@ -234,38 +252,42 @@ export default function StudentPerTable() {
             Excel
           </button>
 
-          {loading ? (
-            <div className="text-center py-4">جاري التحميل...</div>
-          ) : (
-            <>
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={false}
-              />
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
-                <button
-                  disabled={page === 1}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                >
-                  {t("previous-page")}
-                </button>
-                <span className="px-2 align-self-center col-1 text-center">
-                  {t("page")} {currentPage}
-                </span>
-                <button
-                  disabled={page >= totalPages}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage((prev) => prev + 1)}
-                >
-                  {t("next-page")}
-                </button>
-              </div>
-            </>
-          )}
+          {/* Removed loading state - always show table */}
+          <OngoingTrain
+            TableHead={TableHead}
+            trainingData={trainingData}
+            button={false}
+          />
+          <div className="row justify-content-center align-items-center gap-3 mt-3">
+            <button
+              disabled={currentPage === 1}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(Math.max(currentPage - 1, 1))}
+            >
+              {t("previous-page")}
+            </button>
+            <span className="px-2 align-self-center col-1 text-center">
+              {t("page")} {currentPage}
+            </span>
+            <button
+              disabled={currentPage >= totalPages}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(currentPage + 1)}
+            >
+              {t("next-page")}
+            </button>
+          </div>
         </div>
       </div>
+
+      <AlertModal
+        show={showResultModal}
+        onClose={() => setShowResultModal(false)}
+        onSubmit={() => setShowResultModal(false)}
+        title="تمت العملية"
+      >
+        <p className="m-0 text-center">{resultMessage}</p>
+      </AlertModal>
     </div>
   );
 }

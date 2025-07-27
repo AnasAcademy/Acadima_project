@@ -93,7 +93,7 @@ export default function OngoingTrain({
     ),
     user: (col, key) => (
       <td key={key} className="col-2" style={{ maxWidth: "150px" }}>
-        <div className="d-flex align-items-center justify-content-center gap-2">
+        <div className="d-flex align-items-center justify-content-start gap-2">
           {isUserImg && (
             <Image
               src={col.img}
