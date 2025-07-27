@@ -59,23 +59,9 @@ let dat =[]
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
             <h2 className="hvvv">{ts("electronic-services")}</h2>
-
-            {/* <div className=" col-lg-12 ">
-              <SelectCard selectCardData={selectCardData} />
-            </div> */}
-
+            
             <div className=" col-12 ">
               <ElectronicServiceTable dat={dat} />
-
-              {/* <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-                <OngoingTrain
-                  TableHead={TableHead}
-                  trainingData={trainingData}
-                  button={false}
-                  Icon={Pin}
-                  Icon2={Removebin}
-                />
-              </div> */}
             </div>
           </div>
         </div>

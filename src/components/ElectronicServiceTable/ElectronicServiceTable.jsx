@@ -9,48 +9,49 @@
   import SelectCard from "@/components/SelectCard/SelectCard";
  import AlertModal from "@/components/AlertModal/AlertModal";
   import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
+  import Editform from "@/components/Editform/Editform";
+
   export default function ElectronicServiceTable({dat}) {
 
-   const [showModal, setShowModal] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
+const [Itemid, setId] = useState(null);
  const t = useTranslations("tables");
+  const ts = useTranslations("SidebarA");
 
-    const [data , setData] = useState(dat)
+ const [data , setData] = useState(dat)
 
- const remove = async (id) => {
-  try {
-    const response = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/services/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "x-api-key": "1234",
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-        },
-      }
-      
-   
-        
-    );
+//  const remove = async (id) => {
+//   try {
+//     const response = await fetch(
+//       `https://api.lxera.net/api/development/organization/vodafone/services/${id}`,
+//       {
+//         method: "DELETE",
+//         headers: {
+//           "x-api-key": "1234",
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+//         },
+//       }
+//     );
 
-    const data = await response.json();
+//     const data = await response.json();
 
-         setData((prev) => prev.filter((item) => item.id !== id));
+//          setData((prev) => prev.filter((item) => item.id !== id));
 
-    console.log(data.message)
+//     console.log(data.message)
  
-  } catch (error) {
-    console.error("Status update failed:", error);
-    alert("تعذر تحديث الحالة، حاول مرة أخرى.");
-  }
-};
+//   } catch (error) {
+//     console.error("Status update failed:", error);
+//     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+//   }
+// };
 
 
-const edit = async (id) => {
+const handleSubmit = async (dataa) => {
+   console.log(dataa.description);
   try {
     const response = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/services/${id}`,
+      `https://api.lxera.net/api/development/organization/vodafone/services/${Itemid}`,
       {
         method: "PUT",
         headers: {
@@ -58,24 +59,38 @@ const edit = async (id) => {
           "Content-Type": "application/json",
           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
         },
-       body: JSON.stringify({
-          price: 1200.0,
+        body: JSON.stringify({
+          title: dataa.title,
+         description: dataa.description,
+          
         }),
-      
       }
     );
 
-    const data = await response.json();
+    const result = await response.json();
 
- 
+    console.log(result.message);
+     const updatedItem = {
+       ...data.find((item) => item.id === Itemid),
+       ...dataa,
+     };
+    setData((prev) =>
+      prev.map(
+        (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
+      )
+    );
 
-    console.log(data.message);
   } catch (error) {
     console.error("Status update failed:", error);
     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
   }
 };
+ 
+   function toogle(){ 
+    console.log("afsdf")
+setShowModal(!showModal)
 
+  }
 
 
 
@@ -89,7 +104,6 @@ const edit = async (id) => {
       t("creation_date"),
       t("start_date"),
       t("end_date"),
-      t("actions"),
     ];
 
     const trainingData = data.map((item, index) => ({
@@ -109,7 +123,11 @@ const edit = async (id) => {
           buttons: [
             {
               label: "تعديل",
-              action: () =>  edit(item.id),
+            action: () => {
+              console.log("here")
+      setShowModal(!showModal);
+      setId(item.id);
+                 } ,
               color: "#48BB78",
             },
             { 
@@ -123,58 +141,46 @@ const edit = async (id) => {
     }));
 
 
+      const formTitles = [
+        { label: "تعديل "  + ts("electronic-services"), type: "text" },
+        { label: "تعديل", type: "text" },
+      ];
+
+      
+       const fields = [
+         { name: "title", label: t("title"), type: "text" },
+         { name: "description", label: t("desc"), type: "text" },
+         { name: "price", label: t("price"), type: "text" },
+         { name: "status", label: t("status"), type: "text" },
+         { name: "creator", label: t("creator"), type: "text" },
+         { name: "creation_date", label: t("creation_date"), type: "text" },
+         { name: "start_date", label: t("start_date"), type: "text" },
+         { name: "end_date", label: t("end_date"), type: "text" },
+       ];
+
     return (
       <>
-        <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-                <OngoingTrain
-                  TableHead={TableHead}
-                  trainingData={trainingData}
-                  button={false}
-                  Icon={Pin}
-                  Icon2={Removebin}
-                />
-              </div>
-
-              <AlertModal
-                      show={showModal}
-                      onClose={() => setShowModal(false)}
-                      onSubmit={handleRejectionSubmit}
-                      title="رفض الطلب"
-                    >
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          handleRejectionSubmit();
-                        }}
-                      >
-                        <div className="mb-3">
-                          <label htmlFor="reason" className="form-label">
-                            سبب الرفض:
-                          </label>
-                          <textarea
-                            id="reason"
-                            className="form-control"
-                            value={rejectionReason}
-                            onChange={(e) => setRejectionReason(e.target.value)}
-                            rows={1}
-                            required
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label htmlFor="detailed-reason" className="form-label">
-                            تفاصيل الرفض:
-                          </label>
-                          <textarea
-                            id="detailed-reason"
-                            className="form-control"
-                            value={detailedRejectionReason}
-                            onChange={(e) => setDetailedRejectionReason(e.target.value)}
-                            rows={4}
-                            required
-                          />
-                        </div>
-                      </form>
-                    </AlertModal>
+        {showModal ? (
+          <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+            <Editform
+              fields={fields}
+              data={data}
+              formTitles={formTitles}
+              handleSubmit={handleSubmit}
+              setShowModal={toogle}
+            />
+          </div>
+        ) : (
+          <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+            <OngoingTrain
+              TableHead={TableHead}
+              trainingData={trainingData}
+              button={false}
+              Icon={Pin}
+              Icon2={Removebin}
+            />
+          </div>
+        )}
       </>
     );
   }
