@@ -1034,6 +1034,11 @@
     "start_date": "Start Date",
     "end_date": "End Date",
     "add_new_service": "Add New Service",
-    "close":"close"
+    "close":"close",
+    "add": "Add",
+      "seat_students": "Seat Booking Students",
+  "program_students": "Program Registration Students",
+  "direct_students": "Direct Registration Students",
+  "scholarship_students": "Scholarship Students"
   }
 }

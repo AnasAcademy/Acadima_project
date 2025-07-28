@@ -1890,3 +1890,16 @@ margin-right: 1rem;
 
 
 }
+
+.tableTextdir{
+
+ text-align: start;
+   
+
+}
+
+[dir="rtl"] .tableTextdir{
+    
+text-align: start;
+}
+  

@@ -91,6 +91,7 @@
             body: JSON.stringify({
               title: dataa.title,
               description: dataa.description,
+          
             }),
           }
         );
@@ -128,22 +129,21 @@ const handleSubmitAdd = async (dataa) => {
         body: JSON.stringify({
           title: dataa.title,
           description: dataa.description,
+          price: dataa.price,
+          start_date: dataa.start_date,
+          end_date: dataa.end_date,
+          status: dataa.status,
+          target: dataa.target,
         }),
       }
     );
 
     const result = await response.json();
 
-    console.log(result.message);
-    const updatedItem = {
-      ...data.find((item) => item.id === Itemid),
-      ...dataa,
-    };
-    setData((prev) =>
-      prev.map(
-        (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
-      )
-    );
+    console.log(result.service);
+    const newItem = result.service;
+    setData((prev)=>[...prev , newItem])
+ 
   } catch (error) {
     console.error("Status update failed:", error);
     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
@@ -177,7 +177,7 @@ const handleSubmitAdd = async (dataa) => {
 
     const trainingData = data.map((item, index) => ({
       columns: [
-        { type: "text", value: item.id },
+        { type: "text", value: index+1 },
         { type: "text", value: item.title },
         { type: "text", value: item.description },
         { type: "text", value: item.price },
@@ -212,11 +212,11 @@ const handleSubmitAdd = async (dataa) => {
     const formTitles = [
       {
         label:
-          (formState === "add" ? "اضافه " : "تعديل ") +
+          (formState === "add" ? t("add") + " " : t("edit") + " ") +
           ts("electronic-services"),
         type: "text",
       },
-      { label: formState === "add" ? "اضافه " : "تعديل ", type: "text" },
+      { label: formState === "add" ? t("add") + " " : t("edit"), type: "text" },
     ];
 
     const fields = [
@@ -224,8 +224,7 @@ const handleSubmitAdd = async (dataa) => {
       { name: "description", label: t("desc"), type: "text" },
       { name: "price", label: t("price"), type: "text" },
       { name: "status", label: t("status"), type: "text" },
-      { name: "creator", label: t("creator"), type: "text" },
-      { name: "creation_date", label: t("creation_date"), type: "text" },
+      { name: "target", label: t("creator"), type: "text" },
       { name: "start_date", label: t("start_date"), type: "text" },
       { name: "end_date", label: t("end_date"), type: "text" },
     ];

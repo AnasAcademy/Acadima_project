@@ -1068,7 +1068,11 @@
   "start_date": "تاريخ البدأ",
   "end_date": "تاريخ النهاية",
  "add_new_service": "إضافة خدمة جديدة",
- "close":"اغلاق"
- 
+ "close":"اغلاق",
+ "add": "اضافة",
+  "seat_students": "عدد طلبة حجز مقعد",
+  "program_students": "عدد طلبة تسجيل برامج",
+  "direct_students": "عدد طلبة تسجيل مباشر",
+  "scholarship_students": "عدد طلبة منح دراسية"
 }
 }

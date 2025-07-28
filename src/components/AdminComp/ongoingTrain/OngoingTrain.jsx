@@ -138,7 +138,7 @@ export default function OngoingTrain({
             <tr className="text-nowrap text-center  ">
               {TableHead.map((head, index) => {
                 return (
-                  <th key={index} className="   text-center   ">
+                  <th key={index} className="   tableTextdir  ">
                     {head}
                   </th>
                 );
@@ -147,7 +147,7 @@ export default function OngoingTrain({
           </thead>
           <tbody>
             {trainingData.map((item, index) => (
-              <tr key={index} className="text-center  ">
+              <tr key={index} className="tableTextdir ">
                 {item.columns.map((col, colindex) => {
                   return renderCell[col.type] ? (
                     renderCell[col.type](col, `${index}-${colindex}`)
