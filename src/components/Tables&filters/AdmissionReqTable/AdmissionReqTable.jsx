@@ -106,6 +106,16 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
 
   const Accept = async (id) => {
     try {
+      // Optimistically update the status to "approved" immediately
+      const updatedData = dataa.map(item => 
+        item.id === id ? { ...item, status: "approved" } : item
+      );
+      const updatedFilter = filter.map(item => 
+        item.id === id ? { ...item, status: "approved" } : item
+      );
+      setDataa(updatedData);
+      setFilter(updatedFilter);
+
       const response = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/requirements/${id}/approve`,
         {
@@ -119,13 +129,19 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
       );
 
       const data = await response.json();
-      if (!response.ok || !data.success) throw new Error("Failed to approve");
+      if (!response.ok || !data.success) {
+        // If approval failed, restore the original data
+        setDataa(dataa);
+        setFilter(filter);
+        throw new Error("Failed to approve");
+      }
 
       setResultMessage(data.message || "تم التحديث بنجاح");
       setShowResultModal(true);
-      fetchData(page);
     } catch (error) {
       console.error("Status update failed:", error);
+      // Restore original data on error
+      fetchData(page);
       alert("تعذر تحديث الحالة، حاول مرة أخرى.");
     }
   };
@@ -137,6 +153,16 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
 
   const handleRejectionSubmit = async () => {
     try {
+      // Optimistically update the status to "rejected" immediately
+      const updatedData = dataa.map(item => 
+        item.id === selectedId ? { ...item, status: "rejected" } : item
+      );
+      const updatedFilter = filter.map(item => 
+        item.id === selectedId ? { ...item, status: "rejected" } : item
+      );
+      setDataa(updatedData);
+      setFilter(updatedFilter);
+
       const payload = {
         reason: rejectionReason,
         message: detailedRejectionReason,
@@ -156,7 +182,12 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
       );
 
       const data = await response.json();
-      if (!response.ok || !data.success) throw new Error("Failed to reject");
+      if (!response.ok || !data.success) {
+        // If rejection failed, restore the original data
+        setDataa(dataa);
+        setFilter(filter);
+        throw new Error("Failed to reject");
+      }
 
       setResultMessage(data.message || "تم التحديث بنجاح");
       setShowResultModal(true);
@@ -164,9 +195,10 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
       setRejectionReason("");
       setDetailedRejectionReason("");
       setSelectedId(null);
-      fetchData(page);
     } catch (error) {
       console.error("Rejection failed:", error);
+      // Restore original data on error
+      fetchData(page);
       alert("فشل الرفض. حاول مرة أخرى.");
     }
   };

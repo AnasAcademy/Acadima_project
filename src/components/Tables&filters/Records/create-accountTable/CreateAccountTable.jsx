@@ -4,9 +4,17 @@ import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
+import Pin from "@/assets/admin/pin.svg";
+import Removebin from "@/assets/admin/removebin.svg";
 
-export default function AllStudentsTable({ initialData = [], initialPage = 1, initialTotalPages = 1, initialStatuses = [] }) {
+export default function CreateAccountTable({
+  initialData = [],
+  initialPage = 1,
+  initialTotalPages = 1,
+  initialStatuses = [],
+}) {
   const t = useTranslations("tables");
+  const ts = useTranslations("employee_progress");
 
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
@@ -14,39 +22,37 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
   const [page, setPage] = useState(initialPage);
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
-  const [isInitialRender, setIsInitialRender] = useState(true);
-  const [currentFilters, setCurrentFilters] = useState({});
-
+  const [statuses, setStatuses] = useState(initialStatuses);
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [resultMessage, setResultMessage] = useState("");
-  const [statuses, setStatuses] = useState(initialStatuses);
+  const [currentFilters, setCurrentFilters] = useState({});
   const [categories, setCategories] = useState([]);
+  const [isInitialRender, setIsInitialRender] = useState(true);
 
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/students/all?page=${pageNumber}`,
+        `https://api.lxera.net/api/development/organization/vodafone/students/registered_users?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
+
       const respond = await res.json();
-      const data = respond.students.data || [];
-      setDataa(data);
-      setFilter(data); 
-      setCurrentPage(respond.students.current_page || 1);
-      setTotalPages(respond.students.last_page || 1);
-      setPage(respond.students.current_page || 1);
-      setStatuses(respond.statuses || []);
+      setDataa(respond.users?.data || []);
+      setFilter(respond.users?.data || []);
+      setPage(respond.users?.current_page || 1);
+      setCurrentPage(respond.users?.current_page || 1);
+      setTotalPages(respond.users?.last_page || 1);
+      setStatuses(respond.statusOptions || []);
       setCategories(respond.category || []);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -55,11 +61,10 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
     }
   };
 
-  // Only fetch data on page change, not on initial mount since we have initialData
   useEffect(() => {
     if (isInitialRender) {
       setIsInitialRender(false);
-      return; // Skip fetch on initial mount
+      return;
     }
     if (Object.keys(currentFilters).length > 0) {
       handleSearch(currentFilters, page);
@@ -76,35 +81,28 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
 
       selectCardData.inputs.forEach((input) => {
         const value = filters[input.filter];
-        if (value) {
-          query.append(input.apiKey || input.filter, value);
-        }
+        if (value) query.append(input.apiKey || input.filter, value);
       });
 
       query.append("page", pageNumber);
 
-
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/students/all?${query.toString()}`,
+        `https://api.lxera.net/api/development/organization/vodafone/students/registered_users?${query.toString()}`,
         {
           method: "GET",
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
 
       const respond = await res.json();
-      const data = respond.students?.data || [];
-
-      setFilter(data);
-      setDataa(data); // Also update dataa to keep it in sync
-      setCurrentPage(respond.students?.current_page || 1);
-      setTotalPages(respond.students?.last_page || 1);
-      setPage(respond.students?.current_page || 1); // Update page state
+      setDataa(respond.users?.data || []);
+      setFilter(respond.users?.data || []);
+      setCurrentPage(respond.users?.current_page || 1);
+      setTotalPages(respond.users?.last_page || 1);
     } catch (error) {
       console.error("Search error:", error);
     } finally {
@@ -112,16 +110,15 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
     }
   };
 
-   const Delete = (id) => {
+  const Delete = (id) => {
     setSelectedId(id);
     setShowModal(true);
   };
 
   const DeleteUser = async () => {
     try {
-      // Optimistically remove from UI immediately
-      const updatedData = dataa.filter(item => item.id !== selectedId);
-      const updatedFilter = filter.filter(item => item.id !== selectedId);
+      const updatedData = dataa.filter((item) => item.id !== selectedId);
+      const updatedFilter = filter.filter((item) => item.id !== selectedId);
       setDataa(updatedData);
       setFilter(updatedFilter);
 
@@ -132,14 +129,13 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
 
       const data = await response.json();
       if (!response.ok || !data.success) {
-        // If deletion failed, restore the data and show error
         setDataa(dataa);
         setFilter(filter);
         throw new Error("Failed to delete");
@@ -149,14 +145,12 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
       setShowResultModal(true);
       setShowModal(false);
       setSelectedId(null);
-      
-      // Only fetch if we need to handle pagination edge cases
+
       if (updatedFilter.length === 0 && currentPage > 1) {
         fetchData(currentPage - 1);
       }
     } catch (error) {
       console.error("Deletion failed:", error);
-      // Restore original data on error
       fetchData(page);
       alert("فشل الرفض. حاول مرة أخرى.");
     }
@@ -166,35 +160,21 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
     key: item.id || index,
     columns: [
       { type: "text", value: index + 1 },
-      { type: "text", value: item.user_code },
       {
         type: "user",
-        name: item.en_name,
+        name: item.en_name || item.name,
         email: item.email,
-        phone: item.mobile,
+        phone: item.mobile || item.phone,
       },
-      { type: "image", value: item.identity_image},
-      { type: "text", value: item.program.title },
-      { type: "text", value: item.created_at },
+      { type: "image", value: item.identity_image || item.image },
+      { type: "text", value: item.program?.title || item.course },
+      { type: "text", value: item.created_at || item.join_date },
       { type: "text", value: item.status },
       {
         type: "buttons",
         buttons: [
-            {
-            label: t("login"),
-            // action: () => router.push(`/login/${item.id}`),
-            color: "#1024dd",
-          },
-          {
-            label: t("edit"),
-            // action: () => router.push(`/org/students-records/all-students/edit/${item.id}`),
-            color: "#28a745",
-          },
-          {
-            label: t("delete"),
-            action: () => Delete(item.id),
-            color: "#fc544b",
-          }
+          { label: t("edit"), color: "#28a745" },
+          { label: t("delete"), action: () => Delete(item.id), color: "#fc544b" },
         ],
       },
     ],
@@ -202,7 +182,6 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
 
   const TableHead = [
     "#",
-    t("user-code"),
     t("user-name"),
     t("identity-file"),
     t("registered-program"),
@@ -255,39 +234,37 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
         placeholder: t("status"),
         apiKey: "status",
         options: Array.isArray(statuses) ? statuses : [],
-      }
+      },
     ],
   };
 
   const DownloadExcel = async () => {
     try {
       const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/students/excelAll",
+        "https://api.lxera.net/api/development/organization/vodafone/students/excelRegisteredUsers",
         {
           method: "GET",
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to download file");
-      }
+      if (!response.ok) throw new Error("Failed to download file");
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
 
       const a = document.createElement("a");
       a.href = url;
-      a.download = "report.xlsx"; // Default file name
+      a.download = "create-account-report.xlsx";
       document.body.appendChild(a);
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
-      alert("Download succeded");
+      alert("Download succeeded");
     } catch (error) {
       console.error("Download failed:", error);
       alert("Download failed. Please try again.");
@@ -308,39 +285,37 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
 
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-          <button
-            className="btn custfontbtn rounded-4 mb-3"
-            onClick={DownloadExcel}
-          >
+          <button className="btn custfontbtn rounded-4 mb-3" onClick={DownloadExcel}>
             Excel
           </button>
 
-         
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={false}
-              />
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
-                <button
-                  disabled={currentPage === 1}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
-                >
-                  {t("previous-page")}
-                </button>
-                <span className="px-2 align-self-center col-1 text-center">
-                  {t("page")} {currentPage}
-                </span>
-                <button
-                  disabled={currentPage >= totalPages}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(currentPage + 1)}
-                >
-                  {t("next-page")}
-                </button>
-              </div>
-          
+          <OngoingTrain
+            TableHead={TableHead}
+            trainingData={trainingData}
+            button={false}
+            Icon={Pin}
+            Icon2={Removebin}
+          />
+
+          <div className="row justify-content-center align-items-center gap-3 mt-3">
+            <button
+              disabled={currentPage === 1}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(Math.max(currentPage - 1, 1))}
+            >
+              {t("previous-page")}
+            </button>
+            <span className="px-2 align-self-center col-1 text-center">
+              {t("page")} {currentPage}
+            </span>
+            <button
+              disabled={currentPage >= totalPages}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(currentPage + 1)}
+            >
+              {t("next-page")}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -357,7 +332,9 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
           }}
         >
           <div className="mb-3">
-            <p className="m-0 text-center">When you delete a user, all of the user courses and other data will be deleted as well</p>
+            <p className="m-0 text-center">
+              When you delete a user, all of the user courses and other data will be deleted as well
+            </p>
           </div>
         </form>
       </AlertModal>

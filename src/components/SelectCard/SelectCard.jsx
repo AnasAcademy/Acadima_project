@@ -27,7 +27,6 @@ export default function SelectCard({
 
   function handleFilterChange(key, value) {
     setFilters((prev) => ({ ...prev, [key]: value }));
-    console.log(filters);
   }
 
   const { inputs = [], button = { show: false } } = selectCardData;
@@ -83,11 +82,16 @@ export default function SelectCard({
                           }
                         >
                           <option value="">{t("sort_by")}</option>
-                          {input.options?.map((option, i) => (
-                            <option key={i} value={option}>
-                              {option}
-                            </option>
-                          ))}
+                          {input.options?.map((option, i) => {
+                            // Handle both string options and objects with value/label
+                            const value = typeof option === 'object' ? option.value : option;
+                            const label = typeof option === 'object' ? option.label : option;
+                            return (
+                              <option key={i} value={value}>
+                                {label}
+                              </option>
+                            );
+                          })}
                         </select>
                         <Arrow className="iconSize5 position-absolute selclass p-1" />
                       </div>
