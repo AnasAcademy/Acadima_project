@@ -1,14 +1,18 @@
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+
  export default  function Editform({
    fields,
    data,
-   t,
    formTitles,
    handleSubmitEdit,
    setShowModal,
-   handleSubmitAdd
+   handleSubmitAdd,
+   formState,
  }) {
+
+     const t = useTranslations("tables");
    const [form, setForm] = useState(() => {
      const initialState = {};
      fields.forEach(({ name }) => {
@@ -23,7 +27,14 @@ import { useState } from "react";
 
    const onSubmit = (e) => {
      e.preventDefault();
-     handleSubmitEdit(form); // send values
+     console.log(formState)
+     if (formState ==="edit"){
+      console.log("edit")
+       handleSubmitEdit(form); // send values
+     } else {
+  console.log("add");
+      handleSubmitAdd(form);
+     }
    };
 
    return (
@@ -78,7 +89,7 @@ import { useState } from "react";
                type="submit"
                onClick={setShowModal}
              >
-               close
+              {t("close")}
              </button>
            </div>
          </div>

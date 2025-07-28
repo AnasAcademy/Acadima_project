@@ -18,7 +18,7 @@
     const t = useTranslations("tables");
     const ts = useTranslations("SidebarA");
     const [data, setData] = useState(dat);
-    
+    const [formState , setFormState] = useState("")
     async function fetchy(stat) {
       const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
 
@@ -193,9 +193,9 @@ const handleSubmitAdd = async (dataa) => {
             {
               label: t("edit"),
               action: () => {
-                console.log("here");
                 setShowModal(!showModal);
                 setId(item.id);
+                setFormState("edit")
               },
               color: "#48BB78",
             },
@@ -210,8 +210,13 @@ const handleSubmitAdd = async (dataa) => {
     }));
 
     const formTitles = [
-      { label: "تعديل " + ts("electronic-services"), type: "text" },
-      { label: "تعديل", type: "text" },
+      {
+        label:
+          (formState === "add" ? "اضافه " : "تعديل ") +
+          ts("electronic-services"),
+        type: "text",
+      },
+      { label: formState === "add" ? "اضافه " : "تعديل ", type: "text" },
     ];
 
     const fields = [
@@ -236,6 +241,7 @@ const handleSubmitAdd = async (dataa) => {
               handleSubmitEdit={handleSubmitEdit}
               setShowModal={toogle}
               handleSubmitAdd={handleSubmitAdd}
+              formState={formState}
             />
           </div>
         ) : (
@@ -243,7 +249,11 @@ const handleSubmitAdd = async (dataa) => {
             <div className=" d-flex justify-content-end ">
               <button
                 className=" btn  btn-light custfontbtn "
-                onClick={setShowModal}
+                onClick={()=>{
+                       setShowModal(true);
+                        setFormState("add");
+                        
+                }}
               >
                 {" "}
                 {t("add_new_service")}{" "}

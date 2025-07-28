@@ -1067,7 +1067,8 @@
   "creation_date": "تاريخ الإنشاء",
   "start_date": "تاريخ البدأ",
   "end_date": "تاريخ النهاية",
- "add_new_service": "إضافة خدمة جديدة"
+ "add_new_service": "إضافة خدمة جديدة",
+ "close":"اغلاق"
  
 }
 }
