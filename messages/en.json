@@ -1032,6 +1032,7 @@
     "creator": "Creator",
     "creation_date": "Creation Date",
     "start_date": "Start Date",
-    "end_date": "End Date"
+    "end_date": "End Date",
+    "add_new_service": "Add New Service"
   }
 }

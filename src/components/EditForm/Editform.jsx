@@ -5,8 +5,9 @@ import { useState } from "react";
    data,
    t,
    formTitles,
-   handleSubmit,
+   handleSubmitEdit,
    setShowModal,
+   handleSubmitAdd
  }) {
    const [form, setForm] = useState(() => {
      const initialState = {};
@@ -22,7 +23,7 @@ import { useState } from "react";
 
    const onSubmit = (e) => {
      e.preventDefault();
-     handleSubmit(form); // send values
+     handleSubmitEdit(form); // send values
    };
 
    return (
@@ -30,7 +31,7 @@ import { useState } from "react";
        <h4>{formTitles[0].label}</h4>
        <div className="container-fluid p-0">
          <div className="p-4   row  g-3  d-flex justify-content-start ">
-           {fields.map(({  label, type, options, name } , index) => (
+           {fields.map(({ label, type, options, name }, index) => (
              <div key={index} className="col-6   p-2 ">
                <div className="">
                  <h3 className="Tit-12-700">{label}</h3>
@@ -66,7 +67,7 @@ import { useState } from "react";
            ))}
            <div className="d-flex   col-7 mt-3 ">
              <button
-               className="btn btn-light custfontbtn  w-25  "
+               className="btn btn-light custfontbtn  w-25   "
                type="submit"
              >
                {formTitles[1].label}

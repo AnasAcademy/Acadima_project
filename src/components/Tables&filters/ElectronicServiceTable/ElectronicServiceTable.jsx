@@ -11,49 +11,115 @@
   import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
   import Editform from "@/components/Editform/Editform";
 
-  export default function ElectronicServiceTable({dat}) {
+  export default function ElectronicServiceTable({ dat, current_page, last_page }) {
+    const [currentPage, setCurrentPage] = useState(current_page);
+    const [showModal, setShowModal] = useState(false);
+    const [Itemid, setId] = useState(null);
+    const t = useTranslations("tables");
+    const ts = useTranslations("SidebarA");
+    const [data, setData] = useState(dat);
+    
+    async function fetchy(stat) {
+      const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
 
-  const [showModal, setShowModal] = useState(false);
-const [Itemid, setId] = useState(null);
- const t = useTranslations("tables");
-  const ts = useTranslations("SidebarA");
+      if (stat === "up") {
+        setCurrentPage(currentPage + 1);
+      } else {
+        setCurrentPage(currentPage - 1);
+      }
 
- const [data , setData] = useState(dat)
+      try {
+        const data = await fetch(
+          `https://api.lxera.net/api/development/organization/vodafone/services?page=${newPage}`,
+          {
+            method: "GET",
+            headers: {
+              "x-api-key": "1234",
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            },
+          }
+        );
 
-//  const remove = async (id) => {
-//   try {
-//     const response = await fetch(
-//       `https://api.lxera.net/api/development/organization/vodafone/services/${id}`,
-//       {
-//         method: "DELETE",
-//         headers: {
-//           "x-api-key": "1234",
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-//         },
-//       }
-//     );
+        const respond = await data.json();
+        console.log("go", respond.data.data);
+        dat = respond.data.data;
+        setData(dat);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    }
 
-//     const data = await response.json();
+    const remove = async (id) => {
+      try {
+        const response = await fetch(
+          `https://api.lxera.net/api/development/organization/vodafone/services/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "x-api-key": "1234",
+              "Content-Type": "application/json",
+              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+            },
+          }
+        );
 
-//          setData((prev) => prev.filter((item) => item.id !== id));
+        const data = await response.json();
 
-//     console.log(data.message)
- 
-//   } catch (error) {
-//     console.error("Status update failed:", error);
-//     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
-//   }
-// };
+        setData((prev) => prev.filter((item) => item.id !== id));
 
+        console.log(data.message);
+      } catch (error) {
+        console.error("Status update failed:", error);
+        alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+      }
+    };
 
-const handleSubmit = async (dataa) => {
-   console.log(dataa.description);
+    const handleSubmitEdit = async (dataa) => {
+      console.log(dataa.description);
+      try {
+        const response = await fetch(
+          `https://api.lxera.net/api/development/organization/vodafone/services/${Itemid}`,
+          {
+            method: "PUT",
+            headers: {
+              "x-api-key": "1234",
+              "Content-Type": "application/json",
+              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+            },
+            body: JSON.stringify({
+              title: dataa.title,
+              description: dataa.description,
+            }),
+          }
+        );
+
+        const result = await response.json();
+
+        console.log(result.message);
+        const updatedItem = {
+          ...data.find((item) => item.id === Itemid),
+          ...dataa,
+        };
+        setData((prev) =>
+          prev.map(
+            (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
+          )
+        );
+      } catch (error) {
+        console.error("Status update failed:", error);
+        alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+      }
+    };
+
+const handleSubmitAdd = async (dataa) => {
+  console.log(dataa.description);
   try {
     const response = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/services/${Itemid}`,
+      `https://api.lxera.net/api/development/organization/vodafone/services`,
       {
-        method: "PUT",
+        method: "POST",
         headers: {
           "x-api-key": "1234",
           "Content-Type": "application/json",
@@ -61,8 +127,7 @@ const handleSubmit = async (dataa) => {
         },
         body: JSON.stringify({
           title: dataa.title,
-         description: dataa.description,
-          
+          description: dataa.description,
         }),
       }
     );
@@ -70,29 +135,33 @@ const handleSubmit = async (dataa) => {
     const result = await response.json();
 
     console.log(result.message);
-     const updatedItem = {
-       ...data.find((item) => item.id === Itemid),
-       ...dataa,
-     };
+    const updatedItem = {
+      ...data.find((item) => item.id === Itemid),
+      ...dataa,
+    };
     setData((prev) =>
       prev.map(
         (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
       )
     );
-
   } catch (error) {
     console.error("Status update failed:", error);
     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
   }
 };
- 
-   function toogle(){ 
-    console.log("afsdf")
-setShowModal(!showModal)
-
-  }
 
 
+
+
+
+
+
+
+
+    function toogle() {
+  
+      setShowModal(!showModal);
+    }
 
     const TableHead = [
       "#",
@@ -122,16 +191,16 @@ setShowModal(!showModal)
           type: "buttons",
           buttons: [
             {
-              label: "تعديل",
-            action: () => {
-              console.log("here")
-      setShowModal(!showModal);
-      setId(item.id);
-                 } ,
+              label: t("edit"),
+              action: () => {
+                console.log("here");
+                setShowModal(!showModal);
+                setId(item.id);
+              },
               color: "#48BB78",
             },
-            { 
-              label:"حذف",
+            {
+              label: t("delete"),
               action: () => remove(item.id),
               color: "#fc544b",
             },
@@ -140,23 +209,21 @@ setShowModal(!showModal)
       ],
     }));
 
+    const formTitles = [
+      { label: "تعديل " + ts("electronic-services"), type: "text" },
+      { label: "تعديل", type: "text" },
+    ];
 
-      const formTitles = [
-        { label: "تعديل "  + ts("electronic-services"), type: "text" },
-        { label: "تعديل", type: "text" },
-      ];
-
-      
-       const fields = [
-         { name: "title", label: t("title"), type: "text" },
-         { name: "description", label: t("desc"), type: "text" },
-         { name: "price", label: t("price"), type: "text" },
-         { name: "status", label: t("status"), type: "text" },
-         { name: "creator", label: t("creator"), type: "text" },
-         { name: "creation_date", label: t("creation_date"), type: "text" },
-         { name: "start_date", label: t("start_date"), type: "text" },
-         { name: "end_date", label: t("end_date"), type: "text" },
-       ];
+    const fields = [
+      { name: "title", label: t("title"), type: "text" },
+      { name: "description", label: t("desc"), type: "text" },
+      { name: "price", label: t("price"), type: "text" },
+      { name: "status", label: t("status"), type: "text" },
+      { name: "creator", label: t("creator"), type: "text" },
+      { name: "creation_date", label: t("creation_date"), type: "text" },
+      { name: "start_date", label: t("start_date"), type: "text" },
+      { name: "end_date", label: t("end_date"), type: "text" },
+    ];
 
     return (
       <>
@@ -166,12 +233,23 @@ setShowModal(!showModal)
               fields={fields}
               data={data}
               formTitles={formTitles}
-              handleSubmit={handleSubmit}
+              handleSubmitEdit={handleSubmitEdit}
               setShowModal={toogle}
+              handleSubmitAdd={handleSubmitAdd}
             />
           </div>
         ) : (
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+            <div className=" d-flex justify-content-end ">
+              <button
+                className=" btn  btn-light custfontbtn "
+                onClick={setShowModal}
+              >
+                {" "}
+                {t("add_new_service")}{" "}
+              </button>
+            </div>
+
             <OngoingTrain
               TableHead={TableHead}
               trainingData={trainingData}
@@ -179,6 +257,30 @@ setShowModal(!showModal)
               Icon={Pin}
               Icon2={Removebin}
             />
+
+            <div className="row justify-content-center align-items-center gap-3 mt-3">
+              <button
+                disabled={currentPage === 1}
+                className="btn custfontbtn col-1"
+                onClick={() => {
+                  fetchy("down");
+                }}
+              >
+                {t("previous-page")}
+              </button>
+              <span className="px-2 align-self-center col-1 text-center">
+                {t("page")} {currentPage}
+              </span>
+              <button
+                disabled={currentPage === last_page}
+                className="btn custfontbtn col-1"
+                onClick={() => {
+                  fetchy("up");
+                }}
+              >
+                {t("next-page")}
+              </button>
+            </div>
           </div>
         )}
       </>

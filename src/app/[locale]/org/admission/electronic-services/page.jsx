@@ -1,4 +1,3 @@
-
 import React from "react";
 import FilterCard from "@/components/FilterCard/FilterCard";
 import SelectCard from "@/components/SelectCard/SelectCard";
@@ -16,12 +15,13 @@ export default async function ElectronicServicesList() {
 
 
 let dat =[]
-  
+let current_page=[] || 1
+let last_page = []
    try {
    
 
       const data = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services`,
+        `https://api.lxera.net/api/development/organization/vodafone/services/${current_page}`,
         {
           method: "GET",
           headers: {
@@ -36,7 +36,8 @@ let dat =[]
         const respond = await data.json();
        console.log("go", respond.data.data);
      dat = respond.data.data;
- 
+     current_page = respond.data.current_page
+     last_page = respond.data.last_page;
    } catch (error) {
      console.error("Fetch error:", error);
    }
@@ -58,10 +59,17 @@ let dat =[]
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
-            <h2 className="hvvv">{ts("electronic-services")}</h2>
+            <div className=" d-flex justify-content-between">
+              <h2 className="hvvv">{ts("electronic-services")}</h2>
+
             
+            </div>
             <div className=" col-12 ">
-              <ElectronicServiceTable dat={dat} />
+              <ElectronicServiceTable
+                dat={dat}
+                current_page={current_page}
+                last_page={last_page}
+              />
             </div>
           </div>
         </div>
