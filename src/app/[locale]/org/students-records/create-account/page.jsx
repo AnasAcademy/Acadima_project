@@ -27,15 +27,14 @@ export default async function CreateAccountStudents() {
         data: respond.users?.data || [],
         currentPage: respond.users?.current_page || 1,
         totalPages: respond.users?.last_page || 1,
-        statuses: respond.statusOptions || [],
       };
     } catch (error) {
       console.error("Error fetching data:", error);
-      return { data: [], currentPage: 1, totalPages: 1, statuses: [] };
+      return { data: [], currentPage: 1, totalPages: 1 };
     }
   }
 
-  const { data, currentPage, totalPages, statuses } = await fetchData(1);
+  const { data, currentPage, totalPages } = await fetchData(1);
 
   return (
     <div className="m-0 container-fluid p-0 d-flex flex-column">
@@ -47,7 +46,6 @@ export default async function CreateAccountStudents() {
               initialData={data}
               initialPage={currentPage}
               initialTotalPages={totalPages}
-              initialStatuses={statuses}
             />
           </div>
         </div>

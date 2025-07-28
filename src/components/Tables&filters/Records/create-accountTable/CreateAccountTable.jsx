@@ -6,15 +6,16 @@ import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
+import { useUserData } from "@/context/UserDataContext";
 
 export default function CreateAccountTable({
   initialData = [],
   initialPage = 1,
   initialTotalPages = 1,
-  initialStatuses = [],
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("employee_progress");
+  const { statuses, roles, categories, loading: contextLoading } = useUserData();
 
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
@@ -22,13 +23,11 @@ export default function CreateAccountTable({
   const [page, setPage] = useState(initialPage);
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
-  const [statuses, setStatuses] = useState(initialStatuses);
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [resultMessage, setResultMessage] = useState("");
   const [currentFilters, setCurrentFilters] = useState({});
-  const [categories, setCategories] = useState([]);
   const [isInitialRender, setIsInitialRender] = useState(true);
 
   const fetchData = async (pageNumber = 1) => {
@@ -52,8 +51,6 @@ export default function CreateAccountTable({
       setPage(respond.users?.current_page || 1);
       setCurrentPage(respond.users?.current_page || 1);
       setTotalPages(respond.users?.last_page || 1);
-      setStatuses(respond.statusOptions || []);
-      setCategories(respond.category || []);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {

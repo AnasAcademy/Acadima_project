@@ -511,6 +511,7 @@
     "en_name": "الاسم باللغة الإنجليزية",
     "user_role": "دور المستخدم",
     "bio": " نبذة عن المستخدم",
+    "about": "عن المستخدم",
     "status":"الحالة",
     "academic_info": "  بيانات المستخدم",
     "academic_code": "كود المستخدم",
@@ -1025,6 +1026,7 @@
 },
 "tables": {
   "admission-requirements": "متطلبات القبول",
+  "user_role": "دور المستخدم",
   "user-code": "كود الطالب",
   "user-name": "اسم الطالب",
   "registered-program-type": "البرنامج المسجل اليه  ",

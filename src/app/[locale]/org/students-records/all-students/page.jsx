@@ -24,15 +24,14 @@ export default async function AllStudents() {
         data: respond.students.data || [],
         currentPage: respond.students.current_page || 1,
         totalPages: respond.students.last_page || 1,
-        statuses: respond.statusOptions || [],
         
       };
     } catch (error) {
       console.error("Error fetching data:", error);
-      return { data: [], currentPage: 1, totalPages: 1, statuses: [] };
+      return { data: [], currentPage: 1, totalPages: 1 };
     }
   }
-  const { data, currentPage, totalPages, statuses } = await fetchData(1);
+  const { data, currentPage, totalPages } = await fetchData(1);
 
   return (
     <>
@@ -45,7 +44,6 @@ export default async function AllStudents() {
                 initialData={data}
                 initialPage={currentPage}
                 initialTotalPages={totalPages}
-                initialStatuses={statuses}
               />
             </div>
           </div>
