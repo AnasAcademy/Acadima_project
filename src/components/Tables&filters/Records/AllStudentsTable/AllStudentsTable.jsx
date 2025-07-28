@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
+import Editform from "@/components/Editform/Editform";
 
 export default function AllStudentsTable({ initialData = [], initialPage = 1, initialTotalPages = 1, initialStatuses = [] }) {
   const t = useTranslations("tables");
@@ -258,6 +259,22 @@ export default function AllStudentsTable({ initialData = [], initialPage = 1, in
       }
     ],
   };
+
+  const formTitles = [
+      { label: "تعديل " + t("electronic-services"), type: "text" },
+      { label: "تعديل", type: "text" },
+    ];
+
+    const fields = [
+      { name: "title", label: t("title"), type: "text" },
+      { name: "description", label: t("desc"), type: "text" },
+      { name: "price", label: t("price"), type: "text" },
+      { name: "status", label: t("status"), type: "text" },
+      { name: "creator", label: t("creator"), type: "text" },
+      { name: "creation_date", label: t("creation_date"), type: "text" },
+      { name: "start_date", label: t("start_date"), type: "text" },
+      { name: "end_date", label: t("end_date"), type: "text" },
+    ];
 
   const DownloadExcel = async () => {
     try {

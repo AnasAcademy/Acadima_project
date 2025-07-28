@@ -1035,6 +1035,7 @@
     "start_date": "Start Date",
     "end_date": "End Date",
     "add_new_service": "Add New Service",
-    "close":"close"
+    "close":"close",
+    "user": "User"
   }
 }

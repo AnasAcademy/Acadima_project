@@ -166,7 +166,6 @@ export default function CreateAccountTable({
         email: item.email,
         phone: item.mobile || item.phone,
       },
-      { type: "image", value: item.identity_image || item.image },
       { type: "text", value: item.program?.title || item.course },
       { type: "text", value: item.created_at || item.join_date },
       { type: "text", value: item.status },
@@ -183,8 +182,7 @@ export default function CreateAccountTable({
   const TableHead = [
     "#",
     t("user-name"),
-    t("identity-file"),
-    t("registered-program"),
+    t("registered-program-type"),
     t("registration_date"),
     t("user-status"),
     t("actions"),
