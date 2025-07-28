@@ -7,7 +7,7 @@
   import roundimage from "@/assets/admin/personla.png";
   import FilterCard from "@/components/FilterCard/FilterCard";
   import SelectCard from "@/components/SelectCard/SelectCard";
- import AlertModal from "@/components/AlertModal/AlertModal";
+  import AlertModal from "@/components/AlertModal/AlertModal";
   import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
   import Editform from "@/components/Editform/Editform";
 

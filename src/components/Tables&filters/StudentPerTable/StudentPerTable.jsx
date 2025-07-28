@@ -102,6 +102,17 @@ export default function StudentPerTable({
 
   const handleToggle = async (id, currentValue) => {
     const newValue = currentValue === 1 ? 0 : 1;
+    
+    // Optimistically update the access value immediately
+    const updatedData = dataa.map(item => 
+      item.id === id ? { ...item, access_to_purchased_item: newValue } : item
+    );
+    const updatedFilter = filter.map(item => 
+      item.id === id ? { ...item, access_to_purchased_item: newValue } : item
+    );
+    setDataa(updatedData);
+    setFilter(updatedFilter);
+
     try {
       const response = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/permission/toggle_access/${id}`,
@@ -119,20 +130,24 @@ export default function StudentPerTable({
 
       const data = await response.json();
       
-      if (!response.ok) throw new Error("Failed to toggle access");
+      if (!response.ok) {
+        // If toggle failed, restore the original data
+        setDataa(dataa);
+        setFilter(filter);
+        throw new Error("Failed to toggle access");
+      }
 
       // Show success message from response
       setResultMessage(data.message || "تم تحديث حالة الوصول بنجاح");
       setShowResultModal(true);
-
-      // Refresh data
+    } catch (err) {
+      console.error("Toggle failed:", err);
+      // Restore original data on error
       if (activeFilters) {
         handleSearch(activeFilters, page);
       } else {
         fetchData(page);
       }
-    } catch (err) {
-      console.error("Toggle failed:", err);
       // Show error message
       setResultMessage("تعذر تعديل حالة الوصول");
       setShowResultModal(true);

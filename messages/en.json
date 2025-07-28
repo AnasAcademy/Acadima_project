@@ -1013,6 +1013,7 @@
     "mail-search": " Search by mail ",
     "phone-search": " Search by phone ",
     "code-search": " Search by user code ",
+    "program-search": " Search by program ",
     "study-classes": "Study Classes",
     "next-page": "Next Page",
     "previous-page": "Previous Page",
@@ -1039,6 +1040,8 @@
       "seat_students": "Seat Booking Students",
   "program_students": "Program Registration Students",
   "direct_students": "Direct Registration Students",
-  "scholarship_students": "Scholarship Students"
+  "scholarship_students": "Scholarship Students",
+      "user": "User"
+
   }
 }
