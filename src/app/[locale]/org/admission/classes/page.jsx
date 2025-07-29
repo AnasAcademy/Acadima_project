@@ -1,6 +1,4 @@
 import React from "react";
-import FilterCard from "@/components/FilterCard/FilterCard";
-import SelectCard from "@/components/SelectCard/SelectCard";
 import ClassesTable from "@/components/Tables&filters/ClassesTable/ClassesTable"
 import { getTranslations } from "next-intl/server";
 

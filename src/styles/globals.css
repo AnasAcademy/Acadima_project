@@ -541,6 +541,22 @@ table tbody td:first-child {
   color: var(--icon-color);
 }
 
+.actionButton{
+
+  color: var(--White);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background-color: var(--icon-color);
+  padding: 8px 16px;
+}
+
+
+
+
+
+
 .custfontbtn {
   color: var(--White);
   font-size: 12px;
@@ -563,7 +579,6 @@ table tbody td:first-child {
 
 .custfontbtnbold:hover {
   background-color: transparent !important;
-
   border: 1px var(--btn-color) solid !important;
   padding: 7px 15px;
 }
@@ -590,7 +605,6 @@ table tbody td:first-child {
 
 .custfontbtn:hover {
   background-color: transparent !important;
-
   border: 1px var(--btn-color) solid !important;
 }
 

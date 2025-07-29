@@ -1075,6 +1075,10 @@
   "seat_students": "عدد طلبة حجز مقعد",
   "program_students": "عدد طلبة تسجيل برامج",
   "direct_students": "عدد طلبة تسجيل مباشر",
-  "scholarship_students": "عدد طلبة منح دراسية"
+  "scholarship_students": "عدد طلبة منح دراسية",
+    "student_code": "كود الطلاب",
+  "last_student_code": "أخر كود طالب",
+   "teacher_codes": "كود المعلمين",
+  "last_teacher_code": "آخر كود معلم"
 }
 }

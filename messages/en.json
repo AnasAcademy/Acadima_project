@@ -1041,7 +1041,11 @@
   "program_students": "Program Registration Students",
   "direct_students": "Direct Registration Students",
   "scholarship_students": "Scholarship Students",
-      "user": "User"
+      "user": "User",
+      "student_code": "Student Code",
+  "last_student_code": "Last Student Code",
+   "teacher_codes": "Teacher Codes",
+  "last_teacher_code": "Last Teacher Code"
 
   }
 }

@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
@@ -10,6 +11,7 @@ export default function OngoingTrain({
   Icon2,
   isUserImg,
 }) {
+  const [openId, setOpenId] = useState(null);
   const t = useTranslations("tables");
 
   const renderCell = {
@@ -32,9 +34,18 @@ export default function OngoingTrain({
       let textClass = "text-dark";
       let textVal = col.value;
 
-      if (col.value === "active") {textClass = "text-success"; textVal=t("active")}// Green
-      else if (col.value === "pending") {textClass = "text-warning"; textVal=t("pending")} // Yellow
-      else if (col.value === "inactive") {textClass = "text-danger"; textVal=t("inactive")} // Red
+      if (col.value === "active") {
+        textClass = "text-success";
+        textVal = t("active");
+      } // Green
+      else if (col.value === "pending") {
+        textClass = "text-warning";
+        textVal = t("pending");
+      } // Yellow
+      else if (col.value === "inactive") {
+        textClass = "text-danger";
+        textVal = t("inactive");
+      } // Red
 
       return (
         <td key={key} className={`text-wrap ${textClass}`}>
@@ -128,17 +139,50 @@ export default function OngoingTrain({
         </div>
       </td>
     ),
+    actionbutton: (col) => (
+      <td>
+        <div className=" justify-content-center  align-items-center  position-relative  ">
+          <button
+            className="tit-12-400 btncolor text-center  cursor-pointer   text-nowrap d-flex align-items-center  gap-2 justify-content-center actionButton w-100 "
+            onClick={() => {
+              setOpenId((prev) => (prev === col.id ? null : col.id));
+            }}
+          >
+            {col.icon && (
+              <col.icon style={{ color: "#fff" }}>{col.icon}</col.icon>
+            )}
+            {col.label}
+          </button>
+
+          {openId === col.id && (
+            <div className="  bg-white d-flex  flex-column justify-content-center align-items-center  position-absolute    z-3  w-100  border-1 border">
+              {col.lists.map((list, index) => (
+                <h6
+                  className=" text-dark d-flex  justify-content-center align-items-center gap-2 p-1 cursor-pointer" key={index}
+                  onClick={list.action}
+                >
+                  {col.icon && (
+                    <list.icon style={{ color: "#fff" }}>{col.icon}</list.icon>
+                  )}
+                  {list.label}
+                </h6>
+              ))}
+            </div>
+          )}
+        </div>
+      </td>
+    ),
   };
 
   return (
     <>
       <div className=" table-responsive     ">
-        <table className="table  no-flag-style   align-middle     ">
+        <table className="table  no-flag-style   align-middle   position-relative   ">
           <thead className="  w-100">
             <tr className="text-nowrap text-center  ">
               {TableHead.map((head, index) => {
                 return (
-                  <th key={index} className="   tableTextdir  ">
+                  <th key={index} className="tableTextdir">
                     {head}
                   </th>
                 );

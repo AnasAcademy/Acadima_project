@@ -1,11 +1,5 @@
 import React from "react";
-import FilterCard from "@/components/FilterCard/FilterCard";
-import SelectCard from "@/components/SelectCard/SelectCard";
-import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import { getTranslations } from "next-intl/server";
-import Pin from "@/assets/admin/pin.svg";
-import Removebin from "@/assets/admin/removebin.svg";
-import roundimage from "@/assets/admin/personla.png";
 import ElectronicServiceTable from "@/components/Tables&filters/ElectronicServiceTable/ElectronicServiceTable"
 
 
@@ -41,18 +35,6 @@ let last_page = []
    } catch (error) {
      console.error("Fetch error:", error);
    }
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <>
