@@ -216,11 +216,11 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
       },
       {
         type: "text",
-        value: item.bundle_student.bundle.translations.title,
+        value: item.bundle_student.bundle.translations[0].title,
       },
       {
         type: "text",
-        value: item.bundle_student.bundle.translations.title,
+        value: item.bundle_student.bundle.translations[0].title,
       },
       { type: "image", value: item.identity_attachment },
       {},
@@ -378,7 +378,7 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
         show={showModal}
         onClose={() => setShowModal(false)}
         onSubmit={handleRejectionSubmit}
-        title="رفض الطلب"
+        title={ t("rejection_title") }
       >
         <form
           onSubmit={(e) => {
@@ -388,7 +388,7 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
         >
           <div className="mb-3">
             <label htmlFor="reason" className="form-label">
-              سبب الرفض:
+              {t("rejection_reason")}
             </label>
             <textarea
               id="reason"
@@ -401,7 +401,7 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
           </div>
           <div className="mb-3">
             <label htmlFor="detailed-reason" className="form-label">
-              تفاصيل الرفض:
+              {t("rejection_details")}
             </label>
             <textarea
               id="detailed-reason"
@@ -419,7 +419,7 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
         show={showResultModal}
         onClose={() => setShowResultModal(false)}
         onSubmit={() => setShowResultModal(false)}
-        title="تمت العملية"
+        title= {t("operation_completed")}
       >
         <p className="m-0 text-center">{resultMessage}</p>
       </AlertModal>

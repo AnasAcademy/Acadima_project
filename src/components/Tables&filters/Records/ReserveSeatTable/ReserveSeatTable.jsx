@@ -5,10 +5,11 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
+import Pin from "@/assets/admin/pin.svg";
+import Removebin from "@/assets/admin/removebin.svg";
 import { useUserData } from "@/context/UserDataContext";
-import { Wellfleet } from "next/font/google";
 
-export default function AllStudentsTable({
+export default function ReserveSeatTable({
   initialData = [],
   initialPage = 1,
   initialTotalPages = 1,
@@ -30,13 +31,12 @@ export default function AllStudentsTable({
   const [page, setPage] = useState(initialPage);
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
-  const [isInitialRender, setIsInitialRender] = useState(true);
-  const [currentFilters, setCurrentFilters] = useState({});
-
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [resultMessage, setResultMessage] = useState("");
+  const [currentFilters, setCurrentFilters] = useState({});
+  const [isInitialRender, setIsInitialRender] = useState(true);
   const [formState, setFormState] = useState("");
   const [showEditForm, setShowEditForm] = useState(false);
   const [editFormData, setEditFormData] = useState({});
@@ -46,26 +46,23 @@ export default function AllStudentsTable({
     setLoading(true);
     try {
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/students/all?page=${pageNumber}`,
+        `https://api.lxera.net/api/development/organization/vodafone/students/reserve_seat?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
+
       const respond = await res.json();
-      const data = respond.students.data || [];
-      setDataa(data);
-      setFilter(data);
-      setCurrentPage(respond.students.current_page || 1);
-      setTotalPages(respond.students.last_page || 1);
-      setPage(respond.students.current_page || 1);
-      setStatuses(respond.statuses || []);
-      setCategories(respond.category || []);
+      setDataa(respond?.data || []);
+      setFilter(respond?.data || []);
+      setPage(respond?.current_page || 1);
+      setCurrentPage(respond?.current_page || 1);
+      setTotalPages(respond?.last_page || 1);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -73,11 +70,10 @@ export default function AllStudentsTable({
     }
   };
 
-  // Only fetch data on page change, not on initial mount since we have initialData
   useEffect(() => {
     if (isInitialRender) {
       setIsInitialRender(false);
-      return; // Skip fetch on initial mount
+      return;
     }
     if (Object.keys(currentFilters).length > 0) {
       handleSearch(currentFilters, page);
@@ -95,33 +91,32 @@ export default function AllStudentsTable({
       selectCardData.inputs.forEach((input) => {
         const value = filters[input.filter];
         if (value) {
+          console.log(`Adding filter: ${input.apiKey || input.filter} = ${value}`);
           query.append(input.apiKey || input.filter, value);
         }
       });
 
       query.append("page", pageNumber);
+      
+      console.log("Final query string:", query.toString());
 
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/students/all?${query.toString()}`,
+        `https://api.lxera.net/api/development/organization/vodafone/students/reserve_seat?${query.toString()}`,
         {
           method: "GET",
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
 
       const respond = await res.json();
-      const data = respond.students?.data || [];
-
-      setFilter(data);
-      setDataa(data); // Also update dataa to keep it in sync
-      setCurrentPage(respond.students?.current_page || 1);
-      setTotalPages(respond.students?.last_page || 1);
-      setPage(respond.students?.current_page || 1); // Update page state
+      setDataa(respond?.data || []);
+      setFilter(respond?.data || []);
+      setCurrentPage(respond?.current_page || 1);
+      setTotalPages(respond?.last_page || 1);
     } catch (error) {
       console.error("Search error:", error);
     } finally {
@@ -136,7 +131,6 @@ export default function AllStudentsTable({
 
   const DeleteUser = async () => {
     try {
-      // Optimistically remove from UI immediately
       const updatedData = dataa.filter((item) => item.id !== selectedId);
       const updatedFilter = filter.filter((item) => item.id !== selectedId);
       setDataa(updatedData);
@@ -149,14 +143,13 @@ export default function AllStudentsTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
 
       const data = await response.json();
       if (!response.ok || !data.success) {
-        // If deletion failed, restore the data and show error
         setDataa(dataa);
         setFilter(filter);
         throw new Error("Failed to delete");
@@ -167,118 +160,15 @@ export default function AllStudentsTable({
       setShowModal(false);
       setSelectedId(null);
 
-      // Only fetch if we need to handle pagination edge cases
       if (updatedFilter.length === 0 && currentPage > 1) {
         fetchData(currentPage - 1);
       }
     } catch (error) {
       console.error("Deletion failed:", error);
-      // Restore original data on error
       fetchData(page);
-      alert("فشل الرفض. حاول مرة أخرى.");
+      setResultMessage("فشل الرفض. حاول مرة أخرى.");
+      setShowResultModal(true);
     }
-  };
-
-  const trainingData = filter.map((item, index) => ({
-    key: item.id || index,
-    columns: [
-      { type: "text", value: index + 1 },
-      { type: "text", value: item.user_code },
-      {
-        type: "user",
-        name: item.en_name,
-        email: item.email,
-        phone: item.mobile,
-      },
-      { type: "image", value: item.identity_image },
-      { type: "text", value: item.program.title },
-      { type: "text", value: item.created_at },
-      { type: "text", value: item.status },
-      {
-        type: "buttons",
-        buttons: [
-          {
-            label: t("login"),
-            // action: () => router.push(`/login/${item.id}`),
-            color: "#1024dd",
-          },
-          {
-            label: t("edit"),
-            action: () => {
-              setSelectedId(item.id);
-              setFormState("edit");
-
-              setShowEditForm(true);
-            },
-            color: "#48BB78",
-          },
-          {
-            label: t("delete"),
-            action: () => Delete(item.id),
-            color: "#fc544b",
-          },
-        ],
-      },
-    ],
-  }));
-
-  const TableHead = [
-    "#",
-    t("user-code"),
-    t("user-name"),
-    t("identity-file"),
-    t("registered-program"),
-    t("registration_date"),
-    t("user-status"),
-    t("actions"),
-  ];
-
-  const selectCardData = {
-    inputs: [
-      {
-        title: t("user-code"),
-        type: "search",
-        filter: "user_code",
-        placeholder: t("code-search"),
-        apiKey: "user_code",
-      },
-      {
-        title: t("user-mail"),
-        type: "search",
-        filter: "email",
-        placeholder: t("mail-search"),
-        apiKey: "email",
-      },
-      {
-        title: t("user-name"),
-        type: "search",
-        filter: "full_name",
-        placeholder: t("name-search"),
-        apiKey: "full_name",
-      },
-      {
-        title: t("user-phone"),
-        type: "search",
-        filter: "mobile",
-        placeholder: t("phone-search"),
-        apiKey: "mobile",
-      },
-      {
-        title: t("registered-program-type"),
-        type: "search",
-        filter: "program.title",
-        placeholder: t("program-search"),
-        apiKey: "title",
-      },
-      {
-        title: t("status"),
-        type: "select",
-        filter: "status",
-        placeholder: t("status"),
-        apiKey: "status",
-        options: Array.isArray(statuses) ? statuses : [],
-      },
-    ],
   };
 
   const handleSubmitEdit = async (formData) => {
@@ -316,6 +206,7 @@ export default function AllStudentsTable({
         return;
       }
 
+      // Use PUT method as it works in Postman
       const response = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/students/${selectedId}`,
         {
@@ -323,8 +214,7 @@ export default function AllStudentsTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
           body: JSON.stringify(apiData),
         }
@@ -347,13 +237,101 @@ export default function AllStudentsTable({
         const errorText = result.errors
           ? Object.values(result.errors).join(", ")
           : result.message || `فشل التحديث (${response.status})`;
-        alert(`فشل التحديث: ${errorText}`);
+        setResultMessage(`فشل التحديث: ${errorText}`);
+        setShowResultModal(true);
         throw new Error(errorText);
       }
     } catch (error) {
       console.error("Edit failed:", error);
-      alert("فشل التحديث. حاول مرة أخرى.");
+      setResultMessage("فشل التحديث. حاول مرة أخرى.");
+      setShowResultModal(true);
     }
+  };
+
+  const trainingData = filter.map((item, index) => ({
+    key: item.id || index,
+    columns: [
+      { type: "text", value: index + 1 },
+      { type: "text", value: item.buyer.user_code },
+      {
+        type: "user",
+        name: item.en_name || item.buyer.full_name,
+        email: item.buyer.email,
+        phone: item.buyer.mobile,
+      },
+      { type: "text", value: item.bundle?.translations[0].title  },
+      { type: "text", value: item.created_at },
+      { type: "text", value: item.buyer.status },
+      {
+        type: "buttons",
+        buttons: [
+          {
+            label: t("edit"),
+            action: () => {
+              setSelectedId(item.id);
+              setFormState("edit");
+              setEditFormData({
+                full_name: item.buyer.full_name || "",
+                en_name: item.en_name || item.buyer.full_name || "",
+                email: item.buyer.email || "",
+                mobile: item.buyer.mobile || "",
+                bio: item.buyer.bio || "",
+                about: item.buyer.about || "",
+                status: item.buyer.status || "",
+                user_role: item.buyer.role_name || "",
+                password: "", // always empty unless changed
+              });
+              setShowEditForm(true);
+            },
+            color: "#48BB78",
+          },
+          { label: t("delete"), action: () => Delete(item.id), color: "#fc544b" },
+        ],
+      },
+    ],
+  }));
+
+  const TableHead = [
+    "#",
+    t("user-code"),
+    t("user-name"),
+    t("registered-program-type"),
+    t("registration_date"),
+    t("user-status"),
+    t("actions"),
+  ];
+
+  const selectCardData = {
+    inputs: [
+      {
+        title: t("user-code"),
+        type: "search",
+        filter: "user_code",
+        placeholder: t("code-search"),
+        apiKey: "user_code",
+      },
+      {
+        title: t("user-mail"),
+        type: "search",
+        filter: "email",
+        placeholder: t("mail-search"),
+        apiKey: "email",
+      },
+      {
+        title: t("user-name"),
+        type: "search",
+        filter: "full_name",
+        placeholder: t("name-search"),
+        apiKey: "full_name",
+      },
+      {
+        title: t("user-phone"),
+        type: "search",
+        filter: "mobile",
+        placeholder: t("phone-search"),
+        apiKey: "mobile",
+      }
+    ],
   };
 
   const formTitles = [
@@ -378,7 +356,6 @@ export default function AllStudentsTable({
     { name: "password", label: ts("password"), type: "text" },
     { name: "bio", label: ts("bio"), type: "text" },
     { name: "about", label: ts("about"), type: "text" },
-    // { name: "certificate_additional", label: t("end_date"), type: "text" },
     {
       name: "status",
       label: t("status"),
@@ -390,35 +367,34 @@ export default function AllStudentsTable({
   const DownloadExcel = async () => {
     try {
       const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/students/excelAll",
+        "https://api.lxera.net/api/development/organization/vodafone/students/excelReserveSeat",
         {
           method: "GET",
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to download file");
-      }
+      if (!response.ok) throw new Error("Failed to download file");
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
 
       const a = document.createElement("a");
       a.href = url;
-      a.download = "report.xlsx"; // Default file name
+      a.download = "seat-reservations-report.xlsx";
       document.body.appendChild(a);
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
-      alert("Download succeded");
+      alert("Download succeeded");
     } catch (error) {
       console.error("Download failed:", error);
-      alert("Download failed. Please try again.");
+      setResultMessage("Download failed. Please try again.");
+      setShowResultModal(true);
     }
   };
 
@@ -430,7 +406,7 @@ export default function AllStudentsTable({
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
               <Editform
                 fields={fields}
-                data={dataa.find((item) => item.id === selectedId) || {}}
+                data={editFormData}
                 formTitles={formTitles}
                 handleSubmitEdit={handleSubmitEdit}
                 setShowModal={() => setShowEditForm(false)}
@@ -454,10 +430,7 @@ export default function AllStudentsTable({
 
           <div className="col-12">
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              <button
-                className="btn custfontbtn rounded-4 mb-3"
-                onClick={DownloadExcel}
-              >
+              <button className="btn custfontbtn rounded-4 mb-3" onClick={DownloadExcel}>
                 Excel
               </button>
 
@@ -465,7 +438,10 @@ export default function AllStudentsTable({
                 TableHead={TableHead}
                 trainingData={trainingData}
                 button={false}
+                Icon={Pin}
+                Icon2={Removebin}
               />
+
               <div className="row justify-content-center align-items-center gap-3 mt-3">
                 <button
                   disabled={currentPage === 1}
@@ -494,7 +470,7 @@ export default function AllStudentsTable({
         show={showModal}
         onClose={() => setShowModal(false)}
         onSubmit={DeleteUser}
-        title={t("are_you_sure_you_want_to_delete")}
+        title= {t("are_you_sure_you_want_to_delete")}
         btn={t("yes")}
       >
         <form
@@ -504,7 +480,9 @@ export default function AllStudentsTable({
           }}
         >
           <div className="mb-3">
-            <p className="m-0 text-center">{t("delete_validation")}</p>
+            <p className="m-0 text-center">
+              {t("delete_validation")}
+            </p>
           </div>
         </form>
       </AlertModal>
@@ -513,7 +491,7 @@ export default function AllStudentsTable({
         show={showResultModal}
         onClose={() => setShowResultModal(false)}
         onSubmit={() => setShowResultModal(false)}
-        title={t("operation_completed")}
+        title= {t("operation_completed")}
       >
         <p className="m-0 text-center">{resultMessage}</p>
       </AlertModal>

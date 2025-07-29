@@ -30,8 +30,6 @@ export default function Editform({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", form);
-    console.log("Form state:", formState);
 
     if (formState === "edit") {
       handleSubmitEdit(form);

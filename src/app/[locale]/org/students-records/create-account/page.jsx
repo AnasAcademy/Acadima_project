@@ -21,7 +21,6 @@ export default async function CreateAccountStudents() {
       );
 
       const respond = await res.json();
-      console.log("Full API response:", respond);
 
       return {
         data: respond.users?.data || [],

@@ -101,7 +101,7 @@ export const UserDataProvider = ({ children }) => {
     // Helper functions for common use cases
     getStatusOptions: () => statuses.map(status => ({
       value: status.value || status,
-      label: status.label || status
+      label: status.value || status
     })),
     getRoleOptions: () => roles.map(role => ({
       value: role.id || role.value || role,
