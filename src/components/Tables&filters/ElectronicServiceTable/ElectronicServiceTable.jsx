@@ -17,7 +17,8 @@ import React, { useState } from 'react'
     const t = useTranslations("tables");
     const ts = useTranslations("SidebarA");
     const [data, setData] = useState(dat);
-    const [formState , setFormState] = useState("")
+    const [formState , setFormState] = useState("");
+
     async function fetchy(stat) {
       const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
 

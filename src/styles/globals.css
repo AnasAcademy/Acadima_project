@@ -534,7 +534,7 @@ table tbody td:first-child {
 }
 
 .textcolor {
-  color: var(--btn-color);
+  color: var(--btn-color) !important;
 }
 
 .custcolor {

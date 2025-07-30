@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import NavbarWrapper from "../../components/AdminComp/navbarWrapper/NavbarWrapper";
 import NotificationProvider from "@/context/NotificationContext";
+import { UserDataProvider } from "@/context/UserDataContext";
 import BootstrapClient from '@/components/bootstrapClient/BootstrapClient'
 import SideBarWrapper from "@/components/sideBarWrapper/SideBarWrapper";
 import SidebarWrapperUser from "@/components/AdminComp/sideBarWrapper/SideBarWrapper"
@@ -47,29 +48,31 @@ export default async function RootLayout({
         <BootstrapClient />
         <NextIntlClientProvider>
           <NotificationProvider>
-            <div className="d-flex flex-column   ">
-              <div className=" d-flex  w-100  ">
-              <NavbarWrapper />
-            </div>
-              {/* Sidebar – visible on lg and xl only */}
-              <div className=" d-flex  w-100 ">
-                <div className="d-none d-md-none d-lg-flex d-xl-flex ">
-                  <SidebarWrapperUser />
-                  {/* <NewSideBar /> */}
-                  <SideBarWrapper />
-                </div>
-
-                <div className=" mt-5 mt-lg-0 pt-5 pt-lg-0 w-100 ">
-                  {children}
-                </div>
+            <UserDataProvider>
+              <div className="d-flex flex-column   ">
+                <div className=" d-flex  w-100  ">
+                <NavbarWrapper />
               </div>
-              {/* Main content area */}
-              {/* <div className="d-flex flex-column w-100 bg-warning"> */}
-              {/* <NavbarWrapper /> */}
+                {/* Sidebar – visible on lg and xl only */}
+                <div className=" d-flex  w-100 ">
+                  <div className="d-none d-md-none d-lg-flex d-xl-flex ">
+                    <SidebarWrapperUser />
+                    {/* <NewSideBar /> */}
+                    <SideBarWrapper />
+                  </div>
 
-              {/* Scrollable content area */}
-              {/* </div> */}
-            </div>
+                  <div className=" mt-5 mt-lg-0 pt-5 pt-lg-0 w-100 ">
+                    {children}
+                  </div>
+                </div>
+                {/* Main content area */}
+                {/* <div className="d-flex flex-column w-100 bg-warning"> */}
+                {/* <NavbarWrapper /> */}
+
+                {/* Scrollable content area */}
+                {/* </div> */}
+              </div>
+            </UserDataProvider>
           </NotificationProvider>
         </NextIntlClientProvider>
       </body>

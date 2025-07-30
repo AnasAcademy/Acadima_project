@@ -1,128 +1,54 @@
-"use client";
 import React from "react";
-import FilterCard from "@/components/FilterCard/FilterCard";
-import SelectCard from "@/components/SelectCard/SelectCard";
-import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
-import { useTranslations } from "next-intl";
-import Pin from "@/assets/admin/pin.svg";
-import Removebin from "@/assets/admin/removebin.svg";
-import roundimage from "@/assets/admin/personla.png";
+import { getTranslations } from "next-intl/server";
+import DirectRegTable from "@/components/Tables&filters/Records/DirectRegistrationTable/DirectRegTable";
 
-export default function DirectRegistrationStudents() {
-  const ts = useTranslations("SidebarA");
-  const t = useTranslations("employee_progress");
+export default async function DirectRegistrationStudents() {
+  const ts = await getTranslations("SidebarA");
 
-  const TableHead = [
-    "",
-    t("employee_name"),
-    t("training_course"),
-    t("program_status"),
-    t("join_date"),
-    t("completion_rate"),
-    t("profile_access"),
-  ];
-
-  const trainingData = [
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
+  // Server-side fetch
+  async function fetchData(pageNumber = 1) {
+    try {
+      const res = await fetch(
+        `https://api.lxera.net/api/development/organization/vodafone/students/enrollers?page=${pageNumber}`,
         {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#48BB78",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("inProgress"),
-          icon: false,
-          color: "#50C1FA",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("notStarted"),
-          icon: false,
-          color: "#CBD5E0",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-  ];
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+          },
+        }
+      );
 
-  const selectCardData = {
-    inputs: [
-      {
-        title: "training_course",
-        type: "select",
-        options: ["React", "Next.js", "Laravel"],
-      },
-      {
-        title: "branch",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "department",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "program_status",
-        type: "select",
-        options: ["on", "off"],
-      },
-    ],
-  };
+      const respond = await res.json();
+      
+      return {
+        data: respond?.data || [],
+        currentPage: respond?.current_page || 1,
+        totalPages: respond?.last_page || 1,
+      };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return { data: [], currentPage: 1, totalPages: 1 };
+    }
+  }
+
+  const { data, currentPage, totalPages } = await fetchData(1);
 
   return (
-    <>
-      <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
-        <div className=" p-lg-4  pt-0">
-          <div className=" row m-0  p-2 g-3">
-            <h2 className="hvvv">{ts("students-list")}</h2>
-
-            <div className=" col-lg-12 ">
-              <SelectCard selectCardData={selectCardData} />
-            </div>
-
-            <div className=" col-12 ">
-              <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-                <OngoingTrain
-                  TableHead={TableHead}
-                  trainingData={trainingData}
-                  button={false}
-                  Icon={Pin}
-                  Icon2={Removebin}
-                />
-              </div>
-            </div>
+    <div className="m-0 container-fluid p-0 d-flex flex-column">
+      <div className="p-lg-4 pt-lg-0">
+        <div className="row m-0 p-2 g-3">
+          <h2 className="hvvv">{ts("students-list")}</h2>
+          <div className="col-lg-12">
+            <DirectRegTable
+              initialData={data}
+              initialPage={currentPage}
+              initialTotalPages={totalPages}
+            />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
