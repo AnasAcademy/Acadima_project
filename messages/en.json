@@ -1061,7 +1061,8 @@
      "student_name": "Student Name",
   "request_status": "Request Status",
   "request_content": "Request Content",
-  "request_date": "Request Date"
-
+  "request_date": "Request Date",
+          "requests":"Requests",
+          "student":"Student Code"
   }
 }

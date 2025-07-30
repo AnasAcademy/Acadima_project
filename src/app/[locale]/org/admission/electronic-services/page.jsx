@@ -7,13 +7,11 @@ export default async function ElectronicServicesList() {
   const ts = await getTranslations("SidebarA");
   // const t = useTranslations("employee_progress");
 
-
+let reqDat = [];
 let dat =[]
 let current_page=[] || 1
 let last_page = []
    try {
-   
-
       const data = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/services/${current_page}`,
         {
@@ -35,6 +33,17 @@ let last_page = []
    } catch (error) {
      console.error("Fetch error:", error);
    }
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <>

@@ -18,7 +18,8 @@ import React, { useState } from 'react'
     const ts = useTranslations("SidebarA");
     const [data, setData] = useState(dat);
     const [formState , setFormState] = useState("");
-
+    const [reqtble , setReqtble]   = useState(false)
+    const [reqtbledata, setReqtbledata] = useState([]);
     async function fetchy(stat) {
       const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
 
@@ -177,7 +178,40 @@ const handleSubmitAdd = async (dataa) => {
 };
 
 
+const getReqData = async(id)=>{
 
+ console.log("ramizzzzzzzzzzzz")
+ try {
+  
+     const response = await fetch(
+       `https://api.lxera.net/api/development/organization/vodafone/services/${id}/requests`,
+       {
+         method: "GET",
+         headers: {
+           "x-api-key": "1234",
+           "Content-Type": "application/json",
+           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+         },
+       }
+     );
+
+  const result = await response.json();
+    console.log(result.service_users.data);
+   setReqtbledata(result.service_users.data);
+
+ } catch (error) {
+  
+ }
+
+
+
+
+
+
+
+
+
+}
   
 
 
@@ -202,6 +236,36 @@ const handleSubmitAdd = async (dataa) => {
       t("actions"),
     ];
 
+
+      const TableHeadReq = [
+        "#",
+        t("student"),
+        t("student_name"),
+        t("request_status"),
+        t("request_content"),
+        t("request_date"),
+        // t("admin"),
+        // t("actions"),
+      ];
+
+
+   
+
+const reqDat = reqtbledata.map((item, index) => ({
+  columns: [
+    { type: "text", value: index + 1 },
+    { type: "text", value: item.id },
+    { type: "text", value: item.user.full_name },
+    { type: "text", value: item.status },
+    { type: "text", value: item.content },
+    { type: "text", value: item.created_at },
+    // { type: "text", value: item.content },
+  ],
+}));
+
+
+
+
     const trainingData = data.map((item, index) => ({
       columns: [
         { type: "text", value: index + 1 },
@@ -213,26 +277,6 @@ const handleSubmitAdd = async (dataa) => {
         { type: "text", value: item.created_at },
         { type: "text", value: item.start_date },
         { type: "text", value: item.end_date },
-
-        // {
-        //   type: "buttons",
-        //   buttons: [
-        //     {
-        //       label: t("edit"),
-        //       action: () => {
-        //         setShowModal(!showModal);
-        //         setId(item.id);
-        //         setFormState("edit");
-        //       },
-        //       color: "#48BB78",
-        //     },
-        //     {
-        //       label: t("delete"),
-        //       action: () => remove(item.id),
-        //       color: "#fc544b",
-        //     },
-        //   ],
-        // },
         {
           type: "actionbutton",
           label: t("actions"),
@@ -244,6 +288,16 @@ const handleSubmitAdd = async (dataa) => {
           icon: Arrowdown,
           color: "#48BB78",
           lists: [
+            {
+              label: t("requests"),
+              action: () => {
+                setId(item.id);
+                getReqData(item.id);
+                setReqtble(true);
+              },
+              icon: Pen,
+            },
+
             {
               label: t("edit"),
               action: () => {
@@ -259,7 +313,7 @@ const handleSubmitAdd = async (dataa) => {
               icon: X,
             },
           ],
-          id: item.id ,
+          id: item.id,
         },
       ],
     }));
@@ -290,7 +344,7 @@ const handleSubmitAdd = async (dataa) => {
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
             <Editform
               fields={fields}
-              data={ data.find(item => item.id === Itemid) || {}}
+              data={data.find((item) => item.id === Itemid) || {}}
               formTitles={formTitles}
               handleSubmitEdit={handleSubmitEdit}
               setShowModal={toogle}
@@ -318,21 +372,43 @@ const handleSubmitAdd = async (dataa) => {
           </div>
         ) : (
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-            <div className=" d-flex justify-content-end ">
-              <button
-                className=" btn  btn-light custfontbtn "
-                onClick={() => {
-                  setShowModal(true);
-                  setId(null)
-                  setFormState("add");
-                }}
-              >
-                {" "}
-                {t("add_new_service")}{" "}
-              </button>
+            <div className=" d-flex justify-content-end  ">
+              {reqtble ? (
+                <div className=" d-flex justify-content-between w-100">
+                  <h4>خدمة حجز اختبار أدوبي جديد</h4>
+
+                  <button
+                    className="btn  btn-light custfontbtn "
+                    onClick={() => {
+                      setReqtble(false);
+                 
+                    }}
+                  >
+                    {" "}
+                    back
+                  </button>
+                </div>
+              ) : (
+                <button
+                  className=" btn  btn-light custfontbtn "
+                  onClick={() => {
+                    setShowModal(true);
+                    setId(null);
+                    setFormState("add");
+                  }}
+                >
+                  {" "}
+                  {t("add_new_service")}{" "}
+                </button>
+              )}
             </div>
-                
-                       <OngoingTrain TableHead={TableHead} trainingData={trainingData} />
+            {reqtble ? (
+              <>
+                <OngoingTrain TableHead={TableHeadReq} trainingData={reqDat} />
+              </>
+            ) : (
+              <OngoingTrain TableHead={TableHead} trainingData={trainingData} />
+            )}
 
             <div className="row justify-content-center align-items-center gap-3 mt-3">
               <button
