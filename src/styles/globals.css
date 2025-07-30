@@ -1441,7 +1441,7 @@ table tbody td:first-child {
 .selclass {
   left: auto;
   right: 0;
-  transform: translateX(0%);
+  transform: translateX(60%);
 }
 
 [dir="rtl"] .selclass {

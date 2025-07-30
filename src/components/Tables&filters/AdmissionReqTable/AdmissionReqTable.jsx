@@ -4,6 +4,9 @@ import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
+import Arrowdown from "@/assets/admin/arrow down.svg"
+import X from "@/assets/admin/x.svg";
+import check from "@/assets/admin/Check.svg";
 
 export default function AdmissionReqTable({ initialData = [], initialPage = 1, initialTotalPages = 1 }) {
   const t = useTranslations("tables");
@@ -227,20 +230,43 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
       { type: "text", value: item.status },
       {},
       { type: "text", value: item.created_at },
+      // {
+      //   type: "buttons",
+      //   buttons: [
+      //     {
+      //       label: t("accept"),
+      //       action: () => Accept(item.id),
+      //       color: "#48BB78",
+      //     },
+      //     {
+      //       label: t("reject"),
+      //       action: () => Decline(item.id),
+      //       color: "#fc544b",
+      //     },
+      //   ],
+      // },
       {
-        type: "buttons",
-        buttons: [
+        type: "actionbutton",
+        label: t("actions"),
+        action: () => {
+          setShowModal(!showModal);
+          setId(item.id);
+          setFormState("edit");
+        },
+        icon: Arrowdown,
+        lists: [
           {
             label: t("accept"),
             action: () => Accept(item.id),
-            color: "#48BB78",
+            icon: check,
           },
           {
             label: t("reject"),
             action: () => Decline(item.id),
-            color: "#fc544b",
+            icon: X,
           },
         ],
+        id: item.id,
       },
     ],
   }));

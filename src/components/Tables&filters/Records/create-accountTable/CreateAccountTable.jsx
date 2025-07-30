@@ -7,6 +7,9 @@ import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
 import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
+import Arrowdown from "@/assets/admin/arrow down.svg"
+import X from "@/assets/admin/x.svg";
+ import Pen from "@/assets/admin/pen.svg"
 import { useUserData } from "@/context/UserDataContext";
 
 export default function CreateAccountTable({
@@ -119,11 +122,6 @@ export default function CreateAccountTable({
     } finally {
       setLoading(false);
     }
-  };
-
-  const Delete = (id) => {
-    setSelectedId(id);
-    setShowModal(true);
   };
 
   const DeleteUser = async () => {
@@ -259,9 +257,35 @@ export default function CreateAccountTable({
       { type: "text", value: item.program?.title || item.course },
       { type: "text", value: item.created_at || item.join_date },
       { type: "text", value: item.status },
+      // {
+      //   type: "buttons",
+      //   buttons: [
+      //     {
+      //       label: t("edit"),
+      //       action: () => {
+      //         setSelectedId(item.id);
+      //         setFormState("edit");
+      //         setShowEditForm(true);
+      //       },
+      //       color: "#48BB78",
+      //     },
+      //     {
+      //       label: t("delete"),
+      //       action: () => Delete(item.id),
+      //       color: "#fc544b",
+      //     },
+      //   ],
+      // },
       {
-        type: "buttons",
-        buttons: [
+        type: "actionbutton",
+        label: t("actions"),
+        action: () => {
+          setShowModal(!showModal);
+          setId(item.id);
+          setFormState("edit");
+        },
+        icon: Arrowdown,
+        lists: [
           {
             label: t("edit"),
             action: () => {
@@ -269,14 +293,19 @@ export default function CreateAccountTable({
               setFormState("edit");
               setShowEditForm(true);
             },
-            color: "#48BB78",
+            icon: Pen,
           },
           {
             label: t("delete"),
-            action: () => Delete(item.id),
-            color: "#fc544b",
+            action: () => {
+              setShowModal(!showModal);
+              setId(item.id);
+              setFormState("delete");
+            },
+            icon: X,
           },
         ],
+        id: item.id,
       },
     ],
   }));

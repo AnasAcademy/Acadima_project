@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@/assets/admin/search.svg";
-import Arrow from "@/assets/admin/arrow down.svg";
+import Arrow from "@/assets/admin/Arrow-down.svg";
 import Calendar from "@/assets/calendar.svg";
 import { useTranslations } from "next-intl";
 
@@ -81,7 +81,7 @@ export default function SelectCard({
                             handleFilterChange(input.filter, e.target.value)
                           }
                         >
-                          <option value="">{t("sort_by")}</option>
+                          <option value="">{input.placeholder || t("sort_by")}</option>
                           {input.options?.map((option, i) => {
                             // Handle both string options and objects with value/label
                             const value = typeof option === 'object' ? option.value : option;
