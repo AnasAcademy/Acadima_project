@@ -5,8 +5,10 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
+import Arrowdown from "@/assets/admin/arrow down.svg"
+import X from "@/assets/admin/x.svg";
+ import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
-import { Wellfleet } from "next/font/google";
 
 export default function AllStudentsTable({
   initialData = [],
@@ -129,11 +131,6 @@ export default function AllStudentsTable({
     }
   };
 
-  const Delete = (id) => {
-    setSelectedId(id);
-    setShowModal(true);
-  };
-
   const DeleteUser = async () => {
     try {
       // Optimistically remove from UI immediately
@@ -191,33 +188,64 @@ export default function AllStudentsTable({
         phone: item.mobile,
       },
       { type: "image", value: item.identity_image },
-      { type: "text", value: item.program.title },
+      { type: "text", value: item.bundles?.[0]?.translations?.[0]?.title || "N/A" },
       { type: "text", value: item.created_at },
       { type: "text", value: item.status },
+      // {
+      //   type: "buttons",
+      //   buttons: [
+      //     {
+      //       label: t("login"),
+      //       // action: () => router.push(`/login/${item.id}`),
+      //       color: "#1024dd",
+      //     },
+      //     {
+      //       label: t("edit"),
+      //       action: () => {
+      //         setSelectedId(item.id);
+      //         setFormState("edit");
+
+      //         setShowEditForm(true);
+      //       },
+      //       color: "#48BB78",
+      //     },
+      //     {
+      //       label: t("delete"),
+      //       action: () => Delete(item.id),
+      //       color: "#fc544b",
+      //     },
+      //   ],
+      // },
       {
-        type: "buttons",
-        buttons: [
-          {
-            label: t("login"),
-            // action: () => router.push(`/login/${item.id}`),
-            color: "#1024dd",
-          },
+        type: "actionbutton",
+        label: t("actions"),
+        action: () => {
+          setShowModal(!showModal);
+          setId(item.id);
+          setFormState("edit");
+        },
+        icon: Arrowdown,
+        lists: [
           {
             label: t("edit"),
             action: () => {
               setSelectedId(item.id);
               setFormState("edit");
-
               setShowEditForm(true);
             },
-            color: "#48BB78",
+            icon: Pen,
           },
           {
             label: t("delete"),
-            action: () => Delete(item.id),
-            color: "#fc544b",
+            action: () => {
+              setShowModal(!showModal);
+              setId(item.id);
+              setFormState("delete");
+            },
+            icon: X,
           },
         ],
+        id: item.id,
       },
     ],
   }));
@@ -276,7 +304,7 @@ export default function AllStudentsTable({
         filter: "status",
         placeholder: t("status"),
         apiKey: "status",
-        options: Array.isArray(statuses) ? statuses : [],
+        options: getStatusOptions(),
       },
     ],
   };
@@ -368,7 +396,7 @@ export default function AllStudentsTable({
     { name: "full_name", label: ts("full_name"), type: "text" },
     { name: "en_name", label: ts("en_name"), type: "text" },
     {
-      name: "user_role",
+      name: "role_name",
       label: ts("user_role"),
       type: "select",
       options: getRoleOptions(),

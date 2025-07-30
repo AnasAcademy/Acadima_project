@@ -1448,7 +1448,7 @@ table tbody td:first-child {
   position: absolute;
   left: 0;
   right: auto;
-  transform: translateX(0%);
+  transform: translateX(60%);
 }
 
 .techcardtop {

@@ -139,8 +139,8 @@ export default function OngoingTrain({
         </div>
       </td>
     ),
-    actionbutton: (col) => (
-      <td>
+    actionbutton: (col,key) => (
+      <td key={key}>
         <div className=" justify-content-center  align-items-center  position-relative  ">
           <button
             className="tit-12-400 btncolor text-center  cursor-pointer   text-nowrap d-flex align-items-center  gap-2 justify-content-center actionButton w-100 "
@@ -158,7 +158,7 @@ export default function OngoingTrain({
             <div className="  bg-white d-flex  flex-column justify-content-center align-items-center  position-absolute    z-3  w-100  border-1 border">
               {col.lists.map((list, index) => (
                 <h6
-                  className=" text-dark d-flex  justify-content-center align-items-center gap-2 p-1 cursor-pointer" key={index}
+                  className=" text-dark d-flex  justify-content-center align-items-center gap-2 p-1 cursor-pointer" key={`${col.id}-${index}`}
                   onClick={list.action}
                 >
                   {col.icon && (
@@ -191,7 +191,7 @@ export default function OngoingTrain({
           </thead>
           <tbody>
             {trainingData.map((item, index) => (
-              <tr key={index} className="tableTextdir ">
+              <tr key={item.key} className="tableTextdir ">
                 {item.columns.map((col, colindex) => {
                   return renderCell[col.type] ? (
                     renderCell[col.type](col, `${index}-${colindex}`)

@@ -1026,7 +1026,7 @@
 },
 "tables": {
   "admission-requirements": "متطلبات القبول",
-  "user_role": "دور المستخدم",
+  "role_name": "دور المستخدم",
   "user-code": "كود الطالب",
   "user-name": "اسم الطالب",
   "registered-program-type": "البرنامج المسجل اليه  ",

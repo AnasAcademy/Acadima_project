@@ -991,7 +991,7 @@
   },
   "tables": {
     "admission-requirements": "Admission Requirements",
-    "user_role": "User Role",
+    "role_name": "User Role",
     "user-code": "User Code",
     "user-name": "User Name",
     "registered-program-type": "Registered Program Type",
