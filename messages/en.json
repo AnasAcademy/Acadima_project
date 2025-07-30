@@ -1045,7 +1045,14 @@
       "student_code": "Student Code",
   "last_student_code": "Last Student Code",
    "teacher_codes": "Teacher Codes",
-  "last_teacher_code": "Last Teacher Code"
+  "last_teacher_code": "Last Teacher Code",
+    "index": "Index",
+
+  "student_name": "Student Name",
+  "request_status": "Request Status",
+  "request_content": "Request Content",
+  "request_date": "Request Date"
+
 
   }
 }

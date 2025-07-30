@@ -1,8 +1,8 @@
 
 'use client'
-  import React, { useState } from 'react'
-  import { useTranslations } from "next-intl";
-  import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
+import React, { useState } from 'react'
+ import { useTranslations } from "next-intl";
+ import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
   import Editform from "@/components/Editform/Editform";
  import Arrowdown from "@/assets/admin/arrow down.svg"
  import X from "@/assets/admin/x.svg";
@@ -14,10 +14,8 @@
         const [showAlertModal, setShowAlertModal] = useState(false);
             const [Alertmssg, setAlertmssg] = useState("");
     const [Itemid, setId] = useState(null);
-
     const t = useTranslations("tables");
     const ts = useTranslations("SidebarA");
- 
     const [data, setData] = useState(dat);
     const [formState , setFormState] = useState("")
     async function fetchy(stat) {
@@ -179,7 +177,7 @@ const handleSubmitAdd = async (dataa) => {
 
 
 
-
+  
 
 
 
@@ -332,8 +330,8 @@ const handleSubmitAdd = async (dataa) => {
                 {t("add_new_service")}{" "}
               </button>
             </div>
-
-            <OngoingTrain TableHead={TableHead} trainingData={trainingData} />
+                
+                       <OngoingTrain TableHead={TableHead} trainingData={trainingData} />
 
             <div className="row justify-content-center align-items-center gap-3 mt-3">
               <button

@@ -1079,6 +1079,13 @@
     "student_code": "كود الطلاب",
   "last_student_code": "أخر كود طالب",
    "teacher_codes": "كود المعلمين",
-  "last_teacher_code": "آخر كود معلم"
+  "last_teacher_code": "آخر كود معلم",
+   "index": "الترتيب",
+  "student_name": "اسم الطالب",
+  "request_status": "حالة الطلب",
+  "request_content": "محتوي الطلب",
+  "request_date": "تاريخ الطلب"
+
+
 }
 }
