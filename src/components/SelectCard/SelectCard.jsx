@@ -47,7 +47,7 @@ export default function SelectCard({
 
               return (
                 <div className={fullCol} key={index}>
-                  <div className="d-flex w-100 flex-column position-relative">
+                  <div className="d-flex w-100 flex-column align-items-start position-relative">
                     {input.title && (
                       <label className="h6 mb-1 text-end">{input.title}</label>
                     )}

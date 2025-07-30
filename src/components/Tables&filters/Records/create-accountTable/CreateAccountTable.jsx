@@ -254,7 +254,7 @@ export default function CreateAccountTable({
         email: item.email,
         phone: item.mobile || item.phone,
       },
-      { type: "text", value: item.program?.title || item.course },
+      { type: "text", value: item.program_translation?.title || item.course },
       { type: "text", value: item.created_at || item.join_date },
       { type: "text", value: item.status },
       // {
@@ -365,7 +365,7 @@ export default function CreateAccountTable({
     { name: "full_name", label: ts("full_name"), type: "text" },
     { name: "en_name", label: ts("en_name"), type: "text" },
     {
-      name: "user_role",
+      name: "role_name",
       label: ts("user_role"),
       type: "select",
       options: getRoleOptions(),
