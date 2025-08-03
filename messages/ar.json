@@ -66,7 +66,9 @@
     "staff": "طاقم العمل",
     "students": "الطلاب",
     "instructors": "المعلمين",
-    "new-user": "إنشاء مستخدم جديد"
+    "new-user": "إنشاء مستخدم جديد",
+    "certificates":"الشهادات"
+   
   },
 
   "add-student-to-class": {
@@ -1105,6 +1107,7 @@
   "subCategories": "الاقسام الفرعية",
   "chapters": "الفصول",
   "teachers": "المعلمين",
- "is_required": "هذا الحقل مطلوب"
+ "is_required": "هذا الحقل مطلوب",
+   "plan_details": "تفاصيل الخطة والاشتراكات"
 }
 }

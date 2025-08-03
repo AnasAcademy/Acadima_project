@@ -68,7 +68,9 @@
     "staff": "Staff",
     "students": "Students",
     "instructors": "Instructors",
-    "new-user": " New User"
+    "new-user": " New User",
+    "certificates":"certificates"
+     
   },
   "NavbarA": {
     "search": "Search...",
@@ -1069,6 +1071,7 @@
   "subCategories": "Subcategories",
   "chapters": "Chapters",
   "teachers": "Teachers",
-    "is_required": "This field is required"
+    "is_required": "This field is required",
+     "plan_details": "Plan and Subscription Details"
   }
 }

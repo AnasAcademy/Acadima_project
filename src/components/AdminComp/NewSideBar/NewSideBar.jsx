@@ -85,6 +85,7 @@ const isAssignments = pathname.includes("/org/education/assignments");
 const education = isQuizzes || isAssignments;
  
   const isCourses = pathname.includes("/org/education/courses");
+   const isCertificates = pathname.includes("/org/education/certificates");
   const isCoursesRegistration = pathname.includes(
     "/org/education/course-registration"
   );
@@ -271,20 +272,26 @@ const education = isQuizzes || isAssignments;
     {
       icon: Courses,
       tit: "courses",
-      href: "/org/education/assignments",
-      bg: isAssignments,
+      href: "/org/education/courses",
+      bg: isCourses,
     },
     {
       icon: Regcourse,
       tit: "courses-registration",
-      href: "/org/education/assignments",
-      bg: isAssignments,
+      href: "/org/education/course-registration",
+      bg: isCoursesRegistration,
     },
     {
       icon: Programs,
       tit: "bundles",
-      href: "/org/education/assignments",
-      bg: isAssignments,
+      href: "/org/education/bundles",
+      bg: isBundles,
+    },
+    {
+      icon: Programs,
+      tit: "certificates",
+      href: "/org/education/certificates",
+      bg: isCertificates,
     },
   ];
 
@@ -646,7 +653,7 @@ const education = isQuizzes || isAssignments;
   return (
     <>
       <div className=" d-flex flex-column  ">
-        <div className="     d-flex flex-column       newSiebarMargin    ">
+        <div className="d-flex flex-column newSiebarMargin ">
           {/* <div className=" pe-3  ps-3  ">
             <Link
               className="text-white text-decoration-none  m-lg-auto  d-flex  "
@@ -951,7 +958,7 @@ const education = isQuizzes || isAssignments;
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2  gap-2   align-items-end besideHover ${
+                      className={`nav-item d-flex  p-2  gap-2   align-items-end besideHover  ${
                         education && "onSelect"
                       }  `}
                       onClick={() => {
