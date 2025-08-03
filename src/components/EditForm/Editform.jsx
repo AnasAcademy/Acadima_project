@@ -19,6 +19,16 @@ export default function Editform({
   const validationSchema = Yup.object(
     fields.reduce((acc, field) => {
       const { name, type, required } = field;
+  // Initialize form with data when component mounts or data changes
+//   useEffect(() => {
+//   if (formState !== "edit") return; 
+//   const initialState = {};
+//   fields.forEach(({ name }) => {
+//     initialState[name] = data?.[name] || "";
+//   });
+//   setForm(initialState);
+// }, [data, fields, formState]);
+
 
       let rule;
       switch (type) {

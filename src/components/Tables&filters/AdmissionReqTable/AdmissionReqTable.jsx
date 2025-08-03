@@ -4,11 +4,15 @@ import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
-import Arrowdown from "@/assets/admin/arrow down.svg"
+import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import check from "@/assets/admin/Check.svg";
 
-export default function AdmissionReqTable({ initialData = [], initialPage = 1, initialTotalPages = 1 }) {
+export default function AdmissionReqTable({
+  initialData = [],
+  initialPage = 1,
+  initialTotalPages = 1,
+}) {
   const t = useTranslations("tables");
 
   const [dataa, setDataa] = useState(initialData);
@@ -25,7 +29,7 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
   const [resultMessage, setResultMessage] = useState("");
   const [showResultModal, setShowResultModal] = useState(false);
 
- const fetchData = async (pageNumber = 1) => {
+  const fetchData = async (pageNumber = 1) => {
     setLoading(true);
     try {
       const res = await fetch(
@@ -35,7 +39,8 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -63,57 +68,56 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
   }, [page]);
 
   const handleSearch = async (filters, pageNumber = 1) => {
-  setLoading(true);
-  try {
-    const query = new URLSearchParams();
+    setLoading(true);
+    try {
+      const query = new URLSearchParams();
 
-    // Append all filter parameters
-    selectCardData.inputs.forEach((input) => {
-      const value = filters[input.filter];
-      if (value) {
-        query.append(input.apiKey || input.filter, value);
-      }
-    });
+      // Append all filter parameters
+      selectCardData.inputs.forEach((input) => {
+        const value = filters[input.filter];
+        if (value) {
+          query.append(input.apiKey || input.filter, value);
+        }
+      });
 
-    // Append pagination separately
-    query.append("page", pageNumber);
+      // Append pagination separately
+      query.append("page", pageNumber);
 
-    const res = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/requirements/list?${query.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          "x-api-key": "1234",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-        },
-      }
-    );
+      const res = await fetch(
+        `https://api.lxera.net/api/development/organization/vodafone/requirements/list?${query.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+          },
+        }
+      );
 
-    const respond = await res.json();
-    const data = respond.data?.data || [];
+      const respond = await res.json();
+      const data = respond.data?.data || [];
 
-    setFilter(data);
-    setDataa(data); // Also update dataa to keep it in sync
-    setCurrentPage(respond.data?.current_page || 1);
-    setTotalPages(respond.data?.last_page || 1);
-    setPage(respond.data?.current_page || 1); // Update page state
-  } catch (error) {
-    console.error("Search error:", error);
-  } finally {
-    setLoading(false);
-  }
-};
-
+      setFilter(data);
+      setDataa(data); // Also update dataa to keep it in sync
+      setCurrentPage(respond.data?.current_page || 1);
+      setTotalPages(respond.data?.last_page || 1);
+      setPage(respond.data?.current_page || 1); // Update page state
+    } catch (error) {
+      console.error("Search error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const Accept = async (id) => {
     try {
       // Optimistically update the status to "approved" immediately
-      const updatedData = dataa.map(item => 
+      const updatedData = dataa.map((item) =>
         item.id === id ? { ...item, status: "approved" } : item
       );
-      const updatedFilter = filter.map(item => 
+      const updatedFilter = filter.map((item) =>
         item.id === id ? { ...item, status: "approved" } : item
       );
       setDataa(updatedData);
@@ -157,10 +161,10 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
   const handleRejectionSubmit = async () => {
     try {
       // Optimistically update the status to "rejected" immediately
-      const updatedData = dataa.map(item => 
+      const updatedData = dataa.map((item) =>
         item.id === selectedId ? { ...item, status: "rejected" } : item
       );
-      const updatedFilter = filter.map(item => 
+      const updatedFilter = filter.map((item) =>
         item.id === selectedId ? { ...item, status: "rejected" } : item
       );
       setDataa(updatedData);
@@ -226,9 +230,9 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
         value: item.bundle_student.bundle.translations[0].title,
       },
       { type: "image", value: item.identity_attachment },
-      {},
-      { type: "text", value: item.status },
-      {},
+      // {},
+      { type: "label", value: item.status },
+      // {},
       { type: "text", value: item.created_at },
       // {
       //   type: "buttons",
@@ -278,9 +282,9 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
     t("registered-program-type"),
     t("registered-program"),
     t("identity-file"),
-    t("requirements"),
+    // t("requirements"),
     t("user-status"),
-    t("admin"),
+    // t("admin"),
     t("submission-date"),
     t("actions"),
   ];
@@ -318,7 +322,7 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
     ],
   };
 
-   const DownloadExcel = async () => {
+  const DownloadExcel = async () => {
     try {
       const response = await fetch(
         "https://api.lxera.net/api/development/organization/vodafone/requirements/excel",
@@ -367,36 +371,39 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
 
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-          <button className="btn custfontbtn rounded-4 mb-3" onClick={DownloadExcel}>Excel</button>
+          <button
+            className="btn custfontbtn rounded-2 mb-3"
+            onClick={DownloadExcel}
+          >
+            Excel
+          </button>
 
-       
-            <>
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={false}
-              />
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
-                <button
-                  disabled={currentPage === 1 || loading}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
-                >
-                  {loading ? "..." : t("previous-page")}
-                </button>
-                <span className="px-2 align-self-center col-1 text-center">
-                  {t("page")} {currentPage}
-                </span>
-                <button
-                  disabled={currentPage >= totalPages || loading}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(currentPage + 1)}
-                >
-                  {loading ? "..." : t("next-page")}
-                </button>
-              </div>
-            </>
-      
+          <>
+            <OngoingTrain
+              TableHead={TableHead}
+              trainingData={trainingData}
+              button={false}
+            />
+            <div className="row justify-content-center align-items-center gap-3 mt-3">
+              <button
+                disabled={currentPage === 1 || loading}
+                className="btn custfontbtn col-1"
+                onClick={() => setPage(Math.max(currentPage - 1, 1))}
+              >
+                {loading ? "..." : t("previous-page")}
+              </button>
+              <span className="px-2 align-self-center col-1 text-center">
+                {t("page")} {currentPage}
+              </span>
+              <button
+                disabled={currentPage >= totalPages || loading}
+                className="btn custfontbtn col-1"
+                onClick={() => setPage(currentPage + 1)}
+              >
+                {loading ? "..." : t("next-page")}
+              </button>
+            </div>
+          </>
         </div>
       </div>
 
@@ -404,7 +411,7 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
         show={showModal}
         onClose={() => setShowModal(false)}
         onSubmit={handleRejectionSubmit}
-        title={ t("rejection_title") }
+        title={t("rejection_title")}
       >
         <form
           onSubmit={(e) => {
@@ -445,7 +452,7 @@ export default function AdmissionReqTable({ initialData = [], initialPage = 1, i
         show={showResultModal}
         onClose={() => setShowResultModal(false)}
         onSubmit={() => setShowResultModal(false)}
-        title= {t("operation_completed")}
+        title={t("operation_completed")}
       >
         <p className="m-0 text-center">{resultMessage}</p>
       </AlertModal>

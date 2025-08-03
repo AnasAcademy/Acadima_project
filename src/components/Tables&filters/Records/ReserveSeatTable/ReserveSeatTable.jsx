@@ -7,6 +7,9 @@ import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
 import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
+import Arrowdown from "@/assets/admin/arrow down.svg";
+import X from "@/assets/admin/x.svg";
+import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 
 export default function ReserveSeatTable({
@@ -52,7 +55,8 @@ export default function ReserveSeatTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -91,14 +95,12 @@ export default function ReserveSeatTable({
       selectCardData.inputs.forEach((input) => {
         const value = filters[input.filter];
         if (value) {
-          console.log(`Adding filter: ${input.apiKey || input.filter} = ${value}`);
+          
           query.append(input.apiKey || input.filter, value);
         }
       });
 
       query.append("page", pageNumber);
-      
-      console.log("Final query string:", query.toString());
 
       const res = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/students/reserve_seat?${query.toString()}`,
@@ -107,7 +109,8 @@ export default function ReserveSeatTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -124,15 +127,10 @@ export default function ReserveSeatTable({
     }
   };
 
-  const Delete = (id) => {
-    setSelectedId(id);
-    setShowModal(true);
-  };
-
   const DeleteUser = async () => {
     try {
-      const updatedData = dataa.filter((item) => item.id !== selectedId);
-      const updatedFilter = filter.filter((item) => item.id !== selectedId);
+      const updatedData = dataa.filter((item) => item.buyer.id !== selectedId);
+      const updatedFilter = filter.filter((item) => item.buyer.id !== selectedId);
       setDataa(updatedData);
       setFilter(updatedFilter);
 
@@ -143,7 +141,8 @@ export default function ReserveSeatTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -173,10 +172,30 @@ export default function ReserveSeatTable({
 
   const handleSubmitEdit = async (formData) => {
     try {
+      // Get the original item data for comparison
+      const originalItem = dataa.find((item) => item.buyer.id === selectedId);
+      if (!originalItem || !originalItem.buyer) {
+        setResultMessage("لم يتم العثور على البيانات الأصلية");
+        setShowResultModal(true);
+        return;
+      }
+
+      const originalData = {
+        full_name: originalItem.buyer.full_name || "",
+        en_name: originalItem.en_name || originalItem.buyer.full_name || "",
+        email: originalItem.buyer.email || "",
+        mobile: originalItem.buyer.mobile || "",
+        bio: originalItem.buyer.bio || "",
+        about: originalItem.buyer.about || "",
+        status: originalItem.buyer.status || "",
+        role_name: originalItem.buyer.role_name || "",
+        password: "",
+      };
+
       const apiData = {};
 
       Object.entries(formData).forEach(([key, value]) => {
-        const original = editFormData[key];
+        const original = originalData[key];
 
         // Normalize strings (trim, remove spaces)
         const cleaned = typeof value === "string" ? value.trim() : value;
@@ -192,8 +211,6 @@ export default function ReserveSeatTable({
         ) {
           if (key === "mobile") {
             apiData[key] = cleaned.replace(/\s+/g, "");
-          } else if (key === "user_role") {
-            apiData["role_name"] = cleaned;
           } else {
             apiData[key] = cleaned;
           }
@@ -214,7 +231,7 @@ export default function ReserveSeatTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
           body: JSON.stringify(apiData),
         }
@@ -259,34 +276,65 @@ export default function ReserveSeatTable({
         email: item.buyer.email,
         phone: item.buyer.mobile,
       },
-      { type: "text", value: item.bundle?.translations[0].title  },
+      { type: "text", value: item.bundle?.translations[0].title },
       { type: "text", value: item.created_at },
-      { type: "text", value: item.buyer.status },
+      { type: "label", value: item.buyer.status },
+      // {
+      //   type: "buttons",
+      //   buttons: [
+      //     {
+      //       label: t("edit"),
+      //       action: () => {
+      //         setSelectedId(item.id);
+      //         setFormState("edit");
+      //         setEditFormData({
+      //           full_name: item.buyer.full_name || "",
+      //           en_name: item.en_name || item.buyer.full_name || "",
+      //           email: item.buyer.email || "",
+      //           mobile: item.buyer.mobile || "",
+      //           bio: item.buyer.bio || "",
+      //           about: item.buyer.about || "",
+      //           status: item.buyer.status || "",
+      //           user_role: item.buyer.role_name || "",
+      //           password: "", // always empty unless changed
+      //         });
+      //         setShowEditForm(true);
+      //       },
+      //       color: "#48BB78",
+      //     },
+      //     { label: t("delete"), action: () => Delete(item.id), color: "#fc544b" },
+      //   ],
+      // },
       {
-        type: "buttons",
-        buttons: [
+        type: "actionbutton",
+        label: t("actions"),
+        action: () => {
+          setShowModal(!showModal);
+          setSelectedId(item.buyer.id);
+          setFormState("edit");
+        },
+        icon: Arrowdown,
+        lists: [
           {
             label: t("edit"),
             action: () => {
-              setSelectedId(item.id);
+              setSelectedId(item.buyer.id);
               setFormState("edit");
-              setEditFormData({
-                full_name: item.buyer.full_name || "",
-                en_name: item.en_name || item.buyer.full_name || "",
-                email: item.buyer.email || "",
-                mobile: item.buyer.mobile || "",
-                bio: item.buyer.bio || "",
-                about: item.buyer.about || "",
-                status: item.buyer.status || "",
-                user_role: item.buyer.role_name || "",
-                password: "", // always empty unless changed
-              });
               setShowEditForm(true);
             },
-            color: "#48BB78",
+            icon: Pen,
           },
-          { label: t("delete"), action: () => Delete(item.id), color: "#fc544b" },
+          {
+            label: t("delete"),
+            action: () => {
+              setShowModal(!showModal);
+              setSelectedId(item.buyer.id);
+              setFormState("delete");
+            },
+            icon: X,
+          },
         ],
+        id: item.buyer.id,
       },
     ],
   }));
@@ -330,7 +378,7 @@ export default function ReserveSeatTable({
         filter: "mobile",
         placeholder: t("phone-search"),
         apiKey: "mobile",
-      }
+      },
     ],
   };
 
@@ -346,7 +394,7 @@ export default function ReserveSeatTable({
     { name: "full_name", label: ts("full_name"), type: "text" },
     { name: "en_name", label: ts("en_name"), type: "text" },
     {
-      name: "user_role",
+      name: "role_name",
       label: ts("user_role"),
       type: "select",
       options: getRoleOptions(),
@@ -373,7 +421,8 @@ export default function ReserveSeatTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -406,7 +455,22 @@ export default function ReserveSeatTable({
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
               <Editform
                 fields={fields}
-                data={editFormData}
+                data={(() => {
+                  const item = dataa.find((item) => item.buyer.id === selectedId);
+                  if (!item || !item.buyer) return {};
+
+                  return {
+                    full_name: item.buyer.full_name || "",
+                    en_name: item.en_name || item.buyer.full_name || "",
+                    email: item.buyer.email || "",
+                    mobile: item.buyer.mobile || "",
+                    bio: item.buyer.bio || "",
+                    about: item.buyer.about || "",
+                    status: item.buyer.status || "",
+                    role_name: item.buyer.role_name || "",
+                    password: "",
+                  };
+                })()}
                 formTitles={formTitles}
                 handleSubmitEdit={handleSubmitEdit}
                 setShowModal={() => setShowEditForm(false)}
@@ -430,7 +494,10 @@ export default function ReserveSeatTable({
 
           <div className="col-12">
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              <button className="btn custfontbtn rounded-4 mb-3" onClick={DownloadExcel}>
+              <button
+                className="btn custfontbtn rounded-2 mb-3"
+                onClick={DownloadExcel}
+              >
                 Excel
               </button>
 
@@ -470,7 +537,7 @@ export default function ReserveSeatTable({
         show={showModal}
         onClose={() => setShowModal(false)}
         onSubmit={DeleteUser}
-        title= {t("are_you_sure_you_want_to_delete")}
+        title={t("are_you_sure_you_want_to_delete")}
         btn={t("yes")}
       >
         <form
@@ -480,9 +547,7 @@ export default function ReserveSeatTable({
           }}
         >
           <div className="mb-3">
-            <p className="m-0 text-center">
-              {t("delete_validation")}
-            </p>
+            <p className="m-0 text-center">{t("delete_validation")}</p>
           </div>
         </form>
       </AlertModal>
@@ -491,7 +556,7 @@ export default function ReserveSeatTable({
         show={showResultModal}
         onClose={() => setShowResultModal(false)}
         onSubmit={() => setShowResultModal(false)}
-        title= {t("operation_completed")}
+        title={t("operation_completed")}
       >
         <p className="m-0 text-center">{resultMessage}</p>
       </AlertModal>

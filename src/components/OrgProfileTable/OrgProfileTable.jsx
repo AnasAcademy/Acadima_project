@@ -118,7 +118,6 @@
            <OngoingTrain
              TableHead={TableHead}
              trainingData={trainingData}
-         
            />
          </div>
        </>

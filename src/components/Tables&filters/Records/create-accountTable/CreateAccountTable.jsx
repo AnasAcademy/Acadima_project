@@ -256,7 +256,7 @@ export default function CreateAccountTable({
       },
       { type: "text", value: item.program_translation?.title || item.course },
       { type: "text", value: item.created_at || item.join_date },
-      { type: "text", value: item.status },
+      { type: "label", value: item.status },
       // {
       //   type: "buttons",
       //   buttons: [
@@ -348,7 +348,7 @@ export default function CreateAccountTable({
         filter: "status",
         placeholder: t("status"),
         apiKey: "status",
-        options: Array.isArray(statuses) ? statuses : [],
+        options: getStatusOptions(),
       },
     ],
   };
@@ -450,7 +450,7 @@ export default function CreateAccountTable({
           <div className="col-12">
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
               <button
-                className="btn custfontbtn rounded-4 mb-3"
+                className="btn custfontbtn rounded-2 mb-3"
                 onClick={DownloadExcel}
               >
                 Excel

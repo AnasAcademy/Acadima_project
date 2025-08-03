@@ -4,8 +4,12 @@ import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
+import Editform from "@/components/Editform/Editform";
 import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
+import Arrowdown from "@/assets/admin/arrow down.svg";
+import X from "@/assets/admin/x.svg";
+import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 
 export default function ScholarshipTable({
@@ -14,7 +18,15 @@ export default function ScholarshipTable({
   initialTotalPages = 1,
 }) {
   const t = useTranslations("tables");
-  const { statuses, roles, categories, loading: contextLoading } = useUserData();
+  const ts = useTranslations("settings");
+  const {
+    statuses,
+    roles,
+    categories,
+    loading: contextLoading,
+    getRoleOptions,
+    getStatusOptions,
+  } = useUserData();
 
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
@@ -28,6 +40,10 @@ export default function ScholarshipTable({
   const [resultMessage, setResultMessage] = useState("");
   const [currentFilters, setCurrentFilters] = useState({});
   const [isInitialRender, setIsInitialRender] = useState(true);
+  const [formState, setFormState] = useState("");
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [editFormData, setEditFormData] = useState({});
+  const [editFormLoading, setEditFormLoading] = useState(false);
 
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
@@ -39,7 +55,8 @@ export default function ScholarshipTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -78,13 +95,15 @@ export default function ScholarshipTable({
       selectCardData.inputs.forEach((input) => {
         const value = filters[input.filter];
         if (value) {
-          console.log(`Adding filter: ${input.apiKey || input.filter} = ${value}`);
+          console.log(
+            `Adding filter: ${input.apiKey || input.filter} = ${value}`
+          );
           query.append(input.apiKey || input.filter, value);
         }
       });
 
       query.append("page", pageNumber);
-      
+
       console.log("Final query string:", query.toString());
 
       const res = await fetch(
@@ -94,7 +113,8 @@ export default function ScholarshipTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -131,7 +151,8 @@ export default function ScholarshipTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -158,6 +179,102 @@ export default function ScholarshipTable({
     }
   };
 
+  const handleSubmitEdit = async (formData) => {
+    try {
+      // Get the original item data for comparison
+      const originalItem = dataa.find((item) => item.buyer.id === selectedId);
+      if (!originalItem || !originalItem.buyer) {
+        setResultMessage("لم يتم العثور على البيانات الأصلية");
+        setShowResultModal(true);
+        return;
+      }
+
+      const originalData = {
+        full_name: originalItem.buyer.full_name || "",
+        en_name: originalItem.en_name || originalItem.buyer.full_name || "",
+        email: originalItem.buyer.email || "",
+        mobile: originalItem.buyer.mobile || "",
+        bio: originalItem.buyer.bio || "",
+        about: originalItem.buyer.about || "",
+        status: originalItem.buyer.status || "",
+        role_name: originalItem.buyer.role_name || "",
+        password: "",
+      };
+
+      const apiData = {};
+
+      Object.entries(formData).forEach(([key, value]) => {
+        const original = originalData[key];
+
+        // Normalize strings (trim, remove spaces)
+        const cleaned = typeof value === "string" ? value.trim() : value;
+        const cleanedOriginal =
+          typeof original === "string" ? original.trim() : original;
+
+        // Skip unchanged or empty fields
+        if (
+          cleaned !== cleanedOriginal &&
+          cleaned !== "" &&
+          cleaned !== null &&
+          cleaned !== undefined
+        ) {
+          if (key === "mobile") {
+            apiData[key] = cleaned.replace(/\s+/g, "");
+          } else {
+            apiData[key] = cleaned;
+          }
+        }
+      });
+
+      if (Object.keys(apiData).length === 0) {
+        setResultMessage("لا يوجد تغييرات لإرسالها");
+        setShowResultModal(true);
+        return;
+      }
+
+      // Use PUT method as it works in Postman
+      const response = await fetch(
+        `https://api.lxera.net/api/development/organization/vodafone/students/${selectedId}`,
+        {
+          method: "PUT",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+          },
+          body: JSON.stringify(apiData),
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setResultMessage(result.message || "تم التحديث بنجاح");
+        setShowResultModal(true);
+        setShowEditForm(false);
+        fetchData(currentPage);
+      } else {
+        console.error("API Error Details:", {
+          status: response.status,
+          statusText: response.statusText,
+          result: result,
+        });
+
+        const errorText = result.errors
+          ? Object.values(result.errors).join(", ")
+          : result.message || `فشل التحديث (${response.status})`;
+        setResultMessage(`فشل التحديث: ${errorText}`);
+        setShowResultModal(true);
+        throw new Error(errorText);
+      }
+    } catch (error) {
+      console.error("Edit failed:", error);
+      setResultMessage("فشل التحديث. حاول مرة أخرى.");
+      setShowResultModal(true);
+    }
+  };
+
   const trainingData = filter.map((item, index) => ({
     key: item.id || index,
     columns: [
@@ -169,15 +286,53 @@ export default function ScholarshipTable({
         email: item.buyer.email,
         phone: item.buyer.mobile || item.buyer.phone,
       },
-      { type: "text", value: item.bundle.translations?.[0]?.title || item.course || item.bundle?.translations?.[0]?.title },
-      { type: "text", value: item.created_at || item.join_date },
-      { type: "text", value: item.buyer.status },
+      { type: "image", value: item.buyer.identity_scan },
       {
-        type: "buttons",
-        buttons: [
-          { label: t("edit"), color: "#28a745" },
-          { label: t("delete"), action: () => Delete(item.id), color: "#fc544b" },
+        type: "text",
+        value:
+          item.bundle.translations?.[0]?.title ||
+          item.course ||
+          item.bundle?.translations?.[0]?.title,
+      },
+      { type: "text", value: item.created_at || item.join_date },
+      { type: "label", value: item.buyer.status },
+      // {
+      //   type: "buttons",
+      //   buttons: [
+      //     { label: t("edit"), color: "#28a745" },
+      //     { label: t("delete"), action: () => Delete(item.id), color: "#fc544b" },
+      //   ],
+      // },
+      {
+        type: "actionbutton",
+        label: t("actions"),
+        action: () => {
+          setShowModal(!showModal);
+          setSelectedId(item.buyer.id);
+          setFormState("edit");
+        },
+        icon: Arrowdown,
+        lists: [
+          {
+            label: t("edit"),
+            action: () => {
+              setSelectedId(item.buyer.id);
+              setFormState("edit");
+              setShowEditForm(true);
+            },
+            icon: Pen,
+          },
+          {
+            label: t("delete"),
+            action: () => {
+              setShowModal(!showModal);
+              setSelectedId(item.buyer.id);
+              setFormState("delete");
+            },
+            icon: X,
+          },
         ],
+        id: item.buyer.id,
       },
     ],
   }));
@@ -186,6 +341,7 @@ export default function ScholarshipTable({
     "#",
     t("user-code"),
     t("user-name"),
+    t("identity-file"),
     t("registered-program-type"),
     t("registration_date"),
     t("user-status"),
@@ -222,28 +378,38 @@ export default function ScholarshipTable({
         placeholder: t("phone-search"),
         apiKey: "mobile",
       },
-      {
-        title: t("registered-program-type"),
-        type: "search",
-        filter: "program.title",
-        placeholder: t("program-search"),
-        apiKey: "title",
-      },
-      {
-        title: t("status"),
-        type: "select",
-        filter: "status",
-        placeholder: t("status"),
-        apiKey: "status",
-        options: Array.isArray(statuses) 
-          ? statuses.map(status => ({
-              value: status.value || status,
-              label: status.label || status.value || status
-            }))
-          : [],
-      },
     ],
   };
+
+  const formTitles = [
+    {
+      label: (formState === "add" ? t("add") : t("edit")) + " " + t("user"),
+      type: "text",
+    },
+    { label: formState === "add" ? t("add") : t("edit"), type: "text" },
+  ];
+
+  const fields = [
+    { name: "full_name", label: ts("full_name"), type: "text" },
+    { name: "en_name", label: ts("en_name"), type: "text" },
+    {
+      name: "role_name",
+      label: ts("user_role"),
+      type: "select",
+      options: getRoleOptions(),
+    },
+    { name: "email", label: ts("email"), type: "text" },
+    { name: "mobile", label: ts("mobile"), type: "text" },
+    { name: "password", label: ts("password"), type: "text" },
+    { name: "bio", label: ts("bio"), type: "text" },
+    { name: "about", label: ts("about"), type: "text" },
+    {
+      name: "status",
+      label: t("status"),
+      type: "select",
+      options: getStatusOptions(),
+    },
+  ];
 
   const DownloadExcel = async () => {
     try {
@@ -254,7 +420,8 @@ export default function ScholarshipTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
         }
       );
@@ -279,58 +446,97 @@ export default function ScholarshipTable({
   };
 
   return (
-    <div className="row g-3">
-      <div className="col-12">
-        <SelectCard
-          selectCardData={selectCardData}
-          isTechSupport={true}
-          dataa={dataa}
-          setFilter={setFilter}
-          handleSearch={handleSearch}
-        />
-      </div>
+    <>
+      {showEditForm ? (
+        <div className="row g-3">
+          <div className="col-12">
+            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+              <Editform
+                fields={fields}
+                data={(() => {
+                  const item = dataa.find(
+                    (item) => item.buyer.id === selectedId
+                  );
+                  if (!item || !item.buyer) return {};
 
-      <div className="col-12">
-        <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-          <button className="btn custfontbtn rounded-4 mb-3" onClick={DownloadExcel}>
-            Excel
-          </button>
-
-          <OngoingTrain
-            TableHead={TableHead}
-            trainingData={trainingData}
-            button={false}
-            Icon={Pin}
-            Icon2={Removebin}
-          />
-
-          <div className="row justify-content-center align-items-center gap-3 mt-3">
-            <button
-              disabled={currentPage === 1}
-              className="btn custfontbtn col-1"
-              onClick={() => setPage(Math.max(currentPage - 1, 1))}
-            >
-              {t("previous-page")}
-            </button>
-            <span className="px-2 align-self-center col-1 text-center">
-              {t("page")} {currentPage}
-            </span>
-            <button
-              disabled={currentPage >= totalPages}
-              className="btn custfontbtn col-1"
-              onClick={() => setPage(currentPage + 1)}
-            >
-              {t("next-page")}
-            </button>
+                  return {
+                    full_name: item.buyer.full_name || "",
+                    en_name: item.en_name || item.buyer.full_name || "",
+                    email: item.buyer.email || "",
+                    mobile: item.buyer.mobile || "",
+                    bio: item.buyer.bio || "",
+                    about: item.buyer.about || "",
+                    status: item.buyer.status || "",
+                    role_name: item.buyer.role_name || "",
+                    password: "",
+                  };
+                })()}
+                formTitles={formTitles}
+                handleSubmitEdit={handleSubmitEdit}
+                setShowModal={() => setShowEditForm(false)}
+                formState={formState}
+                loading={editFormLoading}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="row g-3">
+          <div className="col-12">
+            <SelectCard
+              selectCardData={selectCardData}
+              isTechSupport={true}
+              dataa={dataa}
+              setFilter={setFilter}
+              handleSearch={handleSearch}
+            />
+          </div>
 
+          <div className="col-12">
+            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+              <button
+                className="btn custfontbtn rounded-2 mb-3"
+                onClick={DownloadExcel}
+              >
+                Excel
+              </button>
+
+              <OngoingTrain
+                TableHead={TableHead}
+                trainingData={trainingData}
+                button={false}
+                Icon={Pin}
+                Icon2={Removebin}
+              />
+
+              <div className="row justify-content-center align-items-center gap-3 mt-3">
+                <button
+                  disabled={currentPage === 1}
+                  className="btn custfontbtn col-1"
+                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
+                >
+                  {t("previous-page")}
+                </button>
+                <span className="px-2 align-self-center col-1 text-center">
+                  {t("page")} {currentPage}
+                </span>
+                <button
+                  disabled={currentPage >= totalPages}
+                  className="btn custfontbtn col-1"
+                  onClick={() => setPage(currentPage + 1)}
+                >
+                  {t("next-page")}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <AlertModal
         show={showModal}
         onClose={() => setShowModal(false)}
         onSubmit={DeleteUser}
-        title= {t("are_you_sure_you_want_to_delete")}
+        title={t("are_you_sure_you_want_to_delete")}
         btn={t("yes")}
       >
         <form
@@ -340,9 +546,7 @@ export default function ScholarshipTable({
           }}
         >
           <div className="mb-3">
-            <p className="m-0 text-center">
-              {t("delete_validation")}
-            </p>
+            <p className="m-0 text-center">{t("delete_validation")}</p>
           </div>
         </form>
       </AlertModal>
@@ -351,10 +555,10 @@ export default function ScholarshipTable({
         show={showResultModal}
         onClose={() => setShowResultModal(false)}
         onSubmit={() => setShowResultModal(false)}
-        title= {t("operation_completed")}
+        title={t("operation_completed")}
       >
         <p className="m-0 text-center">{resultMessage}</p>
       </AlertModal>
-    </div>
+    </>
   );
 }

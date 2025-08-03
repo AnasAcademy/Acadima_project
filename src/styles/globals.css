@@ -1917,3 +1917,33 @@ margin-right: 1rem;
 text-align: start;
 }
   
+.actionButton-borderradius {
+  border-radius: 0.375rem 0.375rem 0px 0px;
+}
+
+/* AI Chat typing animation */
+@keyframes pulse {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+.text-bg-warning {
+  color: #fff !important;
+  background-color: #FFC107 !important;
+}
+
+.text-bg-success {
+  color: #fff !important;
+  background-color: #3FBE74 !important;
+}
+
+.text-bg-danger {
+  color: #fff !important;
+  background-color: #A4A4A4 !important;
+}

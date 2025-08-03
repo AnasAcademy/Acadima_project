@@ -26,7 +26,9 @@ export default function OngoingTrain({
             height={50}
           />
         ) : (
-          <span className="text-danger">{t("not-found")}</span>
+          <span className="text-bg-danger p-2 rounded-2 tit-12-400">
+            {t("not-found")}
+          </span>
         )}
       </td>
     ),
@@ -34,22 +36,45 @@ export default function OngoingTrain({
       let textClass = "text-dark";
       let textVal = col.value;
 
-      if (col.value === "active") {
-        textClass = "text-success";
-        textVal = t("active");
-      } // Green
-      else if (col.value === "pending") {
-        textClass = "text-warning";
-        textVal = t("pending");
-      } // Yellow
-      else if (col.value === "inactive") {
-        textClass = "text-danger";
-        textVal = t("inactive");
-      } // Red
-
       return (
         <td key={key} className={`text-wrap ${textClass}`}>
           {textVal}
+        </td>
+      );
+    },
+    label: (col, key) => {
+      let textClass = "text-dark";
+      let textVal = col.value;
+
+      if (
+        col.value === "active" ||
+        col.value === "approved" ||
+        col.value === "success"
+      ) {
+        textClass = "text-bg-success p-2 rounded-2 tit-12-400";
+        textVal = t(col.value);
+      } // Green
+      else if (col.value === "pending" || col.value === "refund") {
+        textClass = "text-bg-warning p-2 rounded-2 tit-12-400";
+        textVal = t(col.value);
+      } // Yellow
+      else if (col.value === t("manual")) {
+        textClass = "text-warning ";
+        textVal = col.value;
+      } else if (
+        col.value === "inactive" ||
+        col.value === "rejected" ||
+        col.value === "blocked"
+      ) {
+        textClass = "text-bg-danger p-2 rounded-2 tit-12-400";
+        textVal = t(col.value);
+      } // Red
+
+      return (
+        <td key={key}>
+          <span className={`d-inline-block w-75 text-center ${textClass}`}>
+            {textVal}
+          </span>
         </td>
       );
     },
@@ -117,7 +142,7 @@ export default function OngoingTrain({
 
           <div className="d-flex flex-column justify-content-start align-items-start">
             <h4 className="fw-semibold m-0 ">{col.name}</h4>
-            <h4 className="fw-semibold m-0 ">{col.id}</h4>
+            <h4 className="fw-semibold m-0 ">ID:{col.id}</h4>
             <h4 className="text-muted small m-0 ">{col.phone}</h4>
             <h4 className="text-muted small m-0 ">{col.email}</h4>
           </div>
@@ -139,18 +164,18 @@ export default function OngoingTrain({
         </div>
       </td>
     ),
-    actionbutton: (col,key) => (
+    actionbutton: (col, key) => (
       <td key={key}>
         <div className=" justify-content-center  align-items-center  position-relative  ">
           <button
-            className="tit-12-400 btncolor text-center  cursor-pointer   text-nowrap d-flex align-items-center  gap-2 justify-content-center actionButton w-100 "
+            className={`tit-12-400 btncolor text-center cursor-pointer text-nowrap d-flex align-items-center gap-2 justify-content-center actionButton w-100 ${
+              openId === col.id ? "actionButton-borderradius" : " rounded-2"
+            }`}
             onClick={() => {
               setOpenId((prev) => (prev === col.id ? null : col.id));
             }}
           >
-            {col.icon && (
-              <col.icon style={{ color: "#fff" }}>{col.icon}</col.icon>
-            )}
+            {col.icon && <col.icon style={{ color: "#fff" }} />}
             {col.label}
           </button>
 
@@ -158,10 +183,11 @@ export default function OngoingTrain({
             <div className="  bg-white d-flex  flex-column justify-content-center align-items-center  position-absolute    z-3  w-100  border-1 border">
               {col.lists.map((list, index) => (
                 <h6
-                  className=" text-dark d-flex  justify-content-center align-items-center gap-2 p-1 cursor-pointer" key={`${col.id}-${index}`}
+                  className=" text-dark d-flex  justify-content-center align-items-center gap-2 p-1 cursor-pointer"
+                  key={`${col.id}-${index}`}
                   onClick={list.action}
                 >
-                  {col.icon && (
+                  {list.icon && (
                     <list.icon style={{ color: "#fff" }}>{col.icon}</list.icon>
                   )}
                   {list.label}

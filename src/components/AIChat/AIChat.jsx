@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import Send from "@/assets/admin/send.svg";
 import UserMessage from "@/components/AIChat/UserMSg";
 import AiMessage from "@/components/AIChat/AIMsg";
+import Animate from "@/assets/admin/animate.gif"
 
 export default function AIChat({
   minHeight = "265px",
@@ -16,6 +17,20 @@ export default function AIChat({
   const ts = useTranslations("AiAssistant");
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const chatBodyRef = useRef(null);
+
+  // Auto-scroll function
+  const scrollToBottom = () => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  };
+
+  // Scroll to bottom whenever messages change or loading state changes
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
 
 
    useEffect(() => {
@@ -46,6 +61,7 @@ export default function AIChat({
 
       // Immediately send it to the API
       const sendExternalMessage = async () => {
+        setIsLoading(true);
         try {
           const response = await fetch("https://ai.lxera.net/query", {
             method: "POST",
@@ -83,6 +99,8 @@ export default function AIChat({
               text: ts("generic-response"),
             },
           ]);
+        } finally {
+          setIsLoading(false);
         }
       };
 
@@ -96,6 +114,7 @@ export default function AIChat({
     const userInput = input;
     setMessages((prev) => [...prev, { type: "user", text: userInput }]);
     setInput("");
+    setIsLoading(true);
 
     try {
       const response = await fetch("https://ai.lxera.net/query", {
@@ -134,6 +153,8 @@ export default function AIChat({
           text: ts("generic-response"),
         },
       ]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -143,6 +164,7 @@ export default function AIChat({
     >
       {/* Chat Area */}
       <div
+        ref={chatBodyRef}
         className="chat-body p-4 d-flex flex-column gap-3 overflow-auto flex-grow-1"
         style={{ maxHeight, minHeight }}
       >
@@ -152,6 +174,49 @@ export default function AIChat({
           ) : (
             <AiMessage key={index} message={msg.text} />
           )
+        )}
+        
+        {/* Loading Animation */}
+        {isLoading && (
+          <div className="d-flex align-items-end justify-content-end gap-2 mb-2">
+           
+            {/* Typing Bubble */}
+            <div className="bg-light rounded-4 p-3">
+              <div className="d-flex align-items-center gap-2">
+                {/* <span className="text-muted small">{t("typing")}</span> */}
+                {/* Animated dots */}
+                <div className="d-flex gap-1">
+                  <div 
+                    className="rounded-circle bg-secondary"
+                    style={{ 
+                      width: '6px', 
+                      height: '6px',
+                      animation: 'pulse 1.4s ease-in-out infinite',
+                      animationDelay: '0s'
+                    }}
+                  ></div>
+                  <div 
+                    className="rounded-circle bg-secondary"
+                    style={{ 
+                      width: '6px', 
+                      height: '6px',
+                      animation: 'pulse 1.4s ease-in-out infinite',
+                      animationDelay: '0.2s'
+                    }}
+                  ></div>
+                  <div 
+                    className="rounded-circle bg-secondary"
+                    style={{ 
+                      width: '6px', 
+                      height: '6px',
+                      animation: 'pulse 1.4s ease-in-out infinite',
+                      animationDelay: '0.4s'
+                    }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 

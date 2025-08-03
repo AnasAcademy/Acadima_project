@@ -277,7 +277,7 @@ const reqDat = reqtbledata.map((item, index) => ({
         { type: "text", value: item.title },
         { type: "text", value: item.description },
         { type: "text", value: item.price },
-        { type: "text", value: item.status },
+        { type: "label", value: item.status },
         { type: "text", value: item.created_by.full_name },
         { type: "text", value: item.created_at },
         { type: "text", value: item.start_date },

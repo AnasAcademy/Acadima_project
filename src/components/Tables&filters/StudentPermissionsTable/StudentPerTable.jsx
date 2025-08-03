@@ -261,7 +261,7 @@ export default function StudentPerTable({
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
           <button
-            className="btn custfontbtn rounded-4 mb-3"
+            className="btn custfontbtn rounded-2 mb-3"
             onClick={DownloadExcel}
           >
             Excel

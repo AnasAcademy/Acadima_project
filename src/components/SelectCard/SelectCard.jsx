@@ -10,6 +10,7 @@ export default function SelectCard({
   isTechSupport,
   isOrgProfile,
   handleSearch,
+  // title
 }) {
   const t = useTranslations("employee_progress");
   const t2 = useTranslations("techSupport");
@@ -33,10 +34,8 @@ export default function SelectCard({
 
   return (
     <div className="cardbg p-3 d-flex flex-column justify-content-start align-items-start rounded-4 min-adash-ht">
-      {isTechSupport && <h2 className="px-3 my-2">{t2("ticket-filter")}</h2>}
-      {isOrgProfile && (
-        <h2 className="px-3 my-2">{t3("orgprofile-table-title")}</h2>
-      )}
+     
+      {/* <h2 className="px-3 my-2">{title}</h2> */}
 
       <div className="row d-flex justify-content-between w-100 m-0">
         <div className="p-0">

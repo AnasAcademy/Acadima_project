@@ -7,7 +7,7 @@ import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
 import Arrowdown from "@/assets/admin/arrow down.svg"
 import X from "@/assets/admin/x.svg";
- import Pen from "@/assets/admin/pen.svg";
+import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 
 export default function AllStudentsTable({
@@ -190,7 +190,7 @@ export default function AllStudentsTable({
       { type: "image", value: item.identity_image },
       { type: "text", value: item.bundles?.[0]?.translations?.[0]?.title || "N/A" },
       { type: "text", value: item.created_at },
-      { type: "text", value: item.status },
+      { type: "label", value: item.status },
       // {
       //   type: "buttons",
       //   buttons: [
@@ -221,7 +221,7 @@ export default function AllStudentsTable({
         label: t("actions"),
         action: () => {
           setShowModal(!showModal);
-          setId(item.id);
+          setSelectedId(item.id);
           setFormState("edit");
         },
         icon: Arrowdown,
@@ -239,7 +239,7 @@ export default function AllStudentsTable({
             label: t("delete"),
             action: () => {
               setShowModal(!showModal);
-              setId(item.id);
+              setSelectedId(item.id);
               setFormState("delete");
             },
             icon: X,
@@ -351,8 +351,7 @@ export default function AllStudentsTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
           body: JSON.stringify(apiData),
         }
@@ -483,7 +482,7 @@ export default function AllStudentsTable({
           <div className="col-12">
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
               <button
-                className="btn custfontbtn rounded-4 mb-3"
+                className="btn custfontbtn rounded-2 mb-3"
                 onClick={DownloadExcel}
               >
                 Excel

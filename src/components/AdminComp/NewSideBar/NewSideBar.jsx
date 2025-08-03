@@ -91,9 +91,7 @@ const education = isQuizzes || isAssignments;
   );
   const isBundles = pathname.includes("/org/education/bundles");
   const iSenrollmentHis = pathname.includes("/org/enrollment/history");
-  const iSenrollmentAddClass = pathname.includes(
-    "/org/enrollment/add-student-to-class"
-  );
+  
   const isAdmissionReq = pathname.includes(
     "/org/admission/admission-requirements"
   );
@@ -247,13 +245,7 @@ const education = isQuizzes || isAssignments;
       tit: "enrollment-history",
       href: "/org/enrollment/history",
       bg: iSenrollmentHis,
-    },
-    {
-      icon: AddStud,
-      tit: "add-student-to-class",
-      href: "/org/enrollment/add-student-to-class",
-      bg: iSenrollmentAddClass,
-    },
+    }
   ];
 
   const edu = [
@@ -756,17 +748,18 @@ const education = isQuizzes || isAssignments;
                   <ul className="navbar-nav   d-lg-flex w-100 flex-lg-column    p-3    bg-white    newSidebar     ">
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400">
-                        لوحة الإدارة
+                         {t("admin_dashboard")}
                       </h6>
                     </div>
 
                     <li
-                      className={`nav-item d-flex  p-2   gap-2  align-items-end  besideHover  ${
+                      className={`nav-item   besideHover  ${
                         isPanel && "onSelect"
                       }  `}
                     >
                       <Link
                         href="/org/panel"
+                        className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
                           setactvv("");
                         }}
@@ -776,8 +769,7 @@ const education = isQuizzes || isAssignments;
                             isPanel ? "iconcolor" : "iconcolor2"
                           } `}
                         />
-                      </Link>
-                      <span
+                        <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
                             ? "tooltipText text-body-secondary"
@@ -786,15 +778,18 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("dashboard")}
                       </span>
+                      </Link>
+                      
                     </li>
 
                     <li
-                      className={`nav-item d-flex   p-2 gap-2  align-items-end  besideHover  ${
+                      className={`nav-item besideHover  ${
                         isEmployeeprogress && "onSelect"
                       }  `}
                     >
                       <Link
                         href="/org/employeeprogress"
+                        className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
                           setactvv("");
                         }}
@@ -804,7 +799,6 @@ const education = isQuizzes || isAssignments;
                             isEmployeeprogress ? "iconcolor" : "iconcolor2"
                           } `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -814,15 +808,17 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("Employee progress")}
                       </span>
+                      </Link>
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end    besideHover  ${
+                      className={`nav-item  besideHover  ${
                         isNotfiPage && "onSelect"
                       }   `}
                     >
                       <Link
                         href="/org/notifications"
+                        className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
                           setactvv("");
                         }}
@@ -832,7 +828,6 @@ const education = isQuizzes || isAssignments;
                             isNotfiPage ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -842,14 +837,16 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("Notifications")}
                       </span>
+                      </Link>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
+                      className={`nav-item  besideHover  ${
                         isTechSupport && "onSelect"
                       } `}
                     >
                       <Link
                         href="/org/techsupport"
+                        className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
                           setactvv("");
                         }}
@@ -859,7 +856,6 @@ const education = isQuizzes || isAssignments;
                             isTechSupport ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -869,14 +865,16 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("Technical Support")}
                       </span>
+                      </Link>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
+                      className={`nav-item  besideHover  ${
                         isAccMange && "onSelect"
                       } `}
                     >
                       <Link
                         href="/org/orgprofile"
+                        className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
                           setactvv("accmange");
                         }}
@@ -886,7 +884,6 @@ const education = isQuizzes || isAssignments;
                             isAccMange ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -896,6 +893,7 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("Account Management")}
                       </span>
+                      </Link>
                     </li>
                   </ul>
                   <ul
@@ -903,7 +901,7 @@ const education = isQuizzes || isAssignments;
                   >
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400 ">
-                        الأكاديمية{" "}
+                        {t("academy")}
                       </h6>
                     </div>
                     <li
@@ -914,13 +912,14 @@ const education = isQuizzes || isAssignments;
                         setactvv("isAdmission");
                       }}
                     >
-                      <Link href="/org/admission/admission-requirements">
+                      <Link 
+                        href="/org/admission/admission-requirements"
+                        className="d-flex    gap-2  align-items-end">
                         <AdmissionIcon
                           className={`iconSize1    ${
                             isAdminssion ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -930,22 +929,25 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("admission")}
                       </span>
+                      </Link>
                     </li>
                     <li
-                      className={`nav-item d-flex  p-2 gap-2   align-items-end besideHover  ${
+                      className={`nav-item d-flex  gap-2   align-items-end besideHover  ${
                         studentsRecords && "onSelect"
                       }      `}
                       onClick={() => {
                         setactvv("isRegistered");
                       }}
                     >
-                      <Link href="/org/students-records/all-students">
+                      <Link 
+                        href="/org/students-records/all-students"
+                        className="d-flex  p-2   gap-2  align-items-end"
+                        >
                         <ClassesIcon
                           className={`iconSize1   ${
                             studentsRecords ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -955,6 +957,7 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("registrations")}
                       </span>
+                      </Link>
                     </li>
 
                     <li
@@ -965,14 +968,15 @@ const education = isQuizzes || isAssignments;
                         setactvv("isEdu");
                       }}
                     >
-                      <Link href="/org/education/quizzes">
+                      <Link 
+                        href="/org/education/quizzes"
+                        className="d-flex  p-2   gap-2  align-items-end"
+                      >
                         <Quiz
                           className={`iconSize1    ${
                             education ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
-
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -982,23 +986,27 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("education")}
                       </span>
+                      </Link>
+
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end    besideHover ${
+                      className={`nav-item d-flex   gap-2  align-items-end    besideHover ${
                         isUsers && "onSelect"
                       }  `}
                       onClick={() => {
                         setactvv("users");
                       }}
                     >
-                      <Link href="/org/user-management/users/staff">
+                      <Link 
+                        href="/org/user-management/users/staff"
+                        className="d-flex  p-2   gap-2  align-items-end"
+                      >
                         <Userss
                           className={`iconSize1    ${
                             isUsers ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -1008,6 +1016,7 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("users")}
                       </span>
+                      </Link>
                     </li>
                   </ul>
                   <ul
@@ -1015,25 +1024,27 @@ const education = isQuizzes || isAssignments;
                   >
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400 ">
-                        التقارير والمالية
+                        {t("reports_and_finance")}
                       </h6>
                     </div>
 
                     <li
-                      className={`nav-item d-flex  p-2  gap-2   align-items-end  besideHover ${
+                      className={`nav-item d-flex  gap-2   align-items-end  besideHover ${
                         isprostatic && "onSelect"
                       } `}
                       onClick={() => {
                         setactvv("isprogramreg");
                       }}
                     >
-                      <Link href="/org/education/programs-statistics/bundlesStats">
+                      <Link 
+                        href="/org/education/programs-statistics/bundlesStats"
+                        className="d-flex  p-2   gap-2  align-items-end"
+                      >
                         <Statics
                           className={`iconSize1    ${
                             isprostatic ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -1043,23 +1054,26 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("programs-statistics")}
                       </span>
+                      </Link>
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2  gap-2   align-items-end    besideHover ${
+                      className={`nav-item d-flex   gap-2   align-items-end    besideHover ${
                         isFin && "onSelect"
                       }   `}
                       onClick={() => {
                         setactvv("isFinancial");
                       }}
                     >
-                      <Link href="/org/financial/balances">
+                      <Link 
+                        href="/org/financial/balances"
+                        className="d-flex  p-2   gap-2  align-items-end"
+                      >
                         <Card
                           className={`iconSize1    ${
                             isFin ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      </Link>
                       <span
                         className={`text-nowrap custfont ${
                           sidebarOpen
@@ -1069,7 +1083,50 @@ const education = isQuizzes || isAssignments;
                       >
                         {t("financial")}
                       </span>
+                      </Link>
                     </li>
+
+                    <li
+                      className={`nav-item d-flex   gap-2  align-items-end  besideHover  ${
+                        isSubscriptionmanagement && "onSelect"
+                      }  `}
+                    >
+                      <Link
+                        href="/org/subscription-management"
+                        className="d-flex  p-2  gap-2  align-items-end"
+                        onClick={() => {
+                          setactvv("");
+                        }}
+                      >
+                        <Submange
+                          className={`iconSize1    ${
+                            isSubscriptionmanagement
+                              ? "iconcolor"
+                              : "iconcolor2"
+                          }  `}
+                        />
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("Subscription Management")}
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
+
+                  <ul
+                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPartt    `}
+                  >
+                    <div className="d-flex align-items-center justify-content-center">
+                      <h6 className=" text-center text-nowrap tit-10-400 ">
+                        الخروج 
+                      </h6>
+                    </div>
+
 
                     <li
                       className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
@@ -1082,23 +1139,23 @@ const education = isQuizzes || isAssignments;
                           setactvv("");
                         }}
                       >
-                        <Submange
-                          className={`iconSize1    ${
+                        <LogoutIcon
+                          className={`iconSize2    ${
                             isSubscriptionmanagement
                               ? "iconcolor"
                               : "iconcolor2"
                           }  `}
                         />
+                       <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("Subscription Management")}
+                        </span>
                       </Link>
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("Subscription Management")}
-                      </span>
                     </li>
                   </ul>
 

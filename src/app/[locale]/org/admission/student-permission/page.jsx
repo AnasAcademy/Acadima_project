@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import StudentPerTable from "@/components/Tables&filters/StudentPerTable/StudentPerTable";
+import StudentPerTable from "@/components/Tables&filters/StudentPermissionsTable/StudentPerTable";
 
 export default async function StudentPermissions() {
   const ts = await getTranslations("SidebarA");
