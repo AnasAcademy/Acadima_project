@@ -1,80 +1,53 @@
-"use client";
+
 import React from 'react'
-import FilterCard from "@/components/FilterCard/FilterCard"
-import SelectCard from "@/components/SelectCard/SelectCard"
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
-import { useTranslations } from "next-intl";
-import Pin from "@/assets/admin/pin.svg"
-import Removebin from "@/assets/admin/removebin.svg";
+import { getTranslations } from "next-intl/server";
 import roundimage from "@/assets/admin/personla.png"
-
-export default function StudentCodes() {
-
-
-const ts = useTranslations("SidebarA");
-  const t = useTranslations("employee_progress");
+import CategoriesTable from "@/components/Tables&filters/CategoriesTable/CategoriesTable"
 
 
-  const TableHead = [
-    "",
-    t("employee_name"),
-    t("training_course"),
-    t("program_status"),
-    t("join_date"),
-    t("completion_rate"),
-    t("profile_access"),
-  ];
+export default  async function StudentCodes() {
 
-  const trainingData = [
+
+
+
+const ts = await getTranslations("SidebarA");
+
+let dat = [];
+let current_page = [] || 1;
+let last_page = [];
+try {
+  const data = await fetch(
+    `https://api.lxera.net/api/development/organization/vodafone/categories`,
     {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#48BB78",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("inProgress"),
-          icon: false,
-          color: "#50C1FA",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("notStarted"),
-          icon: false,
-          color: "#CBD5E0",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
+      method: "GET",
+      headers: {
+        "x-api-key": "1234",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+      },
     }
-  ];
+  );
+
+  const respond = await data.json();
+  dat = respond.message.categories.data;
+  // current_page = respond.data.current_page;
+  // last_page = respond.data.last_page;
+} catch (error) {
+  console.error("Fetch error:", error);
+}
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <>
@@ -82,19 +55,8 @@ const ts = useTranslations("SidebarA");
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
             <h2 className="hvvv">{ts("categories")}</h2>
-
-        
-
             <div className=" col-12 ">
-              <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-                <OngoingTrain
-                  TableHead={TableHead}
-                  trainingData={trainingData}
-                  button={false}
-                  Icon={Pin}
-                  Icon2={Removebin}
-                />
-              </div>
+              <CategoriesTable dat={dat} />
             </div>
           </div>
         </div>

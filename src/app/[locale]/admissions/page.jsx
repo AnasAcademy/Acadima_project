@@ -8,8 +8,7 @@ import { cookies } from "next/headers";
 
 
 export default function Admissions() {
-        const token = cookies().get("auth_token")?.value;
-
+  const token = cookies().get("auth_token")?.value;
   const t = useTranslations("RegisteredPrograms");
   const ts = useTranslations("EnrollProgram");
   return (

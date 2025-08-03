@@ -191,7 +191,7 @@ export default function OngoingTrain({
           </thead>
           <tbody>
             {trainingData.map((item, index) => (
-              <tr key={item.key} className="tableTextdir ">
+              <tr key={index} className="tableTextdir ">
                 {item.columns.map((col, colindex) => {
                   return renderCell[col.type] ? (
                     renderCell[col.type](col, `${index}-${colindex}`)

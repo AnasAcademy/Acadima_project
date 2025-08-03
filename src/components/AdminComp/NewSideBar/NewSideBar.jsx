@@ -28,7 +28,7 @@ import Courses from "@/assets/admin/courses.svg";
 import AdmissionIcon from "@/assets/admin/admission.svg";
 import ClassesIcon from "@/assets/admin/classes.svg";
 import User1 from "@/assets/admin/user1.svg"
-import Profile from "@/assets/admin/profile.svg";
+import LogoutIcon from "@/assets/Sidebar icons/logoutadmin.svg";
 import Elctronc from "@/assets/admin/Electronc.svg"
 import AddStud from "@/assets/admin/addStudent.svg"
 import Regcourse from  "@/assets/admin/regcourse.svg"
@@ -1077,6 +1077,47 @@ const education = isQuizzes || isAssignments;
                       >
                         <Submange
                           className={`iconSize1    ${
+                            isSubscriptionmanagement
+                              ? "iconcolor"
+                              : "iconcolor2"
+                          }  `}
+                        />
+                      </Link>
+                      <span
+                        className={`text-nowrap custfont ${
+                          sidebarOpen
+                            ? "tooltipText text-body-secondary"
+                            : "w-100"
+                        }`}
+                      >
+                        {t("Subscription Management")}
+                      </span>
+                    </li>
+                  </ul>
+
+                  <ul
+                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPartt    `}
+                  >
+                    <div className="d-flex align-items-center justify-content-center">
+                      <h6 className=" text-center text-nowrap tit-10-400 ">
+                        الخروج 
+                      </h6>
+                    </div>
+
+
+                    <li
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
+                        isSubscriptionmanagement && "onSelect"
+                      }  `}
+                    >
+                      <Link
+                        href="/org/subscription-management"
+                        onClick={() => {
+                          setactvv("");
+                        }}
+                      >
+                        <LogoutIcon
+                          className={`iconSize2    ${
                             isSubscriptionmanagement
                               ? "iconcolor"
                               : "iconcolor2"

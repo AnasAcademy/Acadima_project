@@ -118,9 +118,7 @@
            <OngoingTrain
              TableHead={TableHead}
              trainingData={trainingData}
-             button={false}
-             Icon={Pin}
-             Icon2={Removebin}
+         
            />
          </div>
        </>

@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 
 export default function Editform({
@@ -13,45 +14,87 @@ export default function Editform({
   loading = false,
 }) {
   const t = useTranslations("tables");
-  const [form, setForm] = useState({});
 
-  // Initialize form with data when component mounts or data changes
-  useEffect(() => {
-    const initialState = {};
-    fields.forEach(({ name }) => {
-      initialState[name] = data[name] || "";
-    });
-    setForm(initialState);
-  }, [data, fields]);
+  // Validation schema with custom rules
+  const validationSchema = Yup.object(
+    fields.reduce((acc, field) => {
+      const { name, type, required } = field;
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+      let rule;
+      switch (type) {
+        case "text":
+          rule = Yup.string();
+          break;
+        case "number":
+          rule = Yup.number().typeError(`${t(name)} يجب أن يكون رقمًا`);
+          break;
+        case "select":
+          rule = Yup.string();
+          break;
+        case "date":
+          rule = Yup.string(); // يمكنك تعديله ليكون Yup.date()
+          break;
+        default:
+          rule = Yup.string();
+      }
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+      if (required) {
+        rule = rule.required(`${t(name)} ${t("is_required")}`);
+      }
 
-    if (formState === "edit") {
-      handleSubmitEdit(form);
-    } else if (formState === "add") {
-      handleSubmitAdd && handleSubmitAdd(form);
-    }
-  };
+      // مثال إضافي للتفصيل (مثل وصف لا يقل عن 10 حروف)
+      if (name === "description") {
+        rule = rule.min(10, `${t("desc")} يجب أن لا يقل عن 10 أحرف`);
+      }
+
+      acc[name] = rule;
+      return acc;
+    }, {})
+  );
+
+  // Set initial values from incoming `data` object
+  const initialValues = fields.reduce((acc, field) => {
+    acc[field.name] = data?.[field.name] || "";
+    return acc;
+  }, {});
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues,
+    validationSchema,
+    onSubmit: (values) => {
+       console.log("submit values", values); 
+      if (formState === "edit") {
+       console.log("before edit");
+        handleSubmitEdit(values);
+      } else if (formState === "add") {
+        handleSubmitAdd(values);
+      }
+    },
+  });
 
   return (
-    <form onSubmit={onSubmit}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        formik.handleSubmit(e);
+        console.log("Errors:", formik.errors);
+      }}
+    >
       <h4>{formTitles[0].label}</h4>
       <div className="container-fluid p-0">
-        <div className="p-4   row  g-3  d-flex justify-content-start ">
+        <div className="p-4 row g-3 d-flex justify-content-start">
           {fields.map(({ label, type, options, name }, index) => (
-            <div key={index} className="col-6   p-2 ">
-              <div className="">
+            <div key={index} className="col-6 p-2">
+              <div>
                 <h3 className="Tit-12-700">{label}</h3>
+
                 {type === "select" ? (
                   <select
                     name={name}
-                    value={form[name] || ""}
-                    onChange={handleChange}
+                    value={formik.values[name]}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     disabled={loading}
                     className="d-flex justify-content-center align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
                     style={{ border: "1px solid #E3E3E3" }}
@@ -69,27 +112,33 @@ export default function Editform({
                   <input
                     type={type}
                     name={name}
-                    value={form[name] || ""}
-                    onChange={handleChange}
+                    value={formik.values[name]}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     disabled={loading}
                     className="d-flex justify-content-center align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
                     style={{ border: "1px solid #E3E3E3" }}
                   />
                 )}
+
+                {formik.touched[name] && formik.errors[name] && (
+                  <div className="text-danger mt-1">{formik.errors[name]}</div>
+                )}
               </div>
             </div>
           ))}
-          <div className="d-flex   col-7 mt-3 ">
+
+          <div className="d-flex col-7 mt-3">
             <button
-              className="btn btn-light custfontbtn  w-25   "
+              className="btn btn-light custfontbtn w-25"
               type="submit"
               disabled={loading}
             >
-              {loading ? "جاري الحفظ..." : formTitles[1].label}
+              {formTitles[1].label}
             </button>
 
             <button
-              className="btn btn-light custfontbtn  w-25  "
+              className="btn btn-light custfontbtn w-25"
               type="button"
               onClick={setShowModal}
               disabled={loading}

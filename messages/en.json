@@ -1063,6 +1063,12 @@
   "request_content": "Request Content",
   "request_date": "Request Date",
           "requests":"Requests",
-          "student":"Student Code"
+          "student":"Student Code",
+           "icon": "Icon",
+  "order": "Order",
+  "subCategories": "Subcategories",
+  "chapters": "Chapters",
+  "teachers": "Teachers",
+    "is_required": "This field is required"
   }
 }

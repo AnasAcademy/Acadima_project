@@ -3,6 +3,9 @@
    import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
    import { useTranslations } from "next-intl";
      import Editform from "@/components/Editform/Editform";
+      import Arrowdown from "@/assets/admin/arrow down.svg";
+       import X from "@/assets/admin/x.svg";
+       import Pen from "@/assets/admin/pen.svg";
    export default function ClassesTable({dat}) {
     
         const ts = useTranslations("SidebarA");
@@ -79,25 +82,43 @@
          { type: "text", value: item.start_date },
          { type: "text", value: item.end_date },
          { type: "text", value: item.created_at },
-
          {
-           type: "buttons",
-           buttons: [
+           type: "actionbutton",
+           label: t("actions"),
+           action: () => {
+             setShowModal(!showModal);
+             setId(item.id);
+             setFormState("edit");
+           },
+           icon: Arrowdown,
+           color: "#48BB78",
+           lists: [
+             {
+               label: t("requests"),
+               action: () => {
+                 setId(item.id);
+                 getReqData(item.id);
+                 setReqtble(true);
+               },
+               icon: Pen,
+             },
+
              {
                label: t("edit"),
                action: () => {
                  setShowModal(!showModal);
-                  setId(item.id);
-                  setFormState("edit");
+                 setId(item.id);
+                 setFormState("edit");
                },
-               color: "#48BB78",
+               icon: Pen,
              },
              {
                label: t("delete"),
                action: () => remove(item.id),
-               color: "#fc544b",
+               icon: X,
              },
            ],
+           id: item.id,
          },
        ],
      }));

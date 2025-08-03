@@ -7,12 +7,13 @@ import React, { useState } from 'react'
  import Arrowdown from "@/assets/admin/arrow down.svg"
  import X from "@/assets/admin/x.svg";
  import Pen from "@/assets/admin/pen.svg"
+ import { useApiClient } from "@/hooks/useApiClient";
  import AlertModal from "@/components/AlertModal/AlertModal"
   export default function ElectronicServiceTable({ dat, current_page, last_page }) {
     const [currentPage, setCurrentPage] = useState(current_page);
     const [showModal, setShowModal] = useState(false);
-        const [showAlertModal, setShowAlertModal] = useState(false);
-            const [Alertmssg, setAlertmssg] = useState("");
+    const [showAlertModal, setShowAlertModal] = useState(false);
+    const [Alertmssg, setAlertmssg] = useState("");
     const [Itemid, setId] = useState(null);
     const t = useTranslations("tables");
     const ts = useTranslations("SidebarA");
@@ -20,6 +21,9 @@ import React, { useState } from 'react'
     const [formState , setFormState] = useState("");
     const [reqtble , setReqtble]   = useState(false)
     const [reqtbledata, setReqtbledata] = useState([]);
+
+    const { request } = useApiClient();
+    
     async function fetchy(stat) {
       const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
 
@@ -92,6 +96,7 @@ import React, { useState } from 'react'
             body: JSON.stringify({
               title:  dataa.title ||  "null" ,
               description: dataa.description,
+              price:dataa.price
           
             }),
           }
@@ -180,7 +185,7 @@ const handleSubmitAdd = async (dataa) => {
 
 const getReqData = async(id)=>{
 
- console.log("ramizzzzzzzzzzzz")
+
  try {
   
      const response = await fetch(
@@ -331,7 +336,7 @@ const reqDat = reqtbledata.map((item, index) => ({
     const fields = [
       { name: "title", label: t("title"), type: "text" },
       { name: "description", label: t("desc"), type: "text" },
-      { name: "price", label: t("price"), type: "text" },
+      { name: "price", label: t("price"), type: "number" },
       { name: "status", label: t("status"), type: "text" },
       { name: "target", label: t("creator"), type: "text" },
       { name: "start_date", label: t("start_date"), type: "text" },
@@ -375,7 +380,7 @@ const reqDat = reqtbledata.map((item, index) => ({
             <div className=" d-flex justify-content-end  ">
               {reqtble ? (
                 <div className=" d-flex justify-content-between w-100">
-                  <h4>خدمة حجز اختبار أدوبي جديد</h4>
+                  <h4>خدمة {}   </h4>
 
                   <button
                     className="btn  btn-light custfontbtn "

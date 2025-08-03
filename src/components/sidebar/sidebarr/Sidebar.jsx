@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
-
 import DashboardIcon from "@/assets/Sidebar icons/dashboard.svg";
 import AdmissionIcon from "@/assets/Sidebar icons/admission.svg";
 import ClassesIcon from "@/assets/Sidebar icons/classes.svg";
@@ -23,7 +22,6 @@ export default function Sidebar() {
   const ts = useTranslations("SidebarA");
 
   const pathname = usePathname();
-
   const isCoursesPage = pathname.includes("/courses");
   const isDashPage = pathname.includes("/panel");
   const isAdminPage = pathname.includes("/admissions");
