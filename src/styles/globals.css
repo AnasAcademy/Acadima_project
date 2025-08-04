@@ -171,6 +171,14 @@ h6 {
   line-height: normal;
 }
 
+.tit-20-400{
+
+    font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
 .tit-10-400 {
   font-size: 10px;
   font-style: normal;
@@ -184,6 +192,14 @@ h6 {
   font-weight: 700;
   line-height: normal;
 }
+
+.tit-55-700 {
+  font-size: 55px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 
 .tit-14-400 {
   font-size: 14px;
@@ -1946,4 +1962,48 @@ text-align: start;
 .text-bg-danger {
   color: #fff !important;
   background-color: #A4A4A4 !important;
+}
+
+.planbtn-g{
+ font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+
+ display: flex;
+justify-content: center;
+align-items: center;
+color: #06AC9C;
+ background-color: #4FD1C51F;
+ border: 3px solid #4FD1C5;
+}
+.planbtn-b{
+ font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+ display: flex;
+justify-content: center;
+align-items: center;
+
+   color: #1024DD;
+ background-color: #216ED72B;
+ border: 3px solid #216ED7;
+}
+
+.planbtn-r{
+   font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+ display: flex;
+justify-content: center;
+align-items: center;
+   color: #B9181B;
+ background-color: #D730330D;
+ border: 3px solid #D73033;
+}
+
+.planabsolute{
+
+
+   top: 20px;
+   left: 120px !important;
 }

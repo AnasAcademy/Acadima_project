@@ -1071,15 +1071,15 @@
   "request_status": "Request Status",
   "request_content": "Request Content",
   "request_date": "Request Date",
-          "requests":"Requests",
-          "student":"Student Code",
-           "icon": "Icon",
+   "requests":"Requests",
+   "student":"Student Code",
+     "icon": "Icon",
   "order": "Order",
   "subCategories": "Subcategories",
   "chapters": "Chapters",
   "teachers": "Teachers",
     "is_required": "This field is required",
-     "plan_details": "Plan and Subscription Details",
+   
      "approved": "Approved",
     "rejected": "Rejected",
     "registration_record": "Registration Record",
@@ -1095,6 +1095,8 @@
     "enable-student-access": "Enable Student Access",
     "user_id": "User ID",
     "webinar_id": "Webinar ID",
-    "user_already_enrolled": "User already enrolled in this item"
+    "user_already_enrolled": "User already enrolled in this item",
+    "plan_details": "Plan and Subscription Details",
+     "subscription_validity": "Subscription Validity"
   }
 }

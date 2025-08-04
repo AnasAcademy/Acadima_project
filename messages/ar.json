@@ -1088,6 +1088,9 @@
     "enable-student-access": "تمكين وصول الطالب ",
     "user_id": "معرف المستخدم",
     "webinar_id": "معرف المقرر",
-    "user_already_enrolled": "المستخدم مسجل بالفعل في هذا المقرر"
+    "user_already_enrolled": "المستخدم مسجل بالفعل في هذا المقرر",
+    "plan_details": "تفاصيل الخطة والاشتراكات",
+      "subscription_validity": "صلاحية الاشتراك"
+
   }
 }
