@@ -1,0 +1,343 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
+import SelectCard from "@/components/SelectCard/SelectCard";
+import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
+import AlertModal from "@/components/AlertModal/AlertModal";
+import Editform from "@/components/Editform/Editform";
+import Arrowdown from "@/assets/admin/arrow down.svg";
+import X from "@/assets/admin/x.svg";
+import printer from "@/assets/admin/printer.svg";
+import check from "@/assets/admin/check.svg";
+import Pen from "@/assets/admin/pen.svg";
+
+export default function QuizCertificatesTable({
+  initialData = [],
+  initialPage = 1,
+  initialTotalPages = 1,
+}) {
+  const t = useTranslations("tables");
+  const ts = useTranslations("SidebarA");
+
+  const [dataa, setDataa] = useState(initialData);
+  const [filter, setFilter] = useState(initialData);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(initialPage);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [totalPages, setTotalPages] = useState(initialTotalPages);
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [resultMessage, setResultMessage] = useState("");
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [formState, setFormState] = useState("");
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null);
+  const [confirmMessage, setConfirmMessage] = useState("");
+
+  const fetchData = async (pageNumber = 1) => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `https://api.lxera.net/api/development/organization/vodafone/certificates?page=${pageNumber}`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+          },
+        }
+      );
+      const respond = await res.json();
+      const data = respond?.certificates?.data || [];
+      setDataa(data);
+      setFilter(data);
+      setCurrentPage(respond?.certificates?.current_page || 1);
+      setTotalPages(respond?.certificates?.last_page || 1);
+      setPage(respond?.certificates?.current_page || 1);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Only fetch data on page change, not on initial mount since we have initialData
+  useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      return; // Skip fetch on initial mount
+    }
+    fetchData(page);
+  }, [page]);
+
+  const handleSearch = async (filters, pageNumber = 1) => {
+    setLoading(true);
+    try {
+      const query = new URLSearchParams();
+
+      // Append all filter parameters
+      selectCardData.inputs.forEach((input) => {
+        const value = filters[input.filter];
+        if (value) {
+          query.append(input.apiKey || input.filter, value);
+        }
+      });
+
+      // Append pagination separately
+      query.append("page", pageNumber);
+
+      const res = await fetch(
+        `https://api.lxera.net/api/development/organization/vodafone/certificates?${query.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+          },
+        }
+      );
+
+      const respond = await res.json();
+      const data = respond.certificates?.data || [];
+
+      setFilter(data);
+      setDataa(data);
+      setCurrentPage(respond?.certificates?.current_page || 1);
+      setTotalPages(respond?.certificates?.last_page || 1);
+      setPage(respond?.certificates?.current_page || 1);
+    } catch (error) {
+      console.error("Search error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // const viewCertificate = (certificateUrl) => {
+  //   if (certificateUrl) {
+  //     // Open the certificate URL in a new tab/window
+  //     window.open(certificateUrl, "_blank", "noopener,noreferrer");
+  //   } else {
+  //     setResultMessage("رابط الشهادة غير متوفر");
+  //     setShowResultModal(true);
+  //   }
+  // };
+
+  // const handleDelete = async (id) => {
+  //   setSelectedId(id);
+  //   setConfirmMessage("هل أنت متأكد من حذف هذه الشهادة؟");
+  //   setConfirmAction(() => () => deleteCertificate(id));
+  //   setShowConfirmModal(true);
+  // };
+
+  const trainingData = filter.map((item, index) => {
+    return {
+      key: item.id || index,
+      columns: [
+        { type: "text", value: item.id },
+        {
+          type: "text",
+          value:
+            item.quiz?.webinar.course_name_certificate ||
+            item.quiz_title ||
+            "-",
+        },
+        {
+          type: "text",
+          value: item.student.full_name || item.certificate_title || "-",
+        },
+        {
+          type: "text",
+          value: item.quiz?.teacher.full_name || item.quiz_score || "-",
+        },
+        { type: "text", value: item.quizzes_result?.user_grade || "-" },
+        { type: "text", value: item.graduation_date },
+        {
+          type: "buttons",
+          buttons: [
+            {
+              label: t("download"),
+              // action: () => downloadCert(item.id),
+              color: "#1024dd",
+            }
+          ],
+        },
+      ],
+    };
+  });
+
+  const TableHead = [
+    "#",
+    t("title"),
+    t("user"),
+    t("teacher-name"),
+    t("score"),
+    t("date"),
+    t("actions"),
+  ];
+
+  const selectCardData = {
+    inputs: [
+      {
+        title: t("user-name"),
+        type: "search",
+        filter: "student_name",
+        placeholder: t("name-search"),
+        apiKey: "student_name",
+      },
+      {
+        title: t("title"),
+        type: "search",
+        filter: "quiz_title",
+        placeholder: t("title-search"),
+        apiKey: "title",
+      },
+      {
+        title: t("teacher-name"),
+        type: "search",
+        filter: "certificate_title",
+        placeholder: t("teacher-search"),
+        apiKey: "teacher_name",
+      },
+    ],
+  };
+
+  const DownloadExcel = async () => {
+    try {
+      const response = await fetch(
+        "https://api.lxera.net/api/development/organization/vodafone/certificates/excel",
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to download file");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "quiz-certificates-report.xlsx";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+      setResultMessage("تم تحميل التقرير بنجاح");
+      setShowResultModal(true);
+    } catch (error) {
+      console.error("Download failed:", error);
+      setResultMessage("فشل التحميل. حاول مرة أخرى.");
+      setShowResultModal(true);
+    }
+  };
+
+  return (
+    <>
+      {showEditForm ? (
+        <div className="row g-3">
+          <div className="col-12">
+            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+              <Editform
+                fields={fields}
+                data={dataa.find((item) => item.id === selectedId) || {}}
+                formTitles={formTitles}
+                handleSubmitAdd={handleSubmitAdd}
+                setShowModal={() => setShowEditForm(false)}
+                formState={formState}
+                loading={loading}
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="row g-3">
+          <div className="col-12">
+            <SelectCard
+              selectCardData={selectCardData}
+              isTechSupport={true}
+              dataa={dataa}
+              setFilter={setFilter}
+              handleSearch={handleSearch}
+            />
+          </div>
+
+          <div className="col-12">
+            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+              {/* Add Service Button (like ElectronicServiceTable) */}
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <button
+                  className="btn custfontbtn rounded-2"
+                  onClick={DownloadExcel}
+                >
+                  Excel
+                </button>
+              </div>
+
+              <OngoingTrain
+                TableHead={TableHead}
+                trainingData={trainingData}
+                button={false}
+              />
+
+              <div className="row justify-content-center align-items-center gap-3 mt-3">
+                <button
+                  disabled={currentPage === 1 || loading}
+                  className="btn custfontbtn col-1"
+                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
+                >
+                  {loading ? "..." : t("previous-page")}
+                </button>
+                <span className="px-2 align-self-center col-1 text-center">
+                  {t("page")} {currentPage}
+                </span>
+                <button
+                  disabled={currentPage >= totalPages || loading}
+                  className="btn custfontbtn col-1"
+                  onClick={() => setPage(currentPage + 1)}
+                >
+                  {loading ? "..." : t("next-page")}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <AlertModal
+        show={showResultModal}
+        onClose={() => setShowResultModal(false)}
+        onSubmit={() => setShowResultModal(false)}
+        title={t("operation_completed")}
+      >
+        <p className="m-0 text-center">{resultMessage}</p>
+      </AlertModal>
+
+      <AlertModal
+        show={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onSubmit={() => {
+          if (confirmAction) {
+            confirmAction();
+          }
+        }}
+        title={t("operation_completed")}
+      >
+        <p className="m-0 text-center">{confirmMessage}</p>
+      </AlertModal>
+    </>
+  );
+}

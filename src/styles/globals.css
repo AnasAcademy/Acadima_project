@@ -1836,7 +1836,7 @@ border: 1px solid #d9d9d9;
 
 .newSidebarpadding{
 
-     padding-right: 3rem;
+     padding-right: 2rem;
 padding-left: 0.5rem;
 
 
@@ -2006,4 +2006,8 @@ align-items: center;
 
    top: 20px;
    left: 120px !important;
+}
+.active-bg {
+  background-color: #F6F6FF;
+  transition: background-color 0.3s ease;
 }

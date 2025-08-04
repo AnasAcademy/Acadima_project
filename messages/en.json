@@ -69,11 +69,17 @@
     "students": "Students",
     "instructors": "Instructors",
     "new-user": " New User",
-    "certificates":"certificates"
-     ,
-    "admin_dashboard": "Admin Dashboard",
+    "certificates":"certificates",
+    "admin_dashboard": "Dashboard",
     "academy": "Academy",
-    "reports_and_finance": "Reports and Finance"
+    "reports_and_finance": "Finance",
+    "account_management": "Account Management",
+    "quiz_certificates": "Quiz Certificates",
+    "course_certificates": " Course Certificates",
+    "certificate_templates": " Certificate Templates",
+    "courses_webinars": "Webinars",
+    "graduation_projects": "Graduation Projects",
+    "text_lessons": "Text Lessons"
   },
   "NavbarA": {
     "search": "Search...",
@@ -1097,6 +1103,14 @@
     "webinar_id": "Webinar ID",
     "user_already_enrolled": "User already enrolled in this item",
     "plan_details": "Plan and Subscription Details",
-     "subscription_validity": "Subscription Validity"
+     "subscription_validity": "Subscription Validity",
+    "are_you_sure_you_want_to_deny_access": "Are you sure you want to deny access to this user?",
+    "access_denied": "Access denied Successfully",
+    "are_you_sure_you_want_to_enable_access": "Are you sure you want to enable access for this user?",
+    "access_enabled": "Access enabled Successfully",
+    "score": "Score",
+    "date": "Date",
+    "title-search": "Search by title",
+    "download": "Download"
   }
 }

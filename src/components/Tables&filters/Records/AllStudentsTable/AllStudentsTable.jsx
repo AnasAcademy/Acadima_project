@@ -188,7 +188,7 @@ export default function AllStudentsTable({
         phone: item.mobile,
       },
       { type: "image", value: item.identity_image },
-      { type: "text", value: item.bundles?.[0]?.translations?.[0]?.title || "N/A" },
+      { type: "text", value: item.bundles?.[0]?.translations?.[0]?.title || "-" },
       { type: "text", value: item.created_at },
       { type: "label", value: item.status },
       // {

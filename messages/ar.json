@@ -70,7 +70,14 @@
     "certificates":"الشهادات",
     "admin_dashboard": "لوحة الإدارة",
     "academy": "الأكاديمية",
-    "reports_and_finance": "التقارير والمالية"
+    "reports_and_finance": "التقارير والمالية",
+    "account_management": "إدارة الحساب",
+    "quiz_certificates": "شهادات الاختبارات",
+    "course_certificates": "شهادات الدورات",
+    "certificate_templates": "قوالب الشهادات",
+    "courses_webinars":"الفصول المباشرة",
+    "graduation_projects":"مشاريع التخرج",
+    "text_lessons": "المقررات الكتابية"
   },
 
   "add-student-to-class": {
@@ -1089,8 +1096,15 @@
     "user_id": "معرف المستخدم",
     "webinar_id": "معرف المقرر",
     "user_already_enrolled": "المستخدم مسجل بالفعل في هذا المقرر",
+     "are_you_sure_you_want_to_deny_access": "هل أنت متأكد من إلغاء الوصول لهذا المستخدم؟",
+    "access_denied": "تم إلغاء الوصول بنجاح",
+    "are_you_sure_you_want_to_enable_access": "هل أنت متأكد من تمكين الوصول لهذا المستخدم؟",
+    "access_enabled": "تم تمكين الوصول بنجاح",
+    "score":" درجة",
+    "date":" التاريخ",
+    "title-search": "البحث بالعنوان",
+    "download": "تحميل",
     "plan_details": "تفاصيل الخطة والاشتراكات",
       "subscription_validity": "صلاحية الاشتراك"
-
   }
 }

@@ -9,8 +9,9 @@ import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import printer from "@/assets/admin/printer.svg";
 import check from "@/assets/admin/check.svg";
+import Pen from "@/assets/admin/pen.svg";
 
-export default function EnrollmentHistoryTable({
+export default function CourseCertificatesTable({
   initialData = [],
   initialPage = 1,
   initialTotalPages = 1,
@@ -39,7 +40,7 @@ export default function EnrollmentHistoryTable({
     setLoading(true);
     try {
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/history?page=${pageNumber}`,
+        `https://api.lxera.net/api/development/organization/vodafone/certificates/course?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
@@ -51,12 +52,12 @@ export default function EnrollmentHistoryTable({
         }
       );
       const respond = await res.json();
-      const data = respond?.data || [];
+      const data = respond?.certificates?.data || respond?.data || [];
       setDataa(data);
       setFilter(data);
-      setCurrentPage(respond?.current_page || 1);
-      setTotalPages(respond?.last_page || 1);
-      setPage(respond?.current_page || 1);
+      setCurrentPage(respond?.certificates?.current_page || respond?.current_page || 1);
+      setTotalPages(respond?.certificates?.last_page || respond?.last_page || 1);
+      setPage(respond?.certificates?.current_page || respond?.current_page || 1);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -90,7 +91,7 @@ export default function EnrollmentHistoryTable({
       query.append("page", pageNumber);
 
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/history?${query.toString()}`,
+        `https://api.lxera.net/api/development/organization/vodafone/certificates/course?${query.toString()}`,
         {
           method: "GET",
           headers: {
@@ -103,13 +104,13 @@ export default function EnrollmentHistoryTable({
       );
 
       const respond = await res.json();
-      const data = respond?.data || [];
+      const data = respond?.certificates?.data || respond?.data || [];
 
       setFilter(data);
       setDataa(data);
-      setCurrentPage(respond?.current_page || 1);
-      setTotalPages(respond?.last_page || 1);
-      setPage(respond?.current_page || 1);
+      setCurrentPage(respond?.certificates?.current_page || respond?.current_page || 1);
+      setTotalPages(respond?.certificates?.last_page || respond?.last_page || 1);
+      setPage(respond?.certificates?.current_page || respond?.current_page || 1);
     } catch (error) {
       console.error("Search error:", error);
     } finally {
@@ -117,36 +118,35 @@ export default function EnrollmentHistoryTable({
     }
   };
 
-  const openInvoice = (invoiceUrl) => {
-    if (invoiceUrl) {
-      // Open the invoice URL in a new tab/window
-      window.open(invoiceUrl, "_blank", "noopener,noreferrer");
+  const viewCertificate = (certificateUrl) => {
+    if (certificateUrl) {
+      // Open the certificate URL in a new tab/window
+      window.open(certificateUrl, "_blank", "noopener,noreferrer");
     } else {
-      setResultMessage("رابط الفاتورة غير متوفر");
+      setResultMessage("رابط الشهادة غير متوفر");
       setShowResultModal(true);
     }
   };
 
-  const handleEnableAccess = (id) => {
+  const handleDelete = async (id) => {
     setSelectedId(id);
-    setConfirmMessage(t("are_you_sure_you_want_to_enable_access"));
-    setConfirmAction(() => () => enableAccess(id));
+    setConfirmMessage("هل أنت متأكد من حذف هذه الشهادة؟");
+    setConfirmAction(() => () => deleteCertificate(id));
     setShowConfirmModal(true);
   };
 
-  const handleDisableAccess = (id) => {
-    setSelectedId(id);
-    setConfirmMessage(t("are_you_sure_you_want_to_deny_access"));
-    setConfirmAction(() => () => disableAccess(id));
-    setShowConfirmModal(true);
-  };
-
-  const enableAccess = async (id) => {
+  const deleteCertificate = async (id) => {
     try {
+      // Optimistically remove from UI immediately
+      const updatedData = dataa.filter((item) => item.id !== id);
+      const updatedFilter = filter.filter((item) => item.id !== id);
+      setDataa(updatedData);
+      setFilter(updatedFilter);
+
       const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/${id}/enable-access`,
+        `https://api.lxera.net/api/development/organization/vodafone/certificates/course/${id}`,
         {
-          method: "GET",
+          method: "DELETE",
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
@@ -157,51 +157,20 @@ export default function EnrollmentHistoryTable({
       );
 
       const result = await response.json();
-      if (response.ok && result?.[0].status === "success") {
-        setResultMessage(result.msg || t("access_enabled"));
-        setShowResultModal(true);
-        // Refresh data to reflect changes
-        fetchData(currentPage);
-      } else {
-        throw new Error(result.msg || "فشل في تفعيل الوصول");
+      if (!response.ok || !result.success) {
+        // If deletion failed, restore the data and show error
+        setDataa(dataa);
+        setFilter(filter);
+        throw new Error("Failed to delete");
       }
-    } catch (error) {
-      console.error("Enable access failed:", error);
-      setResultMessage("فشل في تفعيل الوصول. حاول مرة أخرى.");
+
+      setResultMessage(result.message || "تم حذف الشهادة بنجاح");
       setShowResultModal(true);
-    } finally {
-      setShowConfirmModal(false);
-    }
-  };
-
-  const disableAccess = async (id) => {
-    try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/${id}/block-access`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok && result?.[0].status === "success") {
-        setResultMessage(result.msg || t("access_denied"));
-        setShowResultModal(true);
-        // Refresh data to reflect changes
-        fetchData(currentPage);
-      } else {
-        throw new Error(result.msg || "فشل في إلغاء الوصول");
-      }
     } catch (error) {
-      console.error("Disable access failed:", error);
-      setResultMessage("فشل في إلغاء الوصول. حاول مرة أخرى.");
+      console.error("Deletion failed:", error);
+      // Restore original data on error
+      fetchData(page);
+      setResultMessage("فشل الحذف. حاول مرة أخرى.");
       setShowResultModal(true);
     } finally {
       setShowConfirmModal(false);
@@ -211,7 +180,7 @@ export default function EnrollmentHistoryTable({
   const handleSubmitAdd = async (formData) => {
     try {
       const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/store`,
+        `https://api.lxera.net/api/development/organization/vodafone/certificates/course/store`,
         {
           method: "POST",
           headers: {
@@ -221,22 +190,18 @@ export default function EnrollmentHistoryTable({
               "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
           body: JSON.stringify({
+            title: formData.title,
+            description: formData.description,
+            course_id: parseInt(formData.course_id),
             user_id: parseInt(formData.user_id),
-            webinar_id: parseInt(formData.webinar_id),
           }),
         }
       );
 
       const result = await response.json();
-      console.log("Add response:", result);
-      if (response.status === 422) {
-        setResultMessage(t("user_already_enrolled"));
-        setShowResultModal(true);
-        setShowEditForm(false);
-      } else if (response.ok) {
-        setResultMessage(
-          result.message || "User enrolled successfully into group A"
-        );
+
+      if (response.ok) {
+        setResultMessage(result.message || "تم إضافة الشهادة بنجاح");
         setShowResultModal(true);
         setShowEditForm(false);
         fetchData(currentPage);
@@ -256,57 +221,37 @@ export default function EnrollmentHistoryTable({
   };
 
   const trainingData = filter.map((item, index) => {
-    const hasAccess = item.access_to_purchased_item || false;
-
     return {
       key: item.id || index,
       columns: [
-        { type: "text", value: index + 1 },
+        { type: "text", value: item.id },
         {
-          type: "user",
-          name: item.buyer.full_name || item.full_name || "-",
-          id: item.buyer.id || item.id || "-",
+          type: "text",
+          value:
+            item.course?.course_name_certificate ||
+            item.course?.title ||
+            item.course_title ||
+            "-",
         },
         {
-          type: "user",
-          name: item.webinar.creator.full_name || item.full_name || "-",
-          id: item.webinar.creator.id || item.id || "-",
+          type: "text",
+          value: item.student?.full_name || item.user?.full_name || "-",
         },
         {
-          type: "user",
-          name: item.webinar.translations?.[0].title || item.full_name || "-",
-          id: item.webinar.translations?.[0].id || item.id || "-",
+          type: "text",
+          value: item.course?.teacher?.full_name || item.teacher_name || "-",
         },
+        { type: "text", value: item.completion_rate || item.score || "-" },
+        { type: "text", value: item.graduation_date || item.created_at },
         {
-          type: "label",
-          value: item.manual_added ? t("manual") : t("automatic"),
-        },
-        { type: "text", value: item.created_at || item.join_date || "-" },
-        { type: "label", value: item.status_label || "-" },
-        {
-          type: "actionbutton",
-          label: t("actions"),
-          action: () => {
-            setShowModal(!showModal);
-            setSelectedId(item.id);
-          },
-          icon: Arrowdown,
-          lists: [
+          type: "buttons",
+          buttons: [
             {
-              label: t("invoice"),
-              action: () => openInvoice(item.invoice_url),
-              icon: printer,
-            },
-            {
-              label: hasAccess ? t("close-entry") : t("enable-student-access"),
-              action: () =>
-                hasAccess
-                  ? handleDisableAccess(item.id)
-                  : handleEnableAccess(item.id),
-              icon: hasAccess ? X : check,
-            },
+              label: t("download"),
+              action: () => viewCertificate(item.certificate_url || item.download_url),
+              color: "#1024dd",
+            }
           ],
-          id: item.id,
         },
       ],
     };
@@ -314,12 +259,11 @@ export default function EnrollmentHistoryTable({
 
   const TableHead = [
     "#",
-    t("user-name"),
+    t("title"),
+    t("user"),
     t("teacher-name"),
-    t("registered-program"),
-    t("type"),
-    t("creation_date"),
-    t("status"),
+    t("completion-rate"),
+    t("date"),
     t("actions"),
   ];
 
@@ -333,53 +277,41 @@ export default function EnrollmentHistoryTable({
         apiKey: "student_name",
       },
       {
+        title: t("title"),
+        type: "search",
+        filter: "course_title",
+        placeholder: t("title-search"),
+        apiKey: "title",
+      },
+      {
         title: t("teacher-name"),
         type: "search",
         filter: "teacher_name",
         placeholder: t("teacher-search"),
         apiKey: "teacher_name",
       },
-      {
-        title: t("registered-program"),
-        type: "search",
-        filter: "program_name",
-        placeholder: t("program-search"),
-        apiKey: "item_title",
-      },
-      //   {
-      //     title: t("status"),
-      //     type: "select",
-      //     filter: "status",
-      //     placeholder: t("status"),
-      //     apiKey: "status",
-      //     options: [
-      //       { value: "completed", label: t("completed") },
-      //       { value: "in_progress", label: t("in-progress") },
-      //       { value: "not_started", label: t("not-started") },
-      //     ],
-      //   },
     ],
   };
 
   const formTitles = [
     {
-      label:
-        //   (formState === "add" ? t("add") + " " : t("edit") + " ") +
-        t("add-new-enrollment"),
+      label: t("add-new-course-certificate"),
       type: "text",
     },
     { label: formState === "add" ? t("add") : t("edit"), type: "text" },
   ];
 
   const fields = [
-    { name: "user_id", label: t("user_id"), type: "number" },
-    { name: "webinar_id", label: t("webinar_id"), type: "number" },
+    { name: "title", label: t("certificate-title"), type: "text" },
+    { name: "description", label: t("description"), type: "textarea" },
+    { name: "course_id", label: t("course-id"), type: "number" },
+    { name: "user_id", label: t("user-id"), type: "number" },
   ];
 
   const DownloadExcel = async () => {
     try {
       const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/enrollments/export",
+        "https://api.lxera.net/api/development/organization/vodafone/certificates/course/excel",
         {
           method: "GET",
           headers: {
@@ -400,7 +332,7 @@ export default function EnrollmentHistoryTable({
 
       const a = document.createElement("a");
       a.href = url;
-      a.download = "enrollment-history-report.xlsx";
+      a.download = "course-certificates-report.xlsx";
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -422,6 +354,7 @@ export default function EnrollmentHistoryTable({
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
               <Editform
                 fields={fields}
+                data={dataa.find((item) => item.id === selectedId) || {}}
                 formTitles={formTitles}
                 handleSubmitAdd={handleSubmitAdd}
                 setShowModal={() => setShowEditForm(false)}
@@ -461,7 +394,7 @@ export default function EnrollmentHistoryTable({
                     setFormState("add");
                   }}
                 >
-                  {t("add-new-enrollment")}
+                  {t("add-new-course-certificate")}
                 </button>
               </div>
 
@@ -512,7 +445,7 @@ export default function EnrollmentHistoryTable({
             confirmAction();
           }
         }}
-        title={t("operation_completed")}
+        title={t("confirm_action")}
       >
         <p className="m-0 text-center">{confirmMessage}</p>
       </AlertModal>

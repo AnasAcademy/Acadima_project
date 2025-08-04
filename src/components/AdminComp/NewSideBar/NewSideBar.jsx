@@ -8,11 +8,11 @@ import Home from "../../../assets/admin/Homdoor.svg";
 import Stat from "../../../assets/admin/Reports.svg";
 import Card from "../../../assets/admin/sidecard.svg";
 import Notif from "../../../assets/admin/Bell.svg";
-import Regper from "@/assets/admin/regreq.svg"
+import Regper from "@/assets/admin/regreq.svg";
 import Allstudent from "@/assets/admin/allstudent.svg";
 import Quiz from "@/assets/admin/quiz.svg";
 import Studentper from "@/assets/admin/studentper.svg";
-import Programs from "@/assets/admin/programs.svg"
+import Programs from "@/assets/admin/programs.svg";
 import Classess from "@/assets/admin/classess.svg";
 import StudentCode from "@/assets/admin/studentcode.svg";
 import Instruc from "@/assets/admin/instruc.svg";
@@ -27,37 +27,38 @@ import Homework from "@/assets/admin/homework.svg";
 import Courses from "@/assets/admin/courses.svg";
 import AdmissionIcon from "@/assets/admin/admission.svg";
 import ClassesIcon from "@/assets/admin/classes.svg";
-import User1 from "@/assets/admin/user1.svg"
+import User1 from "@/assets/admin/user1.svg";
 import LogoutIcon from "@/assets/Sidebar icons/logoutadmin.svg";
-import Elctronc from "@/assets/admin/Electronc.svg"
-import AddStud from "@/assets/admin/addStudent.svg"
-import Regcourse from  "@/assets/admin/regcourse.svg"
-import Balance from "@/assets/admin/balance.svg"
-import User2 from "@/assets/admin/user2.svg"
+import Elctronc from "@/assets/admin/Electronc.svg";
+import AddStud from "@/assets/admin/addStudent.svg";
+import Regcourse from "@/assets/admin/regcourse.svg";
+import Balance from "@/assets/admin/balance.svg";
+import User2 from "@/assets/admin/user2.svg";
 import toggle from "@/assets/admin/sidebar-toggle.png";
-import User3 from "@/assets/admin/user3.svg"
-import User4 from "@/assets/admin/user4.svg"
-import User5 from "@/assets/admin/user5.svg"
-import User6 from "@/assets/admin/user6.svg"
-import User7 from "@/assets/admin/user7.svg"
+import User3 from "@/assets/admin/user3.svg";
+import User4 from "@/assets/admin/user4.svg";
+import User5 from "@/assets/admin/user5.svg";
+import User6 from "@/assets/admin/user6.svg";
+import User7 from "@/assets/admin/user7.svg";
 import User8 from "@/assets/admin/user8.svg";
 import User9 from "@/assets/admin/user9.svg";
-import User10 from "@/assets/admin/user10.svg"
+import User10 from "@/assets/admin/user10.svg";
 import User11 from "@/assets/admin/user11.svg";
 import User12 from "@/assets/admin/user12.svg";
-import Accmanage from "@/assets/admin/accmange.svg"
-import Acc1 from "@/assets/admin/accmange1.svg"
+import Accmanage from "@/assets/admin/accmange.svg";
+import Acc1 from "@/assets/admin/accmange1.svg";
 import Acc2 from "@/assets/admin/accmange2.svg";
 import Acc3 from "@/assets/admin/accmange3.svg";
-import Userss from "@/assets/admin/userss.svg"
+import Userss from "@/assets/admin/userss.svg";
 import Statics from "@/assets/admin/stattics.svg";
 import Submange from "@/assets/admin/submange.svg";
-import Frame15 from "@/assets/admin/Frame15.svg"
-import Supports from "@/assets/admin/supports.svg"
+import Frame15 from "@/assets/admin/Frame15.svg";
+import Supports from "@/assets/admin/supports.svg";
 import { usePathname } from "next/navigation";
 import AIChat from "@/components/AIChat/AIChat";
-import Animate from "@/assets/admin/animate.gif"
-
+import Animate from "@/assets/admin/animate.gif";
+import arrowDown from "@/assets/admin/Arrow-down.svg";
+import point from "@/assets/Vector.svg";
 
 export default function NewSideBar() {
   const [actv, setActv] = useState(false);
@@ -80,18 +81,18 @@ export default function NewSideBar() {
   const isWebinarsStats = pathname.includes(
     "/org/education/programs-statistics/webinars"
   );
-const isQuizzes = pathname.includes("/org/education/quizzes");
-const isAssignments = pathname.includes("/org/education/assignments");
-const education = isQuizzes || isAssignments;
- 
+  const isQuizzes = pathname.includes("/org/education/quizzes");
+  const isAssignments = pathname.includes("/org/education/assignments");
+  const education = isQuizzes || isAssignments;
+
   const isCourses = pathname.includes("/org/education/courses");
-   const isCertificates = pathname.includes("/org/education/certificates");
+  const isCertificates = pathname.includes("/org/education/certificates");
   const isCoursesRegistration = pathname.includes(
     "/org/education/course-registration"
   );
   const isBundles = pathname.includes("/org/education/bundles");
   const iSenrollmentHis = pathname.includes("/org/enrollment/history");
-  
+
   const isAdmissionReq = pathname.includes(
     "/org/admission/admission-requirements"
   );
@@ -128,18 +129,24 @@ const education = isQuizzes || isAssignments;
     "/org/subscription-management"
   );
   const isUsers = pathname.includes("/org/user-management");
-    const isUsersStaff = pathname.includes(
-      "/org/user-management/users/staff"
-    );
-  const isUsersStudent = pathname.includes("/org/user-management/users/students");
-  const isUsersNewacc = pathname.includes("/org/user-management/users/new-user");
+  const isUsersStaff = pathname.includes("/org/user-management/users/staff");
+  const isUsersStudent = pathname.includes(
+    "/org/user-management/users/students"
+  );
+  const isUsersNewacc = pathname.includes(
+    "/org/user-management/users/new-user"
+  );
   const isUsersRoles = pathname.includes("/org/user-management/users/roles");
   const isUsersgroups = pathname.includes("/org/user-management/users/groups");
-  const isUsersaccs = pathname.includes("/org/user-management/users/not-access-to-content");
+  const isUsersaccs = pathname.includes(
+    "/org/user-management/users/not-access-to-content"
+  );
   const isNotfiPage = pathname.includes("/org/notifications");
   const isAccMange = isOrgprofile || isAiAssistant || isSettings;
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [AiChatOpen, setAiChatOpen] = useState(false);
+
+  const [openIndex, setOpenIndex] = useState(null);
 
   const accmange = [
     {
@@ -245,7 +252,7 @@ const education = isQuizzes || isAssignments;
       tit: "enrollment-history",
       href: "/org/enrollment/history",
       bg: iSenrollmentHis,
-    }
+    },
   ];
 
   const edu = [
@@ -266,6 +273,26 @@ const education = isQuizzes || isAssignments;
       tit: "courses",
       href: "/org/education/courses",
       bg: isCourses,
+      arrow: arrowDown,
+      icon2: point,
+      children: [
+        {
+          tit: "webinars",
+          href: "/org/education/courses/course",
+        },
+        {
+          tit: "courses_webinars",
+          href: "/org/education/courses/webinars",
+        },
+        {
+          tit: "graduation_projects",
+          href: "/org/education/courses/graduation-projects",
+        },
+        {
+          tit: "text_lessons",
+          href: "/org/education/courses/text-lessons",
+        },
+      ],
     },
     {
       icon: Regcourse,
@@ -284,6 +311,23 @@ const education = isQuizzes || isAssignments;
       tit: "certificates",
       href: "/org/education/certificates",
       bg: isCertificates,
+      arrow: arrowDown,
+      icon2: point,
+      children: [
+        {
+          tit: "quiz_certificates",
+          href: "/org/education/certificates/quiz-certificate",
+        },
+        {
+          tit: "course_certificates",
+          href: "/org/education/certificates/course-certificate",
+        },
+        {
+          tit: "certificate_templates",
+          href: "/org/education/certificates/certificate-templates",
+
+        },
+      ],
     },
   ];
 
@@ -476,21 +520,62 @@ const education = isQuizzes || isAssignments;
           >
             {t("education")}
           </Link>
-          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start       ">
+          <ul className="navbar-nav d-lg-flex flex-lg-column justify-content-start align-items-start">
             {edu.map((item, index) => {
+              const hasChildren = item.children && item.children.length > 0;
+              const isOpen = openIndex === index;
+
               return (
                 <li
-                  className={`nav-item d-flex    w-100  align-items-center  p-2  ${
-                    item.bg ? " bgNewSidebar rounded-3" : ""
-                  }   `}
+                  key={index}
+                  className=" d-flex flex-column p-2 cursor-pointer"
                 >
-                  <item.icon className={`iconSize1 iconcolor  m-1 `} />
-                  <Link
-                    className={` nav-link  tit-14-400 text-dark text-nowrap  `}
-                    href={item.href}
+                  <div
+                    className={`d-flex w-100 align-items-center ${isOpen ? "active-bg rounded-2" : ""}`}
+                    onClick={() =>
+                      hasChildren
+                        ? setOpenIndex((prev) =>
+                            prev === index ? null : index
+                          )
+                        : null
+                    }
                   >
-                    {t(item.tit)}
-                  </Link>
+                    <item.icon className="iconSize1 iconcolor m-1" />
+                    {hasChildren ? (
+                      <span className=" tit-14-400 text-dark text-nowrap">
+                        {t(item.tit)}
+                        <item.arrow className="iconcolor m-1"/>
+                      </span>
+                      
+                    ) : (
+                      <Link
+                        className="tit-14-400 text-dark text-nowrap"
+                        href={item.href}
+                      >
+                        {t(item.tit)}
+                      </Link>
+
+                    )}
+                  </div>
+
+                  {hasChildren && isOpen && (
+                    <ul className="pe-2">
+                      {item.children.map((child, cIdx) => (
+                        <li
+                          key={cIdx}
+                          className=" d-flex align-items-center"
+                        >
+                          {/* <item.icon2 className="iconcolor m-1"/> */}
+                          <Link
+                            className="nav-link tit-14-400 text-dark text-nowrap"
+                            href={child.href}
+                          >
+                            {t(child.tit)}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               );
             })}
@@ -600,7 +685,7 @@ const education = isQuizzes || isAssignments;
             className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
             aria-current="page"
           >
-            اداراة الحساب
+            {t("account_management")}
           </Link>
           <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
             {accmange.map((item, index) => {
@@ -748,12 +833,12 @@ const education = isQuizzes || isAssignments;
                   <ul className="navbar-nav   d-lg-flex w-100 flex-lg-column    p-3    bg-white    newSidebar     ">
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400">
-                         {t("admin_dashboard")}
+                        {t("admin_dashboard")}
                       </h6>
                     </div>
 
                     <li
-                      className={`nav-item   besideHover  ${
+                      className={`nav-item   besideHover width-fit  ${
                         isPanel && "onSelect"
                       }  `}
                     >
@@ -770,20 +855,19 @@ const education = isQuizzes || isAssignments;
                           } `}
                         />
                         <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100 "
-                        }`}
-                      >
-                        {t("dashboard")}
-                      </span>
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100 "
+                          }`}
+                        >
+                          {t("dashboard")}
+                        </span>
                       </Link>
-                      
                     </li>
 
                     <li
-                      className={`nav-item besideHover  ${
+                      className={`nav-item besideHover width-fit  ${
                         isEmployeeprogress && "onSelect"
                       }  `}
                     >
@@ -799,20 +883,20 @@ const education = isQuizzes || isAssignments;
                             isEmployeeprogress ? "iconcolor" : "iconcolor2"
                           } `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("Employee progress")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("Employee progress")}
+                        </span>
                       </Link>
                     </li>
 
                     <li
-                      className={`nav-item  besideHover  ${
+                      className={`nav-item  besideHover width-fit  ${
                         isNotfiPage && "onSelect"
                       }   `}
                     >
@@ -828,19 +912,19 @@ const education = isQuizzes || isAssignments;
                             isNotfiPage ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100 "
-                        }`}
-                      >
-                        {t("Notifications")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100 "
+                          }`}
+                        >
+                          {t("Notifications")}
+                        </span>
                       </Link>
                     </li>
                     <li
-                      className={`nav-item  besideHover  ${
+                      className={`nav-item  besideHover width-fit  ${
                         isTechSupport && "onSelect"
                       } `}
                     >
@@ -856,19 +940,19 @@ const education = isQuizzes || isAssignments;
                             isTechSupport ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("Technical Support")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("Technical Support")}
+                        </span>
                       </Link>
                     </li>
                     <li
-                      className={`nav-item  besideHover  ${
+                      className={`nav-item  besideHover width-fit  ${
                         isAccMange && "onSelect"
                       } `}
                     >
@@ -884,15 +968,15 @@ const education = isQuizzes || isAssignments;
                             isAccMange ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("Account Management")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("Account Management")}
+                        </span>
                       </Link>
                     </li>
                   </ul>
@@ -905,70 +989,71 @@ const education = isQuizzes || isAssignments;
                       </h6>
                     </div>
                     <li
-                      className={`nav-item d-flex  p-2 gap-2  align-items-end  besideHover  ${
+                      className={`nav-item d-flex  p-2 gap-2  align-items-end  besideHover width-fit  ${
                         isAdminssion && "onSelect"
                       }  `}
                       onClick={() => {
                         setactvv("isAdmission");
                       }}
                     >
-                      <Link 
+                      <Link
                         href="/org/admission/admission-requirements"
-                        className="d-flex    gap-2  align-items-end">
+                        className="d-flex    gap-2  align-items-end"
+                      >
                         <AdmissionIcon
                           className={`iconSize1    ${
                             isAdminssion ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("admission")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("admission")}
+                        </span>
                       </Link>
                     </li>
                     <li
-                      className={`nav-item d-flex  gap-2   align-items-end besideHover  ${
+                      className={`nav-item d-flex  gap-2   align-items-end besideHover width-fit  ${
                         studentsRecords && "onSelect"
                       }      `}
                       onClick={() => {
                         setactvv("isRegistered");
                       }}
                     >
-                      <Link 
+                      <Link
                         href="/org/students-records/all-students"
                         className="d-flex  p-2   gap-2  align-items-end"
-                        >
+                      >
                         <ClassesIcon
                           className={`iconSize1   ${
                             studentsRecords ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("registrations")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("registrations")}
+                        </span>
                       </Link>
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2  gap-2   align-items-end besideHover  ${
+                      className={`nav-item d-flex  gap-2   align-items-end besideHover width-fit  ${
                         education && "onSelect"
                       }  `}
                       onClick={() => {
                         setactvv("isEdu");
                       }}
                     >
-                      <Link 
+                      <Link
                         href="/org/education/quizzes"
                         className="d-flex  p-2   gap-2  align-items-end"
                       >
@@ -977,28 +1062,27 @@ const education = isQuizzes || isAssignments;
                             education ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("education")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("education")}
+                        </span>
                       </Link>
-
                     </li>
 
                     <li
-                      className={`nav-item d-flex   gap-2  align-items-end    besideHover ${
+                      className={`nav-item d-flex   gap-2  align-items-end    besideHover width-fit ${
                         isUsers && "onSelect"
                       }  `}
                       onClick={() => {
                         setactvv("users");
                       }}
                     >
-                      <Link 
+                      <Link
                         href="/org/user-management/users/staff"
                         className="d-flex  p-2   gap-2  align-items-end"
                       >
@@ -1007,15 +1091,15 @@ const education = isQuizzes || isAssignments;
                             isUsers ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("users")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("users")}
+                        </span>
                       </Link>
                     </li>
                   </ul>
@@ -1029,14 +1113,14 @@ const education = isQuizzes || isAssignments;
                     </div>
 
                     <li
-                      className={`nav-item d-flex  gap-2   align-items-end  besideHover ${
+                      className={`nav-item d-flex  gap-2   align-items-end  besideHover width-fit ${
                         isprostatic && "onSelect"
                       } `}
                       onClick={() => {
                         setactvv("isprogramreg");
                       }}
                     >
-                      <Link 
+                      <Link
                         href="/org/education/programs-statistics/bundlesStats"
                         className="d-flex  p-2   gap-2  align-items-end"
                       >
@@ -1045,27 +1129,27 @@ const education = isQuizzes || isAssignments;
                             isprostatic ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("programs-statistics")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("programs-statistics")}
+                        </span>
                       </Link>
                     </li>
 
                     <li
-                      className={`nav-item d-flex   gap-2   align-items-end    besideHover ${
+                      className={`nav-item d-flex   gap-2   align-items-end    besideHover width-fit ${
                         isFin && "onSelect"
                       }   `}
                       onClick={() => {
                         setactvv("isFinancial");
                       }}
                     >
-                      <Link 
+                      <Link
                         href="/org/financial/balances"
                         className="d-flex  p-2   gap-2  align-items-end"
                       >
@@ -1074,20 +1158,20 @@ const education = isQuizzes || isAssignments;
                             isFin ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("financial")}
-                      </span>
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("financial")}
+                        </span>
                       </Link>
                     </li>
 
                     <li
-                      className={`nav-item d-flex   gap-2  align-items-end  besideHover  ${
+                      className={`nav-item d-flex   gap-2  align-items-end  besideHover width-fit  ${
                         isSubscriptionmanagement && "onSelect"
                       }  `}
                     >
@@ -1123,13 +1207,12 @@ const education = isQuizzes || isAssignments;
                   >
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400 ">
-                        الخروج 
+                        الخروج
                       </h6>
                     </div>
 
-
                     <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit  ${
                         isSubscriptionmanagement && "onSelect"
                       }  `}
                     >
@@ -1146,7 +1229,7 @@ const education = isQuizzes || isAssignments;
                               : "iconcolor2"
                           }  `}
                         />
-                       <span
+                        <span
                           className={`text-nowrap custfont ${
                             sidebarOpen
                               ? "tooltipText text-body-secondary"
@@ -1164,13 +1247,12 @@ const education = isQuizzes || isAssignments;
                   >
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400 ">
-                        الخروج 
+                        الخروج
                       </h6>
                     </div>
 
-
                     <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit  ${
                         isSubscriptionmanagement && "onSelect"
                       }  `}
                     >

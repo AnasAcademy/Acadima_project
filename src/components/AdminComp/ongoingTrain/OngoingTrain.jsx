@@ -142,7 +142,7 @@ export default function OngoingTrain({
 
           <div className="d-flex flex-column justify-content-start align-items-start">
             <h4 className="fw-semibold m-0 ">{col.name}</h4>
-            <h4 className="fw-semibold m-0 ">ID:{col.id}</h4>
+            {col.id && <h4 className="fw-semibold m-0 ">ID:{col.id}</h4> }
             <h4 className="text-muted small m-0 ">{col.phone}</h4>
             <h4 className="text-muted small m-0 ">{col.email}</h4>
           </div>
