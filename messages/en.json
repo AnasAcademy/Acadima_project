@@ -1111,6 +1111,7 @@
     "score": "Score",
     "date": "Date",
     "title-search": "Search by title",
-    "download": "Download"
+    "download": "Download",
+     "plan_name":"plan name"
   }
 }

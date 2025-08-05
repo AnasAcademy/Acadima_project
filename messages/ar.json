@@ -1105,6 +1105,7 @@
     "title-search": "البحث بالعنوان",
     "download": "تحميل",
     "plan_details": "تفاصيل الخطة والاشتراكات",
-      "subscription_validity": "صلاحية الاشتراك"
+      "subscription_validity": "صلاحية الاشتراك",
+      "plan_name":" اسم الخطة"
   }
 }

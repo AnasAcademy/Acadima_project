@@ -1670,6 +1670,22 @@ select.no-native-arrow {
   line-height: normal;
 }
 
+ .tit-40-700 {
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+   font-family: "ibm";
+  line-height: normal;
+}
+
+
+
+.tit-30-700 {
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
 .newbg {
   background-color: var(--background-color);
 }
@@ -1978,13 +1994,12 @@ color: #06AC9C;
 }
 .planbtn-b{
  font-size: 12px;
-  font-style: normal;
-  font-weight: 800;
+ font-style: normal;
+ font-weight: 800;
  display: flex;
-justify-content: center;
-align-items: center;
-
-   color: #1024DD;
+ justify-content: center;
+ align-items: center;
+ color: #1024DD;
  background-color: #216ED72B;
  border: 3px solid #216ED7;
 }
@@ -2004,8 +2019,8 @@ align-items: center;
 .planabsolute{
 
 
-   top: 20px;
-   left: 120px !important;
+   top: 10px;
+  right: 30px !important;
 }
 .active-bg {
   background-color: #F6F6FF;
