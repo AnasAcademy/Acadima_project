@@ -12,7 +12,19 @@
         const [showModal, setShowModal] = useState(false);
         const [formState , setFormState] = useState("")
         const [data, setData] = useState(dat);
-          const [Itemid, setId] = useState(null);
+        const [Itemid, setId] = useState(null);
+        const [page, setPage] = useState("");
+
+        
+        // const pageTitles = [
+        //   { 
+        //     edit: ,
+        //     students: ,
+
+        //   }
+
+
+
 
       const handleSubmitEdit = async (dataa) => {
       console.log(dataa.title);
@@ -94,16 +106,6 @@
            color: "#48BB78",
            lists: [
              {
-               label: t("requests"),
-               action: () => {
-                 setId(item.id);
-                 getReqData(item.id);
-                 setReqtble(true);
-               },
-               icon: Pen,
-             },
-
-             {
                label: t("edit"),
                action: () => {
                  setShowModal(!showModal);
@@ -117,6 +119,16 @@
                action: () => remove(item.id),
                icon: X,
              },
+
+            //  {
+            //    label: ts("students"),
+            //    action: () => {
+            //      setId(item.id);
+            //      getReqData(item.id);
+            //      setReqtble(true);
+            //    },
+            //    icon: Pen,
+            //  },
            ],
            id: item.id,
          },
@@ -161,7 +173,7 @@
              />
            </div>
          ) : (
-           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht ">
              <OngoingTrain
                TableHead={TableHead}
                trainingData={trainingData}

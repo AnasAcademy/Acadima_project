@@ -92,11 +92,13 @@ export default function PlansComp({ data }) {
         <div className="row g-3">
           <div className=" d-flex  justify-content-between  align-items-center  col-12">
             <h2 className="  hvvv pb-0 pt-0  "> {tr("plan_details")} </h2>
-            <button className="btn   custfontbtn  text-nowrap" onClick={()=>{
-                     toogle();
-                     setFormState("edit");
-
-            }}>
+            <button
+              className="btn   custfontbtn  text-nowrap"
+              onClick={() => {
+                toogle();
+                setFormState("edit");
+              }}
+            >
               اضافة خطة جديدة
             </button>
           </div>
@@ -104,32 +106,33 @@ export default function PlansComp({ data }) {
           {data.map((plan, index) => (
             <div key={index} className=" col-12  col-xl-12 col-xxl-10 ">
               <div className="row g-3">
-                <div className="col-12  col-xl-6 ">
-                  <div className="bg-white card border-0 rounded-4 p-5  ">
-                    <div className="position-relative p-0   ">
-                      <div className=" d-flex   justify-content-center justify-content-md-start ">
-                        <Planbg
-                          className="h-auto"
-                          style={{ opacity: 0.8 }}
-                          width={210}
-                          height={50}
-                        />
+                <div className="col-12  col-xl-6   ">
+                  <div className="bg-white card border-0 rounded-4 p-5  d-flex  justify-content-center align-items-center  align-items-md-start justify-content-md-start">
+                    <div className=" row">
+                      <div className="position-relative p-0  col-12  d-flex justify-content-center align-items-center align-items-md-start justify-content-md-start ">
+                        <div className=" d-flex   justify-content-center justify-content-md-start ">
+                          <Planbg
+                            className="h-auto"
+                            style={{ opacity: 0.8 }}
+                            width={210}
+                            height={50}
+                          />
+                        </div>
+                        <h4 className="position-absolute text-white planabsolute text-nowrap">
+                          {plan.name}
+                        </h4>
                       </div>
-                      <h4 className="position-absolute text-white planabsolute text-nowrap">
-                        {plan.name}
-                      </h4>
                     </div>
-
-                    <div className="row  g-5   ">
-                      <div className="d-flex flex-column col-12 col-md-5 p-2  ">
+                    <div className="row   g-md-5      col-0 col-md-12   ">
+                      <div className="d-flex flex-column col-12 col-md-6 p-2 justify-content-center align-items-center  align-items-md-start">
                         <h3 className="  tit-20-700 text-dark text-nowrap">
                           {plan.name_ar}
                         </h3>
                         <h4 className="tit-16-400">{plan.description}</h4>
                       </div>
-                      <div className="col-12 col-md-7   ">
-                        <div className="d-flex align-items-start justify-content-start ">
-                          <h3 className="tit-40-700 text-dark text-start text-nowrap d-flex  justify-content-center align-items-center">
+                      <div className="col-12 col-md-6   ">
+                        <div className="d-flex  justify-content-center  justify-content-md-start">
+                          <h3 className="tit-40-700 text-dark text-start text-nowrap d-flex  justify-content-center align-items-center ">
                             <Icon />
                             {plan.price}
                           </h3>
@@ -138,8 +141,10 @@ export default function PlansComp({ data }) {
                           </h4>
                         </div>
                       </div>
+                    </div>
 
-                      <div className="mt-1 col-12 col-md-6 p-2   ">
+                    <div className=" row ">
+                      <div className="mt-1 col-12 col-md-12 p-2     ">
                         <div className=" d-flex justify-content-between  flex-column flex-md-row  gap-md-5">
                           <h3 className=" tit-14-400 text-nowrap">
                             50 / 250 مستخدم
@@ -164,27 +169,31 @@ export default function PlansComp({ data }) {
                 </div>
 
                 <div className="col-12  col-xl-6">
-                  <div className="d-flex bg-white card border-0 rounded-4 p-5 justify-content-between gap-5">
+                  <div className="d-flex bg-white card border-0 rounded-4 p-5 justify-content-between justify-content-center align-items-center gap-5  align-items-md-start ">
                     <div className="d-flex flex-column">
                       <h4 className="tit-20-700 text-dark text-nowrap">
                         {tr("subscription_validity")}
                       </h4>
                       <div className="d-flex gap-3">
-                        <h5>{plan.start_date}</h5>
-                        <h5>{plan.end_date}</h5>
+                        <h5 className="tit-16-400 text-nowrap">
+                          {plan.start_date}
+                        </h5>
+                        <h5 className="tit-16-400 text-nowrap ">
+                          {plan.end_date}
+                        </h5>
                       </div>
                     </div>
 
-                    <div className="d-flex gap-2 flex-column col-9">
+                    <div className="d-flex gap-2 flex-column col-9 ">
                       <h4 className="tit-16-700">ادارة الاشتراك</h4>
-                      <div className="d-flex justify-content-between gap-1">
-                        <button className="btn planbtn-g w-50 text-nowrap">
+                      <div className="d-flex   flex-column justify-content-between gap-1 flex-md-row">
+                        <button className="btn planbtn-g w-100 text-nowrap">
                           حالة الإشتراك : نشط
                         </button>
-                        <button className="btn planbtn-b w-50 text-nowrap">
+                        <button className="btn planbtn-b w-100 text-nowrap">
                           تعديل الخطة
                         </button>
-                        <button className="btn planbtn-r w-50 text-nowrap">
+                        <button className="btn planbtn-r w-100 text-nowrap">
                           إيقاف الخطة
                         </button>
                       </div>

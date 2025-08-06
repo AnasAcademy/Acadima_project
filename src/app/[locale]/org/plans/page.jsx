@@ -36,7 +36,7 @@ try {
    return (
      <>
        <div className="  m-0    ">
-         <div className="  m-5  p-4 g-3   mt-2">
+         <div className="  m-4 p-0  p-md-4 g-3   mt-2">
         
             <PlansComp data={dataa} />
          </div>
