@@ -9,10 +9,9 @@ import { useTranslations } from "next-intl";
 export default function PlansComp({ data }) {
   const [showModal, setShowModal] = useState(false);
   const [formState, setFormState] = useState("");
-
   const tr = useTranslations("tables");
   const ts = useTranslations("SidebarA");
- const [Itemid, setId] = useState(null);
+  const [Itemid, setId] = useState(null);
   const formTitles = [
         {
           label:
