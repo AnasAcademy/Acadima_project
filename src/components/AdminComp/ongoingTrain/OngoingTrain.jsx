@@ -49,16 +49,19 @@ export default function OngoingTrain({
       if (
         col.value === "active" ||
         col.value === "approved" ||
-        col.value === "success"
+        col.value === "success" ||
+        col.value === "publish"
       ) {
         textClass = "text-bg-success p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
       } // Green
-      else if (col.value === "pending" || col.value === "refund") {
+      else if (col.value === "pending" || col.value === "refund" || col.value === "draft") {
         textClass = "text-bg-warning p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
       } // Yellow
-      else if (col.value === t("manual")) {
+      else if (
+        col.value === t("manual") 
+      ) {
         textClass = "text-warning ";
         textVal = col.value;
       } else if (
@@ -81,12 +84,12 @@ export default function OngoingTrain({
     buttons: (col, key) => (
       <td
         key={key}
-        className="d-flex gap-1 align-items-center px-1 py-5 justify-content-center"
+        className="d-flex gap-1 align-items-center px-1 justify-content-center"
       >
         {col.buttons?.map((btn, index) => (
           <button
             key={index}
-            className="tit-12-400 btncolor text-center m-0 cursor-pointer rounded-2 p-2 px-3 text-nowrap d-flex align-items-center gap-2 justify-content-center"
+            className="w-50 tit-12-400 btncolor text-center m-0 cursor-pointer rounded-2 p-2 px-3 text-nowrap d-flex align-items-center gap-2 justify-content-center"
             style={{
               backgroundColor: btn.color || "#007bff",
               color: btn.textColor || "#fff",

@@ -544,7 +544,7 @@ export default function NewSideBar() {
                     {hasChildren ? (
                       <span className=" tit-14-400 text-dark text-nowrap">
                         {t(item.tit)}
-                        <item.arrow className="iconcolor m-1"/>
+                        <item.arrow className="iconcolor m-1 "/>
                       </span>
                       
                     ) : (
@@ -1207,7 +1207,7 @@ export default function NewSideBar() {
                   >
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400 ">
-                        الخروج
+                        {t("logout")}
                       </h6>
                     </div>
 
@@ -1217,7 +1217,7 @@ export default function NewSideBar() {
                       }  `}
                     >
                       <Link
-                        href="/org/subscription-management"
+                        href="/login"
                         onClick={() => {
                           setactvv("");
                         }}
@@ -1236,51 +1236,12 @@ export default function NewSideBar() {
                               : "w-100"
                           }`}
                         >
-                          {t("Subscription Management")}
+                          {t("logout")}
                         </span>
                       </Link>
                     </li>
                   </ul>
 
-                  <ul
-                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPartt    `}
-                  >
-                    <div className="d-flex align-items-center justify-content-center">
-                      <h6 className=" text-center text-nowrap tit-10-400 ">
-                        الخروج
-                      </h6>
-                    </div>
-
-                    <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit  ${
-                        isSubscriptionmanagement && "onSelect"
-                      }  `}
-                    >
-                      <Link
-                        href="/org/subscription-management"
-                        onClick={() => {
-                          setactvv("");
-                        }}
-                      >
-                        <LogoutIcon
-                          className={`iconSize2    ${
-                            isSubscriptionmanagement
-                              ? "iconcolor"
-                              : "iconcolor2"
-                          }  `}
-                        />
-                      </Link>
-                      <span
-                        className={`text-nowrap custfont ${
-                          sidebarOpen
-                            ? "tooltipText text-body-secondary"
-                            : "w-100"
-                        }`}
-                      >
-                        {t("Subscription Management")}
-                      </span>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </nav>

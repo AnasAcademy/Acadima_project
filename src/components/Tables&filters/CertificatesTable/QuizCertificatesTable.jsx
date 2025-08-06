@@ -158,14 +158,21 @@ export default function QuizCertificatesTable({
         { type: "text", value: item.quizzes_result?.user_grade || "-" },
         { type: "text", value: item.graduation_date },
         {
-          type: "buttons",
-          buttons: [
+          type: "actionbutton",
+          label: t("actions"),
+          action: () => {
+            setShowModal(!showModal);
+            setSelectedId(item.id);
+          },
+          icon: Arrowdown,
+          lists: [
             {
               label: t("download"),
-              // action: () => downloadCert(item.id),
-              color: "#1024dd",
-            }
+              // action: () => viewCertificate(item.certificate_url || item.download_url),
+              icon: printer,
+            },
           ],
+          id: item.id,
         },
       ],
     };
@@ -246,76 +253,56 @@ export default function QuizCertificatesTable({
   };
 
   return (
-    <>
-      {showEditForm ? (
-        <div className="row g-3">
-          <div className="col-12">
-            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              <Editform
-                fields={fields}
-                data={dataa.find((item) => item.id === selectedId) || {}}
-                formTitles={formTitles}
-                handleSubmitAdd={handleSubmitAdd}
-                setShowModal={() => setShowEditForm(false)}
-                formState={formState}
-                loading={loading}
-              />
-            </div>
+    <div className="row g-3">
+      <div className="col-12">
+        <SelectCard
+          selectCardData={selectCardData}
+          isTechSupport={true}
+          dataa={dataa}
+          setFilter={setFilter}
+          handleSearch={handleSearch}
+        />
+      </div>
+
+      <div className="col-12">
+        <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+          {/* Add Service Button (like ElectronicServiceTable) */}
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <button
+              className="btn custfontbtn rounded-2"
+              onClick={DownloadExcel}
+            >
+              Excel
+            </button>
+          </div>
+
+          <OngoingTrain
+            TableHead={TableHead}
+            trainingData={trainingData}
+            button={false}
+          />
+
+          <div className="row justify-content-center align-items-center gap-3 mt-3">
+            <button
+              disabled={currentPage === 1 || loading}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(Math.max(currentPage - 1, 1))}
+            >
+              {loading ? "..." : t("previous-page")}
+            </button>
+            <span className="px-2 align-self-center col-1 text-center">
+              {t("page")} {currentPage}
+            </span>
+            <button
+              disabled={currentPage >= totalPages || loading}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(currentPage + 1)}
+            >
+              {loading ? "..." : t("next-page")}
+            </button>
           </div>
         </div>
-      ) : (
-        <div className="row g-3">
-          <div className="col-12">
-            <SelectCard
-              selectCardData={selectCardData}
-              isTechSupport={true}
-              dataa={dataa}
-              setFilter={setFilter}
-              handleSearch={handleSearch}
-            />
-          </div>
-
-          <div className="col-12">
-            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              {/* Add Service Button (like ElectronicServiceTable) */}
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <button
-                  className="btn custfontbtn rounded-2"
-                  onClick={DownloadExcel}
-                >
-                  Excel
-                </button>
-              </div>
-
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={false}
-              />
-
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
-                <button
-                  disabled={currentPage === 1 || loading}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
-                >
-                  {loading ? "..." : t("previous-page")}
-                </button>
-                <span className="px-2 align-self-center col-1 text-center">
-                  {t("page")} {currentPage}
-                </span>
-                <button
-                  disabled={currentPage >= totalPages || loading}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(currentPage + 1)}
-                >
-                  {loading ? "..." : t("next-page")}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
 
       <AlertModal
         show={showResultModal}
@@ -338,6 +325,6 @@ export default function QuizCertificatesTable({
       >
         <p className="m-0 text-center">{confirmMessage}</p>
       </AlertModal>
-    </>
+    </div>
   );
 }

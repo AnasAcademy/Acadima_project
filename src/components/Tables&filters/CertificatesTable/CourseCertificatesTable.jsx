@@ -40,7 +40,7 @@ export default function CourseCertificatesTable({
     setLoading(true);
     try {
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/course?page=${pageNumber}`,
+        `https://api.lxera.net/api/development/organization/vodafone/certificates/course-competition?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
@@ -55,9 +55,15 @@ export default function CourseCertificatesTable({
       const data = respond?.certificates?.data || respond?.data || [];
       setDataa(data);
       setFilter(data);
-      setCurrentPage(respond?.certificates?.current_page || respond?.current_page || 1);
-      setTotalPages(respond?.certificates?.last_page || respond?.last_page || 1);
-      setPage(respond?.certificates?.current_page || respond?.current_page || 1);
+      setCurrentPage(
+        respond?.certificates?.current_page || respond?.current_page || 1
+      );
+      setTotalPages(
+        respond?.certificates?.last_page || respond?.last_page || 1
+      );
+      setPage(
+        respond?.certificates?.current_page || respond?.current_page || 1
+      );
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -91,7 +97,7 @@ export default function CourseCertificatesTable({
       query.append("page", pageNumber);
 
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/course?${query.toString()}`,
+        `https://api.lxera.net/api/development/organization/vodafone/certificates/course-competition?${query.toString()}`,
         {
           method: "GET",
           headers: {
@@ -108,115 +114,19 @@ export default function CourseCertificatesTable({
 
       setFilter(data);
       setDataa(data);
-      setCurrentPage(respond?.certificates?.current_page || respond?.current_page || 1);
-      setTotalPages(respond?.certificates?.last_page || respond?.last_page || 1);
-      setPage(respond?.certificates?.current_page || respond?.current_page || 1);
+      setCurrentPage(
+        respond?.certificates?.current_page || respond?.current_page || 1
+      );
+      setTotalPages(
+        respond?.certificates?.last_page || respond?.last_page || 1
+      );
+      setPage(
+        respond?.certificates?.current_page || respond?.current_page || 1
+      );
     } catch (error) {
       console.error("Search error:", error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const viewCertificate = (certificateUrl) => {
-    if (certificateUrl) {
-      // Open the certificate URL in a new tab/window
-      window.open(certificateUrl, "_blank", "noopener,noreferrer");
-    } else {
-      setResultMessage("رابط الشهادة غير متوفر");
-      setShowResultModal(true);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    setSelectedId(id);
-    setConfirmMessage("هل أنت متأكد من حذف هذه الشهادة؟");
-    setConfirmAction(() => () => deleteCertificate(id));
-    setShowConfirmModal(true);
-  };
-
-  const deleteCertificate = async (id) => {
-    try {
-      // Optimistically remove from UI immediately
-      const updatedData = dataa.filter((item) => item.id !== id);
-      const updatedFilter = filter.filter((item) => item.id !== id);
-      setDataa(updatedData);
-      setFilter(updatedFilter);
-
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/course/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
-
-      const result = await response.json();
-      if (!response.ok || !result.success) {
-        // If deletion failed, restore the data and show error
-        setDataa(dataa);
-        setFilter(filter);
-        throw new Error("Failed to delete");
-      }
-
-      setResultMessage(result.message || "تم حذف الشهادة بنجاح");
-      setShowResultModal(true);
-    } catch (error) {
-      console.error("Deletion failed:", error);
-      // Restore original data on error
-      fetchData(page);
-      setResultMessage("فشل الحذف. حاول مرة أخرى.");
-      setShowResultModal(true);
-    } finally {
-      setShowConfirmModal(false);
-    }
-  };
-
-  const handleSubmitAdd = async (formData) => {
-    try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/course/store`,
-        {
-          method: "POST",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-          body: JSON.stringify({
-            title: formData.title,
-            description: formData.description,
-            course_id: parseInt(formData.course_id),
-            user_id: parseInt(formData.user_id),
-          }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setResultMessage(result.message || "تم إضافة الشهادة بنجاح");
-        setShowResultModal(true);
-        setShowEditForm(false);
-        fetchData(currentPage);
-      } else {
-        const errorText = result.errors
-          ? Object.values(result.errors).join(", ")
-          : result.message || `فشل الإضافة (${response.status})`;
-        setResultMessage(`فشل الإضافة: ${errorText}`);
-        setShowResultModal(true);
-        throw new Error(errorText);
-      }
-    } catch (error) {
-      console.error("Add failed:", error);
-      setResultMessage("فشل الإضافة. حاول مرة أخرى.");
-      setShowResultModal(true);
     }
   };
 
@@ -225,33 +135,32 @@ export default function CourseCertificatesTable({
       key: item.id || index,
       columns: [
         { type: "text", value: item.id },
+        { type: "text", value: item.bundle.slug || item.course_title || "-" },
+        { type: "text", value: item.certificate_code || "-" },
         {
           type: "text",
-          value:
-            item.course?.course_name_certificate ||
-            item.course?.title ||
-            item.course_title ||
-            "-",
+          value: item.student?.full_name || "-",
         },
+        { type: "text", value: item.student?.user_code || "-" },
+        { type: "text", value: item.student?.email || "-" },
+        { type: "text", value: item.webinar?.teacher?.full_name || "-" },
+        { type: "text", value: item.graduation_date || "-" },
         {
-          type: "text",
-          value: item.student?.full_name || item.user?.full_name || "-",
-        },
-        {
-          type: "text",
-          value: item.course?.teacher?.full_name || item.teacher_name || "-",
-        },
-        { type: "text", value: item.completion_rate || item.score || "-" },
-        { type: "text", value: item.graduation_date || item.created_at },
-        {
-          type: "buttons",
-          buttons: [
+          type: "actionbutton",
+          label: t("actions"),
+          action: () => {
+            setShowModal(!showModal);
+            setSelectedId(item.id);
+          },
+          icon: Arrowdown,
+          lists: [
             {
               label: t("download"),
-              action: () => viewCertificate(item.certificate_url || item.download_url),
-              color: "#1024dd",
+              // action: () => viewCertificate(item.certificate_url || item.download_url),
+              icon: printer,
             }
           ],
+          id: item.id,
         },
       ],
     };
@@ -260,9 +169,12 @@ export default function CourseCertificatesTable({
   const TableHead = [
     "#",
     t("title"),
+    t("certificate_code"),
     t("user"),
+    t("user-code"),
+    t("user-mail"),
     t("teacher-name"),
-    t("completion-rate"),
+    // t("completion-rate"),
     t("date"),
     t("actions"),
   ];
@@ -270,163 +182,63 @@ export default function CourseCertificatesTable({
   const selectCardData = {
     inputs: [
       {
-        title: t("user-name"),
-        type: "search",
-        filter: "student_name",
-        placeholder: t("name-search"),
-        apiKey: "student_name",
-      },
-      {
         title: t("title"),
         type: "search",
-        filter: "course_title",
+        filter: "title",
         placeholder: t("title-search"),
         apiKey: "title",
       },
       {
         title: t("teacher-name"),
         type: "search",
-        filter: "teacher_name",
+        filter: "teacher-name",
         placeholder: t("teacher-search"),
-        apiKey: "teacher_name",
+        apiKey: "teacherName",
       },
     ],
   };
 
-  const formTitles = [
-    {
-      label: t("add-new-course-certificate"),
-      type: "text",
-    },
-    { label: formState === "add" ? t("add") : t("edit"), type: "text" },
-  ];
-
-  const fields = [
-    { name: "title", label: t("certificate-title"), type: "text" },
-    { name: "description", label: t("description"), type: "textarea" },
-    { name: "course_id", label: t("course-id"), type: "number" },
-    { name: "user_id", label: t("user-id"), type: "number" },
-  ];
-
-  const DownloadExcel = async () => {
-    try {
-      const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/certificates/course/excel",
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to download file");
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "course-certificates-report.xlsx";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-      setResultMessage("تم تحميل التقرير بنجاح");
-      setShowResultModal(true);
-    } catch (error) {
-      console.error("Download failed:", error);
-      setResultMessage("فشل التحميل. حاول مرة أخرى.");
-      setShowResultModal(true);
-    }
-  };
-
   return (
-    <>
-      {showEditForm ? (
-        <div className="row g-3">
-          <div className="col-12">
-            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              <Editform
-                fields={fields}
-                data={dataa.find((item) => item.id === selectedId) || {}}
-                formTitles={formTitles}
-                handleSubmitAdd={handleSubmitAdd}
-                setShowModal={() => setShowEditForm(false)}
-                formState={formState}
-                loading={loading}
-              />
-            </div>
+    <div className="row g-3">
+      <div className="col-12">
+        <SelectCard
+          selectCardData={selectCardData}
+          isTechSupport={true}
+          dataa={dataa}
+          setFilter={setFilter}
+          handleSearch={handleSearch}
+        />
+      </div>
+
+      <div className="col-12">
+        <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+          <OngoingTrain
+            TableHead={TableHead}
+            trainingData={trainingData}
+            button={false}
+          />
+
+          <div className="row justify-content-center align-items-center gap-3 mt-3">
+            <button
+              disabled={currentPage === 1 || loading}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(Math.max(currentPage - 1, 1))}
+            >
+              {loading ? "..." : t("previous-page")}
+            </button>
+            <span className="px-2 align-self-center col-1 text-center">
+              {t("page")} {currentPage}
+            </span>
+            <button
+              disabled={currentPage >= totalPages || loading}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(currentPage + 1)}
+            >
+              {loading ? "..." : t("next-page")}
+            </button>
           </div>
         </div>
-      ) : (
-        <div className="row g-3">
-          <div className="col-12">
-            <SelectCard
-              selectCardData={selectCardData}
-              isTechSupport={true}
-              dataa={dataa}
-              setFilter={setFilter}
-              handleSearch={handleSearch}
-            />
-          </div>
-
-          <div className="col-12">
-            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              {/* Add Service Button (like ElectronicServiceTable) */}
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <button
-                  className="btn custfontbtn rounded-2"
-                  onClick={DownloadExcel}
-                >
-                  Excel
-                </button>
-                <button
-                  className="btn btn-light custfontbtn"
-                  onClick={() => {
-                    setShowEditForm(true);
-                    setSelectedId(null);
-                    setFormState("add");
-                  }}
-                >
-                  {t("add-new-course-certificate")}
-                </button>
-              </div>
-
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={false}
-              />
-
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
-                <button
-                  disabled={currentPage === 1 || loading}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
-                >
-                  {loading ? "..." : t("previous-page")}
-                </button>
-                <span className="px-2 align-self-center col-1 text-center">
-                  {t("page")} {currentPage}
-                </span>
-                <button
-                  disabled={currentPage >= totalPages || loading}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(currentPage + 1)}
-                >
-                  {loading ? "..." : t("next-page")}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
 
       <AlertModal
         show={showResultModal}
@@ -445,10 +257,10 @@ export default function CourseCertificatesTable({
             confirmAction();
           }
         }}
-        title={t("confirm_action")}
+        title={t("operation_completed")}
       >
         <p className="m-0 text-center">{confirmMessage}</p>
       </AlertModal>
-    </>
+    </div>
   );
 }

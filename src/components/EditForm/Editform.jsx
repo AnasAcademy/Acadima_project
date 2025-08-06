@@ -73,9 +73,7 @@ export default function Editform({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-       console.log("submit values", values); 
       if (formState === "edit") {
-       console.log("before edit");
         handleSubmitEdit(values);
       } else if (formState === "add") {
         handleSubmitAdd(values);

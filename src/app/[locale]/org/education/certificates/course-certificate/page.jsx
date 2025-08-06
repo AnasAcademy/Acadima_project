@@ -10,7 +10,7 @@ export default async function CourseCertificates() {
   async function fetchData(pageNumber = 1) {
     try {
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/course?page=${pageNumber}`,
+        `https://api.lxera.net/api/development/organization/vodafone/certificates/course-competition?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
@@ -22,6 +22,7 @@ export default async function CourseCertificates() {
         }
       );
       const respond = await res.json();
+
       return {
         data: respond?.certificates?.data || respond?.data || [],
         currentPage: respond?.certificates?.current_page || respond?.current_page || 1,
