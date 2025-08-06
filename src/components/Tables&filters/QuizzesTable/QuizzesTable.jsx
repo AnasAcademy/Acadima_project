@@ -294,8 +294,8 @@ const fields = [
   { name: "price", label: t("price"), type: "number" },
   { name: "status", label: t("status"), type: "text" },
   { name: "target", label: t("creator"), type: "text" },
-  { name: "start_date", label: t("start_date"), type: "text" },
-  { name: "end_date", label: t("end_date"), type: "text" },
+  { name: "start_date", label: t("start_date"), type: "date" },
+  { name: "end_date", label: t("end_date"), type: "date" },
 ];
 
 

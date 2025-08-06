@@ -3,9 +3,14 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useTranslations } from "next-intl";
 
-
-export default function AlertModal({ show, onClose, onSubmit, children, btn ,title }) {
-
+export default function AlertModal({
+  show,
+  onClose,
+  onSubmit,
+  children,
+  btn,
+  title,
+}) {
   const t = useTranslations("tables");
   const buttonText = btn || t("okay");
   const modalTitle = title || t("are_you_sure");
@@ -22,9 +27,11 @@ export default function AlertModal({ show, onClose, onSubmit, children, btn ,tit
         <Button className="custfontbtn bg-white textcolor" onClick={onClose}>
           {t("cancel")}
         </Button>
-        <Button className="custfontbtn" onClick={onSubmit}>
-          {buttonText}
-        </Button>
+        {/* {btn && ( */}
+          <Button className="custfontbtn" onClick={onSubmit}>
+            {buttonText}
+          </Button>
+        {/* )} */}
       </Modal.Footer>
     </Modal>
   );

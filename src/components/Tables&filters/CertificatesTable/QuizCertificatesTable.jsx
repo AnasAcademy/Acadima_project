@@ -5,6 +5,7 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
+import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Add import
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import printer from "@/assets/admin/printer.svg";
@@ -214,44 +215,6 @@ export default function QuizCertificatesTable({
     ],
   };
 
-  const DownloadExcel = async () => {
-    try {
-      const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/certificates/excel",
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to download file");
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "quiz-certificates-report.xlsx";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-      setResultMessage("تم تحميل التقرير بنجاح");
-      setShowResultModal(true);
-    } catch (error) {
-      console.error("Download failed:", error);
-      setResultMessage("فشل التحميل. حاول مرة أخرى.");
-      setShowResultModal(true);
-    }
-  };
-
   return (
     <div className="row g-3">
       <div className="col-12">
@@ -268,12 +231,22 @@ export default function QuizCertificatesTable({
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
           {/* Add Service Button (like ElectronicServiceTable) */}
           <div className="d-flex justify-content-between align-items-center mb-3">
-            <button
+            {/* Replace the old button with ExcelDownload component */}
+            <ExcelDownload
+              endpoint="https://api.lxera.net/api/development/organization/vodafone/certificates/excel"
+              filename="quiz_certificates_report"
               className="btn custfontbtn rounded-2"
-              onClick={DownloadExcel}
+              onSuccess={(message) => {
+                setResultMessage("تم تحميل التقرير بنجاح");
+                setShowResultModal(true);
+              }}
+              onError={(error) => {
+                setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                setShowResultModal(true);
+              }}
             >
               Excel
-            </button>
+            </ExcelDownload>
           </div>
 
           <OngoingTrain

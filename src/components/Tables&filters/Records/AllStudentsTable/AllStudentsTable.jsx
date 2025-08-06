@@ -5,7 +5,8 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
-import Arrowdown from "@/assets/admin/arrow down.svg"
+import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Add import
+import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
@@ -188,7 +189,10 @@ export default function AllStudentsTable({
         phone: item.mobile,
       },
       { type: "image", value: item.identity_image },
-      { type: "text", value: item.bundles?.[0]?.translations?.[0]?.title || "-" },
+      {
+        type: "text",
+        value: item.bundles?.[0]?.translations?.[0]?.title || "-",
+      },
       { type: "text", value: item.created_at },
       { type: "label", value: item.status },
       // {
@@ -351,7 +355,8 @@ export default function AllStudentsTable({
           headers: {
             "x-api-key": "1234",
             "Content-Type": "application/json",
-            Authorization:"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
           body: JSON.stringify(apiData),
         }
@@ -414,41 +419,6 @@ export default function AllStudentsTable({
     },
   ];
 
-  const DownloadExcel = async () => {
-    try {
-      const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/students/excelAll",
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to download file");
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "report.xlsx"; // Default file name
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-      alert("Download succeded");
-    } catch (error) {
-      console.error("Download failed:", error);
-      alert("Download failed. Please try again.");
-    }
-  };
-
   return (
     <>
       {showEditForm ? (
@@ -481,12 +451,22 @@ export default function AllStudentsTable({
 
           <div className="col-12">
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              <button
+              {/* Replace the old button with ExcelDownload component */}
+              <ExcelDownload
+                endpoint="https://api.lxera.net/api/development/organization/vodafone/students/excelAll"
+                filename="all_students_report"
                 className="btn custfontbtn rounded-2 mb-3"
-                onClick={DownloadExcel}
+                onSuccess={(message) => {
+                  setResultMessage("تم تحميل التقرير بنجاح");
+                  setShowResultModal(true);
+                }}
+                onError={(error) => {
+                  setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                  setShowResultModal(true);
+                }}
               >
                 Excel
-              </button>
+              </ExcelDownload>
 
               <OngoingTrain
                 TableHead={TableHead}

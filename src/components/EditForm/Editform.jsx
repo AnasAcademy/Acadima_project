@@ -124,7 +124,7 @@ export default function Editform({
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     disabled={loading}
-                    className="d-flex justify-content-center align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                    className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
                     style={{ border: "1px solid #E3E3E3" }}
                   />
                 )}

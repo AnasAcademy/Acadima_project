@@ -1158,6 +1158,25 @@
   "attendance": "حضور",
   "new_version_bundle": "إصدار جديد - برنامج",
   "new_version_course": "إصدار جديد - دورة",
-  "new_version_attendance": "إصدار جديد - حضور"
+  "new_version_attendance": "إصدار جديد - حضور",
+  "back": "الرجوع",
+  "details": "التفاصيل",
+    "service_details": "بيانات الخدمة الإلكترونية",
+    "service_title": "عنوان الخدمة الإلكترونية",
+    "service_price": "سعر الخدمة الإلكترونية",
+    "service_description": "وصف الخدمة الإلكترونية",
+    "apply_link": "رابط التقديم للخدمة الإلكترونية",
+    "review_link": "رابط مراجعة طلب سابق للخدمة الإلكترونية",
+    "service_status": "حالة الخدمة الإلكترونية",
+    "service_creator": "منشئ الخدمة الإلكترونية",
+    "service_creation_date": "تاريخ إنشاء الخدمة الإلكترونية",
+    "service_last_update": "تاريخ آخر تعديل للخدمة الإلكترونية",
+    "no_description": "لا يوجد وصف",
+    "currency": "ر.س",
+    "service": "طلبات",
+    "download_excel": "تحميل Excel",
+    "download_success": "تم تحميل الملف بنجاح",
+    "download_failed": "فشل في تحميل الملف"
+
   }
 }

@@ -1164,7 +1164,25 @@
   "new_version_bundle": "New Version Bundle",
   "new_version_course": "New Version Course", 
   "new_version_attendance": "New Version Attendance",
-    "bundle": "Bundle"
+    "bundle": "Bundle",
+    "back": "Back",
+    "details": "Details",
+    "service_details": "Service Details",
+    "service_title": "Service Title",
+    "service_price": "Service Price",
+    "service_description": "Service Description",
+    "apply_link": "Application Link",
+    "review_link": "Review Link",
+    "service_status": "Service Status",
+    "service_creator": "Service Creator",
+    "service_creation_date": "Creation Date",
+    "service_last_update": "Last Update",
+    "no_description": "No description available",
+    "currency": "SAR",
+    "service": "Requests",
+    "download_excel": "Download Excel",
+    "download_success": "File downloaded successfully",
+    "download_failed": "Failed to download file"
 
   }
 }

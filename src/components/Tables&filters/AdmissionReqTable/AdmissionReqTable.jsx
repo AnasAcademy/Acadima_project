@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
+import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Import the new component
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import check from "@/assets/admin/Check.svg";
@@ -230,32 +231,14 @@ export default function AdmissionReqTable({
         value: item.bundle_student.bundle.translations[0].title,
       },
       { type: "image", value: item.identity_attachment },
-      // {},
       { type: "label", value: item.status },
-      // {},
       { type: "text", value: item.created_at },
-      // {
-      //   type: "buttons",
-      //   buttons: [
-      //     {
-      //       label: t("accept"),
-      //       action: () => Accept(item.id),
-      //       color: "#48BB78",
-      //     },
-      //     {
-      //       label: t("reject"),
-      //       action: () => Decline(item.id),
-      //       color: "#fc544b",
-      //     },
-      //   ],
-      // },
       {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
           setShowModal(!showModal);
-          setId(item.id);
-          setFormState("edit");
+          setSelectedId(item.id);
         },
         icon: Arrowdown,
         lists: [
@@ -282,9 +265,7 @@ export default function AdmissionReqTable({
     t("registered-program-type"),
     t("registered-program"),
     t("identity-file"),
-    // t("requirements"),
     t("user-status"),
-    // t("admin"),
     t("submission-date"),
     t("actions"),
   ];
@@ -322,41 +303,6 @@ export default function AdmissionReqTable({
     ],
   };
 
-  const DownloadExcel = async () => {
-    try {
-      const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/requirements/excel",
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to download file");
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "report.xlsx"; // Default file name
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-      alert("Download succeded");
-    } catch (error) {
-      console.error("Download failed:", error);
-      alert("Download failed. Please try again.");
-    }
-  };
-
   return (
     <div className="row g-3">
       <div className="col-12">
@@ -371,12 +317,22 @@ export default function AdmissionReqTable({
 
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-          <button
+          {/* Replace the old button with the new ExcelDownload component */}
+          <ExcelDownload
+            endpoint="https://api.lxera.net/api/development/organization/vodafone/requirements/excel"
+            filename="admission_requirements_report"
             className="btn custfontbtn rounded-2 mb-3"
-            onClick={DownloadExcel}
+            onSuccess={(message) => {
+                setResultMessage("تم تحميل التقرير بنجاح");
+                setShowResultModal(true);
+              }}
+              onError={(error) => {
+                setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                setShowResultModal(true);
+              }}
           >
             Excel
-          </button>
+          </ExcelDownload>
 
           <>
             <OngoingTrain
