@@ -4,10 +4,7 @@
   import Image from "next/image";
   export default function CompnamCard({dat}) {
 
-      
-               console.log(dat)
-
-      
+  
   
       const t = useTranslations("SubMan");
 

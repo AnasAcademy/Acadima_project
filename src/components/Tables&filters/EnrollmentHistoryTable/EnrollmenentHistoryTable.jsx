@@ -229,7 +229,6 @@ export default function EnrollmentHistoryTable({
       );
 
       const result = await response.json();
-      console.log("Add response:", result);
       if (response.status === 422) {
         setResultMessage(t("user_already_enrolled"));
         setShowResultModal(true);

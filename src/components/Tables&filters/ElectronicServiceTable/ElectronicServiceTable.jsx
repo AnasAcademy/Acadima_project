@@ -9,7 +9,7 @@ import Pen from "@/assets/admin/pen.svg";
 import Eye from "@/assets/admin/eye.svg";
 import { useApiClient } from "@/hooks/useApiClient";
 import AlertModal from "@/components/AlertModal/AlertModal";
-import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Import the new component
+import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import { useUserData } from "@/context/UserDataContext";
 
 export default function ElectronicServiceTable({
@@ -20,9 +20,11 @@ export default function ElectronicServiceTable({
   const [currentPage, setCurrentPage] = useState(current_page);
   const [showModal, setShowModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const [showDetailsModal, setShowDetailsModal] = useState(false); // Add this new state
-  const [selectedService, setSelectedService] = useState(null); // Add this for service details
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [showResultModal, setShowResultModal] = useState(false); // Add result modal
+  const [selectedService, setSelectedService] = useState(null);
   const [Alertmssg, setAlertmssg] = useState("");
+  const [resultMessage, setResultMessage] = useState(""); // Add result message
   const [Itemid, setId] = useState(null);
   const t = useTranslations("tables");
   const ts = useTranslations("SidebarA");
@@ -34,9 +36,11 @@ export default function ElectronicServiceTable({
     statuses,
     roles,
     categories,
+    targetOptions, // Add target options from context
     loading: contextLoading,
     getRoleOptions,
     getStatusOptions,
+    getTargetOptions, // Add target options helper
   } = useUserData();
   const { request } = useApiClient();
 
@@ -64,7 +68,6 @@ export default function ElectronicServiceTable({
       );
 
       const respond = await data.json();
-      console.log("go", respond.data.data);
       dat = respond.data.data;
       setData(dat);
     } catch (error) {
@@ -86,18 +89,72 @@ export default function ElectronicServiceTable({
         }
       );
 
-      const data = await response.json();
+      const result = await response.json();
 
-      setData((prev) => prev.filter((item) => item.id !== id));
+      if (response.ok) {
+        // Remove the item from local state
+        setData((prev) => prev.filter((item) => item.id !== id));
+        setResultMessage(t("service_deleted_successfully"));
+      } else {
+        throw new Error(t("service_delete_failed"));
+      }
     } catch (error) {
-      console.error("Status update failed:", error);
-      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+      console.error("Delete failed:", error);
+      setResultMessage(t("service_delete_failed"));
+    } finally {
+      setShowResultModal(true);
     }
   };
 
-  const handleSubmitEdit = async (dataa) => {
-    console.log(dataa.title);
+  const handleSubmitEdit = async (formData) => {
     try {
+      // Get the original item data
+      const originalItem = data.find((item) => item.id === Itemid);
+      
+      if (!originalItem) {
+        throw new Error("Original item not found");
+      }
+
+      // Create an object with only the changed values
+      const changedData = {};
+      
+      // Check each field and only include if it's different from original
+      if (formData.title !== originalItem.title) {
+        changedData.title = formData.title;
+      }
+      
+      if (formData.description !== originalItem.description) {
+        changedData.description = formData.description;
+      }
+      
+      if (formData.price !== originalItem.price) {
+        changedData.price = formData.price;
+      }
+      
+      if (formData.status !== originalItem.status) {
+        changedData.status = formData.status;
+      }
+      
+      if (formData.target !== originalItem.target) {
+        changedData.target = formData.target;
+      }
+      
+      if (formData.start_date !== originalItem.start_date) {
+        changedData.start_date = formData.start_date;
+      }
+      
+      if (formData.end_date !== originalItem.end_date) {
+        changedData.end_date = formData.end_date;
+      }
+
+      // If no changes detected, show message and return
+      if (Object.keys(changedData).length === 0) {
+        setResultMessage(t("no_changes_detected"));
+        setShowResultModal(true);
+        return;
+      }
+
+
       const response = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/services/${Itemid}`,
         {
@@ -107,42 +164,45 @@ export default function ElectronicServiceTable({
             "Content-Type": "application/json",
             Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
           },
-          body: JSON.stringify({
-            title: dataa.title || "null",
-            description: dataa.description,
-            price: dataa.price,
-          }),
+          // Only send the changed data
+          body: JSON.stringify(changedData),
         }
       );
 
       const result = await response.json();
 
       if (result.errors) {
-        const messages = Object.values(result.errors).map((error) => error.ar);
-        console.log("help");
+        const messages = Object.values(result.errors).map((error) => error.ar || error);
         setAlertmssg(messages.join("\n"));
         setShowAlertModal(true);
-      } else {
+        return;
+      }
+
+      if (response.ok && (result.success || result.message)) {
+        // Update the local state with the new data
         const updatedItem = {
-          ...data.find((item) => item.id === Itemid),
-          ...dataa,
+          ...originalItem,
+          ...changedData, // Apply only the changed fields
         };
+        
         setData((prev) =>
-          prev.map(
-            (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
-          )
+          prev.map((item) => (item.id === Itemid ? updatedItem : item))
         );
 
         setShowModal(false);
+        setResultMessage( t("service_updated_successfully"));
+        setShowResultModal(true);
+      } else {
+        throw new Error(t("service_update_failed"));
       }
     } catch (error) {
-      console.error("Status update failed:", error);
-      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+      console.error("Update failed:", error);
+      setResultMessage( t("service_update_failed"));
+      setShowResultModal(true);
     }
   };
 
   const handleSubmitAdd = async (dataa) => {
-    console.log(dataa.description);
     try {
       const response = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/services`,
@@ -167,20 +227,48 @@ export default function ElectronicServiceTable({
 
       const result = await response.json();
 
-      if (result.service) {
-        console.log(result.service);
-        const newItem = result.service;
-        setData((prev) => [...prev, newItem]);
-        // ✅ Success Alert
+      // Handle validation errors
+      if (result.errors) {
+        const messages = Object.values(result.errors).map((error) => error.ar || error);
+        setAlertmssg(messages.join("\n"));
+        setShowAlertModal(true);
+        return;
+      }
 
-        alert("تمت الإضافة بنجاح ✅");
+      // Check for successful response
+      if (response.ok && (result.message || result.service)) {
+        // If the API returns the created service, use it
+        if (result.service) {
+          const newItem = result.service;
+          setData((prev) => [...prev, newItem]);
+        } else {
+          // If no service data returned, create a temporary item with the form data
+          // This will be replaced when the page refreshes or data is refetched
+          const tempItem = {
+            id: Date.now(), // Temporary ID
+            title: dataa.title,
+            description: dataa.description,
+            price: dataa.price,
+            status: dataa.status,
+            start_date: dataa.start_date,
+            end_date: dataa.end_date,
+            target: dataa.target,
+            created_at: new Date().toISOString(),
+            created_by: { full_name: "Current User" }, // Placeholder
+          };
+          setData((prev) => [...prev, tempItem]);
+        }
+
         setShowModal(false);
+        setResultMessage( t("service_added_successfully"));
+        setShowResultModal(true);
       } else {
-        alert("فشل في الإضافة، يرجى المحاولة مرة أخرى.");
+        throw new Error( t("service_add_failed"));
       }
     } catch (err) {
-      console.error("Status update failed:", err);
-      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+      console.error("Add failed:", err);
+      setResultMessage( t("service_add_failed"));
+      setShowResultModal(true);
     }
   };
 
@@ -199,7 +287,6 @@ export default function ElectronicServiceTable({
       );
 
       const result = await response.json();
-      console.log(result.service_users.data);
       setReqtbledata(result.service_users.data);
     } catch (error) {}
   };
@@ -223,7 +310,8 @@ export default function ElectronicServiceTable({
       setShowDetailsModal(true);
     } catch (error) {
       console.error("Failed to fetch service details:", error);
-      alert("فشل في جلب بيانات الخدمة");
+      setResultMessage(t("service_details_fetch_failed"));
+      setShowResultModal(true);
     }
   };
 
@@ -251,8 +339,6 @@ export default function ElectronicServiceTable({
     t("request_status"),
     t("request_content"),
     t("request_date"),
-    // t("admin"),
-    // t("actions"),
   ];
 
   const reqDat = reqtbledata.map((item, index) => ({
@@ -263,7 +349,6 @@ export default function ElectronicServiceTable({
       { type: "text", value: item.status },
       { type: "text", value: item.content },
       { type: "text", value: item.created_at },
-      // { type: "text", value: item.content },
     ],
   }));
 
@@ -290,11 +375,11 @@ export default function ElectronicServiceTable({
         color: "#48BB78",
         lists: [
           {
-            label: t("details"), // Add details button
+            label: t("details"),
             action: () => {
               getServiceDetails(item.id);
             },
-            icon: Eye, // Use eye icon for details
+            icon: Eye,
           },
           {
             label: t("requests"),
@@ -345,7 +430,12 @@ export default function ElectronicServiceTable({
       type: "select",
       options: getStatusOptions(),
     },
-    { name: "target", label: t("creator"), type: "text" },
+    { 
+      name: "target", 
+      label: t("target_audience"), 
+      type: "select", // Change from "text" to "select"
+      options: getTargetOptions(), // Use target options from context
+    },
     { name: "start_date", label: t("start_date"), type: "date" },
     { name: "end_date", label: t("end_date"), type: "date" },
   ];
@@ -367,19 +457,12 @@ export default function ElectronicServiceTable({
           <AlertModal
             show={showAlertModal}
             onClose={() => setShowAlertModal(false)}
-            onSubmit={() => console.log("submitted")}
-            title="? Are you sure you want to delete this user"
+            onSubmit={() => setShowAlertModal(false)}
+            title={t("validation_error")}
           >
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                DeleteUser();
-              }}
-            >
-              <div className="mb-3">
-                <p className="m-0 text-center">{Alertmssg}</p>
-              </div>
-            </form>
+            <div className="mb-3">
+              <p className="m-0 text-center">{Alertmssg}</p>
+            </div>
           </AlertModal>
         </div>
       ) : (
@@ -389,20 +472,25 @@ export default function ElectronicServiceTable({
               <div className=" d-flex justify-content-between align-items-start w-100">
                 <div className=" d-flex flex-column justify-content-start align-items-center gap-2">
                   <h4 className="m-0">
-                    {t("service")} {data.find(item => item.id === Itemid)?.title || ""}{" "}
+                    {t("service")}{" "}
+                    {data.find((item) => item.id === Itemid)?.title || ""}{" "}
                   </h4>
-                  {/* Use the new ExcelDownload component */}
                   <ExcelDownload
                     endpoint={`https://api.lxera.net/api/development/organization/vodafone/services/requests/${Itemid}/export`}
-                    filename={`${data.find(item => item.id === Itemid)?.title || "service"}_requests`}
+                    filename={`${
+                      data.find((item) => item.id === Itemid)?.title ||
+                      "service"
+                    }_requests`}
                     className="btn custfontbtn rounded-2"
                     disabled={!Itemid}
                     onSuccess={(message) => {
-                      console.log("Download successful:", message);
-                    }}
-                    onError={(error) => {
-                      console.error("Download error:", error);
-                    }}
+                    setResultMessage("تم تحميل التقرير بنجاح");
+                    setShowResultModal(true);
+                  }}
+                  onError={(error) => {
+                    setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                    setShowResultModal(true);
+                  }}
                   >
                     Excel
                   </ExcelDownload>
@@ -464,7 +552,7 @@ export default function ElectronicServiceTable({
         </div>
       )}
 
-      {/* Add the Details Modal */}
+      {/* Service Details Modal */}
       <AlertModal
         show={showDetailsModal}
         onClose={() => setShowDetailsModal(false)}
@@ -553,6 +641,16 @@ export default function ElectronicServiceTable({
             </div>
           </div>
         )}
+      </AlertModal>
+
+      {/* Result Modal */}
+      <AlertModal
+        show={showResultModal}
+        onClose={() => setShowResultModal(false)}
+        onSubmit={() => setShowResultModal(false)}
+        title={t("operation_result")}
+      >
+        <p className="m-0 text-center">{resultMessage}</p>
       </AlertModal>
     </>
   );

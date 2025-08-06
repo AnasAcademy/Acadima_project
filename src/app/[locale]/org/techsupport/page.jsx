@@ -24,7 +24,6 @@ export default async function TechSupport() {
     );
     const respond = await res.json();
     dataa = respond;
-    console.log(dataa.supports)
   } catch (error) {
     console.error("Error fetching supports:", error);
   }

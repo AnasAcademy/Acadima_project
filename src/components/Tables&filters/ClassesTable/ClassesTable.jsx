@@ -27,7 +27,6 @@
 
 
       const handleSubmitEdit = async (dataa) => {
-      console.log(dataa.title);
       try {
         const response = await fetch(
           `https://api.lxera.net/api/development/organization/vodafone/classes/${Itemid}`,
@@ -47,7 +46,6 @@
 
         const result = await response.json();
 
-        console.log(result.message);
         const updatedItem = {
           ...data.find((item) => item.id === Itemid),
           ...dataa,

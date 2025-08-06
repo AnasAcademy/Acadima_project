@@ -96,16 +96,13 @@ export default function ScholarshipTable({
       selectCardData.inputs.forEach((input) => {
         const value = filters[input.filter];
         if (value) {
-          console.log(
-            `Adding filter: ${input.apiKey || input.filter} = ${value}`
-          );
+         
           query.append(input.apiKey || input.filter, value);
         }
       });
 
       query.append("page", pageNumber);
 
-      console.log("Final query string:", query.toString());
 
       const res = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/students/scholarship?${query.toString()}`,
@@ -121,7 +118,6 @@ export default function ScholarshipTable({
       );
 
       const respond = await res.json();
-      console.log("API response:", respond);
       setDataa(respond?.data || []);
       setFilter(respond?.data || []);
       setCurrentPage(respond?.current_page || 1);

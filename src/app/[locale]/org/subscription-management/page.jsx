@@ -34,7 +34,6 @@ try {
 
   const  respond = await data.json() ;
    dataa = respond.message;
-   console.log(dataa)
 } catch (err) {
   console.error("Fetch error:", err);
 

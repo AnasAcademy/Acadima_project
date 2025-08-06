@@ -36,7 +36,6 @@ export default function PlansComp({ data }) {
 
 
   const handleSubmitEdit = async (dataa) => {
-    console.log(dataa.name);
     try {
       const response = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/plans`,
@@ -56,7 +55,6 @@ export default function PlansComp({ data }) {
 
       const result = await response.json();
 
-      console.log(result.message);
       const updatedItem = {
         ...data.find((item) => item.id === Itemid),
         ...dataa,

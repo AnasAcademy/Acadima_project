@@ -1176,7 +1176,31 @@
     "service": "طلبات",
     "download_excel": "تحميل Excel",
     "download_success": "تم تحميل الملف بنجاح",
-    "download_failed": "فشل في تحميل الملف"
+    "download_failed": "فشل في تحميل الملف",
+    "add_student_code": "إضافة كود طالب",
+    "student_code_required": "كود الطالب مطلوب",
+    "code_created_successfully": "تم إنشاء الكود بنجاح ",
+    "code_creation_failed": "فشل في إنشاء الكود",
+    "enter_student_code": "أدخل كود الطالب",
+    "operation_result": "نتيجة العملية",
+    "code_start": "يجب أن يبدأ ب 'SD'",
+    "add_instructor_code": "إضافة كود مدرب",
+    "instructor_code": "كود المدرب",
+    "instructor_code_required": "كود المدرب مطلوب",
+    "enter_instructor_code": "أدخل كود المدرب",
+    "inst_code_start": "يجب أن يبدأ ب 'TR'",
+    "requirements_approved": "تمت الموافقة على متطلبات القبول",
+    "requirements_rejected": "تم رفض متطلبات القبول",
+    "access_toggled_success": "تم تحديث صلاحية الوصول بنجاح",
+    "service_added_successfully": "تم إضافة الخدمة بنجاح ",
+    "service_updated_successfully": "تم تحديث الخدمة بنجاح ",
+    "service_deleted_successfully": "تم حذف الخدمة بنجاح ",
+    "service_add_failed": "فشل في إضافة الخدمة",
+    "service_update_failed": "فشل في تحديث الخدمة",
+    "service_delete_failed": "فشل في حذف الخدمة",
+    "service_details_fetch_failed": "فشل في جلب بيانات الخدمة",
+    "validation_error": "خطأ في التحقق",
+    "target_audience": "الفئة المستهدفة"
 
   }
 }

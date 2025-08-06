@@ -23,7 +23,6 @@ try {
   );
 
   const respond = await data.json();
-  console.log("go", respond.message);
   dat = respond.message;
   // current_page = respond.data.current_page;
   // last_page = respond.data.last_page;

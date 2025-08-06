@@ -26,7 +26,6 @@ let last_page = []
       );
   
         const respond = await data.json();
-       console.log("go", respond.data.data);
      dat = respond.data.data;
      current_page = respond.data.current_page
      last_page = respond.data.last_page;

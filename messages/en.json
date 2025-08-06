@@ -1182,7 +1182,30 @@
     "service": "Requests",
     "download_excel": "Download Excel",
     "download_success": "File downloaded successfully",
-    "download_failed": "Failed to download file"
-
+    "download_failed": "Failed to download file",
+    "add_student_code": "Add Student Code",
+    "student_code_required": "Student code is required",
+    "code_created_successfully": "Code created successfully ",
+    "code_creation_failed": "Failed to create code",
+    "enter_student_code": "Enter student code",
+    "operation_result": "Operation Result",
+    "code_start": "Must start with 'SD'",
+    "add_instructor_code": "Add Instructor Code",
+    "instructor_code": "Instructor Code",
+    "instructor_code_required": "Instructor code is required",
+    "enter_instructor_code": "Enter instructor code",
+    "inst_code_start": "Must start with 'TR'",
+    "requirements_approved": "Requirements Approved Successfully",
+    "requirements_rejected": "Requirements Rejected Successfully",
+    "access_toggled_success": "Access Updated Successfully",
+    "service_added_successfully": "Service added successfully ",
+    "service_updated_successfully": "Service updated successfully ",
+    "service_deleted_successfully": "Service deleted successfully ",
+    "service_add_failed": "Failed to add service",
+    "service_update_failed": "Failed to update service",
+    "service_delete_failed": "Failed to delete service",
+    "service_details_fetch_failed": "Failed to fetch service details",
+    "validation_error": "Validation Error",
+    "target_audience": "Target Audience"
   }
 }

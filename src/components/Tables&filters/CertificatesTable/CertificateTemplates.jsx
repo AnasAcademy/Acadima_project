@@ -189,7 +189,6 @@ export default function CertificateTemplates({
       );
 
       const result = await response.json();
-      console.log("Add response:", result);
 
       if (response.ok) {
         setResultMessage(result.message || t("template_created_successfully"));
@@ -212,12 +211,10 @@ export default function CertificateTemplates({
             })
             .join(" | ");
           
-          console.log("Detailed validation errors:", errorDetails);
         } else {
           errorText = result.message || `فشل الإضافة (${response.status})`;
         }
         
-        console.log("Full API error response:", result); // Log complete response for debugging
         setResultMessage(`فشل الإضافة: ${errorText}`);
         setShowResultModal(true);
         throw new Error(errorText);
@@ -303,7 +300,6 @@ export default function CertificateTemplates({
 
       // Handle the case where API returns 500 but actually updates the data
       if (response.status === 500) {
-        console.log("API returned 500, but checking if data was actually updated...");
         
         // Wait a moment for the server to process
         setTimeout(async () => {
@@ -339,10 +335,8 @@ export default function CertificateTemplates({
             })
             .join(" | ");
           
-          console.log("Detailed validation errors:", errorDetails);
         }
 
-        console.log("Full API error response:", result); // Log complete response for debugging
         setResultMessage(errorText);
         setShowResultModal(true);
       }
@@ -354,7 +348,6 @@ export default function CertificateTemplates({
         error.message.includes("Unexpected token") ||
         error.message.includes("SyntaxError")
       ) {
-        console.log("Possible JSON parsing error, checking if data was updated...");
         
         // Wait and refresh data to check if update actually worked
         setTimeout(async () => {

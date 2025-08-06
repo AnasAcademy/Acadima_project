@@ -77,7 +77,6 @@ const remove = async (id) => {
 
     setData((prev) => prev.filter((item) => item.id !== id));
 
-    console.log(data.message);
   } catch (error) {
     console.error("Status update failed:", error);
     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
@@ -86,7 +85,6 @@ const remove = async (id) => {
 
 
 const handleSubmitEdit = async (dataa) => {
-  console.log(dataa.title);
   try {
     const response = await fetch(
       `https://api.lxera.net/api/development/organization/vodafone/services/${Itemid}`,
@@ -107,11 +105,9 @@ const handleSubmitEdit = async (dataa) => {
 
     const result = await response.json();
 
-    console.log(result.message);
 
     if (result.errors) {
       const messages = Object.values(result.errors).map((error) => error.ar);
-      console.log("help");
       setAlertmssg(messages.join("\n"));
       setShowAlertModal(true);
     } else {
@@ -134,7 +130,6 @@ const handleSubmitEdit = async (dataa) => {
 };
 
 const handleSubmitAdd = async (dataa) => {
-  console.log(dataa.description);
   try {
     const response = await fetch(
       `https://api.lxera.net/api/development/organization/vodafone/services`,
@@ -160,12 +155,11 @@ const handleSubmitAdd = async (dataa) => {
     const result = await response.json();
 
     if (result.service) {
-      console.log(result.service);
       const newItem = result.service;
       setData((prev) => [...prev, newItem]);
-      // ✅ Success Alert
+      //  Success Alert
 
-      alert("تمت الإضافة بنجاح ✅");
+      alert("تمت الإضافة بنجاح ");
       setShowModal(false);
     } else {
       alert("فشل في الإضافة، يرجى المحاولة مرة أخرى.");
@@ -191,7 +185,6 @@ const getReqData = async (id) => {
     );
 
     const result = await response.json();
-    console.log(result.service_users.data);
     setReqtbledata(result.service_users.data);
   } catch (error) {}
 };
