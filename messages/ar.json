@@ -78,7 +78,8 @@
     "courses_webinars":"الفصول المباشرة",
     "graduation_projects":"مشاريع التخرج",
     "text_lessons": "المقررات الكتابية",
-    "logout": " تسجيل الخروج"
+    "logout": " تسجيل الخروج",
+    "plans": "الخطة والاشتراكات"
   },
 
   "add-student-to-class": {
@@ -1176,7 +1177,11 @@
     "service": "طلبات",
     "download_excel": "تحميل Excel",
     "download_success": "تم تحميل الملف بنجاح",
-    "download_failed": "فشل في تحميل الملف"
-
+    "download_failed": "فشل في تحميل الملف",
+    "name": "الاسم",
+    "national_id": "الهوية الوطنية",
+ "registered_diplomas":"الدبلومات المسجلة",
+ "register_enrollments": " عدد طلبة إنشاء حساب",
+ "students_list": "قائمة الطلاب"
   }
 }

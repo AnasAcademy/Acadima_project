@@ -136,6 +136,7 @@ export default function NewSideBar() {
   const isUsersNewacc = pathname.includes(
     "/org/user-management/users/new-user"
   );
+  const isPlans = pathname.includes("/org/plans");
   const isUsersRoles = pathname.includes("/org/user-management/users/roles");
   const isUsersgroups = pathname.includes("/org/user-management/users/groups");
   const isUsersaccs = pathname.includes(
@@ -166,6 +167,12 @@ export default function NewSideBar() {
       tit: "Settings",
       href: "/org/settings",
       bg: isSettings,
+    },
+    {
+      icon: Acc3,
+      tit: "plans",
+      href: "/org/plans",
+      bg: isPlans,
     },
   ];
 

@@ -80,7 +80,8 @@
     "courses_webinars": "Webinars",
     "graduation_projects": "Graduation Projects",
     "text_lessons": "Text Lessons",
-    "logout": "Logout"
+    "logout": "Logout",
+    "plans": "Plans & Subscriptions"
   },
   "NavbarA": {
     "search": "Search...",
@@ -1182,7 +1183,11 @@
     "service": "Requests",
     "download_excel": "Download Excel",
     "download_success": "File downloaded successfully",
-    "download_failed": "Failed to download file"
-
+    "download_failed": "Failed to download file",
+    "name": "Name",
+ "national_id": "National ID",
+ "registered_diplomas":"Registered Diplomas",
+ "register_enrollments": "Student Signups",
+  "students_list": "Students List"
   }
 }

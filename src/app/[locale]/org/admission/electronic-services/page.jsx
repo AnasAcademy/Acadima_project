@@ -25,23 +25,14 @@ let last_page = []
         }
       );
   
-        const respond = await data.json();
-       console.log("go", respond.data.data);
+     const respond = await data.json();
+     console.log("go", respond.data.data);
      dat = respond.data.data;
      current_page = respond.data.current_page
      last_page = respond.data.last_page;
    } catch (error) {
      console.error("Fetch error:", error);
    }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -52,8 +43,6 @@ let last_page = []
           <div className=" row m-0  p-2 g-3">
             <div className=" d-flex justify-content-between">
               <h2 className="hvvv">{ts("electronic-services")}</h2>
-
-            
             </div>
             <div className=" col-12 ">
               <ElectronicServiceTable
