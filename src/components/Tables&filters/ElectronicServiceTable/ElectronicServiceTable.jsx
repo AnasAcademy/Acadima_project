@@ -21,11 +21,12 @@ export default function ElectronicServiceTable({
   const [showModal, setShowModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [showResultModal, setShowResultModal] = useState(false); // Add result modal
+  const [showResultModal, setShowResultModal] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [Alertmssg, setAlertmssg] = useState("");
-  const [resultMessage, setResultMessage] = useState(""); // Add result message
+  const [resultMessage, setResultMessage] = useState("");
   const [Itemid, setId] = useState(null);
+  const [selectedTarget, setSelectedTarget] = useState(""); // Add state for selected target
   const t = useTranslations("tables");
   const ts = useTranslations("SidebarA");
   const [data, setData] = useState(dat);
@@ -36,11 +37,15 @@ export default function ElectronicServiceTable({
     statuses,
     roles,
     categories,
-    targetOptions, // Add target options from context
+    targetOptions,
+    bundles,
+    webinars, // Add webinars from context
     loading: contextLoading,
     getRoleOptions,
     getStatusOptions,
-    getTargetOptions, // Add target options helper
+    getTargetOptions,
+    getBundleOptions,
+    getWebinarOptions, // Add webinar options helper
   } = useUserData();
   const { request } = useApiClient();
 
@@ -108,52 +113,57 @@ export default function ElectronicServiceTable({
 
   const handleSubmitEdit = async (formData) => {
     try {
-      // Get the original item data
       const originalItem = data.find((item) => item.id === Itemid);
-      
+
       if (!originalItem) {
         throw new Error("Original item not found");
       }
 
-      // Create an object with only the changed values
       const changedData = {};
-      
-      // Check each field and only include if it's different from original
+
       if (formData.title !== originalItem.title) {
         changedData.title = formData.title;
       }
-      
+
       if (formData.description !== originalItem.description) {
         changedData.description = formData.description;
       }
-      
+
       if (formData.price !== originalItem.price) {
         changedData.price = formData.price;
       }
-      
+
       if (formData.status !== originalItem.status) {
         changedData.status = formData.status;
       }
-      
+
       if (formData.target !== originalItem.target) {
         changedData.target = formData.target;
       }
-      
+
       if (formData.start_date !== originalItem.start_date) {
         changedData.start_date = formData.start_date;
       }
-      
+
       if (formData.end_date !== originalItem.end_date) {
         changedData.end_date = formData.end_date;
       }
 
-      // If no changes detected, show message and return
+      // Add bundles if target is specific_bundles
+      if (formData.target === "specific_bundles" && formData.bundles) {
+        changedData.bundles = formData.bundles;
+      }
+
+      // Add webinars if target is specific_webinars
+      if (formData.target === "specific_webinars" && formData.webinars) {
+        changedData.webinars = formData.webinars;
+      }
+
       if (Object.keys(changedData).length === 0) {
         setResultMessage(t("no_changes_detected"));
         setShowResultModal(true);
         return;
       }
-
 
       const response = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/services/${Itemid}`,
@@ -164,7 +174,6 @@ export default function ElectronicServiceTable({
             "Content-Type": "application/json",
             Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
           },
-          // Only send the changed data
           body: JSON.stringify(changedData),
         }
       );
@@ -172,38 +181,59 @@ export default function ElectronicServiceTable({
       const result = await response.json();
 
       if (result.errors) {
-        const messages = Object.values(result.errors).map((error) => error.ar || error);
+        const messages = Object.values(result.errors).map(
+          (error) => error.ar || error
+        );
         setAlertmssg(messages.join("\n"));
         setShowAlertModal(true);
         return;
       }
 
       if (response.ok && (result.success || result.message)) {
-        // Update the local state with the new data
         const updatedItem = {
           ...originalItem,
-          ...changedData, // Apply only the changed fields
+          ...changedData,
         };
-        
+
         setData((prev) =>
           prev.map((item) => (item.id === Itemid ? updatedItem : item))
         );
 
         setShowModal(false);
-        setResultMessage( t("service_updated_successfully"));
+        setResultMessage(t("service_updated_successfully"));
         setShowResultModal(true);
       } else {
         throw new Error(t("service_update_failed"));
       }
     } catch (error) {
       console.error("Update failed:", error);
-      setResultMessage( t("service_update_failed"));
+      setResultMessage(t("service_update_failed"));
       setShowResultModal(true);
     }
   };
 
   const handleSubmitAdd = async (dataa) => {
     try {
+      const requestBody = {
+        title: dataa.title,
+        description: dataa.description,
+        price: dataa.price,
+        start_date: dataa.start_date,
+        end_date: dataa.end_date,
+        status: dataa.status,
+        target: dataa.target,
+      };
+
+      // Add bundles array if target is specific_bundles
+      if (dataa.target === "specific_bundles" && dataa.bundles) {
+        requestBody.bundles = dataa.bundles;
+      }
+
+      // Add webinars array if target is specific_webinars
+      if (dataa.target === "specific_webinars" && dataa.webinars) {
+        requestBody.webinars = dataa.webinars;
+      }
+
       const response = await fetch(
         `https://api.lxera.net/api/development/organization/vodafone/services`,
         {
@@ -213,39 +243,28 @@ export default function ElectronicServiceTable({
             "Content-Type": "application/json",
             Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
           },
-          body: JSON.stringify({
-            title: dataa.title,
-            description: dataa.description,
-            price: dataa.price,
-            start_date: dataa.start_date,
-            end_date: dataa.end_date,
-            status: dataa.status,
-            target: dataa.target,
-          }),
+          body: JSON.stringify(requestBody),
         }
       );
 
       const result = await response.json();
 
-      // Handle validation errors
       if (result.errors) {
-        const messages = Object.values(result.errors).map((error) => error.ar || error);
+        const messages = Object.values(result.errors).map(
+          (error) => error.ar || error
+        );
         setAlertmssg(messages.join("\n"));
         setShowAlertModal(true);
         return;
       }
 
-      // Check for successful response
       if (response.ok && (result.message || result.service)) {
-        // If the API returns the created service, use it
         if (result.service) {
           const newItem = result.service;
           setData((prev) => [...prev, newItem]);
         } else {
-          // If no service data returned, create a temporary item with the form data
-          // This will be replaced when the page refreshes or data is refetched
           const tempItem = {
-            id: Date.now(), // Temporary ID
+            id: Date.now(),
             title: dataa.title,
             description: dataa.description,
             price: dataa.price,
@@ -253,21 +272,23 @@ export default function ElectronicServiceTable({
             start_date: dataa.start_date,
             end_date: dataa.end_date,
             target: dataa.target,
+            bundles: dataa.bundles || null,
+            webinars: dataa.webinars || null, // Add webinars to temp item
             created_at: new Date().toISOString(),
-            created_by: { full_name: "Current User" }, // Placeholder
+            created_by: { full_name: "Current User" },
           };
           setData((prev) => [...prev, tempItem]);
         }
 
         setShowModal(false);
-        setResultMessage( t("service_added_successfully"));
+        setResultMessage(t("service_added_successfully"));
         setShowResultModal(true);
       } else {
-        throw new Error( t("service_add_failed"));
+        throw new Error(t("service_add_failed"));
       }
     } catch (err) {
       console.error("Add failed:", err);
-      setResultMessage( t("service_add_failed"));
+      setResultMessage(t("service_add_failed"));
       setShowResultModal(true);
     }
   };
@@ -410,6 +431,63 @@ export default function ElectronicServiceTable({
     ],
   }));
 
+  const getDynamicFields = () => {
+    // Get translatable target options
+    const translatedTargetOptions = getTargetOptions().map((option) => ({
+      value: option.value,
+      label: t(option.value) || option.label, // Translate the option label
+    }));
+
+    const baseFields = [
+      { name: "title", label: t("title"), type: "text" },
+      { name: "description", label: t("desc"), type: "text" },
+      { name: "price", label: t("price"), type: "number" },
+      {
+        name: "status",
+        label: t("status"),
+        type: "select",
+        options: getStatusOptions(),
+      },
+      {
+        name: "target",
+        label: t("target"),
+        type: "select",
+        options: translatedTargetOptions, // Use translated options
+        onChange: (value) => setSelectedTarget(value), // Track target changes
+      },
+      { name: "start_date", label: t("start_date"), type: "date" },
+      { name: "end_date", label: t("end_date"), type: "date" },
+    ];
+
+    // Add bundles field if target is specific_bundles
+    if (selectedTarget === "specific_bundles") {
+      baseFields.splice(-2, 0, {
+        // Insert before start_date and end_date
+        name: "bundles",
+        label: t("select_bundles"),
+        type: "multiselect",
+        options: getBundleOptions(),
+        multiple: true,
+        required: true,
+      });
+    }
+
+    // Add webinars field if target is specific_webinars
+    if (selectedTarget === "specific_webinars") {
+      baseFields.splice(-2, 0, {
+        // Insert before start_date and end_date
+        name: "courses",
+        label: t("select_webinars"),
+        type: "multiselect",
+        options: getWebinarOptions(),
+        multiple: true,
+        required: true,
+      });
+    }
+
+    return baseFields;
+  };
+
   const formTitles = [
     {
       label:
@@ -420,33 +498,43 @@ export default function ElectronicServiceTable({
     { label: formState === "add" ? t("add") + " " : t("edit"), type: "text" },
   ];
 
-  const fields = [
-    { name: "title", label: t("title"), type: "text" },
-    { name: "description", label: t("desc"), type: "text" },
-    { name: "price", label: t("price"), type: "number" },
-    {
-      name: "status",
-      label: t("status"),
-      type: "select",
-      options: getStatusOptions(),
-    },
-    { 
-      name: "target", 
-      label: t("target_audience"), 
-      type: "select", // Change from "text" to "select"
-      options: getTargetOptions(), // Use target options from context
-    },
-    { name: "start_date", label: t("start_date"), type: "date" },
-    { name: "end_date", label: t("end_date"), type: "date" },
-  ];
+  // Set initial target value when editing
+  React.useEffect(() => {
+    if (formState === "edit" && Itemid) {
+      const item = data.find((item) => item.id === Itemid);
+      if (item) {
+        setSelectedTarget(item.target || "");
+      }
+    } else if (formState === "add") {
+      setSelectedTarget("");
+    }
+  }, [formState, Itemid, data]);
 
   return (
     <>
       {showModal ? (
         <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
           <Editform
-            fields={fields}
-            data={data.find((item) => item.id === Itemid) || {}}
+            fields={getDynamicFields()}
+            data={{
+              ...(data.find((item) => item.id === Itemid) || {}),
+              bundles:
+                data
+                  .find((item) => item.id === Itemid)
+                  ?.bundles?.map((b) => b.id) || [],
+              webinars:
+                data
+                  .find((item) => item.id === Itemid)
+                  ?.webinars?.map((w) => w.id) || [], // Add webinars data processing
+              start_date:
+                data
+                  .find((item) => item.id === Itemid)
+                  ?.start_date?.split("T")[0] || "",
+              end_date:
+                data
+                  .find((item) => item.id === Itemid)
+                  ?.end_date?.split("T")[0] || "",
+            }}
             formTitles={formTitles}
             handleSubmitEdit={handleSubmitEdit}
             setShowModal={toogle}
@@ -484,13 +572,13 @@ export default function ElectronicServiceTable({
                     className="btn custfontbtn rounded-2"
                     disabled={!Itemid}
                     onSuccess={(message) => {
-                    setResultMessage("تم تحميل التقرير بنجاح");
-                    setShowResultModal(true);
-                  }}
-                  onError={(error) => {
-                    setResultMessage("فشل التحميل. حاول مرة أخرى.");
-                    setShowResultModal(true);
-                  }}
+                      setResultMessage("تم تحميل التقرير بنجاح");
+                      setShowResultModal(true);
+                    }}
+                    onError={(error) => {
+                      setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                      setShowResultModal(true);
+                    }}
                   >
                     Excel
                   </ExcelDownload>

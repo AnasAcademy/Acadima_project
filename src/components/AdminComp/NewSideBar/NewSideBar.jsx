@@ -332,7 +332,6 @@ export default function NewSideBar() {
         {
           tit: "certificate_templates",
           href: "/org/education/certificates/certificate-templates",
-
         },
       ],
     },
@@ -440,6 +439,7 @@ export default function NewSideBar() {
             {admission.map((item, index) => {
               return (
                 <li
+                  key={index} // Add this key prop
                   className={`nav-item d-flex w-100  align-items-center  p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }  `}
@@ -538,7 +538,9 @@ export default function NewSideBar() {
                   className=" d-flex flex-column p-2 cursor-pointer"
                 >
                   <div
-                    className={`d-flex w-100 align-items-center ${isOpen ? "active-bg rounded-2" : ""}`}
+                    className={`d-flex w-100 align-items-center ${
+                      isOpen ? "active-bg rounded-2" : ""
+                    }`}
                     onClick={() =>
                       hasChildren
                         ? setOpenIndex((prev) =>
@@ -551,9 +553,8 @@ export default function NewSideBar() {
                     {hasChildren ? (
                       <span className=" tit-14-400 text-dark text-nowrap">
                         {t(item.tit)}
-                        <item.arrow className="iconcolor m-1 "/>
+                        <item.arrow className="iconcolor m-1 " />
                       </span>
-                      
                     ) : (
                       <Link
                         className="tit-14-400 text-dark text-nowrap"
@@ -561,17 +562,13 @@ export default function NewSideBar() {
                       >
                         {t(item.tit)}
                       </Link>
-
                     )}
                   </div>
 
                   {hasChildren && isOpen && (
                     <ul className="pe-2">
                       {item.children.map((child, cIdx) => (
-                        <li
-                          key={cIdx}
-                          className=" d-flex align-items-center"
-                        >
+                        <li key={cIdx} className=" d-flex align-items-center">
                           {/* <item.icon2 className="iconcolor m-1"/> */}
                           <Link
                             className="nav-link tit-14-400 text-dark text-nowrap"
@@ -1248,7 +1245,6 @@ export default function NewSideBar() {
                       </Link>
                     </li>
                   </ul>
-
                 </div>
               </div>
             </nav>

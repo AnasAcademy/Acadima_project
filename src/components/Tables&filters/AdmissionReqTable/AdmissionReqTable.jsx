@@ -230,7 +230,7 @@ export default function AdmissionReqTable({
         type: "text",
         value: item.bundle_student.bundle.translations[0].title,
       },
-      { type: "image", value: item.identity_attachment },
+      // { type: "image", value: item.identity_attachment },
       { type: "label", value: item.status },
       { type: "text", value: item.created_at },
       {
@@ -264,7 +264,7 @@ export default function AdmissionReqTable({
     t("user-name"),
     t("registered-program-type"),
     t("registered-program"),
-    t("identity-file"),
+    // t("identity-file"),
     t("user-status"),
     t("submission-date"),
     t("actions"),

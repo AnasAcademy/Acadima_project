@@ -1212,6 +1212,13 @@
     "service_delete_failed": "Failed to delete service",
     "service_details_fetch_failed": "Failed to fetch service details",
     "validation_error": "Validation Error",
-    "target_audience": "Target Audience"
+    "target": "Target Audience",
+    "selected": "Selected",
+    "select_bundles": "Select Bundles",
+    "select_webinars": "Select Webinars",
+    "all": "All",
+    "specific_bundles": "Specific Bundles",
+    "specific_webinars": "Specific Webinars",
+    "specific_categories": "Specific Categories"
   }
 }

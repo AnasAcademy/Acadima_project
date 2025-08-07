@@ -2026,7 +2026,27 @@ align-items: center;
   background-color: #F6F6FF;
   transition: background-color 0.3s ease;
 }
+.multiselect-container::-webkit-scrollbar {
+  width: 6px;
+}
 
+.multiselect-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.multiselect-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.multiselect-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.hover-bg-light:hover {
+  background-color: #f8f9fa !important;
+}
 
 @media (max-width: 500px) {
   

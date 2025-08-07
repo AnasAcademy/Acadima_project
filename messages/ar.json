@@ -1206,7 +1206,14 @@
     "service_delete_failed": "فشل في حذف الخدمة",
     "service_details_fetch_failed": "فشل في جلب بيانات الخدمة",
     "validation_error": "خطأ في التحقق",
-    "target_audience": "الفئة المستهدفة"
-
+    "target": "الفئة المستهدفة",
+    "selected": "المحدد",
+    "is_required": "مطلوب",
+    "select_bundles": "اختر البرامج",
+    "select_webinars": "اختر الدورات",
+    "all": "الكل",
+    "specific_bundles": "برامج محددة",
+    "specific_webinars": "دورات محددة",
+    "specific_categories": "فئات محددة"
   }
 }
