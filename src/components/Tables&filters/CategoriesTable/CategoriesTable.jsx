@@ -59,7 +59,6 @@ const { request } = useApiClient();
     const data = await request({ method: "DELETE", urlPath: `categories/${id}/delete` });
      setData((prev) => prev.filter((item) => item.id !== id));
 
-     console.log(data.message);
    } catch (error) {
      console.error("Status update failed:", error);
      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
@@ -67,7 +66,6 @@ const { request } = useApiClient();
  };
 
  const handleSubmitEdit = async (dataa) => {
-   console.log("in edit form");
    try {
      const response = await fetch(
        `https://api.lxera.net/api/development/organization/vodafone/categories/${Itemid}/update`,
@@ -87,11 +85,9 @@ const { request } = useApiClient();
 
      const result = await response.json();
 
-     console.log(result.message);
 
      if (result.errors) {
        const messages = Object.values(result.errors).map((error) => error.ar);
-       console.log("help");
        setAlertmssg(messages.join("\n"));
        setShowAlertModal(true);
      } else {
@@ -143,9 +139,9 @@ const { request } = useApiClient();
 //        console.log(result.service);
 //        const newItem = result.service;
 //        setData((prev) => [...prev, newItem]);
-//        // ✅ Success Alert
+//        //  Success Alert
 
-//        alert("تمت الإضافة بنجاح ✅");
+//        alert("تمت الإضافة بنجاح ");
 //        setShowModal(false);
 //      } else {
 //        alert("فشل في الإضافة، يرجى المحاولة مرة أخرى.");

@@ -9,7 +9,7 @@ import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Add imp
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import printer from "@/assets/admin/printer.svg";
-import check from "@/assets/admin/check.svg";
+import check from "@/assets/admin/Check.svg";
 
 export default function EnrollmentHistoryTable({
   initialData = [],
@@ -229,7 +229,6 @@ export default function EnrollmentHistoryTable({
       );
 
       const result = await response.json();
-      console.log("Add response:", result);
       if (response.status === 422) {
         setResultMessage(t("user_already_enrolled"));
         setShowResultModal(true);

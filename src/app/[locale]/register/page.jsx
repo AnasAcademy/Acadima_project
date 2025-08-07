@@ -112,7 +112,6 @@ export default function Register() {
           mobile: values.phoneNumber,
           bundle_id: "72",
         };
-        // console.log("Submitting payload:", payload);
     
           const { data } = await axios.post(
           "https://lms.acadimacollege.com/api/development/register",

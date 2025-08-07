@@ -71,7 +71,7 @@ export default function ExcelDownload({
       a.remove();
       window.URL.revokeObjectURL(url);
 
-      const successMsg = t("download_success") || "تم تحميل الملف بنجاح ✅";
+      const successMsg = t("download_success") || "تم تحميل الملف بنجاح ";
       if (onSuccess) onSuccess(successMsg);
       else alert(successMsg);
 

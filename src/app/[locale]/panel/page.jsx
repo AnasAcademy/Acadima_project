@@ -29,7 +29,6 @@ try{
   );
   const respond = await data.json();
   dat = respond;
-  console.log(dat.user);
 } catch (err){
 
    console.log(err)

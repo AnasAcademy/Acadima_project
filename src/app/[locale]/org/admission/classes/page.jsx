@@ -24,7 +24,6 @@ try {
   );
 
   const respond = await data.json();
-  console.log("go", respond.data);
   dat = respond.data;
   current_page = respond.data.current_page;
   last_page = respond.data.last_page;

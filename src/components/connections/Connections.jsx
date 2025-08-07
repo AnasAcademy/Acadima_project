@@ -25,8 +25,7 @@ export default function Connections({ save }) {
   function setNamee() {
     let full_name = document.getElementById("fullName").value;
     setEdit("");
-    console.log("enter");
-    setName(full_name);
+   setName(full_name);
   }
 
   function addLink(){

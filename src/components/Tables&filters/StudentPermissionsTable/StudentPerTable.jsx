@@ -139,7 +139,7 @@ export default function StudentPerTable({
       }
 
       // Show success message from response
-      setResultMessage(data.message || "تم تحديث حالة الوصول بنجاح");
+      setResultMessage(t("access_toggled_success"));
       setShowResultModal(true);
     } catch (err) {
       console.error("Toggle failed:", err);

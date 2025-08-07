@@ -144,7 +144,7 @@ export default function AdmissionReqTable({
         throw new Error("Failed to approve");
       }
 
-      setResultMessage(data.message || "تم التحديث بنجاح");
+      setResultMessage(t("requirements_approved"));
       setShowResultModal(true);
     } catch (error) {
       console.error("Status update failed:", error);
@@ -197,7 +197,7 @@ export default function AdmissionReqTable({
         throw new Error("Failed to reject");
       }
 
-      setResultMessage(data.message || "تم التحديث بنجاح");
+      setResultMessage(t("requirements_rejected"));
       setShowResultModal(true);
       setShowModal(false);
       setRejectionReason("");

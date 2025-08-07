@@ -33,7 +33,6 @@ try {
 
   const respond = await data.json();
   dat = respond.quizzesTable;
-  console.log(dat)
   // current_page = respond.data.current_page;
   // last_page = respond.data.last_page;
 } catch (error) {

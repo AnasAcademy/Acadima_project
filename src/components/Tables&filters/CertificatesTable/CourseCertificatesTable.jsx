@@ -8,7 +8,7 @@ import Editform from "@/components/Editform/Editform";
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import printer from "@/assets/admin/printer.svg";
-import check from "@/assets/admin/check.svg";
+import check from "@/assets/admin/Check.svg";
 import Pen from "@/assets/admin/pen.svg";
 
 export default function CourseCertificatesTable({
