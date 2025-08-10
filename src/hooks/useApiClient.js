@@ -1,38 +1,36 @@
-
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-const getTokenFromCookie = () => {
-  if (typeof document === 'undefined') return null;
-  const match = document.cookie.match(/auth_token=([^;]+)/);
-  return match ? match[1] : null;
-};
+const BASE_URL = '/api/proxy'; // local proxy
 
 export const useApiClient = () => {
-  const token = getTokenFromCookie();
-  console.log("API Token:", token);
-  const request = async ({ method = 'GET', urlPath, body = null }) => {
+  const request = async ({ method = 'GET', urlPath, body = null, query = {} }) => {
+    const headers = { 'Content-Type': 'application/json' };
+    const queryString = new URLSearchParams(query).toString();
+    const url = `${BASE_URL}${urlPath}${queryString ? `?${queryString}` : ''}`;
+
+    console.log('--- useApiClient Debug ---');
+    console.log('Method:', method);
+    console.log('Final URL:', url);
+    if (body) console.log('Request Body:', body);
+
+    const res = await fetch(url, {
+      method,
+      headers,
+      ...(body && { body: JSON.stringify(body) }),
+    });
+
+    let data;
     try {
-      const headers = {
-        'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
-        'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }),
-      };
-
-      const res = await fetch(`${BASE_URL}${urlPath}`, {
-        method,
-        headers,
-        ...(body && { body: JSON.stringify(body) }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'API request failed');
-
-      return data;
+      data = await res.json();
     } catch (err) {
-      console.error(`${method} ${urlPath} error:`, err);
-      throw err;
+      const text = await res.text();
+      console.error('Non-JSON response from API:', text);
+      throw new Error(`Invalid JSON: ${text}`);
     }
+
+    console.log('Response Status:', res.status);
+    console.log('Response Data:', data);
+
+    if (!res.ok) throw new Error(data.message || 'API Error');
+    return data;
   };
 
   return { request };

@@ -23,12 +23,30 @@ import { useApiClient } from "@/hooks/useApiClient";
 
 
 
-const fetchData = async (Itemid, page) => {
+// const fetchData = async (Itemid, page) => {
+//   try {
+//     const response = await request({
+//       method: "GET",
+//       urlPath: `https://api.lxera.net/api/development/organization/vodafone`, // Example: "/users/me"
+//     });
+//     if (page === "students") {
+//       dat = response.enrollments.data;
+//       setDatast(dat);
+//     } else {
+//       dat = response.data;
+//       setDatarg(dat);
+//       console.log(dat);
+//     }
+//   } catch (error) {
+//     console.error("Fetch failed:", error);
+//   }
+// };
+
+
+const fetchData  = async (Itemid, page) => {
   try {
-    const response = await request({
-      method: "GET",
-      urlPath: `https://api.lxera.net/api/development/organization/vodafone/classes/${Itemid}/${page}`, // Example: "/users/me"
-    });
+      const response = await request({ urlPath:`/classes/${Itemid}/${page}` });
+
     if (page === "students") {
       dat = response.enrollments.data;
       setDatast(dat);
@@ -40,11 +58,7 @@ const fetchData = async (Itemid, page) => {
   } catch (error) {
     console.error("Fetch failed:", error);
   }
-};
-
-
-
-
+};      
 
 
 
