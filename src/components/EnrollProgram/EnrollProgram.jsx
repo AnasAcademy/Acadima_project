@@ -5,7 +5,6 @@ import Arrow from "@/assets/admin/arrow down.svg";
 import { useTranslations } from "next-intl";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { apiUrl } from "@/API";
 
 export default function EnrollProgram({ token }) {
   const t = useTranslations("EnrollProgram");
@@ -67,7 +66,7 @@ export default function EnrollProgram({ token }) {
 
     try {
       const res = await axios.post(
-        apiUrl + "/panel/programs/apply",
+        "https://api.lxera.net/api/development/organization/vodafone/panel/programs/apply",
         {
           category_id: parseInt(selectedCategoryId),
           bundle_id: parseInt(selectedBundleId),

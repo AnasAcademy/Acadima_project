@@ -7,7 +7,6 @@ import Calendar from "@/components/Calendarcard/Calendar";
 import ProblemCard from "@/components/problemcard/ProblemCard";
 import Frame1 from "@/assets/smallCard assets/Frame_31.svg"
 import Frame2 from '@/assets/smallCard assets/sec.svg'
-import { apiUrl } from "@/API";
 
 import { cookies } from "next/headers";
 
@@ -17,7 +16,7 @@ export default  async function Home() {
   const token = cookies().get("auth_token")?.value;
   let dat = []
 try{
-  const data = await fetch( apiUrl + "/panel",
+  const data = await fetch( "https://api.lxera.net/api/development/organization/vodafone/panel",
     {
       method: "GET",
       headers: {
