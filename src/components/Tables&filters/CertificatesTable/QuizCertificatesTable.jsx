@@ -119,22 +119,22 @@ export default function QuizCertificatesTable({
     }
   };
 
-  // const viewCertificate = (certificateUrl) => {
-  //   if (certificateUrl) {
-  //     // Open the certificate URL in a new tab/window
-  //     window.open(certificateUrl, "_blank", "noopener,noreferrer");
-  //   } else {
-  //     setResultMessage("رابط الشهادة غير متوفر");
-  //     setShowResultModal(true);
-  //   }
-  // };
+  const viewCertificate = (certificateUrl) => {
+    if (certificateUrl) {
+      // Open the certificate URL in a new tab/window
+      window.open(certificateUrl, "_blank", "noopener,noreferrer");
+    } else {
+      setResultMessage("رابط الشهادة غير متوفر");
+      setShowResultModal(true);
+    }
+  };
 
-  // const handleDelete = async (id) => {
-  //   setSelectedId(id);
-  //   setConfirmMessage("هل أنت متأكد من حذف هذه الشهادة؟");
-  //   setConfirmAction(() => () => deleteCertificate(id));
-  //   setShowConfirmModal(true);
-  // };
+  const handleDelete = async (id) => {
+    setSelectedId(id);
+    setConfirmMessage("هل أنت متأكد من حذف هذه الشهادة؟");
+    setConfirmAction(() => () => deleteCertificate(id));
+    setShowConfirmModal(true);
+  };
 
   const trainingData = filter.map((item, index) => {
     return {

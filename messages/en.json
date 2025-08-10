@@ -1219,6 +1219,10 @@
     "all": "All",
     "specific_bundles": "Specific Bundles",
     "specific_webinars": "Specific Webinars",
-    "specific_categories": "Specific Categories"
+    "specific_categories": "Specific Categories",
+    "select_rejection_reason": "Select rejection reason",
+    "additional_details_placeholder": "Enter additional details about the rejection...",
+    "rejection_message": "Rejection Message",
+    "no_reason_provided": "No reason provided"
   }
 }

@@ -2048,6 +2048,10 @@ align-items: center;
   background-color: #f8f9fa !important;
 }
 
+.table-responsive {
+  padding-bottom: 120px;
+}
+
 @media (max-width: 500px) {
   
 

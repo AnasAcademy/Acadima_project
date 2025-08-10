@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
-import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Import the new component
+import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import check from "@/assets/admin/Check.svg";
@@ -13,6 +13,7 @@ export default function AdmissionReqTable({
   initialData = [],
   initialPage = 1,
   initialTotalPages = 1,
+  rejectionReasons = [] // Already localized from server
 }) {
   const t = useTranslations("tables");
 
@@ -24,11 +25,41 @@ export default function AdmissionReqTable({
   const [totalPages, setTotalPages] = useState(initialTotalPages);
   const [isInitialRender, setIsInitialRender] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showRejectionDetailsModal, setShowRejectionDetailsModal] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
   const [detailedRejectionReason, setDetailedRejectionReason] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const [selectedRejectionDetails, setSelectedRejectionDetails] = useState(null);
   const [resultMessage, setResultMessage] = useState("");
   const [showResultModal, setShowResultModal] = useState(false);
+
+  // Update showRejectionDetails to handle API labels
+  const showRejectionDetails = (item) => {
+    if (item.message) {
+      const parts = item.message.split('<br>');
+      const reasonValue = parts[0] || '';
+      const description = parts[1] || '';
+      
+      // Find the reason from the API response to get the localized label
+      const reasonFromAPI = rejectionReasons.find(r => r.value === reasonValue.trim());
+      const displayReason = reasonFromAPI ? reasonFromAPI.label : reasonValue.trim();
+      
+      setSelectedRejectionDetails({
+        reason: displayReason,
+        description: description.trim(),
+        fullMessage: item.message
+      });
+      setShowRejectionDetailsModal(true);
+    }
+  };
+
+  // Create rejection action function
+  const rejection_action = (item) => {
+    if (item.status === "rejected" && item.message) {
+      return () => showRejectionDetails(item);
+    }
+    return null;
+  };
 
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
@@ -48,7 +79,7 @@ export default function AdmissionReqTable({
       const respond = await res.json();
       const data = respond.data.data || [];
       setDataa(data);
-      setFilter(data); // show full data initially
+      setFilter(data);
       setCurrentPage(respond.data.current_page || 1);
       setTotalPages(respond.data.last_page || 1);
       setPage(respond.data.current_page || 1);
@@ -230,8 +261,11 @@ export default function AdmissionReqTable({
         type: "text",
         value: item.bundle_student.bundle.translations[0].title,
       },
-      // { type: "image", value: item.identity_attachment },
-      { type: "label", value: item.status },
+      { 
+        type: "label", 
+        value: item.status, 
+        rejection_action: rejection_action(item)
+      },
       { type: "text", value: item.created_at },
       {
         type: "actionbutton",
@@ -264,7 +298,6 @@ export default function AdmissionReqTable({
     t("user-name"),
     t("registered-program-type"),
     t("registered-program"),
-    // t("identity-file"),
     t("user-status"),
     t("submission-date"),
     t("actions"),
@@ -317,55 +350,57 @@ export default function AdmissionReqTable({
 
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-          {/* Replace the old button with the new ExcelDownload component */}
           <ExcelDownload
             endpoint="https://api.lxera.net/api/development/organization/vodafone/requirements/excel"
             filename="admission_requirements_report"
             className="btn custfontbtn rounded-2 mb-3"
             onSuccess={(message) => {
-                setResultMessage("تم تحميل التقرير بنجاح");
-                setShowResultModal(true);
-              }}
-              onError={(error) => {
-                setResultMessage("فشل التحميل. حاول مرة أخرى.");
-                setShowResultModal(true);
-              }}
+              setResultMessage("تم تحميل التقرير بنجاح");
+              setShowResultModal(true);
+            }}
+            onError={(error) => {
+              setResultMessage("فشل التحميل. حاول مرة أخرى.");
+              setShowResultModal(true);
+            }}
           >
             Excel
           </ExcelDownload>
 
-          <>
-            <OngoingTrain
-              TableHead={TableHead}
-              trainingData={trainingData}
-              button={false}
-            />
-            <div className="row justify-content-center align-items-center gap-3 mt-3">
-              <button
-                disabled={currentPage === 1 || loading}
-                className="btn custfontbtn col-1"
-                onClick={() => setPage(Math.max(currentPage - 1, 1))}
-              >
-                {loading ? "..." : t("previous-page")}
-              </button>
-              <span className="px-2 align-self-center col-1 text-center">
-                {t("page")} {currentPage}
-              </span>
-              <button
-                disabled={currentPage >= totalPages || loading}
-                className="btn custfontbtn col-1"
-                onClick={() => setPage(currentPage + 1)}
-              >
-                {loading ? "..." : t("next-page")}
-              </button>
-            </div>
-          </>
+          <OngoingTrain
+            TableHead={TableHead}
+            trainingData={trainingData}
+            button={false}
+          />
+          <div className="row justify-content-center align-items-center gap-3 mt-3">
+            <button
+              disabled={currentPage === 1 || loading}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(Math.max(currentPage - 1, 1))}
+            >
+              {loading ? "..." : t("previous-page")}
+            </button>
+            <span className="px-2 align-self-center col-1 text-center">
+              {t("page")} {currentPage}
+            </span>
+            <button
+              disabled={currentPage >= totalPages || loading}
+              className="btn custfontbtn col-1"
+              onClick={() => setPage(currentPage + 1)}
+            >
+              {loading ? "..." : t("next-page")}
+            </button>
+          </div>
         </div>
       </div>
 
+      {/* Updated Rejection Form Modal */}
       <AlertModal
         show={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          setShowModal(false);
+          setRejectionReason("");
+          setDetailedRejectionReason("");
+        }}
         onSubmit={handleRejectionSubmit}
         title={t("rejection_title")}
       >
@@ -379,14 +414,22 @@ export default function AdmissionReqTable({
             <label htmlFor="reason" className="form-label">
               {t("rejection_reason")}
             </label>
-            <textarea
+            <select
               id="reason"
-              className="form-control"
+              className="form-select"
               value={rejectionReason}
               onChange={(e) => setRejectionReason(e.target.value)}
-              rows={1}
               required
-            />
+            >
+              <option value="" disabled>
+                {t("select_rejection_reason")}
+              </option>
+              {rejectionReasons.map((reason) => (
+                <option key={reason.value} value={reason.value}>
+                  {reason.label} {/* Use the already localized label from API */}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="mb-3">
             <label htmlFor="detailed-reason" className="form-label">
@@ -398,12 +441,51 @@ export default function AdmissionReqTable({
               value={detailedRejectionReason}
               onChange={(e) => setDetailedRejectionReason(e.target.value)}
               rows={4}
+              placeholder={t("additional_details_placeholder")}
               required
             />
           </div>
         </form>
       </AlertModal>
 
+      {/* Rejection Details Modal */}
+      <AlertModal
+        show={showRejectionDetailsModal}
+        onClose={() => setShowRejectionDetailsModal(false)}
+        onSubmit={() => setShowRejectionDetailsModal(false)}
+        title={t("rejection_details")}
+      >
+        {selectedRejectionDetails && (
+          <div className="text-end">
+            <div className="mb-3">
+              <strong>{t("rejection_reason")}:</strong>
+              <p className="m-1 p-2 bg-light rounded">
+                {selectedRejectionDetails.reason || t("no_reason_provided")}
+              </p>
+            </div>
+            
+            {selectedRejectionDetails.description && (
+              <div className="mb-3">
+                <strong>{t("rejection_details")}:</strong>
+                <p className="m-1 p-2 bg-light rounded">
+                  {selectedRejectionDetails.description}
+                </p>
+              </div>
+            )}
+            
+            {!selectedRejectionDetails.reason && !selectedRejectionDetails.description && (
+              <div className="mb-3">
+                <strong>{t("rejection_message")}:</strong>
+                <p className="m-1 p-2 bg-light rounded">
+                  {selectedRejectionDetails.fullMessage}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </AlertModal>
+
+      {/* Result Modal */}
       <AlertModal
         show={showResultModal}
         onClose={() => setShowResultModal(false)}

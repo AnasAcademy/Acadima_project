@@ -38,10 +38,11 @@ export default function InstructorCodesTable({ dat }) {
       const result = await response.json();
 
       if (response.ok && result.success) {
-        // Update the data to increment lst_tr_code by 1
+        // Update both instructor_code to submitted value and increment lst_tr_code
         setData((prevData) =>
           prevData.map((item) => ({
             ...item,
+            instructor_code: instructorCode, // Update to the submitted value
             lst_tr_code: (parseInt(item.lst_tr_code) + 1).toString(),
           }))
         );

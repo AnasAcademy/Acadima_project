@@ -129,6 +129,9 @@ export default function Editform({
       <div className="container-fluid p-0">
         <div className="p-4 row g-3 d-flex justify-content-start">
           {fields.map((field, index) => {
+            // Skip rendering if field is hidden
+            if (field.hidden) return null;
+
             const { label, type, options, name, multiple, onChange } = field;
 
             return (
@@ -165,7 +168,6 @@ export default function Editform({
                         backgroundColor: "#fff",
                       }}
                     >
-
                       {options?.map((opt) => {
                         const isSelected = (formik.values[name] || []).includes(
                           parseInt(opt.value)

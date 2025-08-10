@@ -1,11 +1,12 @@
 import React from "react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import AdmissionReqTable from "@/components/Tables&filters/AdmissionReqTable/AdmissionReqTable";
 
 export default async function AdmissionReq() {
   const t = await getTranslations("tables");
+  const locale = await getLocale(); // Get current locale
 
-  // Server-side fetch
+  // Server-side fetch for admission requirements data
   async function fetchData(pageNumber = 1) {
     try {
       const res = await fetch(
@@ -18,6 +19,7 @@ export default async function AdmissionReq() {
             Authorization:
               "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
           },
+          cache: "no-store", // Ensure fresh data for requirements
         }
       );
       const respond = await res.json();
@@ -32,7 +34,77 @@ export default async function AdmissionReq() {
     }
   }
 
-  const { data, currentPage, totalPages } = await fetchData(1);
+  // Server-side fetch for rejection reasons based on current locale
+  async function fetchRejectionReasons() {
+    try {
+      const response = await fetch(
+        "https://api.lxera.net/api/development/organization/vodafone/requirements/rejectionReasons",
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+          },
+          cache: "force-cache", // Cache rejection reasons as they change less frequently
+          next: { revalidate: 3600 }, // Revalidate every hour
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        const reasons = data.rejectionReasons || [];
+
+        // Transform the API response to use the correct label based on locale
+        return reasons.map((reason) => ({
+          value: reason.value,
+          label: locale === "ar" ? reason.label_ar : reason.label_en, // Use locale-specific label
+          label_en: reason.label_en, // Keep both for potential future use
+          label_ar: reason.label_ar,
+        }));
+      }
+      return [];
+    } catch (error) {
+      console.error("Error fetching rejection reasons:", error);
+      // Fallback reasons with both languages if API fails
+      // return [
+      //   {
+      //     value: "issue_id_passport",
+      //     label:
+      //       locale === "ar"
+      //         ? "يوجد مشكلة في مرفق بطاقة الهوية الوطنية أو جواز السفر"
+      //         : "There is an issue with the national ID or passport attachment",
+      //     label_en: "There is an issue with the national ID or passport attachment",
+      //     label_ar: "يوجد مشكلة في مرفق بطاقة الهوية الوطنية أو جواز السفر",
+      //   },
+      //   {
+      //     value: "issue_bachelor_certificate",
+      //     label:
+      //       locale === "ar"
+      //         ? "يوجد مشكلة في مرفق شهادة البكالوريوس"
+      //         : "There is an issue with the bachelor's certificate attachment",
+      //     label_en: "There is an issue with the bachelor's certificate attachment",
+      //     label_ar: "يوجد مشكلة في مرفق شهادة البكالوريوس",
+      //   },
+      //   {
+      //     value: "issue_highschool_certificate",
+      //     label:
+      //       locale === "ar"
+      //         ? "يوجد مشكلة في مرفق شهادة الثانوية"
+      //         : "There is an issue with the high school certificate attachment",
+      //     label_en: "There is an issue with the high school certificate attachment",
+      //     label_ar: "يوجد مشكلة في مرفق شهادة الثانوية",
+      //   },
+      // ];
+    }
+  }
+
+  // Fetch both data sets in parallel for better performance
+  const [{ data, currentPage, totalPages }, rejectionReasons] = await Promise.all([
+    fetchData(1),
+    fetchRejectionReasons(),
+  ]);
 
   return (
     <>
@@ -45,6 +117,7 @@ export default async function AdmissionReq() {
                 initialData={data}
                 initialPage={currentPage}
                 initialTotalPages={totalPages}
+                rejectionReasons={rejectionReasons} // Pass localized rejection reasons
               />
             </div>
           </div>
