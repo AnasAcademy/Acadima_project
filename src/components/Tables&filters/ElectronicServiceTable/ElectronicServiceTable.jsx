@@ -11,6 +11,7 @@ import { useApiClient } from "@/hooks/useApiClient";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import { useUserData } from "@/context/UserDataContext";
+import check from "@/assets/admin/Check.svg";
 
 export default function ElectronicServiceTable({
   dat,
@@ -367,8 +368,106 @@ export default function ElectronicServiceTable({
     t("request_status"),
     t("request_content"),
     t("request_date"),
+    t("actions")
   ];
 
+  // Add new state for rejection modal and reason
+  const [showRejectionModal, setShowRejectionModal] = useState(false);
+  const [rejectionReason, setRejectionReason] = useState("");
+  const [selectedRequestId, setSelectedRequestId] = useState(null);
+
+  // Accept function
+  const Accept = async (id) => {
+    try {
+      const response = await fetch(
+        `https://api.lxera.net/api/development/organization/vodafone/services/requests/${id}/approve`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+          },
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok && result.status === "success") {
+        // Update the status in local state
+        setReqtbledata(prevData =>
+          prevData.map(item =>
+            item.id === id ? { ...item, status: "approved" } : item
+          )
+        );
+        setResultMessage(result.msg || t("request_approved_successfully"));
+      } else {
+        throw new Error(result.message || t("request_approval_failed"));
+      }
+    } catch (error) {
+      console.error("Accept failed:", error);
+      setResultMessage(error.message || t("request_approval_failed"));
+    } finally {
+      setShowResultModal(true);
+    }
+  };
+
+  // Decline function - opens modal
+  const openDeclineModal = (id) => {
+    setSelectedRequestId(id);
+    setRejectionReason("");
+    setShowRejectionModal(true);
+  };
+
+  // Handle rejection submission
+  const handleRejectionSubmit = async () => {
+    if (!rejectionReason.trim()) {
+      setResultMessage(t("rejection_reason_required"));
+      setShowResultModal(true);
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://api.lxera.net/api/development/organization/vodafone/services/requests/${selectedRequestId}/reject`,
+        {
+          method: "POST",
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+          },
+          body: JSON.stringify({
+            message: rejectionReason
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok && result.status === "success") {
+        // Update the status in local state
+        setReqtbledata(prevData =>
+          prevData.map(item =>
+            item.id === selectedRequestId ? { ...item, status: "rejected" } : item
+          )
+        );
+        setResultMessage(result.msg || t("request_rejected_successfully"));
+        setShowRejectionModal(false);
+        setRejectionReason("");
+        setSelectedRequestId(null);
+      } else {
+        throw new Error(result.message || t("request_rejection_failed"));
+      }
+    } catch (error) {
+      console.error("Decline failed:", error);
+      setResultMessage(error.message || t("request_rejection_failed"));
+    } finally {
+      setShowResultModal(true);
+    }
+  };
+
+  // Fixed reqDat with proper conditional rendering and correct function call
   const reqDat = reqtbledata.map((item, index) => ({
     columns: [
       { type: "text", value: index + 1 },
@@ -377,6 +476,28 @@ export default function ElectronicServiceTable({
       { type: "text", value: item.status },
       { type: "text", value: item.content },
       { type: "text", value: item.created_at },
+      // Only show actions column if status is pending
+      ...(item.status === "pending" ? [{
+        type: "actionbutton",
+        label: t("actions"),
+        action: () => {
+          setId(item.id); // Fixed: Changed from setSelectedId to setId
+        },
+        icon: Arrowdown,
+        lists: [
+          {
+            label: t("accept"),
+            action: () => Accept(item.id),
+            icon: check,
+          },
+          {
+            label: t("reject"),
+            action: () => openDeclineModal(item.id),
+            icon: X,
+          },
+        ],
+        id: item.id,
+      }] : [{ type: "text", value: "-" }]) // Show dash if not pending
     ],
   }));
 
@@ -746,6 +867,40 @@ export default function ElectronicServiceTable({
         title={t("operation_result")}
       >
         <p className="m-0 text-center">{resultMessage}</p>
+      </AlertModal>
+
+      {/* Rejection Reason Modal */}
+      <AlertModal
+        show={showRejectionModal}
+        onClose={() => {
+          setShowRejectionModal(false);
+          setRejectionReason("");
+          setSelectedRequestId(null);
+        }}
+        onSubmit={handleRejectionSubmit}
+        title={t("reject_request")}
+      >
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleRejectionSubmit();
+          }}
+        >
+          <div className="mb-3">
+            <label htmlFor="rejection-reason" className="form-label">
+              {t("rejection_reason")} <span className="text-danger">*</span>
+            </label>
+            <textarea
+              id="rejection-reason"
+              className="form-control"
+              value={rejectionReason}
+              onChange={(e) => setRejectionReason(e.target.value)}
+              rows={4}
+              placeholder={t("enter_rejection_reason")}
+              required
+            />
+          </div>
+        </form>
       </AlertModal>
     </>
   );

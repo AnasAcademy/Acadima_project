@@ -1223,6 +1223,13 @@
     "select_rejection_reason": "Select rejection reason",
     "additional_details_placeholder": "Enter additional details about the rejection...",
     "rejection_message": "Rejection Message",
-    "no_reason_provided": "No reason provided"
+    "no_reason_provided": "No reason provided",
+    "reject_request": "Reject Request",
+    "enter_rejection_reason": "Enter rejection reason",
+    "rejection_reason_required": "Rejection reason is required",
+    "request_approved_successfully": "Request approved successfully",
+    "request_rejected_successfully": "Request rejected successfully",
+    "request_approval_failed": "Failed to approve request",
+    "request_rejection_failed": "Failed to reject request"
   }
 }
