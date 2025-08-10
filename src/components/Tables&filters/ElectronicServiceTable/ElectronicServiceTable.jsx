@@ -154,9 +154,9 @@ export default function ElectronicServiceTable({
         changedData.bundles = formData.bundles;
       }
 
-      // Add webinars if target is specific_webinars
+      // Add courses (webinars) if target is specific_webinars
       if (formData.target === "specific_webinars" && formData.webinars) {
-        changedData.webinars = formData.webinars;
+        changedData.courses = formData.webinars; // Send as 'courses' to API
       }
 
       if (Object.keys(changedData).length === 0) {
@@ -193,7 +193,14 @@ export default function ElectronicServiceTable({
         const updatedItem = {
           ...originalItem,
           ...changedData,
+          // Update local state with webinars field for consistency
+          webinars: formData.target === "specific_webinars" && formData.webinars 
+            ? originalItem.webinars?.map(w => formData.webinars.includes(w.id) ? w : null).filter(Boolean) || []
+            : originalItem.webinars
         };
+
+        // Remove courses from changedData as it's only for API
+        delete updatedItem.courses;
 
         setData((prev) =>
           prev.map((item) => (item.id === Itemid ? updatedItem : item))
@@ -229,9 +236,9 @@ export default function ElectronicServiceTable({
         requestBody.bundles = dataa.bundles;
       }
 
-      // Add webinars array if target is specific_webinars
+      // Add courses (webinars) array if target is specific_webinars
       if (dataa.target === "specific_webinars" && dataa.webinars) {
-        requestBody.webinars = dataa.webinars;
+        requestBody.courses = dataa.webinars; // Send as 'courses' to API
       }
 
       const response = await fetch(
@@ -273,7 +280,7 @@ export default function ElectronicServiceTable({
             end_date: dataa.end_date,
             target: dataa.target,
             bundles: dataa.bundles || null,
-            webinars: dataa.webinars || null, // Add webinars to temp item
+            webinars: dataa.webinars || null, // Store as 'webinars' in temp item for consistency
             created_at: new Date().toISOString(),
             created_by: { full_name: "Current User" },
           };
@@ -452,38 +459,38 @@ export default function ElectronicServiceTable({
         name: "target",
         label: t("target"),
         type: "select",
-        options: translatedTargetOptions, // Use translated options
-        onChange: (value) => setSelectedTarget(value), // Track target changes
+        options: translatedTargetOptions,
+        onChange: (value) => setSelectedTarget(value),
       },
-      { name: "start_date", label: t("start_date"), type: "date" },
-      { name: "end_date", label: t("end_date"), type: "date" },
-    ];
-
-    // Add bundles field if target is specific_bundles
-    if (selectedTarget === "specific_bundles") {
-      baseFields.splice(-2, 0, {
-        // Insert before start_date and end_date
+      // Always include bundles field, but conditionally show/hide it
+      {
         name: "bundles",
         label: t("select_bundles"),
         type: "multiselect",
         options: getBundleOptions(),
         multiple: true,
-        required: true,
-      });
-    }
-
-    // Add webinars field if target is specific_webinars
-    if (selectedTarget === "specific_webinars") {
-      baseFields.splice(-2, 0, {
-        // Insert before start_date and end_date
-        name: "courses",
+        required: selectedTarget === "specific_bundles",
+        hidden: selectedTarget !== "specific_bundles", // Add hidden property
+        style: { 
+          display: selectedTarget === "specific_bundles" ? "block" : "none" 
+        }
+      },
+      // Always include webinars field, but conditionally show/hide it
+      {
+        name: "webinars", // Changed from "courses" to "webinars" for consistency
         label: t("select_webinars"),
         type: "multiselect",
         options: getWebinarOptions(),
         multiple: true,
-        required: true,
-      });
-    }
+        required: selectedTarget === "specific_webinars",
+        hidden: selectedTarget !== "specific_webinars", // Add hidden property
+        style: { 
+          display: selectedTarget === "specific_webinars" ? "block" : "none" 
+        }
+      },
+      { name: "start_date", label: t("start_date"), type: "date" },
+      { name: "end_date", label: t("end_date"), type: "date" },
+    ];
 
     return baseFields;
   };
@@ -525,7 +532,7 @@ export default function ElectronicServiceTable({
               webinars:
                 data
                   .find((item) => item.id === Itemid)
-                  ?.webinars?.map((w) => w.id) || [], // Add webinars data processing
+                  ?.webinars?.map((c) => c.id) || [], // Use 'courses' field from API data
               start_date:
                 data
                   .find((item) => item.id === Itemid)

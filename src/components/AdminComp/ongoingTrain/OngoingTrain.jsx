@@ -78,6 +78,7 @@ export default function OngoingTrain({
           <span className={`d-inline-block w-75 text-center ${textClass}`}>
             {textVal}
           </span>
+          {col.value === "rejected" && <p className="text-danger cursor-pointer" onClick={col.rejection_action}>{t("rejection_reason")}</p>}
         </td>
       );
     },

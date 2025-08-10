@@ -53,13 +53,13 @@ export default function StudentsCodeTable({ dat }) {
       const result = await response.json();
 
       if (response.ok && result.success) {
-        // Update the data to increment lst_sd_code by 1
-        // setData(prevData => 
-        //   prevData.map(item => ({
-        //     ...item,
-        //     student_code: (parseInt(item.student_code) + 1)
-        //   }))
-        // );
+        // Update the student_code in the data to the submitted value
+        setData(prevData => 
+          prevData.map(item => ({
+            ...item,
+            student_code: studentCode
+          }))
+        );
 
         setResultMessage(t("code_created_successfully"));
         setShowAddCodeModal(false);
