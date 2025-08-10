@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server';
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-export const dynamic = 'force-dynamic';
+
 
 export async function GET(request, context) {
-  const { params } = await context; // ✅ fix
+  const { params } = await context; 
   return proxyRequest(request, 'GET', params);
 }
 
@@ -35,6 +35,7 @@ async function proxyRequest(req, method, params) {
   console.log('--- Proxy Debug ---');
   console.log('Incoming request method:', method);
   console.log('Backend URL:', url);
+   console.log(token);
   console.log('Token from cookie:', token ? '[Present]' : '[Missing]');
   if (body) console.log('Request Body:', body);
 
@@ -50,8 +51,8 @@ async function proxyRequest(req, method, params) {
   });
 
   const rawResponse = await res.text();
-  console.log('Backend Response Status:', res.status);
-  console.log('Backend Raw Response:', rawResponse);
+  // console.log('Backend Response Status:', res.status);
+  // console.log('Backend Raw Response:', rawResponse);
 
   return new NextResponse(rawResponse, {
     status: res.status,

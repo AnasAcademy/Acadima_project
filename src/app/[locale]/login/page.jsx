@@ -15,7 +15,11 @@ import axios from "axios";
 import logo from "@/assets/admin/logo2.png";
 import { routing } from "../../../i18n/routing";
 import { usePathname, useRouter } from "next/navigation";
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_Login_URL;
 export default function Login() {
+
+
   const t = useTranslations("Login");
 
   const [toggle, setToggle] = useState("");
@@ -69,16 +73,12 @@ export default function Login() {
           password: values.password,
         };
 
-        const { data } = await axios.post(
-          "https://lms.acadimacollege.com/api/development/login",
-          payload,
-          {
-            headers: {
-              "x-api-key": "1234",
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const { data } = await axios.post(`${BASE_URL}`, payload, {
+          headers: {
+            "x-api-key": "1234",
+            "Content-Type": "application/json",
+          },
+        });
 
         if (data.success === false) {
           console.log("error");
