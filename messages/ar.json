@@ -1218,6 +1218,11 @@
     "select_rejection_reason": "اختر سبب الرفض",
     "additional_details_placeholder": "أدخل تفاصيل إضافية حول الرفض...",
     "rejection_message": "رسالة الرفض",
-    "no_reason_provided": "لم يتم تقديم سبب"
+    "no_reason_provided": "لم يتم تقديم سبب",
+    "icon": "الايقونة",
+     "order": "الترتيب",
+     "subCategories": "الاقسام الفرعية",
+       "chapters": "الفصول",
+    "teachers": "المعلمين"
   }
 }

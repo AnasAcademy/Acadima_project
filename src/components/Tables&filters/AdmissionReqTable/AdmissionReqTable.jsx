@@ -8,6 +8,10 @@ import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import check from "@/assets/admin/Check.svg";
+import { useApiClient } from "@/hooks/useApiClient";
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 
 export default function AdmissionReqTable({
   initialData = [],
@@ -16,7 +20,6 @@ export default function AdmissionReqTable({
   rejectionReasons = [] // Already localized from server
 }) {
   const t = useTranslations("tables");
-
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
   const [loading, setLoading] = useState(false);
@@ -32,7 +35,7 @@ export default function AdmissionReqTable({
   const [selectedRejectionDetails, setSelectedRejectionDetails] = useState(null);
   const [resultMessage, setResultMessage] = useState("");
   const [showResultModal, setShowResultModal] = useState(false);
-
+  const { request } = useApiClient();
   // Update showRejectionDetails to handle API labels
   const showRejectionDetails = (item) => {
     if (item.message) {
@@ -64,19 +67,11 @@ export default function AdmissionReqTable({
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/requirements/list?page=${pageNumber}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
-      const respond = await res.json();
+      const respond = await request({
+        method: "GET",
+        urlPath: `/requirements/list?page=${pageNumber}`,
+      });
+ 
       const data = respond.data.data || [];
       setDataa(data);
       setFilter(data);
@@ -115,20 +110,12 @@ export default function AdmissionReqTable({
       // Append pagination separately
       query.append("page", pageNumber);
 
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/requirements/list?${query.toString()}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const respond = await request({
+        method: "GET",
+        urlPath: `/requirements/list?${query.toString()}`,
+      });
 
-      const respond = await res.json();
+
       const data = respond.data?.data || [];
 
       setFilter(data);
@@ -154,21 +141,13 @@ export default function AdmissionReqTable({
       );
       setDataa(updatedData);
       setFilter(updatedFilter);
+      const data = await request({
+        method: "GET",
+        urlPath: `/requirements/${id}/approve`,
+      });
+       console.log("Approval response:", data);
 
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/requirements/${id}/approve`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-        }
-      );
-
-      const data = await response.json();
-      if (!response.ok || !data.success) {
+      if ( !data.success) {
         // If approval failed, restore the original data
         setDataa(dataa);
         setFilter(filter);
@@ -179,7 +158,6 @@ export default function AdmissionReqTable({
       setShowResultModal(true);
     } catch (error) {
       console.error("Status update failed:", error);
-      // Restore original data on error
       fetchData(page);
       alert("تعذر تحديث الحالة، حاول مرة أخرى.");
     }
@@ -207,21 +185,17 @@ export default function AdmissionReqTable({
         message: detailedRejectionReason,
       };
 
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/requirements/${selectedId}/reject`,
+      const data = await request(
+    
         {
           method: "POST",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-          body: JSON.stringify(payload),
+          urlPath: `/requirements/${selectedId}/reject`,
+          body: payload,
         }
       );
 
-      const data = await response.json();
-      if (!response.ok || !data.success) {
+
+      if ( !data.success) {
         // If rejection failed, restore the original data
         setDataa(dataa);
         setFilter(filter);
@@ -351,7 +325,7 @@ export default function AdmissionReqTable({
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
           <ExcelDownload
-            endpoint="https://api.lxera.net/api/development/organization/vodafone/requirements/excel"
+            endpoint={`${BASE_URL}/requirements/excel`}
             filename="admission_requirements_report"
             className="btn custfontbtn rounded-2 mb-3"
             onSuccess={(message) => {

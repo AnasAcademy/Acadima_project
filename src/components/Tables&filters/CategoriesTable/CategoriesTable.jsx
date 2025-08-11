@@ -9,8 +9,10 @@ import roundimage from "@/assets/admin/personla.png";
 import Editform from "@/components/Editform/Editform";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import { useApiClient } from "@/hooks/useApiClient";
+import { useUserData } from "@/context/UserDataContext";
 export default function CategoriesTable({ dat }) {
   const t = useTranslations("tables");
+  const {  getStatusOptions } = useUserData();
   const ts = useTranslations("SidebarA");
   const tr = useTranslations("employee_progress");
   const [showModal, setShowModal] = useState(false);
@@ -19,7 +21,7 @@ export default function CategoriesTable({ dat }) {
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [Itemid, setId] = useState(null);
   const [Alertmssg, setAlertmssg] = useState("");
-const { request } = useApiClient();
+  const { request } = useApiClient();
 
 //  async function fetchy(stat) {
 //    const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
@@ -67,23 +69,13 @@ const { request } = useApiClient();
 
  const handleSubmitEdit = async (dataa) => {
    try {
-     const response = await fetch(
-       `https://api.lxera.net/api/development/organization/vodafone/categories/${Itemid}/update`,
-       {
-         method: "PUT",
-         headers: {
-           "x-api-key": "1234",
-           "Content-Type": "application/json",
-           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-         },
-         body: JSON.stringify({
-           title: dataa.title || "null",
-          
-         }),
-       }
-     );
+     const result = await request({
+       method: "PUT",
+       urlPath: `/categories/${Itemid}/update`,
+       body: { title: dataa.title, status: dataa.status, icon: dataa.icon , },
+     });
 
-     const result = await response.json();
+
 
 
      if (result.errors) {
@@ -223,9 +215,17 @@ const formTitles = [
 
 const fields = [
   { name: "title", label: t("title"), type: "text" },
-  { name: "status", label: t("status"), type: "text" },
+  {
+    name: "status",
+    label: t("status"),
+    type: "select",
+    // getStatusOptions().filter((item) => item.value !== "pending") || 
+    options: [],
+  },
   { name: "icon", label: t("icon"), type: "text" },
+  { name: "slug", label: "url", type: "text" },
 ];
+
 
 
   return (
@@ -241,6 +241,8 @@ const fields = [
                      setShowModal={toogle}
                     //  handleSubmitAdd={handleSubmitAdd}
                      formState={formState}
+                     extraForm={true}
+                    
                    />
        
                    <AlertModal

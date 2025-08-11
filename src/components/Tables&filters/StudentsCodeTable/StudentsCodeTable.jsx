@@ -4,7 +4,7 @@ import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import { useTranslations } from "next-intl";
 import Editform from "@/components/Editform/Editform";
 import AlertModal from "@/components/AlertModal/AlertModal";
-
+import { useApiClient } from "@/hooks/useApiClient";
 export default function StudentsCodeTable({ dat }) {
   const ts = useTranslations("SidebarA");
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +15,7 @@ export default function StudentsCodeTable({ dat }) {
   const [Itemid, setId] = useState(null);
   const [studentCode, setStudentCode] = useState("");
   const [resultMessage, setResultMessage] = useState("");
-
+const { request } = useApiClient();
   const t = useTranslations("tables");
   
   const TableHead = [t("student_code"), t("last_student_code")];
@@ -35,20 +35,13 @@ export default function StudentsCodeTable({ dat }) {
     }
 
     try {
-      const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/codes",
-        {
-          method: "POST",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-          body: JSON.stringify({
-            student_code: studentCode,
-          }),
-        }
-      );
+      const response = await request({
+        method: "POST",
+        urlPath: `/codes`,
+        body: {
+          student_code: studentCode,
+        },
+      });
 
       const result = await response.json();
 

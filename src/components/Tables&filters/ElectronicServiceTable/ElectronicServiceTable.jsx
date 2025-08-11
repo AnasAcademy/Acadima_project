@@ -7,10 +7,10 @@ import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import Eye from "@/assets/admin/eye.svg";
-import { useApiClient } from "@/hooks/useApiClient";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import { useUserData } from "@/context/UserDataContext";
+import { useApiClient } from "@/hooks/useApiClient";
 
 export default function ElectronicServiceTable({
   dat,
@@ -31,6 +31,7 @@ export default function ElectronicServiceTable({
   const ts = useTranslations("SidebarA");
   const [data, setData] = useState(dat);
   const [formState, setFormState] = useState("");
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   const [reqtble, setReqtble] = useState(false);
   const [reqtbledata, setReqtbledata] = useState([]);
   const {
@@ -47,7 +48,7 @@ export default function ElectronicServiceTable({
     getBundleOptions,
     getWebinarOptions, // Add webinar options helper
   } = useUserData();
-  const { request } = useApiClient();
+  const { request } = useApiClient();;
 
   async function fetchy(stat) {
     const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
@@ -59,20 +60,14 @@ export default function ElectronicServiceTable({
     }
 
     try {
-      const data = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services?page=${newPage}`,
+      const respond= await request(
         {
           method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
+          urlPath: `/services?page=${newPage}`,
         }
       );
 
-      const respond = await data.json();
+ 
       dat = respond.data.data;
       setData(dat);
     } catch (error) {
@@ -82,19 +77,11 @@ export default function ElectronicServiceTable({
 
   const remove = async (id) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-        }
-      );
+      const response = await request({
+        method: "DELETE",
+        urlPath: `/services/${id}`,
+      });
 
-      const result = await response.json();
 
       if (response.ok) {
         // Remove the item from local state
@@ -165,16 +152,11 @@ export default function ElectronicServiceTable({
         return;
       }
 
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services/${Itemid}`,
+      const response = await request(
         {
           method: "PUT",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-          body: JSON.stringify(changedData),
+          urlPath: `/services/${Itemid}`,
+          body: changedData,
         }
       );
 
@@ -241,20 +223,13 @@ export default function ElectronicServiceTable({
         requestBody.courses = dataa.webinars; // Send as 'courses' to API
       }
 
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services`,
-        {
-          method: "POST",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
+      const response = await request({
+        method: "POST",
+        urlPath: `/services`,
+        body: requestBody,
+      });
 
-      const result = await response.json();
+     
 
       if (result.errors) {
         const messages = Object.values(result.errors).map(
@@ -302,15 +277,11 @@ export default function ElectronicServiceTable({
 
   const getReqData = async (id) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services/${id}/requests`,
+      const response = await request(
+       
         {
           method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
+          urlPath: `/services/${id}/requests`,
         }
       );
 
@@ -321,20 +292,16 @@ export default function ElectronicServiceTable({
 
   const getServiceDetails = async (id) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services/${id}`,
+      const response = await request(
+
         {
           method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
+          urlPath: `/services/${id}`,
         }
       );
 
-      const result = await response.json();
-      setSelectedService(result.service?.[0]);
+     
+      setSelectedService(response.service?.[0]);
       setShowDetailsModal(true);
     } catch (error) {
       console.error("Failed to fetch service details:", error);
@@ -571,7 +538,7 @@ export default function ElectronicServiceTable({
                     {data.find((item) => item.id === Itemid)?.title || ""}{" "}
                   </h4>
                   <ExcelDownload
-                    endpoint={`https://api.lxera.net/api/development/organization/vodafone/services/requests/${Itemid}/export`}
+                    endpoint={`${BASE_URL}/services/requests/${Itemid}/export`}
                     filename={`${
                       data.find((item) => item.id === Itemid)?.title ||
                       "service"

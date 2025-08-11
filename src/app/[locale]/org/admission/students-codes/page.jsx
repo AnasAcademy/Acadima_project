@@ -1,29 +1,27 @@
 import React from "react";
 import StudentsCodeTable from "@/components/Tables&filters/StudentsCodeTable/StudentsCodeTable";
 import { getTranslations } from "next-intl/server";
-
+import { cookies } from "next/headers";
 export default async function StudentCodes() {
 
-
-
- const ts = await getTranslations("SidebarA");
+  const cookieStore = cookies();
+  const token = cookieStore.get("auth_token")?.value;
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  const ts = await getTranslations("SidebarA");
 
 let dat = [];
 let current_page = [] || 1;
 let last_page = [];
 try {
-  const data = await fetch(
-    `https://api.lxera.net/api/development/organization/vodafone/codes`,
-    {
-      method: "GET",
-      headers: {
-        "x-api-key": "1234",
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-      },
-    }
-  );
+  const data = await fetch(`${BASE_URL}/codes`, {
+    method: "GET",
+    headers: {
+      "x-api-key": API_KEY,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const respond = await data.json();
   dat = respond.message;
@@ -32,16 +30,6 @@ try {
 } catch (error) {
   console.error("Fetch error:", error);
 }
-
-
-
-
-
-
-
-
-
-
 
   return (
     <>

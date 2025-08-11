@@ -20,26 +20,7 @@ export default function ClassesTable({ dat }) {
   const [page, setPage] = useState("classes");
   const t = useTranslations("tables");
   const { request } = useApiClient();
-
-  // const fetchData = async (Itemid, page) => {
-  //   try {
-  //     const response = await request({
-  //       method: "GET",
-  //       urlPath: `https://api.lxera.net/api/development/organization/vodafone`, // Example: "/users/me"
-  //     });
-  //     if (page === "students") {
-  //       dat = response.enrollments.data;
-  //       setDatast(dat);
-  //     } else {
-  //       dat = response.data;
-  //       setDatarg(dat);
-  //       console.log(dat);
-  //     }
-  //   } catch (error) {
-  //     console.error("Fetch failed:", error);
-  //   }
-  // };
-
+  
   const fetchData = async (Itemid, page) => {
     try {
       const response = await request({
@@ -60,64 +41,15 @@ export default function ClassesTable({ dat }) {
     }
   };
 
-  const fetchpages = async (Itemid , page) => {
-    console.log(Itemid);
-    console.log(page);
-    try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/classes/${Itemid}/${page}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-        }
-      );
-
-      const result = await response.json();
-      if (page === "students") {
-            dat = result.enrollments.data;
-   setDatast(dat);
-      }else{
-          dat = result.data;
-        setDatarg(dat);
-          console.log(dat);
-      }
-
-    } catch (error) {
-      console.error("Status update failed:", error);
-      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
-    }
-  };
-
-
-
-
-
-
-
-
-
-
-
-
-
   const handleSubmitEdit = async (dataa) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/classes/${Itemid}`,
+      const response = await request(
         {
           method: "PUT",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-          body: JSON.stringify({
+          urlPath: `/classes/${Itemid}`,
+          body: {
             title: dataa.title,
-          }),
+          },
         }
       );
 
@@ -335,28 +267,52 @@ export default function ClassesTable({ dat }) {
   const fields = [{ name: "title", label: t("title"), type: "text" }];
 
   const pageTitles = {
-    classes: (
-      <OngoingTrain
-        TableHead={TableHead}
-        trainingData={trainingData}
- 
-      />
-    ),
+    classes: <OngoingTrain TableHead={TableHead} trainingData={trainingData} />,
     students: (
       <OngoingTrain
         TableHead={TableHeadstudents}
         trainingData={trainingDatastudent}
-    
       />
     ),
     registered_users: (
       <OngoingTrain
         TableHead={TableHeadstudents}
         trainingData={trainingDatareg}
-   
       />
     ),
   };
+
+  // const fetchpages = async (Itemid , page) => {
+  //   console.log(Itemid);
+  //   console.log(page);
+  //   try {
+  //     const response = await fetch(
+  //       `https://api.lxera.net/api/development/organization/vodafone/classes/${Itemid}/${page}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "x-api-key": "1234",
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+  //         },
+  //       }
+  //     );
+
+  //     const result = await response.json();
+  //     if (page === "students") {
+  //           dat = result.enrollments.data;
+  //  setDatast(dat);
+  //     }else{
+  //         dat = result.data;
+  //       setDatarg(dat);
+  //         console.log(dat);
+  //     }
+
+  //   } catch (error) {
+  //     console.error("Status update failed:", error);
+  //     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+  //   }
+  // };
 
   function toogle() {
     setShowModal(!showModal);

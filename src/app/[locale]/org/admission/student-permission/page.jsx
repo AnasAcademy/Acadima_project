@@ -1,22 +1,28 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import StudentPerTable from "@/components/Tables&filters/StudentPermissionsTable/StudentPerTable";
+import { cookies } from "next/headers";
+
+
 
 export default async function StudentPermissions() {
   const ts = await getTranslations("SidebarA");
-
+  const cookieStore = cookies();
+  const token = cookieStore.get("auth_token")?.value;
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   // Server-side fetch
+
   async function fetchData(pageNumber = 1) {
     try {
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/permission/user_access?page=${pageNumber}`,
+        `${BASE_URL}/permission/user_access?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
-            "x-api-key": "1234",
+            "x-api-key": API_KEY,
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

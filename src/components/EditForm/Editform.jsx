@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
@@ -12,10 +13,12 @@ export default function Editform({
   handleSubmitAdd,
   formState,
   loading = false,
+  extraForm,
+
 }) {
   const t = useTranslations("tables");
+  const [req, setReq] = useState([]);
 
-  // Validation schema with custom rules
   const validationSchema = Yup.object(
     fields.reduce((acc, field) => {
       const { name, type, required } = field;
@@ -117,6 +120,10 @@ export default function Editform({
     }
   };
 
+  function toogle() {
+    setReq(!req);
+  }
+
   return (
     <form
       onSubmit={(e) => {
@@ -146,7 +153,7 @@ export default function Editform({
                       onChange={(e) => handleFieldChange(e, field)}
                       onBlur={formik.handleBlur}
                       disabled={loading}
-                      className="d-flex justify-content-center align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                      className="d-flex justify-content-center align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 "
                       style={{ border: "1px solid #E3E3E3" }}
                     >
                       <option value="" disabled>
@@ -177,7 +184,9 @@ export default function Editform({
                           <div
                             key={opt.value}
                             className="d-flex align-items-center p-1 cursor-pointer hover-bg-light gap-1"
-                            onClick={() => handleMultiSelectChange(name, opt.value)}
+                            onClick={() =>
+                              handleMultiSelectChange(name, opt.value)
+                            }
                             style={{
                               backgroundColor: isSelected
                                 ? "#e3f2fd"
@@ -242,6 +251,40 @@ export default function Editform({
               </div>
             );
           })}
+          {extraForm ? (
+            <>
+              <div className=" d-flex justify-content-between">
+                <h3>اضافه متطلبات القبول في البرنامج</h3>
+                <button
+                  className="  btn btn-success "
+                  type="button"
+                  onClick={toogle}
+                >
+                  {" "}
+                  + add requirements
+                </button>
+              </div>
+              {req ? (
+                <div className="  d-flex flex-column gap-3">
+                  {" "}
+                  <input
+                    type="text"
+                    className=" w-100  p-1"
+                    placeholder="title"
+                  />
+                  <input
+                    type="text"
+                    className=" w-100  p-1"
+                    placeholder="admin/main.decription"
+                  />
+                </div>
+              ) : (
+                ""
+              )}
+            </>
+          ) : (
+            " "
+          )}
 
           <div className="d-flex col-7 mt-3">
             <button

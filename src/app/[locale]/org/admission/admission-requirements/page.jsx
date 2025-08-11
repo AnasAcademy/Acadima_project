@@ -1,25 +1,32 @@
 import React from "react";
 import { getTranslations, getLocale } from "next-intl/server";
 import AdmissionReqTable from "@/components/Tables&filters/AdmissionReqTable/AdmissionReqTable";
-
+import { cookies } from "next/headers";
 export default async function AdmissionReq() {
   const t = await getTranslations("tables");
   const locale = await getLocale(); // Get current locale
-
+  const cookieStore = cookies();
+  const token = cookieStore.get("auth_token")?.value;
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   // Server-side fetch for admission requirements data
+
+
   async function fetchData(pageNumber = 1) {
+
+
+
     try {
       const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/requirements/list?page=${pageNumber}`,
+        `${BASE_URL}/requirements/list?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
-            "x-api-key": "1234",
+            "x-api-key": API_KEY,
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization: `Bearer ${token || ""}`,
           },
-          cache: "no-store", // Ensure fresh data for requirements
+          cache: "no-store",
         }
       );
       const respond = await res.json();
@@ -38,14 +45,13 @@ export default async function AdmissionReq() {
   async function fetchRejectionReasons() {
     try {
       const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/requirements/rejectionReasons",
+        `${BASE_URL}/requirements/rejectionReasons`,
         {
           method: "GET",
           headers: {
-            "x-api-key": "1234",
+            "x-api-key": API_KEY,
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
+            Authorization: `Bearer ${token}`,
           },
           cache: "force-cache", // Cache rejection reasons as they change less frequently
           next: { revalidate: 3600 }, // Revalidate every hour

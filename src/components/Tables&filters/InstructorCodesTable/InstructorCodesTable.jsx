@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import { useTranslations } from "next-intl";
 import AlertModal from "@/components/AlertModal/AlertModal";
-
+import { useApiClient } from "@/hooks/useApiClient";
 export default function InstructorCodesTable({ dat }) {
   const t = useTranslations("tables");
   const [showAddCodeModal, setShowAddCodeModal] = useState(false);
@@ -11,7 +11,7 @@ export default function InstructorCodesTable({ dat }) {
   const [data, setData] = useState(dat);
   const [instructorCode, setInstructorCode] = useState("");
   const [resultMessage, setResultMessage] = useState("");
-
+  const { request } = useApiClient();
   const handleAddCode = async () => {
     if (!instructorCode.trim()) {
       setResultMessage(t("instructor_code_required"));
@@ -20,18 +20,13 @@ export default function InstructorCodesTable({ dat }) {
     }
 
     try {
-      const response = await fetch(
-        "https://api.lxera.net/api/development/organization/vodafone/codes/instructor_store",
+      const response = await request(
         {
           method: "POST",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-          body: JSON.stringify({
+          urlPath: `/codes/instructor_store`,
+          body: {
             instructor_code: instructorCode,
-          }),
+          },
         }
       );
 
