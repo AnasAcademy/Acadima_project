@@ -1223,6 +1223,13 @@
      "order": "الترتيب",
      "subCategories": "الاقسام الفرعية",
        "chapters": "الفصول",
-    "teachers": "المعلمين"
+    "teachers": "المعلمين",
+    "reject_request": "رفض الطلب",
+    "enter_rejection_reason": "أدخل سبب الرفض",
+    "rejection_reason_required": "سبب الرفض مطلوب",
+    "request_approved_successfully": "تم قبول الطلب بنجاح",
+    "request_rejected_successfully": "تم رفض الطلب بنجاح",
+    "request_approval_failed": "فشل في قبول الطلب",
+    "request_rejection_failed": "فشل في رفض الطلب"
   }
 }
