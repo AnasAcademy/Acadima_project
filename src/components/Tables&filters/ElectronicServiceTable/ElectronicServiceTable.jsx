@@ -153,15 +153,15 @@ export default function ElectronicServiceTable({
         return;
       }
 
-      const response = await request(
+      const result = await request(
         {
           method: "PUT",
           urlPath: `/services/${Itemid}`,
-          body: changedData,
+          body:{changedData},
         }
       );
 
-      const result = await response.json();
+    
 
       if (result.errors) {
         const messages = Object.values(result.errors).map(
@@ -286,8 +286,8 @@ export default function ElectronicServiceTable({
         }
       );
 
-      const result = await response.json();
-      setReqtbledata(result.service_users.data);
+     
+      setReqtbledata(response.service_users.data);
     } catch (error) {}
   };
 
@@ -346,21 +346,14 @@ export default function ElectronicServiceTable({
   // Accept function
   const Accept = async (id) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services/requests/${id}/approve`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-          },
-        }
-      );
+      const result = await request({
+        method: "GET",
+        urlPath: `/services/requests/${id}/approve`,
+      });
 
-      const result = await response.json();
-
-      if (response.ok && result.status === "success") {
+     
+       console.log("Accept result:", result.status);
+      if (result[0].status === "success") {
         // Update the status in local state
         setReqtbledata(prevData =>
           prevData.map(item =>
@@ -395,18 +388,14 @@ export default function ElectronicServiceTable({
     }
 
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/services/requests/${selectedRequestId}/reject`,
+      const response = await request(
+    
         {
           method: "POST",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
+          urlPath: `/services/requests/${selectedRequestId}/reject`,
+          body: {
+            message: rejectionReason,
           },
-          body: JSON.stringify({
-            message: rejectionReason
-          }),
         }
       );
 
