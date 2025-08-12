@@ -76,8 +76,6 @@ export default function CategoriesTable({ dat }) {
      });
 
 
-
-
      if (result.errors) {
        const messages = Object.values(result.errors).map((error) => error.ar);
        setAlertmssg(messages.join("\n"));

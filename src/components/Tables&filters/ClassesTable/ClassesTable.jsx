@@ -7,7 +7,7 @@ import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useApiClient } from "@/hooks/useApiClient";
-
+import AlertModal from "@/components/AlertModal/AlertModal";
 export default function ClassesTable({ dat }) {
   const ts = useTranslations("SidebarA");
   const [showModal, setShowModal] = useState(false);
@@ -16,11 +16,13 @@ export default function ClassesTable({ dat }) {
   const [data, setData] = useState(dat);
   const [datast, setDatast] = useState([]);
   const [datarg, setDatarg] = useState([]);
+   const [dataUser, setDataUser] = useState([]);
   const [Itemid, setId] = useState(null);
   const [page, setPage] = useState("classes");
   const t = useTranslations("tables");
+    const [resultMessage, setResultMessage] = useState("");
   const { request } = useApiClient();
-  
+  const [showResultModal, setShowResultModal] = useState(false);
   const fetchData = async (Itemid, page) => {
     try {
       const response = await request({
@@ -31,29 +33,66 @@ export default function ClassesTable({ dat }) {
       if (page === "students") {
         dat = response.enrollments.data;
         setDatast(dat);
-      } else {
+      } else if (page === "registered_users") {
         dat = response.data;
         setDatarg(dat);
+        console.log(dat);
+      } else if (page === "users") {
+        dat = response.data;
+        setDatast(dat);
+        console.log(dat);
+      } else if (page === "enrollers") {
+        dat = response.message.data;
+        setDatast(dat);
         console.log(dat);
       }
     } catch (error) {
       console.error("Fetch failed:", error);
     }
   };
+   const remove = async (id) => {
+     try {
+       const data = await request({
+         method: "DELETE",
+         urlPath: `/classes/${id}`,
+       });
+       setData((prev) => prev.filter((item) => item.id !== id));
+           if (data.success) {
+
+                     setShowModal(false);
+                     setResultMessage(data.message);
+                     setShowResultModal(true);
+        
+           }
+      
+     } catch (error) {
+       console.error("Status update failed:", error);
+       alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+     }
+   };
 
   const handleSubmitEdit = async (dataa) => {
+    console.log(dataa)
     try {
-      const response = await request(
+      const result = await request(
         {
           method: "PUT",
           urlPath: `/classes/${Itemid}`,
           body: {
             title: dataa.title,
+           start_date: dataa.start_date,
+           end_date: dataa.end_date,
           },
         }
       );
+       if(result.message) {
 
-      const result = await response.json();
+         setShowModal(false);
+         setResultMessage(result.message);
+         setShowResultModal(true);
+          
+ 
+       }
 
       const updatedItem = {
         ...data.find((item) => item.id === Itemid),
@@ -66,7 +105,10 @@ export default function ClassesTable({ dat }) {
       );
     } catch (error) {
       console.error("Status update failed:", error);
-      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+      
+         setShowModal(false);
+         setResultMessage("تعذر تحديث الحالة، حاول مرة أخرى.");
+         setShowResultModal(true);
     }
   };
 
@@ -80,6 +122,15 @@ export default function ClassesTable({ dat }) {
     t("status"),
     t("actions"),
   ];
+
+    const TableHeadregstudents = [
+      "ID",
+      t("name"),
+      t("registered_diplomas"),
+      t("registration_date"),
+      t("status"),
+      t("actions"),
+    ];
 
   const TableHead = [
     "ID",
@@ -245,6 +296,30 @@ export default function ClassesTable({ dat }) {
             },
             icon: Pen,
           },
+          {
+            label: t("ListReserveSeat"),
+            action: () => {
+              setPage("users");
+              setId(item.id);
+              fetchData(item.id, "users");
+              // fetchpages(item.id, "registered_users");
+              //  setId(item.id);
+              //  getReqData(item.id);
+            },
+            icon: Pen,
+          },
+          {
+            label: t("Program Registration"),
+            action: () => {
+              setPage("enrollers");
+              setId(item.id);
+              fetchData(item.id, "enrollers");
+              // fetchpages(item.id, "registered_users");
+              //  setId(item.id);
+              //  getReqData(item.id);
+            },
+            icon: Pen,
+          },
         ],
         id: item.id,
       },
@@ -264,7 +339,11 @@ export default function ClassesTable({ dat }) {
     },
   ];
 
-  const fields = [{ name: "title", label: t("title"), type: "text" }];
+  const fields = [
+    { name: "title", label: t("title"), type: "text" },
+    { name: "start_date", label: t("start_date"), type: "date" },
+    { name: "end_date", label: t("end_date"), type: "date" },
+  ];
 
   const pageTitles = {
     classes: <OngoingTrain TableHead={TableHead} trainingData={trainingData} />,
@@ -276,8 +355,20 @@ export default function ClassesTable({ dat }) {
     ),
     registered_users: (
       <OngoingTrain
-        TableHead={TableHeadstudents}
+        TableHead={TableHeadregstudents}
         trainingData={trainingDatareg}
+      />
+    ),
+    users: (
+      <OngoingTrain
+        TableHead={TableHeadstudents}
+        trainingData={trainingDatastudent}
+      />
+    ),
+    enrollers: (
+      <OngoingTrain
+        TableHead={TableHeadstudents}       
+        trainingData={trainingDatastudent}
       />
     ),
   };
@@ -343,6 +434,12 @@ export default function ClassesTable({ dat }) {
             {page === "registered_users" ? (
               <h2 className="hvvv">{t("students_list")}</h2>
             ) : null}{" "}
+            {page === "users" ? (
+              <h2 className="hvvv">{t("ListReserveSeat")}</h2>
+            ) : null}{" "}
+            {page === "enrollers" ? (
+              <h2 className="hvvv">{t("Program Registration")}</h2>
+            ) : null}{" "}
             <button
               className="btn btn-light custfontbtn"
               onClick={() => {
@@ -355,6 +452,16 @@ export default function ClassesTable({ dat }) {
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht ">
             {pageTitles[page]}
           </div>
+
+          {/* Result Modal */}
+          <AlertModal
+            show={showResultModal}
+            onClose={() => setShowResultModal(false)}
+            onSubmit={() => setShowResultModal(false)}
+            title={resultMessage || t("operation_completed")}
+          >
+            <p className="m-0 text-center">{resultMessage}</p>
+          </AlertModal>
         </>
       )}
     </>

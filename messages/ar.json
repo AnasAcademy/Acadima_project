@@ -1231,6 +1231,8 @@
     "request_rejected_successfully": "تم رفض الطلب بنجاح",
     "request_approval_failed": "فشل في قبول الطلب",
     "request_rejection_failed": "فشل في رفض الطلب",
-    "user_enrolled_successfully": "تم تسجيل المستخدم بنجاح"
+    "user_enrolled_successfully": "تم تسجيل المستخدم بنجاح",
+    "ListReserveSeat": "قائمة حجز المقاعد",
+    "Program Registration": "تسجيل البرنامج"
   }
 }

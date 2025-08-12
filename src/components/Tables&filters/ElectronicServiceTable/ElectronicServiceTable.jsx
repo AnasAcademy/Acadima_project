@@ -84,13 +84,14 @@ export default function ElectronicServiceTable({
       });
 
 
-      if (response.ok) {
+     
         // Remove the item from local state
         setData((prev) => prev.filter((item) => item.id !== id));
         setResultMessage(t("service_deleted_successfully"));
-      } else {
-        throw new Error(t("service_delete_failed"));
-      }
+      
+      // } else {
+      // //   throw new Error(t("service_delete_failed"));
+      // // }
     } catch (error) {
       console.error("Delete failed:", error);
       setResultMessage(t("service_delete_failed"));
@@ -172,7 +173,7 @@ export default function ElectronicServiceTable({
         return;
       }
 
-      if (response.ok && (result.success || result.message)) {
+      if ((result.success || result.message)) {
         const updatedItem = {
           ...originalItem,
           ...changedData,
@@ -224,7 +225,7 @@ export default function ElectronicServiceTable({
         requestBody.courses = dataa.webinars; // Send as 'courses' to API
       }
 
-      const response = await request({
+      const result = await request({
         method: "POST",
         urlPath: `/services`,
         body: requestBody,
@@ -232,16 +233,16 @@ export default function ElectronicServiceTable({
 
      
 
-      if (result.errors) {
-        const messages = Object.values(result.errors).map(
-          (error) => error.ar || error
-        );
-        setAlertmssg(messages.join("\n"));
-        setShowAlertModal(true);
-        return;
-      }
+      // if (result.errors) {
+      //   const messages = Object.values(result.errors).map(
+      //     (error) => error.ar || error
+      //   );
+      //   setAlertmssg(messages.join("\n"));
+      //   setShowAlertModal(true);
+      //   return;
+      // }
 
-      if (response.ok && (result.message || result.service)) {
+      if ( (result.message || result.service)) {
         if (result.service) {
           const newItem = result.service;
           setData((prev) => [...prev, newItem]);
@@ -388,7 +389,7 @@ export default function ElectronicServiceTable({
     }
 
     try {
-      const response = await request(
+      const result = await request(
     
         {
           method: "POST",
@@ -399,9 +400,9 @@ export default function ElectronicServiceTable({
         }
       );
 
-      const result = await response.json();
+     
 
-      if (response.ok && result.status === "success") {
+      if (result.status === "success") {
         // Update the status in local state
         setReqtbledata(prevData =>
           prevData.map(item =>
