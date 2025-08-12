@@ -8,6 +8,7 @@ import ProblemCard from "@/components/problemcard/ProblemCard";
 import Frame1 from "@/assets/smallCard assets/Frame_31.svg"
 import Frame2 from '@/assets/smallCard assets/sec.svg'
  
+
 import { cookies } from "next/headers";
  
 export default  async function Home() {

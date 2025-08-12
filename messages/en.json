@@ -1231,6 +1231,7 @@
     "request_approved_successfully": "Request approved successfully",
     "request_rejected_successfully": "Request rejected successfully",
     "request_approval_failed": "Failed to approve request",
-    "request_rejection_failed": "Failed to reject request"
+    "request_rejection_failed": "Failed to reject request",
+    "user_enrolled_successfully": "User enrolled successfully"
   }
 }

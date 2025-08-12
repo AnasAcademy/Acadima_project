@@ -439,7 +439,7 @@ export default function NewSideBar() {
             {admission.map((item, index) => {
               return (
                 <li
-                  key={index} // Add this key prop
+                  key={index}
                   className={`nav-item d-flex w-100  align-items-center  p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }  `}
@@ -473,6 +473,7 @@ export default function NewSideBar() {
             {isRegistered.map((item, index) => {
               return (
                 <li
+                  key={index}
                   className={`nav-item d-flex     w-100  align-items-center p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
@@ -499,6 +500,7 @@ export default function NewSideBar() {
             {enrollment.map((item, index) => {
               return (
                 <li
+                  key={index}
                   className={`nav-item d-flex    w-100  align-items-center p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
@@ -601,6 +603,7 @@ export default function NewSideBar() {
             {proreg.map((item, index) => {
               return (
                 <li
+                  key={index}
                   className={`nav-item d-flex    w-100  align-items-center  p-2  ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
@@ -631,7 +634,8 @@ export default function NewSideBar() {
           <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
             {finan.map((item, index) => {
               return (
-                <li
+                <li 
+                  key={index}
                   className={`nav-item d-flex    w-100  align-items-center  p-2 ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}
@@ -663,6 +667,7 @@ export default function NewSideBar() {
             {users.map((item, index) => {
               return (
                 <li
+                  key={index}
                   className={`nav-item d-flex    w-100  align-items-center  p-2 ${
                     item.bg ? "bgNewSidebar rounded-3" : ""
                   }   `}
@@ -695,6 +700,7 @@ export default function NewSideBar() {
             {accmange.map((item, index) => {
               return (
                 <li
+                  key={index}
                   className={`nav-item d-flex    w-100  align-items-center  p-2 ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
                   }   `}

@@ -31,11 +31,11 @@ export default   function NotificationProvider({ children }) {
 
       const json = await res.json();
       console.log(json.data)
-      setNotifications(json.data.notifications || []);
+      // setNotifications(json.data.notifications || []);
 
-      const initialFlags = json.data.notifications.map((notifi) => notifi.status);
+      // const initialFlags = json.data.notifications.map((notifi) => notifi.status);
 
-      setFlag(initialFlags);
+      // setFlag(initialFlags);
      
   
       

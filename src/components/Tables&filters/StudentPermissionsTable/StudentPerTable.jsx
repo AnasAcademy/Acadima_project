@@ -217,11 +217,11 @@ export default function StudentPerTable({
             filename="student_permissions_report"
             className="btn custfontbtn rounded-2 mb-3"
              onSuccess={(message) => {
-                setResultMessage("تم تحميل التقرير بنجاح");
+                setResultMessage(t("download_success"));
                 setShowResultModal(true);
               }}
               onError={(error) => {
-                setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                setResultMessage(t("download_failed"));
                 setShowResultModal(true);
               }}
           >

@@ -5,11 +5,13 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
-import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Add import
+import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import printer from "@/assets/admin/printer.svg";
 import check from "@/assets/admin/Check.svg";
+import { useApiClient } from "@/hooks/useApiClient";
+import { useUserData } from "@/context/UserDataContext";
 
 export default function EnrollmentHistoryTable({
   initialData = [],
@@ -18,6 +20,10 @@ export default function EnrollmentHistoryTable({
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("SidebarA");
+  const { request } = useApiClient();
+
+  // ---- CHANGED: use getters instead of raw studentsList
+  const { getStudentOptions, getWebinarOptions } = useUserData();
 
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
@@ -26,6 +32,7 @@ export default function EnrollmentHistoryTable({
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
   const [isInitialRender, setIsInitialRender] = useState(true);
+  const [currentFilters, setCurrentFilters] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [resultMessage, setResultMessage] = useState("");
@@ -39,25 +46,18 @@ export default function EnrollmentHistoryTable({
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/history?page=${pageNumber}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
-      const respond = await res.json();
-      const data = respond?.data || [];
+      const response = await request({
+        method: "GET",
+        urlPath: `/enrollments/history`,
+        query: { page: pageNumber },
+      });
+
+      const data = response?.data || [];
       setDataa(data);
       setFilter(data);
-      setCurrentPage(respond?.current_page || 1);
-      setTotalPages(respond?.last_page || 1);
-      setPage(respond?.current_page || 1);
+      setCurrentPage(response?.current_page || 1);
+      setTotalPages(response?.last_page || 1);
+      setPage(response?.current_page || 1);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -65,52 +65,45 @@ export default function EnrollmentHistoryTable({
     }
   };
 
-  // Only fetch data on page change, not on initial mount since we have initialData
   useEffect(() => {
     if (isInitialRender) {
       setIsInitialRender(false);
-      return; // Skip fetch on initial mount
+      return;
     }
-    fetchData(page);
-  }, [page]);
+    if (Object.keys(currentFilters).length > 0) {
+      handleSearch(currentFilters, page);
+    } else {
+      fetchData(page);
+    }
+  }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSearch = async (filters, pageNumber = 1) => {
     setLoading(true);
+    setCurrentFilters(filters);
     try {
-      const query = new URLSearchParams();
+      const queryParams = {};
 
-      // Append all filter parameters
       selectCardData.inputs.forEach((input) => {
         const value = filters[input.filter];
         if (value) {
-          query.append(input.apiKey || input.filter, value);
+          queryParams[input.apiKey || input.filter] = value;
         }
       });
 
-      // Append pagination separately
-      query.append("page", pageNumber);
+      queryParams.page = pageNumber;
 
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/history?${query.toString()}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const response = await request({
+        method: "GET",
+        urlPath: `/enrollments/history`,
+        query: queryParams,
+      });
 
-      const respond = await res.json();
-      const data = respond?.data || [];
-
+      const data = response?.data || [];
       setFilter(data);
       setDataa(data);
-      setCurrentPage(respond?.current_page || 1);
-      setTotalPages(respond?.last_page || 1);
-      setPage(respond?.current_page || 1);
+      setCurrentPage(response?.current_page || 1);
+      setTotalPages(response?.last_page || 1);
+      setPage(response?.current_page || 1);
     } catch (error) {
       console.error("Search error:", error);
     } finally {
@@ -120,7 +113,6 @@ export default function EnrollmentHistoryTable({
 
   const openInvoice = (invoiceUrl) => {
     if (invoiceUrl) {
-      // Open the invoice URL in a new tab/window
       window.open(invoiceUrl, "_blank", "noopener,noreferrer");
     } else {
       setResultMessage("رابط الفاتورة غير متوفر");
@@ -144,27 +136,17 @@ export default function EnrollmentHistoryTable({
 
   const enableAccess = async (id) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/${id}/enable-access`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const response = await request({
+        method: "GET",
+        urlPath: `/enrollments/${id}/enable-access`,
+      });
 
-      const result = await response.json();
-      if (response.ok && result?.[0].status === "success") {
-        setResultMessage(result.msg || t("access_enabled"));
+      if (response?.[0]?.status === "success") {
+        setResultMessage(response.msg || t("access_enabled"));
         setShowResultModal(true);
-        // Refresh data to reflect changes
         fetchData(currentPage);
       } else {
-        throw new Error(result.msg || "فشل في تفعيل الوصول");
+        throw new Error(response.msg || "فشل في تفعيل الوصول");
       }
     } catch (error) {
       console.error("Enable access failed:", error);
@@ -177,28 +159,17 @@ export default function EnrollmentHistoryTable({
 
   const disableAccess = async (id) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/${id}/block-access`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const response = await request({
+        method: "GET",
+        urlPath: `/enrollments/${id}/block-access`,
+      });
 
-      const result = await response.json();
-
-      if (response.ok && result?.[0].status === "success") {
-        setResultMessage(result.msg || t("access_denied"));
+      if (response?.[0]?.status === "success") {
+        setResultMessage(response.msg || t("access_denied"));
         setShowResultModal(true);
-        // Refresh data to reflect changes
         fetchData(currentPage);
       } else {
-        throw new Error(result.msg || "فشل في إلغاء الوصول");
+        throw new Error(response.msg || "فشل في إلغاء الوصول");
       }
     } catch (error) {
       console.error("Disable access failed:", error);
@@ -211,46 +182,33 @@ export default function EnrollmentHistoryTable({
 
   const handleSubmitAdd = async (formData) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/enrollments/store`,
-        {
-          method: "POST",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-          body: JSON.stringify({
-            user_id: parseInt(formData.user_id),
-            webinar_id: parseInt(formData.webinar_id),
-          }),
-        }
-      );
+      const response = await request({
+        method: "POST",
+        urlPath: `/enrollments/store`,
+        body: {
+          user_id: parseInt(formData.user_id),
+          webinar_id: parseInt(formData.webinar_id),
+        },
+      });
 
-      const result = await response.json();
       if (response.status === 422) {
         setResultMessage(t("user_already_enrolled"));
         setShowResultModal(true);
         setShowEditForm(false);
-      } else if (response.ok) {
+      } else {
         setResultMessage(
-          result.message || "User enrolled successfully into group A"
+          t("user_enrolled_successfully")
         );
         setShowResultModal(true);
         setShowEditForm(false);
         fetchData(currentPage);
-      } else {
-        const errorText = result.errors
-          ? Object.values(result.errors).join(", ")
-          : result.message || `فشل الإضافة (${response.status})`;
-        setResultMessage(`فشل الإضافة: ${errorText}`);
-        setShowResultModal(true);
-        throw new Error(errorText);
       }
     } catch (error) {
       console.error("Add failed:", error);
-      setResultMessage("فشل الإضافة. حاول مرة أخرى.");
+      const errorMsg = error.message?.includes("422")
+        ? t("user_already_enrolled")
+        : "فشل الإضافة. حاول مرة أخرى.";
+      setResultMessage(errorMsg);
       setShowResultModal(true);
     }
   };
@@ -264,18 +222,27 @@ export default function EnrollmentHistoryTable({
         { type: "text", value: index + 1 },
         {
           type: "user",
-          name: item.buyer.full_name || item.full_name || "-",
-          id: item.buyer.id || item.id || "-",
+          name: item.buyer?.full_name || item.full_name || "-",
+          id: item.buyer?.id || item.id || "-",
         },
         {
           type: "user",
-          name: item.webinar.creator.full_name || item.full_name || "-",
-          id: item.webinar.creator.id || item.id || "-",
+          name:
+            item.webinar?.creator?.full_name ||
+            item.full_name ||
+            "-",
+          id: item.webinar?.creator?.id || item.id || "-",
         },
         {
           type: "user",
-          name: item.webinar.translations?.[0].title || item.full_name || "-",
-          id: item.webinar.translations?.[0].id || item.id || "-",
+          name:
+            item.webinar?.translations?.[0]?.title ||
+            item.full_name ||
+            "-",
+          id:
+            item.webinar?.translations?.[0]?.id ||
+            item.id ||
+            "-",
         },
         {
           type: "label",
@@ -346,34 +313,38 @@ export default function EnrollmentHistoryTable({
         placeholder: t("program-search"),
         apiKey: "item_title",
       },
-      //   {
-      //     title: t("status"),
-      //     type: "select",
-      //     filter: "status",
-      //     placeholder: t("status"),
-      //     apiKey: "status",
-      //     options: [
-      //       { value: "completed", label: t("completed") },
-      //       { value: "in_progress", label: t("in-progress") },
-      //       { value: "not_started", label: t("not-started") },
-      //     ],
-      //   },
     ],
   };
 
+  // ---- CHANGED: use getters from context
+  const studentOptions = getStudentOptions();
+  const webinarOptions = getWebinarOptions();
+
   const formTitles = [
     {
-      label:
-        //   (formState === "add" ? t("add") + " " : t("edit") + " ") +
-        t("add-new-enrollment"),
+      label: t("add-new-enrollment"),
       type: "text",
     },
     { label: formState === "add" ? t("add") : t("edit"), type: "text" },
   ];
 
   const fields = [
-    { name: "user_id", label: t("user_id"), type: "number" },
-    { name: "webinar_id", label: t("webinar_id"), type: "number" },
+    {
+      name: "user_id",
+      label: t("user_id"),
+      type: "selectsearch",
+      options: studentOptions,
+      required: true,
+      placeholder: "Search students",
+    },
+    {
+      name: "webinar_id",
+      label: t("webinar_id"),
+      type: "selectsearch",
+      options: webinarOptions,
+      required: true,
+      placeholder: "Search classes",
+    },
   ];
 
   return (
@@ -407,19 +378,17 @@ export default function EnrollmentHistoryTable({
 
           <div className="col-12">
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              {/* Add Service Button (like ElectronicServiceTable) */}
               <div className="d-flex justify-content-between align-items-center mb-3">
-                {/* Replace the old button with ExcelDownload component */}
                 <ExcelDownload
-                  endpoint="https://api.lxera.net/api/development/organization/vodafone/enrollments/export"
+                  endpoint="/api/proxy/enrollments/export"
                   filename="enrollment_history_report"
                   className="btn custfontbtn rounded-2"
-                  onSuccess={(message) => {
-                    setResultMessage("تم تحميل التقرير بنجاح");
+                  onSuccess={() => {
+                    setResultMessage(t("download_success"));
                     setShowResultModal(true);
                   }}
-                  onError={(error) => {
-                    setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                  onError={() => {
+                    setResultMessage(t("download_failed"));
                     setShowResultModal(true);
                   }}
                 >
@@ -450,7 +419,7 @@ export default function EnrollmentHistoryTable({
                   className="btn custfontbtn col-1"
                   onClick={() => setPage(Math.max(currentPage - 1, 1))}
                 >
-                  {loading ? "..." : t("previous-page")}
+                  {t("previous-page")}
                 </button>
                 <span className="px-2 align-self-center col-1 text-center">
                   {t("page")} {currentPage}
@@ -460,7 +429,7 @@ export default function EnrollmentHistoryTable({
                   className="btn custfontbtn col-1"
                   onClick={() => setPage(currentPage + 1)}
                 >
-                  {loading ? "..." : t("next-page")}
+                  {t("next-page")}
                 </button>
               </div>
             </div>

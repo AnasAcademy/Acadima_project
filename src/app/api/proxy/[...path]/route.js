@@ -32,11 +32,11 @@ async function proxyRequest(req, method, params) {
 
   const body = ['POST', 'PUT'].includes(method) ? await req.text() : undefined;
 
-  console.log('--- Proxy Debug ---');
-  console.log('Incoming request method:', method);
-  console.log('Backend URL:', url);
-   console.log(token);
-  console.log('Token from cookie:', token ? '[Present]' : '[Missing]');
+  // console.log('--- Proxy Debug ---');
+  // console.log('Incoming request method:', method);
+  // console.log('Backend URL:', url);
+  //  console.log(token);
+  // console.log('Token from cookie:', token ? '[Present]' : '[Missing]');
   if (body) console.log('Request Body:', body);
 
   const res = await fetch(url, {

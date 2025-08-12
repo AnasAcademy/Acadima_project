@@ -618,6 +618,10 @@ export default function ElectronicServiceTable({
                 data
                   .find((item) => item.id === Itemid)
                   ?.end_date?.split("T")[0] || "",
+              target:
+                data
+                  .find((item) => item.id === Itemid)
+                  ?.target || "",
             }}
             formTitles={formTitles}
             handleSubmitEdit={handleSubmitEdit}
@@ -656,11 +660,11 @@ export default function ElectronicServiceTable({
                     className="btn custfontbtn rounded-2"
                     disabled={!Itemid}
                     onSuccess={(message) => {
-                      setResultMessage("تم تحميل التقرير بنجاح");
+                      setResultMessage(t("download_success"));
                       setShowResultModal(true);
                     }}
                     onError={(error) => {
-                      setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                      setResultMessage(t("download_failed"));
                       setShowResultModal(true);
                     }}
                   >
