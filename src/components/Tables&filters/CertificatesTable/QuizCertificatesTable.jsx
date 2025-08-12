@@ -237,11 +237,11 @@ export default function QuizCertificatesTable({
               filename="quiz_certificates_report"
               className="btn custfontbtn rounded-2"
               onSuccess={(message) => {
-                setResultMessage("تم تحميل التقرير بنجاح");
+                setResultMessage(t("download_success"));
                 setShowResultModal(true);
               }}
               onError={(error) => {
-                setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                setResultMessage(t("download_failed"));
                 setShowResultModal(true);
               }}
             >

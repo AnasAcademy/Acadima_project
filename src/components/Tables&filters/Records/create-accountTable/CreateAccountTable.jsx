@@ -5,13 +5,14 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import Editform from "@/components/Editform/Editform";
-import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Add import
+import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import Pin from "@/assets/admin/pin.svg";
 import Removebin from "@/assets/admin/removebin.svg";
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
+import { useApiClient } from "@/hooks/useApiClient";
 
 export default function CreateAccountTable({
   initialData = [],
@@ -20,14 +21,8 @@ export default function CreateAccountTable({
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("settings");
-  const {
-    statuses,
-    roles,
-    categories,
-    loading: contextLoading,
-    getRoleOptions,
-    getStatusOptions,
-  } = useUserData();
+  const { getRoleOptions, getStatusOptions } = useUserData();
+  const { request } = useApiClient();
 
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
@@ -35,12 +30,13 @@ export default function CreateAccountTable({
   const [page, setPage] = useState(initialPage);
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  const [currentFilters, setCurrentFilters] = useState({});
+
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [resultMessage, setResultMessage] = useState("");
-  const [currentFilters, setCurrentFilters] = useState({});
-  const [isInitialRender, setIsInitialRender] = useState(true);
   const [formState, setFormState] = useState("");
   const [showEditForm, setShowEditForm] = useState(false);
   const [editFormData, setEditFormData] = useState({});
@@ -49,25 +45,18 @@ export default function CreateAccountTable({
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/students/registered_users?page=${pageNumber}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const response = await request({
+        method: "GET",
+        urlPath: `/students/registered_users`,
+        query: { page: pageNumber },
+      });
 
-      const respond = await res.json();
-      setDataa(respond.users?.data || []);
-      setFilter(respond.users?.data || []);
-      setPage(respond.users?.current_page || 1);
-      setCurrentPage(respond.users?.current_page || 1);
-      setTotalPages(respond.users?.last_page || 1);
+      const data = response?.users?.data || [];
+      setDataa(data);
+      setFilter(data);
+      setCurrentPage(response?.users?.current_page || 1);
+      setTotalPages(response?.users?.last_page || 1);
+      setPage(response?.users?.current_page || 1);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -75,49 +64,33 @@ export default function CreateAccountTable({
     }
   };
 
-  useEffect(() => {
-    if (isInitialRender) {
-      setIsInitialRender(false);
-      return;
-    }
-    if (Object.keys(currentFilters).length > 0) {
-      handleSearch(currentFilters, page);
-    } else {
-      fetchData(page);
-    }
-  }, [page]);
-
   const handleSearch = async (filters, pageNumber = 1) => {
     setLoading(true);
     setCurrentFilters(filters);
     try {
-      const query = new URLSearchParams();
+      const queryParams = {};
 
       selectCardData.inputs.forEach((input) => {
         const value = filters[input.filter];
-        if (value) query.append(input.apiKey || input.filter, value);
+        if (value) {
+          queryParams[input.apiKey || input.filter] = value;
+        }
       });
 
-      query.append("page", pageNumber);
+      queryParams.page = pageNumber;
 
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/students/registered_users?${query.toString()}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const response = await request({
+        method: "GET",
+        urlPath: `/students/registered_users`,
+        query: queryParams,
+      });
 
-      const respond = await res.json();
-      setDataa(respond.users?.data || []);
-      setFilter(respond.users?.data || []);
-      setCurrentPage(respond.users?.current_page || 1);
-      setTotalPages(respond.users?.last_page || 1);
+      const data = response?.users?.data || [];
+      setFilter(data);
+      setDataa(data);
+      setCurrentPage(response?.users?.current_page || 1);
+      setTotalPages(response?.users?.last_page || 1);
+      setPage(response?.users?.current_page || 1);
     } catch (error) {
       console.error("Search error:", error);
     } finally {
@@ -126,33 +99,25 @@ export default function CreateAccountTable({
   };
 
   const DeleteUser = async () => {
+    if (!selectedId) return;
     try {
       const updatedData = dataa.filter((item) => item.id !== selectedId);
       const updatedFilter = filter.filter((item) => item.id !== selectedId);
       setDataa(updatedData);
       setFilter(updatedFilter);
 
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/students/${selectedId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const response = await request({
+        method: "DELETE",
+        urlPath: `/students/${selectedId}`,
+      });
 
-      const data = await response.json();
-      if (!response.ok || !data.success) {
+      if (!response?.success) {
         setDataa(dataa);
         setFilter(filter);
         throw new Error("Failed to delete");
       }
 
-      setResultMessage(data.message || "تم التحديث بنجاح");
+      setResultMessage(response?.message || "تم التحديث بنجاح");
       setShowResultModal(true);
       setShowModal(false);
       setSelectedId(null);
@@ -169,18 +134,18 @@ export default function CreateAccountTable({
   };
 
   const handleSubmitEdit = async (formData) => {
+    if (!selectedId) return;
+
     try {
+      setEditFormLoading(true);
       const apiData = {};
 
       Object.entries(formData).forEach(([key, value]) => {
         const original = editFormData[key];
-
-        // Normalize strings (trim, remove spaces)
         const cleaned = typeof value === "string" ? value.trim() : value;
         const cleanedOriginal =
           typeof original === "string" ? original.trim() : original;
 
-        // Skip unchanged or empty fields
         if (
           cleaned !== cleanedOriginal &&
           cleaned !== "" &&
@@ -188,7 +153,7 @@ export default function CreateAccountTable({
           cleaned !== undefined
         ) {
           if (key === "mobile") {
-            apiData[key] = cleaned.replace(/\s+/g, "");
+            apiData[key] = String(cleaned).replace(/\s+/g, "");
           } else if (key === "user_role") {
             apiData["role_name"] = cleaned;
           } else {
@@ -200,50 +165,45 @@ export default function CreateAccountTable({
       if (Object.keys(apiData).length === 0) {
         setResultMessage("لا يوجد تغييرات لإرسالها");
         setShowResultModal(true);
+        setEditFormLoading(false);
         return;
       }
 
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/students/${selectedId}`,
-        {
-          method: "PUT",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-          body: JSON.stringify(apiData),
-        }
-      );
+      const response = await request({
+        method: "PUT",
+        urlPath: `/students/${selectedId}`,
+        body: apiData,
+      });
 
-      const result = await response.json();
+      setResultMessage(t("operation_completed"));
+      setShowResultModal(true);
+      setShowEditForm(false);
 
-      if (response.ok) {
-        setResultMessage(result.message || "تم التحديث بنجاح");
-        setShowResultModal(true);
-        setShowEditForm(false);
-        fetchData(currentPage);
+      if (Object.keys(currentFilters).length > 0) {
+        handleSearch(currentFilters, currentPage);
       } else {
-        console.error("API Error Details:", {
-          status: response.status,
-          statusText: response.statusText,
-          result: result,
-        });
-
-        const errorText = result.errors
-          ? Object.values(result.errors).join(", ")
-          : result.message || `فشل التحديث (${response.status})`;
-        setResultMessage(`فشل التحديث: ${errorText}`);
-        setShowResultModal(true);
-        throw new Error(errorText);
+        fetchData(currentPage);
       }
     } catch (error) {
       console.error("Edit failed:", error);
       setResultMessage("فشل التحديث. حاول مرة أخرى.");
       setShowResultModal(true);
+    } finally {
+      setEditFormLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      return;
+    }
+    if (Object.keys(currentFilters).length > 0) {
+      handleSearch(currentFilters, page);
+    } else {
+      fetchData(page);
+    }
+  }, [page]);
 
   const trainingData = filter.map((item, index) => ({
     key: item.id || index,
@@ -258,32 +218,14 @@ export default function CreateAccountTable({
       { type: "text", value: item.program_translation?.title || item.course },
       { type: "text", value: item.created_at || item.join_date },
       { type: "label", value: item.status },
-      // {
-      //   type: "buttons",
-      //   buttons: [
-      //     {
-      //       label: t("edit"),
-      //       action: () => {
-      //         setSelectedId(item.id);
-      //         setFormState("edit");
-      //         setShowEditForm(true);
-      //       },
-      //       color: "#48BB78",
-      //     },
-      //     {
-      //       label: t("delete"),
-      //       action: () => Delete(item.id),
-      //       color: "#fc544b",
-      //     },
-      //   ],
-      // },
       {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
           setShowModal(!showModal);
-          setId(item.id);
+          setSelectedId(item.id);
           setFormState("edit");
+          setEditFormData(item);
         },
         icon: Arrowdown,
         lists: [
@@ -292,6 +234,7 @@ export default function CreateAccountTable({
             action: () => {
               setSelectedId(item.id);
               setFormState("edit");
+              setEditFormData(item);
               setShowEditForm(true);
             },
             icon: Pen,
@@ -300,7 +243,7 @@ export default function CreateAccountTable({
             label: t("delete"),
             action: () => {
               setShowModal(!showModal);
-              setId(item.id);
+              setSelectedId(item.id);
               setFormState("delete");
             },
             icon: X,
@@ -416,19 +359,18 @@ export default function CreateAccountTable({
 
           <div className="col-12">
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              {/* Replace the old button with ExcelDownload component */}
               <ExcelDownload
-                endpoint="https://api.lxera.net/api/development/organization/vodafone/students/excelRegisteredUsers"
+                endpoint="/api/proxy/students/excelRegisteredUsers"
                 filename="create_account_report"
                 className="btn custfontbtn rounded-2 mb-3"
-                onSuccess={(message) => {
-                setResultMessage("تم تحميل التقرير بنجاح");
-                setShowResultModal(true);
-              }}
-              onError={(error) => {
-                setResultMessage("فشل التحميل. حاول مرة أخرى.");
-                setShowResultModal(true);
-              }}
+                onSuccess={() => {
+                  setResultMessage(t("download_success"));
+                  setShowResultModal(true);
+                }}
+                onError={() => {
+                  setResultMessage(t("download_failed"));
+                  setShowResultModal(true);
+                }}
               >
                 Excel
               </ExcelDownload>
@@ -443,7 +385,7 @@ export default function CreateAccountTable({
 
               <div className="row justify-content-center align-items-center gap-3 mt-3">
                 <button
-                  disabled={currentPage === 1}
+                  disabled={currentPage === 1 || loading}
                   className="btn custfontbtn col-1"
                   onClick={() => setPage(Math.max(currentPage - 1, 1))}
                 >
@@ -453,7 +395,7 @@ export default function CreateAccountTable({
                   {t("page")} {currentPage}
                 </span>
                 <button
-                  disabled={currentPage >= totalPages}
+                  disabled={currentPage >= totalPages || loading}
                   className="btn custfontbtn col-1"
                   onClick={() => setPage(currentPage + 1)}
                 >
