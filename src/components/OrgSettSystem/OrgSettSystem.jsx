@@ -6,7 +6,9 @@ import Teams from "@/assets/admin/teams.svg"
 import Office from "@/assets/admin/office.svg";
 import Tab from "@/assets/admin/tab.svg"
 import White from "@/assets/admin/whitescren.svg"
-import Black from '@/assets/admin/black.svg'
+import Black from '@/assets/admin/black.svg';
+import Placeholder from "@/assets/admin/placeholder.svg";
+
 
 export default function OrgSettSystem() {
   const t = useTranslations("adminSettingsTeam");
@@ -25,12 +27,7 @@ export default function OrgSettSystem() {
           </div>
 
           <div className=" d-flex  align-items-center  gap-4 pt-2 ">
-            <div
-              className="  btncolor   rounded-circle  d-flex justify-content-center align-items-center  text-center text-white Tit-12-700 "
-              style={{ width: "74px", height: "74px" }}
-            >
-              Upload Image
-            </div>
+            <Placeholder className="iconSize14" />
 
             <div
               className=" d-flex  justify-content-center align-items-center rounded-3  px-3  py-1  gap-2   "
@@ -83,7 +80,7 @@ export default function OrgSettSystem() {
           </div>
         </div>
 
-        <div className="  mt-4 cardbg rounded-4 p-4">
+        {/* <div className="  mt-4 cardbg rounded-4 p-4">
           <div>
             <h3 className=" tit-18-700  textcolor mb-0">
               {" "}
@@ -126,7 +123,7 @@ export default function OrgSettSystem() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className=" row">
           <div className="col-12 col-xl-5">
@@ -150,10 +147,10 @@ export default function OrgSettSystem() {
                     </div>
                   </div>
 
-                  <button className="btn btn-danger Tit-12-700  px-4 text-nowrap">
+                  <span className="Tit-12-700 bg-danger px-4 py-1 rounded-2 text-bg-dark text-nowrap">
                     {" "}
                     {t("unlink")}{" "}
-                  </button>
+                  </span>
                 </div>
 
                 <div className="col-12 d-flex    align-items-center    justify-content-between">
@@ -165,10 +162,10 @@ export default function OrgSettSystem() {
                     </div>
                   </div>
 
-                  <button className="btn  btn-light btncolor Tit-12-700 px-4 text-white text-nowrap">
+                  <span className="Tit-12-700 btncolor px-4 py-1 rounded-2 text-bg-dark text-nowrap">
                     {" "}
                     {t("relink")}{" "}
-                  </button>
+                  </span>
                 </div>
 
                 <div className="col-12 d-flex    align-items-center    justify-content-between">
@@ -180,10 +177,10 @@ export default function OrgSettSystem() {
                     </div>
                   </div>
 
-                  <button className="btn  btn-light  btncolor Tit-12-700 px-4 text-white text-nowrap">
+                  <span className="Tit-12-700 btncolor px-4 py-1 rounded-2 text-bg-dark text-nowrap">
                     {" "}
                     {t("relink")}{" "}
-                  </button>
+                  </span>
                 </div>
               </div>
             </div>

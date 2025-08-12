@@ -156,24 +156,24 @@ export default function NewSideBar() {
       href: "/org/orgprofile",
       bg: isOrgprofile,
     },
-    {
-      icon: Acc2,
-      tit: "AI Assistant",
-      href: "/org/ai-assistant",
-      bg: isAiAssistant,
-    },
+    // {
+    //   icon: Acc2,
+    //   tit: "AI Assistant",
+    //   href: "/org/ai-assistant",
+    //   bg: isAiAssistant,
+    // },
     {
       icon: Acc3,
       tit: "Settings",
       href: "/org/settings",
       bg: isSettings,
     },
-    {
-      icon: Acc3,
-      tit: "plans",
-      href: "/org/plans",
-      bg: isPlans,
-    },
+    // {
+    //   icon: Acc3,
+    //   tit: "plans",
+    //   href: "/org/plans",
+    //   bg: isPlans,
+    // },
   ];
 
   const admission = [

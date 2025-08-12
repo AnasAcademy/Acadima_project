@@ -12,7 +12,8 @@
     "tableHead1": "Completion rate",
     "tableHead2": "Registered employees",
     "tableHead3": "Training program",
-    "tablerow": "Leadership skills "
+    "tablerow": "Leadership skills ",
+    "no_updates": "No updates"
   },
   "SidebarA": {
     "dashboard": "Dashboard",
@@ -91,11 +92,11 @@
   "DashboardA": {
     "employees_registered": "Number of employees registered in training",
     "employees_value": "250 Employees",
-    "active_courses": "Number of active courses:",
+    "active_courses": "Number of active courses",
     "active_courses_value": "15 Training Courses",
-    "total_certificates": "Total certificates earned:",
+    "total_certificates": "Total certificates earned",
     "total_certificates_value": "120 Certificates",
-    "course_completion": "Course completion rate",
+    "course_completion": "Active Course Percentage",
     "completion_value": "78%",
     "training_dashboard_title": "Training Control Panel",
     "training_dashboard_desc": "Track your employees’ training progress and maximize the benefit from professional development programs.",
@@ -106,9 +107,15 @@
     "active_users_analysis_title": "Active Users Analysis",
     "active_users_analysis_desc": "Monitoring user engagement with training programs during the current period.",
     "total_courses": "Total Courses",
-    "completed_courses": "Completed Courses",
+    "completed_courses": "Total Bundles",
     "ongoing_courses": "Ongoing Courses",
-    "issued_certificates": "Issued Certificates"
+    "issued_certificates": "Issued Certificates",
+    "active_webinars_percentage": "Active Webinars",
+  "pending_webinars_percentage": "Pending Webinars", 
+  "inactive_webinars_percentage": "Inactive Webinars",
+  "active_bundles_percentage": "Active Bundles",
+  "pending_bundles_percentage": "Pending Bundles",
+  "inactive_bundles_percentage": "Inactive Bundles"
   },
   "Login": {
     "login": "Login ",
@@ -735,7 +742,8 @@
     "all": "All",
     "read": "Read Notifications",
     "unread": "Unread Notifications",
-    "senderName": "Sender Name"
+    "senderName": "Sender Name",
+    "searchPlaceholder": "Search for notifications ......"
   },
   "techSupport": {
     "tech-support": "Technical Support",
@@ -1234,6 +1242,9 @@
     "request_rejection_failed": "Failed to reject request",
     "user_enrolled_successfully": "User enrolled successfully",
      "ListReserveSeat": "ListReserveSeat",
-     "Program Registration": "Program Registration"
+     "Program Registration": "Program Registration",
+    "status_refund": "Refund",
+    "status_success": "Success",
+    "status_blocked": "Blocked"
   }
 }

@@ -10,7 +10,8 @@
     "tableHead1": "نسبة الإنجاز",
     "tableHead2": "المستخدمين المسجلين",
     "tableHead3": "البرنامج التدريبي",
-    "tablerow": "تدريب مهارات القيادة"
+    "tablerow": "تدريب مهارات القيادة",
+    "no_updates": "لا توجد تحديثات"
   },
   "SidebarA": {
     "dashboard": "لوحة التحكم",
@@ -95,11 +96,11 @@
   "DashboardA": {
     "employees_registered": "عدد المستخدمين المسجلين في التدريب",
     "employees_value": "250 موظف",
-    "active_courses": "عدد الدورات النشطة:",
+    "active_courses": "عدد الدورات النشطة",
     "active_courses_value": "15 دورة تدريبية",
-    "total_certificates": "إجمالي الشهادات المكتسبة:",
+    "total_certificates": "إجمالي الشهادات المكتسبة",
     "total_certificates_value": "120 شهادة",
-    "course_completion": "نسبة إكمال الدورات",
+    "course_completion": " نسبة الدورات النشطة ",
     "completion_value": "78%",
     "training_dashboard_title": "لوحة تحكم تدريب المستخدمين",
     "training_dashboard_desc": "تابع تقدم موظفيك في التدريب وحقق أقصى استفادة من برامج التطوير المهني",
@@ -110,9 +111,15 @@
     "active_users_analysis_title": "تحليل المستخدمين النشطين",
     "active_users_analysis_desc": "رصد مستوى التفاعل مع البرامج التدريبية خلال الفترة الحالية.",
     "total_courses": "إجمالي الدورات",
-    "completed_courses": "الدورات المكتملة",
+    "completed_courses": "إجمالي البرامج ",
     "ongoing_courses": "الدورات الجارية",
-    "issued_certificates": "الشهادات الصادرة"
+    "issued_certificates": "الشهادات الصادرة",
+    "active_webinars_percentage": " الدورات النشطة",
+  "pending_webinars_percentage": " الدورات المعلقة",
+  "inactive_webinars_percentage": " الدورات غير النشطة", 
+  "active_bundles_percentage": " البرامج النشطة",
+  "pending_bundles_percentage": " البرامج المعلقة",
+  "inactive_bundles_percentage": " البرامج غير النشطة"
   },
   "Login": {
     "login": "تسجيل دخول",
@@ -733,7 +740,8 @@
     "all": "الكل",
     "read": "الإشعارات المقروءة",
     "unread": "الإشعارات غير المقروءة",
-    "senderName": "اسم الجهة المرسلة"
+    "senderName": "اسم الجهة المرسلة",
+    "searchPlaceholder": "البحث عن اشعار ......"
   },
 
   "techSupport": {
@@ -1233,6 +1241,9 @@
     "request_rejection_failed": "فشل في رفض الطلب",
     "user_enrolled_successfully": "تم تسجيل المستخدم بنجاح",
     "ListReserveSeat": "قائمة حجز المقاعد",
-    "Program Registration": "تسجيل البرنامج"
+    "Program Registration": "تسجيل البرنامج",
+    "status_refund": "مسترد",
+    "status_success": "ناجح",
+    "status_blocked": "محظور"
   }
 }

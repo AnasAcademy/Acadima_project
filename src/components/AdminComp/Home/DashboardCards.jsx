@@ -14,7 +14,7 @@ const DashboardCards = ({data}) => {
     const cards = [
       {
         title: t("employees_registered"),
-        value: data.total_employees,
+        value: data.total_users,
         icon: <FaUserTie size={18} />,
       },
       {
@@ -29,7 +29,7 @@ const DashboardCards = ({data}) => {
       },
       {
         title: t("course_completion"),
-        value: "-",
+        value: `${data.active_webinars_percentage}%`,
         icon: <PiCertificateFill size={18} />,
       },
     ];

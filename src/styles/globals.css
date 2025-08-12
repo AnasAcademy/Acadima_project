@@ -237,7 +237,7 @@ h6 {
 }
 
 .btncolor {
-  background-color: var(--btn-color);
+  background-color: var(--btn-color) !important;
   border: none !important;
 }
 
@@ -2050,6 +2050,10 @@ align-items: center;
 
 .table-responsive {
   padding-bottom: 120px;
+}
+
+input[type=search]:active , input:focus{
+  border: none;
 }
 
 @media (max-width: 500px) {

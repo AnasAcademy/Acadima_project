@@ -290,6 +290,12 @@ export default function EnrollmentHistoryTable({
     t("actions"),
   ];
 
+  const statusOptions = [
+    { label: t("status_refund"), value: "refund" },
+    { label: t("status_success"), value: "success" },
+    { label: t("status_blocked"), value: "blocked" },
+  ];
+
   const selectCardData = {
     inputs: [
       {
@@ -313,6 +319,13 @@ export default function EnrollmentHistoryTable({
         placeholder: t("program-search"),
         apiKey: "item_title",
       },
+      {
+        title: t("status"),
+        type: "select",
+        filter: "status",
+        options: statusOptions,
+        apiKey: "status",
+      }
     ],
   };
 

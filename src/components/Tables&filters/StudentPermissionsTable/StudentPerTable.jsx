@@ -6,13 +6,13 @@ import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Add import
 import Arrow from "@/assets/admin/arrow down.svg";
-  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 import { useApiClient } from "@/hooks/useApiClient";
-export default function StudentPerTable({ 
-  initialData = [], 
-  initialStudyClasses = [], 
-  initialPage = 1, 
-  initialTotalPages = 1 
+export default function StudentPerTable({
+  initialData = [],
+  initialStudyClasses = [],
+  initialPage = 1,
+  initialTotalPages = 1,
 }) {
   const t = useTranslations("tables");
 
@@ -30,13 +30,11 @@ export default function StudentPerTable({
 
   const fetchData = async (pageNumber = 1) => {
     try {
-      const result= await request(
-        {
-          method: "GET",
-          urlPath: `/permission/user_access?page=${pageNumber}`,
-        }
-      );
-      
+      const result = await request({
+        method: "GET",
+        urlPath: `/permission/user_access?page=${pageNumber}`,
+      });
+
       setDataa(result.sales.data || []);
       setFilter(result.sales.data || []);
       setStudyClasses(result.studyClasses || []);
@@ -60,13 +58,10 @@ export default function StudentPerTable({
 
       query.append("page", pageNumber);
 
-      const  result = await request(
-      
-        {
-          method: "GET",
-          urlPath: `/permission/user_access?${query.toString()}`,
-        }
-      );
+      const result = await request({
+        method: "GET",
+        urlPath: `/permission/user_access?${query.toString()}`,
+      });
 
       setFilter(result.sales.data || []);
       setCurrentPage(result.sales?.current_page || 1);
@@ -93,29 +88,24 @@ export default function StudentPerTable({
 
   const handleToggle = async (id, currentValue) => {
     const newValue = currentValue === 1 ? 0 : 1;
-    
+
     // Optimistically update the access value immediately
-    const updatedData = dataa.map(item => 
+    const updatedData = dataa.map((item) =>
       item.id === id ? { ...item, access_to_purchased_item: newValue } : item
     );
-    const updatedFilter = filter.map(item => 
+    const updatedFilter = filter.map((item) =>
       item.id === id ? { ...item, access_to_purchased_item: newValue } : item
     );
     setDataa(updatedData);
     setFilter(updatedFilter);
 
     try {
-      const response = await request(
-    
-        {
-          method: "POST",
-          urlPath: `/permission/toggle_access/${id}`,
-          body: { value: newValue },
-        }
-      );
+      const response = await request({
+        method: "POST",
+        urlPath: `/permission/toggle_access/${id}`,
+        body: { value: newValue },
+      });
 
-      
-      
       // if (!response.ok) {
       //   // If toggle failed, restore the original data
       //   setDataa(dataa);
@@ -213,17 +203,17 @@ export default function StudentPerTable({
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
           {/* Replace the old button with ExcelDownload component */}
           <ExcelDownload
-            endpoint={`${BASE_URL}/permission/export`}
+            endpoint="/api/proxy/permission/export"
             filename="student_permissions_report"
             className="btn custfontbtn rounded-2 mb-3"
-             onSuccess={(message) => {
-                setResultMessage(t("download_success"));
-                setShowResultModal(true);
-              }}
-              onError={(error) => {
-                setResultMessage(t("download_failed"));
-                setShowResultModal(true);
-              }}
+            onSuccess={() => {
+              setResultMessage(t("download_success"));
+              setShowResultModal(true);
+            }}
+            onError={() => {
+              setResultMessage(t("download_failed"));
+              setShowResultModal(true);
+            }}
           >
             Excel
           </ExcelDownload>

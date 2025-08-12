@@ -15,9 +15,9 @@ export default function AiAssistantClient() {
   const [selectedQuestion, setSelectedQuestion] = useState("");
 
   return (
-    <div className="container-fluid p-lg-4  pt-5">
+    <div className="   container p-3  mt-4 rounded-4">
       <h2 className="hvvv py-4">{t("AiAssistant")}</h2>
-      <div className="col-xl-10 col-12">
+      <div className=" col-12">
         <div
           className="d-flex flex-column flex-md-row w-100 h-100 cardbg rounded-4 shadow overflow-hidden"
           style={{ minHeight: "675px" }}

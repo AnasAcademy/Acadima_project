@@ -20,34 +20,6 @@ import SelectCard from "@/components/SelectCard/SelectCard";
 export default function OrgProfile() {
   const t = useTranslations("employee_progress");
   const ts = useTranslations("orgProfile");
- 
-   const selectCardData = {
-  inputs: [
-    {
-      title: "",
-      type: "select",
-      options: ["React", "Next.js", "Laravel"]
-    },
-    {
-      title: "",
-      type: "select",
-      options: ["Cairo", "Alex"]
-    },
-    {
-      title: "",
-      type: "select",
-      options: ["Cairo", "Alex"]
-    },
-    {
-      title: "",
-      type: "select",
-      options: ["on", "off"]
-    },{
-      title: "",
-      type: "search",
-    },
-  ]
-};
 
   return (
     <>
@@ -252,17 +224,17 @@ export default function OrgProfile() {
               </div>
             </div>
 
-            <div className="  col-lg-12 col-xl-3    ">
+            {/* <div className="  col-lg-12 col-xl-3    ">
               <LatestTrain h={"min-prf-ht"} />
-            </div>
-
+            </div> */}
+{/* 
             <div className="col-12">
               <SelectCard selectCardData={selectCardData} isOrgProfile={true} />
             </div>
 
             <div className="col-lg-12  ">
                   <OrgProfileTable />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

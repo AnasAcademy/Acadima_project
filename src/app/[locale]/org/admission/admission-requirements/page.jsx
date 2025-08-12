@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export default async function AdmissionReq() {
   const t = await getTranslations("tables");
   const locale = await getLocale(); // Get current locale
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get("auth_token")?.value;
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -73,36 +73,7 @@ export default async function AdmissionReq() {
       return [];
     } catch (error) {
       console.error("Error fetching rejection reasons:", error);
-      // Fallback reasons with both languages if API fails
-      // return [
-      //   {
-      //     value: "issue_id_passport",
-      //     label:
-      //       locale === "ar"
-      //         ? "يوجد مشكلة في مرفق بطاقة الهوية الوطنية أو جواز السفر"
-      //         : "There is an issue with the national ID or passport attachment",
-      //     label_en: "There is an issue with the national ID or passport attachment",
-      //     label_ar: "يوجد مشكلة في مرفق بطاقة الهوية الوطنية أو جواز السفر",
-      //   },
-      //   {
-      //     value: "issue_bachelor_certificate",
-      //     label:
-      //       locale === "ar"
-      //         ? "يوجد مشكلة في مرفق شهادة البكالوريوس"
-      //         : "There is an issue with the bachelor's certificate attachment",
-      //     label_en: "There is an issue with the bachelor's certificate attachment",
-      //     label_ar: "يوجد مشكلة في مرفق شهادة البكالوريوس",
-      //   },
-      //   {
-      //     value: "issue_highschool_certificate",
-      //     label:
-      //       locale === "ar"
-      //         ? "يوجد مشكلة في مرفق شهادة الثانوية"
-      //         : "There is an issue with the high school certificate attachment",
-      //     label_en: "There is an issue with the high school certificate attachment",
-      //     label_ar: "يوجد مشكلة في مرفق شهادة الثانوية",
-      //   },
-      // ];
+      
     }
   }
 
