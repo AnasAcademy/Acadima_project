@@ -43,6 +43,38 @@ export default async function Admin() {
     }
   }
 
+  async function fetchProgramPercentages(pageNumber = 1) {
+    try {
+      const res = await fetch(
+        `${baseUrl}/progress/bundlesProgress?page=${pageNumber}`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          cache: "no-store", // prevent stale data
+        }
+      );
+
+      const respond = await res.json();
+      console.log("Fetched program percentages:", respond);
+      return {
+        data: respond.data || [],
+        currentPage: respond.current_page || 1,
+        totalPages: respond.last_page || 1,
+      };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return { data: [], currentPage: 1, totalPages: 1 };
+    }
+  }
+
+  const [{ data, currentPage, totalPages }] = await Promise.all([
+    fetchProgramPercentages(1),
+  ]);
+
   const dashboardData = await fetchDashboardData();
 
   return (
@@ -74,7 +106,11 @@ export default async function Admin() {
           </div>
 
           <div className="col-xl-8 col-lg-12 col-12">
-            <OngoingTraincomp />
+            <OngoingTraincomp
+              initialData={data}
+              initialPage={currentPage}
+              initialTotalPages={totalPages}
+            />
           </div>
         </div>
       </div>

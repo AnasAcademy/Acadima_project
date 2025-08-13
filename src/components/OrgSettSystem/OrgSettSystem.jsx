@@ -1,17 +1,32 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Upload from "@/assets/admin/uploadd.svg";
 import Line from "@/assets/admin/Line18.svg";
-import Teams from "@/assets/admin/teams.svg"
+import Teams from "@/assets/admin/teams.svg";
 import Office from "@/assets/admin/office.svg";
-import Tab from "@/assets/admin/tab.svg"
-import White from "@/assets/admin/whitescren.svg"
-import Black from '@/assets/admin/black.svg';
+import Tab from "@/assets/admin/tab.svg";
+import White from "@/assets/admin/whitescren.svg";
+import Black from "@/assets/admin/black.svg";
 import Placeholder from "@/assets/admin/placeholder.svg";
-
 
 export default function OrgSettSystem() {
   const t = useTranslations("adminSettingsTeam");
+  const [color, setColor] = useState("#216ED7");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("brandColor");
+    if (saved) {
+      setColor(saved);
+      document.documentElement.style.setProperty("--btn-color", saved);
+    }
+  }, []);
+
+  const applyColor = () => {
+    document.documentElement.style.setProperty("--btn-color", color);
+    localStorage.setItem("brandColor", color); // persist locally (optional)
+  };
 
   return (
     <>
@@ -128,7 +143,6 @@ export default function OrgSettSystem() {
         <div className=" row">
           <div className="col-12 col-xl-5">
             <div className="  mt-4 cardbg rounded-4 p-4 min-systm-ht">
-
               <div>
                 <h3 className=" tit-18-700  textcolor mb-0">
                   {" "}
@@ -188,7 +202,6 @@ export default function OrgSettSystem() {
 
           <div className="col-12 col-xl-7">
             <div className="  mt-4 cardbg rounded-4 p-4 min-systm-ht">
-
               <div>
                 <h3 className=" tit-18-700  textcolor mb-0">
                   {" "}
@@ -204,20 +217,36 @@ export default function OrgSettSystem() {
                       <h3 className=" Tit-14-700"> {t("primary_color")}</h3>
                     </div>
 
-                    <div
-                      className=" d-flex gap-4 p-2 rounded-3 justify-content-between align-items-center"
-                      style={{ border: "1px  solidrgb(75, 33, 33)" }}
-                    >
-                      <div className=" d-flex justify-content-between gap-2">
-                        <div
-                          className=" btncolor"
-                          style={{ width: "43px", height: "20px" }}
-                        ></div>
+                    <div className="d-flex align-items-center gap-2">
 
-                        <div className=" tit-14-400">#216ED7</div>
-                      </div>
+                      
 
-                      <Tab />
+                      {/* color input */}
+                      <input
+                        type="color"
+                        value={color}
+                        onChange={(e) => setColor(e.target.value)}
+                        style={{
+                          width: 40,
+                          height: 28,
+                          border: "none",
+                          background: "transparent",
+                          padding: 0,
+                        }}
+                        aria-label="Pick brand color"
+                      />
+
+                      {/* hex display */}
+                      <div className="tit-14-400">{color.toUpperCase()}</div>
+
+                      {/* apply button */}
+                      <button
+                        className="btn btn-sm btn-primary"
+                        onClick={applyColor}
+                      >
+                        {/** or use your design system button */}
+                        Select
+                      </button>
                     </div>
                     <h3 className=" Tit-14-700"> {t("theme_style")}</h3>
                     <div className=" d-flex   justify-content-between gap-3">

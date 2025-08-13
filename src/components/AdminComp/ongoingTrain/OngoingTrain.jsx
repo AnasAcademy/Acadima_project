@@ -114,7 +114,7 @@ export default function OngoingTrain({
     ),
     progress: (col, key) => (
       <td key={key} className="  ">
-        <div className="d-flex align-items-center  flex-row-reverse  gap-2 ">
+        <div className="d-flex  flex-column">
           <strong className="textcolor">{col.value}%</strong>
 
           <div className="progress flex-grow-1" style={{ height: "8px" }}>

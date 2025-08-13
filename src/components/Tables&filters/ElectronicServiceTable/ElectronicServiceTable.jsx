@@ -80,11 +80,10 @@ export default function ElectronicServiceTable({
         urlPath: `/services/${id}`,
       });
 
-      
-        // Remove the item from local state
-        setData((prev) => prev.filter((item) => item.id !== id));
-        setResultMessage(t("service_deleted_successfully"));
-      
+      // Remove the item from local state
+      setData((prev) => prev.filter((item) => item.id !== id));
+      setResultMessage(t("service_deleted_successfully"));
+
       // } else {
       // //   throw new Error(t("service_delete_failed"));
       // // }
@@ -150,15 +149,11 @@ export default function ElectronicServiceTable({
         return;
       }
 
-      const result = await request(
-        {
-          method: "PUT",
-          urlPath: `/services/${Itemid}`,
-          body:{changedData},
-        }
-      );
-
-    
+      const result = await request({
+        method: "PUT",
+        urlPath: `/services/${Itemid}`,
+        body: changedData ,
+      });
 
       if (result.errors) {
         const messages = Object.values(result.errors).map(
@@ -169,7 +164,7 @@ export default function ElectronicServiceTable({
         return;
       }
 
-      if ((result.success || result.message)) {
+      if (result.success || result.message) {
         const updatedItem = {
           ...originalItem,
           ...changedData,
@@ -230,8 +225,6 @@ export default function ElectronicServiceTable({
         body: requestBody,
       });
 
-     
-
       // if (result.errors) {
       //   const messages = Object.values(result.errors).map(
       //     (error) => error.ar || error
@@ -241,7 +234,7 @@ export default function ElectronicServiceTable({
       //   return;
       // }
 
-      if ( (result.message || result.service)) {
+      if (result.message || result.service) {
         if (result.service) {
           const newItem = result.service;
           setData((prev) => [...prev, newItem]);
@@ -283,7 +276,6 @@ export default function ElectronicServiceTable({
         urlPath: `/services/${id}/requests`,
       });
 
-     
       setReqtbledata(response.service_users.data);
     } catch (error) {}
   };
@@ -344,8 +336,7 @@ export default function ElectronicServiceTable({
         urlPath: `/services/requests/${id}/approve`,
       });
 
-     
-       console.log("Accept result:", result.status);
+      console.log("Accept result:", result.status);
       if (result[0].status === "success") {
         // Update the status in local state
         setReqtbledata((prevData) =>
@@ -381,18 +372,13 @@ export default function ElectronicServiceTable({
     }
 
     try {
-      const result = await request(
-    
-        {
-          method: "POST",
-          urlPath: `/services/requests/${selectedRequestId}/reject`,
-          body: {
-            message: rejectionReason,
-          },
-        }
-      );
-
-     
+      const result = await request({
+        method: "POST",
+        urlPath: `/services/requests/${selectedRequestId}/reject`,
+        body: {
+          message: rejectionReason,
+        },
+      });
 
       if (result.status === "success") {
         // Update the status in local state
@@ -529,7 +515,9 @@ export default function ElectronicServiceTable({
         name: "status",
         label: t("status"),
         type: "select",
-        options: getStatusOptions(),
+        options: getStatusOptions().filter(
+          (o) => String(o?.value).toLowerCase() !== "pending"
+        ),
       },
       {
         name: "target",

@@ -2048,9 +2048,9 @@ align-items: center;
   background-color: #f8f9fa !important;
 }
 
-.table-responsive {
+/* .table-responsive {
   padding-bottom: 120px;
-}
+} */
 
 input[type=search]:active , input:focus{
   border: none;
