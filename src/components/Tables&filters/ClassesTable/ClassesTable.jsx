@@ -16,11 +16,11 @@ export default function ClassesTable({ dat }) {
   const [data, setData] = useState(dat);
   const [datast, setDatast] = useState([]);
   const [datarg, setDatarg] = useState([]);
-   const [dataUser, setDataUser] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
   const [Itemid, setId] = useState(null);
   const [page, setPage] = useState("classes");
   const t = useTranslations("tables");
-    const [resultMessage, setResultMessage] = useState("");
+  const [resultMessage, setResultMessage] = useState("");
   const { request } = useApiClient();
   const [showResultModal, setShowResultModal] = useState(false);
   const fetchData = async (Itemid, page) => {
@@ -45,54 +45,61 @@ export default function ClassesTable({ dat }) {
         dat = response.message.data;
         setDatast(dat);
         console.log(dat);
+      } else if (page === "direct_register") {
+        dat = response.data;
+        setDataUser(dat);
+        console.log(dat);
       }
+      else if (page === "scholarship") {
+        dat = response.data;
+        setDatast(dat);
+        console.log(dat);
+      }
+      else if (page === "requirements") {
+        dat = response.data;
+        setDataUser(dat);
+        console.log(dat);
+      }
+      
     } catch (error) {
       console.error("Fetch failed:", error);
     }
   };
-   const remove = async (id) => {
-     try {
-       const data = await request({
-         method: "DELETE",
-         urlPath: `/classes/${id}`,
-       });
-       setData((prev) => prev.filter((item) => item.id !== id));
-           if (data.success) {
-
-                     setShowModal(false);
-                     setResultMessage(data.message);
-                     setShowResultModal(true);
-        
-           }
-      
-     } catch (error) {
-       console.error("Status update failed:", error);
-       alert("تعذر تحديث الحالة، حاول مرة أخرى.");
-     }
-   };
+  const remove = async (id) => {
+    try {
+      const data = await request({
+        method: "DELETE",
+        urlPath: `/classes/${id}`,
+      });
+      setData((prev) => prev.filter((item) => item.id !== id));
+      if (data.success) {
+        setShowModal(false);
+        setResultMessage(data.message);
+        setShowResultModal(true);
+      }
+    } catch (error) {
+      console.error("Status update failed:", error);
+      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+    }
+  };
 
   const handleSubmitEdit = async (dataa) => {
-    console.log(dataa)
+    console.log(dataa);
     try {
-      const result = await request(
-        {
-          method: "PUT",
-          urlPath: `/classes/${Itemid}`,
-          body: {
-            title: dataa.title,
-           start_date: dataa.start_date,
-           end_date: dataa.end_date,
-          },
-        }
-      );
-       if(result.message) {
-
-         setShowModal(false);
-         setResultMessage(result.message);
-         setShowResultModal(true);
-          
- 
-       }
+      const result = await request({
+        method: "PUT",
+        urlPath: `/classes/${Itemid}`,
+        body: {
+          title: dataa.title,
+          start_date: dataa.start_date,
+          end_date: dataa.end_date,
+        },
+      });
+      if (result.message) {
+        setShowModal(false);
+        setResultMessage(result.message);
+        setShowResultModal(true);
+      }
 
       const updatedItem = {
         ...data.find((item) => item.id === Itemid),
@@ -105,10 +112,10 @@ export default function ClassesTable({ dat }) {
       );
     } catch (error) {
       console.error("Status update failed:", error);
-      
-         setShowModal(false);
-         setResultMessage("تعذر تحديث الحالة، حاول مرة أخرى.");
-         setShowResultModal(true);
+
+      setShowModal(false);
+      setResultMessage("تعذر تحديث الحالة، حاول مرة أخرى.");
+      setShowResultModal(true);
     }
   };
 
@@ -123,14 +130,14 @@ export default function ClassesTable({ dat }) {
     t("actions"),
   ];
 
-    const TableHeadregstudents = [
-      "ID",
-      t("name"),
-      t("registered_diplomas"),
-      t("registration_date"),
-      t("status"),
-      t("actions"),
-    ];
+  const TableHeadregstudents = [
+    "ID",
+    t("name"),
+    t("registered_diplomas"),
+    t("registration_date"),
+    t("status"),
+    t("actions"),
+  ];
 
   const TableHead = [
     "ID",
@@ -202,6 +209,46 @@ export default function ClassesTable({ dat }) {
       { type: "text", value: item.bundle.slug },
       { type: "text", value: item.buyer.created_at },
       { type: "text", value: item.buyer.status },
+      {
+        type: "actionbutton",
+        label: t("actions"),
+        action: () => {
+          setShowModal(!showModal);
+          setId(item.id);
+          setFormState("edit");
+        },
+        icon: Arrowdown,
+        color: "#48BB78",
+        lists: [
+          {
+            label: t("edit"),
+            action: () => {
+              setShowModal(!showModal);
+              setId(item.id);
+              setFormState("edit");
+            },
+            icon: Pen,
+          },
+          {
+            label: t("delete"),
+            action: () => remove(item.id),
+            icon: X,
+          },
+        ],
+        id: item.id,
+      },
+    ],
+  }));
+
+  const trainingDatadirect = dataUser.map((item, index) => ({
+    columns: [
+      { type: "text", value: item.student.id },
+      { type: "text", value: item.student.user_id },
+      { type: "text", value: item.student.ar_name },
+      { type: "text", value: item.student.identity_scan || "N/A" },
+      { type: "text", value: item.bundle.slug },
+      { type: "text", value: item.student.created_at },
+      { type: "text", value: item.student.status },
       {
         type: "actionbutton",
         label: t("actions"),
@@ -320,6 +367,42 @@ export default function ClassesTable({ dat }) {
             },
             icon: Pen,
           },
+          {
+            label: t("Direct Registration"),
+            action: () => {
+              setPage("direct_register");
+              setId(item.id);
+              fetchData(item.id, "direct_register");
+              // fetchpages(item.id, "registered_users");
+              //  setId(item.id);
+              //  getReqData(item.id);
+            },
+            icon: Pen,
+          },
+          {
+            label: t("register_scholarship"),
+            action: () => {
+              setPage("scholarship");
+              setId(item.id);
+              fetchData(item.id, "registered_users");
+              // fetchpages(item.id, "registered_users");
+              //  setId(item.id);
+              //  getReqData(item.id);
+            },
+            icon: Pen,
+          },
+          {
+            label: t("req_form"),
+            action: () => {
+              setPage("requirements");
+              setId(item.id);
+              fetchData(item.id, "registered_users");
+              // fetchpages(item.id, "registered_users");
+              //  setId(item.id);
+              //  getReqData(item.id);
+            },
+            icon: Pen,
+          },
         ],
         id: item.id,
       },
@@ -367,43 +450,30 @@ export default function ClassesTable({ dat }) {
     ),
     enrollers: (
       <OngoingTrain
-        TableHead={TableHeadstudents}       
+        TableHead={TableHeadstudents}
         trainingData={trainingDatastudent}
       />
     ),
+    direct_register: (
+      <OngoingTrain
+        TableHead={TableHeadstudents}
+        trainingData={trainingDatadirect}
+      />
+    ),
+    scholarship: (
+      <OngoingTrain
+        TableHead={TableHeadstudents}
+        trainingData={trainingDatastudent}
+      />
+    ),
+    requirements: ( 
+      <OngoingTrain
+        TableHead={TableHeadstudents}
+        trainingData={trainingDatastudent}  
+      />
+    ),
+
   };
-
-  // const fetchpages = async (Itemid , page) => {
-  //   console.log(Itemid);
-  //   console.log(page);
-  //   try {
-  //     const response = await fetch(
-  //       `https://api.lxera.net/api/development/organization/vodafone/classes/${Itemid}/${page}`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "x-api-key": "1234",
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-  //         },
-  //       }
-  //     );
-
-  //     const result = await response.json();
-  //     if (page === "students") {
-  //           dat = result.enrollments.data;
-  //  setDatast(dat);
-  //     }else{
-  //         dat = result.data;
-  //       setDatarg(dat);
-  //         console.log(dat);
-  //     }
-
-  //   } catch (error) {
-  //     console.error("Status update failed:", error);
-  //     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
-  //   }
-  // };
 
   function toogle() {
     setShowModal(!showModal);
@@ -411,7 +481,7 @@ export default function ClassesTable({ dat }) {
   return (
     <>
       {showModal ? (
-        <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+        <div className="rounded-4 shadow-sm p-md-4 p-2 container-fluid cardbg min-train-ht">
           <Editform
             fields={fields}
             data={data}
@@ -440,6 +510,15 @@ export default function ClassesTable({ dat }) {
             {page === "enrollers" ? (
               <h2 className="hvvv">{t("Program Registration")}</h2>
             ) : null}{" "}
+            {page === "direct_register" ? (
+              <h2 className="hvvv">{t("Direct Registration")}</h2>
+            ) : null}{" "}
+            {page === "scholarship" ? (
+              <h2 className="hvvv">{t("register_scholarship")}</h2>
+            ) : null}{" "}  
+            {page === "requirements" ? (
+              <h2 className="hvvv">{t("req_form")}</h2>
+            ) : null}{" "}
             <button
               className="btn btn-light custfontbtn"
               onClick={() => {
@@ -452,7 +531,6 @@ export default function ClassesTable({ dat }) {
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht ">
             {pageTitles[page]}
           </div>
-
           {/* Result Modal */}
           <AlertModal
             show={showResultModal}

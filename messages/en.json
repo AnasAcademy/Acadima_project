@@ -1234,6 +1234,9 @@
     "request_rejection_failed": "Failed to reject request",
     "user_enrolled_successfully": "User enrolled successfully",
      "ListReserveSeat": "ListReserveSeat",
-     "Program Registration": "Program Registration"
+     "Program Registration": "Program Registration",
+    "Direct Registration": "Direct Registration",
+    "register_scholarship": "Register Scholarship",
+    "req_form":  "Requirements Form"
   }
 }
