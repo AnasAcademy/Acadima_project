@@ -1,30 +1,29 @@
 "use client";
 
-import { BarChart, Bar, YAxis, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, YAxis, XAxis, ResponsiveContainer } from "recharts";
 import { LiaCertificateSolid } from "react-icons/lia";
 import { IoIosRocket } from "react-icons/io";
 import { RiBarChart2Fill } from "react-icons/ri";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 
-const data = [
-    { name: 'Jan', value: 65 },
-    { name: 'Feb', value: 45 },
-    { name: 'Mar', value: 22 },
-    { name: 'Apr', value: 60 },
-    { name: 'May', value: 100 },
-    { name: 'Jun', value: 85 },
-    { name: 'Jul', value: 98 },
-    { name: 'Aug', value: 60 },
-    { name: 'Sep', value: 30 },
-];
+
 
 const ActiveUsersAnalysis = ({dat}) => {
+const t = useTranslations("DashboardA");
+  const data = [
+  { name: t("active_webinars_percentage"), value: Math.round((dat.active_webinars_percentage || 0) * 10) / 10 },
+  // { name: t("pending_webinars_percentage"), value: Math.round((dat.pending_webinars_percentage || 0) * 10) / 10 },
+  { name: t("inactive_webinars_percentage"), value: Math.round((dat.inactive_webinars_percentage || 0) * 10) / 10 },
+  { name: t("active_bundles_percentage"), value: Math.round((dat.active_bundles_percentage || 0) * 10) / 10 },
+  // { name: t("pending_bundles_percentage"), value: Math.round((dat.pending_bundles_percentage || 0) * 10) / 10 },
+  { name: t("inactive_bundles_percentage"), value: Math.round((dat.inactive_bundles_percentage || 0) * 10) / 10 },
+];
 
     // Get the current locale (language)
     const locale = useLocale();
     const isRTL = locale === "ar"; // Correct detection of Arabic
-    const t = useTranslations("DashboardA");
+    
 
     return (
       <div className="card  border-0 shadow-sm rounded-3 p-3 text-white">
@@ -54,7 +53,9 @@ const ActiveUsersAnalysis = ({dat}) => {
 
               {/* Remove these for clean look */}
               {/* <CartesianGrid /> */}
-              {/* <XAxis /> */}
+              <XAxis 
+                dataKey="name"
+              />
               {/* <Tooltip /> */}
 
               <Bar
@@ -109,7 +110,7 @@ const ActiveUsersAnalysis = ({dat}) => {
               </div>
               <h6 className="mx-1">{t("completed_courses")}</h6>
             </div>
-            <h3 className="my-2">-</h3>
+            <h3 className="my-2">{dat.total_bundles}</h3>
             <div
               className="progress"
               style={{ height: "5px", direction: isRTL ? "rtl" : "ltr" }}
@@ -117,7 +118,7 @@ const ActiveUsersAnalysis = ({dat}) => {
               <div
                 className="progress-bar secColor"
                 role="progressbar"
-                style={{ width: "75%" }} // adjust this as needed
+                style={{ width: "40%" }} // adjust this as needed
                 aria-valuenow={75}
                 aria-valuemin={0}
                 aria-valuemax={100}
@@ -142,7 +143,7 @@ const ActiveUsersAnalysis = ({dat}) => {
               <div
                 className="progress-bar secColor"
                 role="progressbar"
-                style={{ width: "75%" }} // adjust this as needed
+                style={{ width: "55%" }} // adjust this as needed
                 aria-valuenow={75}
                 aria-valuemin={0}
                 aria-valuemax={100}
@@ -169,7 +170,7 @@ const ActiveUsersAnalysis = ({dat}) => {
               <div
                 className="progress-bar secColor"
                 role="progressbar"
-                style={{ width: "75%" }} // adjust this as needed
+                style={{ width: "80%" }} // adjust this as needed
                 aria-valuenow={75}
                 aria-valuemin={0}
                 aria-valuemax={100}

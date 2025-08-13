@@ -7,7 +7,7 @@ export default function AiMessage({ name = "AI NAME", message }) {
         <small className="text-muted">{name}</small>
         <HelpIcon className="iconSize2 iconcolor" />
       </div>
-      <span className="bubble ai-bubble text-black">{message}</span>
+      <span className="bubble ai-bubble text-black" style={{ whiteSpace: "pre-line" }}>{message}</span>
     </div>
   );
 }

@@ -131,68 +131,67 @@ export default function AllStudentsTable({
   };
 
   const handleSubmitEdit = async (formData) => {
-  if (!selectedId) return;
+    if (!selectedId) return;
 
-  try {
-    setEditFormLoading(true);
-    const apiData = {};
+    try {
+      setEditFormLoading(true);
+      const apiData = {};
 
-    Object.entries(formData).forEach(([key, value]) => {
-      const original = editFormData[key];
-      const cleaned = typeof value === "string" ? value.trim() : value;
-      const cleanedOriginal =
-        typeof original === "string" ? original.trim() : original;
+      Object.entries(formData).forEach(([key, value]) => {
+        const original = editFormData[key];
+        const cleaned = typeof value === "string" ? value.trim() : value;
+        const cleanedOriginal =
+          typeof original === "string" ? original.trim() : original;
 
-      if (
-        cleaned !== cleanedOriginal &&
-        cleaned !== "" &&
-        cleaned !== null &&
-        cleaned !== undefined
-      ) {
-        if (key === "mobile") {
-          apiData[key] = String(cleaned).replace(/\s+/g, "");
-        } else if (key === "user_role") {
-          apiData["role_name"] = cleaned;
-        } else if (key === "status") {
-          // 👇 always send lowercase
-          apiData[key] = String(cleaned).toLowerCase();
-        } else {
-          apiData[key] = cleaned;
+        if (
+          cleaned !== cleanedOriginal &&
+          cleaned !== "" &&
+          cleaned !== null &&
+          cleaned !== undefined
+        ) {
+          if (key === "mobile") {
+            apiData[key] = String(cleaned).replace(/\s+/g, "");
+          } else if (key === "user_role") {
+            apiData["role_name"] = cleaned;
+          } else if (key === "status") {
+            // 👇 always send lowercase
+            apiData[key] = String(cleaned).toLowerCase();
+          } else {
+            apiData[key] = cleaned;
+          }
         }
+      });
+
+      if (Object.keys(apiData).length === 0) {
+        setResultMessage("لا يوجد تغييرات لإرسالها");
+        setShowResultModal(true);
+        setEditFormLoading(false);
+        return;
       }
-    });
 
-    if (Object.keys(apiData).length === 0) {
-      setResultMessage("لا يوجد تغييرات لإرسالها");
+      const response = await request({
+        method: "PUT",
+        urlPath: `/students/${selectedId}`,
+        body: apiData,
+      });
+
+      setResultMessage(t("operation_completed"));
       setShowResultModal(true);
+      setShowEditForm(false);
+
+      if (Object.keys(currentFilters).length > 0) {
+        handleSearch(currentFilters, currentPage);
+      } else {
+        fetchData(currentPage);
+      }
+    } catch (error) {
+      console.error("Edit failed:", error);
+      setResultMessage("فشل التحديث. حاول مرة أخرى.");
+      setShowResultModal(true);
+    } finally {
       setEditFormLoading(false);
-      return;
     }
-
-    const response = await request({
-      method: "PUT",
-      urlPath: `/students/${selectedId}`,
-      body: apiData,
-    });
-
-    setResultMessage(t("operation_completed"));
-    setShowResultModal(true);
-    setShowEditForm(false);
-
-    if (Object.keys(currentFilters).length > 0) {
-      handleSearch(currentFilters, currentPage);
-    } else {
-      fetchData(currentPage);
-    }
-  } catch (error) {
-    console.error("Edit failed:", error);
-    setResultMessage("فشل التحديث. حاول مرة أخرى.");
-    setShowResultModal(true);
-  } finally {
-    setEditFormLoading(false);
-  }
-};
-
+  };
 
   useEffect(() => {
     if (isInitialRender) {
@@ -386,11 +385,11 @@ export default function AllStudentsTable({
                 filename="all_students_report"
                 className="btn custfontbtn rounded-2 mb-3"
                 onSuccess={() => {
-                  setResultMessage("تم تحميل التقرير بنجاح");
+                  setResultMessage(t("download_success"));
                   setShowResultModal(true);
                 }}
                 onError={() => {
-                  setResultMessage("فشل التحميل. حاول مرة أخرى.");
+                  setResultMessage(t("download_failed"));
                   setShowResultModal(true);
                 }}
               >

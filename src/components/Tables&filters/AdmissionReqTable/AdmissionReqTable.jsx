@@ -325,14 +325,14 @@ export default function AdmissionReqTable({
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
           <ExcelDownload
-            endpoint={`${BASE_URL}/requirements/excel`}
+            endpoint="/api/proxy/requirements/excel"
             filename="admission_requirements_report"
             className="btn custfontbtn rounded-2 mb-3"
-            onSuccess={(message) => {
+            onSuccess={() => {
               setResultMessage(t("download_success"));
               setShowResultModal(true);
             }}
-            onError={(error) => {
+            onError={() => {
               setResultMessage(t("download_failed"));
               setShowResultModal(true);
             }}

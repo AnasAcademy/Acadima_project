@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/[locale]/login/layout.jsx", "src/components/AdminComp/Navbar/Navbar.jsx", "src/app/api/set-token/route.ts", "src/components/AdminComp/Home/ActiveUsersAnalysis.jsx", "src/components/AdminComp/Home/DashboardCards.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/[locale]/login/layout.jsx", "src/components/AdminComp/Navbar/Navbar.jsx", "src/app/api/set-token/route.ts", "src/components/AdminComp/Home/ActiveUsersAnalysis.jsx", "src/components/AdminComp/Home/DashboardCards.jsx", "src/components/AdminComp/Home/TrainingGuideCard.tsx", "src/components/AdminComp/Home/TrainigControlPanel.tsx", "src/app/[locale]/layout.tsx"],
   "exclude": ["node_modules"]
 }

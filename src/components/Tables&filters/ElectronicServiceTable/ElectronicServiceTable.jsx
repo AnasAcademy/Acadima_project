@@ -49,7 +49,7 @@ export default function ElectronicServiceTable({
     getBundleOptions,
     getWebinarOptions, // Add webinar options helper
   } = useUserData();
-  const { request } = useApiClient();;
+  const { request } = useApiClient();
 
   async function fetchy(stat) {
     const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
@@ -61,14 +61,11 @@ export default function ElectronicServiceTable({
     }
 
     try {
-      const respond= await request(
-        {
-          method: "GET",
-          urlPath: `/services?page=${newPage}`,
-        }
-      );
+      const respond = await request({
+        method: "GET",
+        urlPath: `/services?page=${newPage}`,
+      });
 
- 
       dat = respond.data.data;
       setData(dat);
     } catch (error) {
@@ -83,8 +80,7 @@ export default function ElectronicServiceTable({
         urlPath: `/services/${id}`,
       });
 
-
-     
+      
         // Remove the item from local state
         setData((prev) => prev.filter((item) => item.id !== id));
         setResultMessage(t("service_deleted_successfully"));
@@ -178,9 +174,12 @@ export default function ElectronicServiceTable({
           ...originalItem,
           ...changedData,
           // Update local state with webinars field for consistency
-          webinars: formData.target === "specific_webinars" && formData.webinars 
-            ? originalItem.webinars?.map(w => formData.webinars.includes(w.id) ? w : null).filter(Boolean) || []
-            : originalItem.webinars
+          webinars:
+            formData.target === "specific_webinars" && formData.webinars
+              ? originalItem.webinars
+                  ?.map((w) => (formData.webinars.includes(w.id) ? w : null))
+                  .filter(Boolean) || []
+              : originalItem.webinars,
         };
 
         // Remove courses from changedData as it's only for API
@@ -279,13 +278,10 @@ export default function ElectronicServiceTable({
 
   const getReqData = async (id) => {
     try {
-      const response = await request(
-       
-        {
-          method: "GET",
-          urlPath: `/services/${id}/requests`,
-        }
-      );
+      const response = await request({
+        method: "GET",
+        urlPath: `/services/${id}/requests`,
+      });
 
      
       setReqtbledata(response.service_users.data);
@@ -294,15 +290,11 @@ export default function ElectronicServiceTable({
 
   const getServiceDetails = async (id) => {
     try {
-      const response = await request(
+      const response = await request({
+        method: "GET",
+        urlPath: `/services/${id}`,
+      });
 
-        {
-          method: "GET",
-          urlPath: `/services/${id}`,
-        }
-      );
-
-     
       setSelectedService(response.service?.[0]);
       setShowDetailsModal(true);
     } catch (error) {
@@ -336,7 +328,7 @@ export default function ElectronicServiceTable({
     t("request_status"),
     t("request_content"),
     t("request_date"),
-    t("actions")
+    t("actions"),
   ];
 
   // Add new state for rejection modal and reason
@@ -356,14 +348,14 @@ export default function ElectronicServiceTable({
        console.log("Accept result:", result.status);
       if (result[0].status === "success") {
         // Update the status in local state
-        setReqtbledata(prevData =>
-          prevData.map(item =>
+        setReqtbledata((prevData) =>
+          prevData.map((item) =>
             item.id === id ? { ...item, status: "approved" } : item
           )
         );
-        setResultMessage(result.msg || t("request_approved_successfully"));
+        setResultMessage(response.msg || t("request_approved_successfully"));
       } else {
-        throw new Error(result.message || t("request_approval_failed"));
+        throw new Error(response.message || t("request_approval_failed"));
       }
     } catch (error) {
       console.error("Accept failed:", error);
@@ -404,17 +396,19 @@ export default function ElectronicServiceTable({
 
       if (result.status === "success") {
         // Update the status in local state
-        setReqtbledata(prevData =>
-          prevData.map(item =>
-            item.id === selectedRequestId ? { ...item, status: "rejected" } : item
+        setReqtbledata((prevData) =>
+          prevData.map((item) =>
+            item.id === selectedRequestId
+              ? { ...item, status: "rejected" }
+              : item
           )
         );
-        setResultMessage(result.msg || t("request_rejected_successfully"));
+        setResultMessage(response.msg || t("request_rejected_successfully"));
         setShowRejectionModal(false);
         setRejectionReason("");
         setSelectedRequestId(null);
       } else {
-        throw new Error(result.message || t("request_rejection_failed"));
+        throw new Error(response.message || t("request_rejection_failed"));
       }
     } catch (error) {
       console.error("Decline failed:", error);
@@ -434,27 +428,31 @@ export default function ElectronicServiceTable({
       { type: "text", value: item.content },
       { type: "text", value: item.created_at },
       // Only show actions column if status is pending
-      ...(item.status === "pending" ? [{
-        type: "actionbutton",
-        label: t("actions"),
-        action: () => {
-          setId(item.id); // Fixed: Changed from setSelectedId to setId
-        },
-        icon: Arrowdown,
-        lists: [
-          {
-            label: t("accept"),
-            action: () => Accept(item.id),
-            icon: check,
-          },
-          {
-            label: t("reject"),
-            action: () => openDeclineModal(item.id),
-            icon: X,
-          },
-        ],
-        id: item.id,
-      }] : [{ type: "text", value: "-" }]) // Show dash if not pending
+      ...(item.status === "pending"
+        ? [
+            {
+              type: "actionbutton",
+              label: t("actions"),
+              action: () => {
+                setId(item.id); // Fixed: Changed from setSelectedId to setId
+              },
+              icon: Arrowdown,
+              lists: [
+                {
+                  label: t("accept"),
+                  action: () => Accept(item.id),
+                  icon: check,
+                },
+                {
+                  label: t("reject"),
+                  action: () => openDeclineModal(item.id),
+                  icon: X,
+                },
+              ],
+              id: item.id,
+            },
+          ]
+        : [{ type: "text", value: "-" }]), // Show dash if not pending
     ],
   }));
 
@@ -549,9 +547,9 @@ export default function ElectronicServiceTable({
         multiple: true,
         required: selectedTarget === "specific_bundles",
         hidden: selectedTarget !== "specific_bundles", // Add hidden property
-        style: { 
-          display: selectedTarget === "specific_bundles" ? "block" : "none" 
-        }
+        style: {
+          display: selectedTarget === "specific_bundles" ? "block" : "none",
+        },
       },
       // Always include webinars field, but conditionally show/hide it
       {
@@ -562,9 +560,9 @@ export default function ElectronicServiceTable({
         multiple: true,
         required: selectedTarget === "specific_webinars",
         hidden: selectedTarget !== "specific_webinars", // Add hidden property
-        style: { 
-          display: selectedTarget === "specific_webinars" ? "block" : "none" 
-        }
+        style: {
+          display: selectedTarget === "specific_webinars" ? "block" : "none",
+        },
       },
       { name: "start_date", label: t("start_date"), type: "date" },
       { name: "end_date", label: t("end_date"), type: "date" },
@@ -619,10 +617,7 @@ export default function ElectronicServiceTable({
                 data
                   .find((item) => item.id === Itemid)
                   ?.end_date?.split("T")[0] || "",
-              target:
-                data
-                  .find((item) => item.id === Itemid)
-                  ?.target || "",
+              target: data.find((item) => item.id === Itemid)?.target || "",
             }}
             formTitles={formTitles}
             handleSubmitEdit={handleSubmitEdit}
@@ -653,18 +648,18 @@ export default function ElectronicServiceTable({
                     {data.find((item) => item.id === Itemid)?.title || ""}{" "}
                   </h4>
                   <ExcelDownload
-                    endpoint={`${BASE_URL}/services/requests/${Itemid}/export`}
+                    endpoint={`/api/proxy/services/requests/${Itemid}/export`}
                     filename={`${
                       data.find((item) => item.id === Itemid)?.title ||
                       "service"
                     }_requests`}
                     className="btn custfontbtn rounded-2"
                     disabled={!Itemid}
-                    onSuccess={(message) => {
+                    onSuccess={() => {
                       setResultMessage(t("download_success"));
                       setShowResultModal(true);
                     }}
-                    onError={(error) => {
+                    onError={() => {
                       setResultMessage(t("download_failed"));
                       setShowResultModal(true);
                     }}
