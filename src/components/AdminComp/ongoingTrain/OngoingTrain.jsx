@@ -55,13 +55,15 @@ export default function OngoingTrain({
         textClass = "text-bg-success p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
       } // Green
-      else if (col.value === "pending" || col.value === "refund" || col.value === "draft") {
+      else if (
+        col.value === "pending" ||
+        col.value === "refund" ||
+        col.value === "draft"
+      ) {
         textClass = "text-bg-warning p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
       } // Yellow
-      else if (
-        col.value === t("manual") 
-      ) {
+      else if (col.value === t("manual")) {
         textClass = "text-warning ";
         textVal = col.value;
       } else if (
@@ -72,13 +74,24 @@ export default function OngoingTrain({
         textClass = "text-bg-danger p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
       } // Red
+      else if (col.value === "is_draft") {
+        textClass = "text-bg-dark p-2 rounded-2 tit-12-400";
+        textVal = t(col.value);
+      }
 
       return (
         <td key={key}>
           <span className={`d-inline-block w-75 text-center ${textClass}`}>
             {textVal}
           </span>
-          {col.value === "rejected" && <p className="text-danger cursor-pointer" onClick={col.rejection_action}>{t("rejection_reason")}</p>}
+          {col.value === "rejected" && (
+            <p
+              className="text-danger cursor-pointer"
+              onClick={col.rejection_action}
+            >
+              {t("rejection_reason")}
+            </p>
+          )}
         </td>
       );
     },
@@ -100,12 +113,10 @@ export default function OngoingTrain({
             onClick={btn.action}
           >
             {btn.icon && (
-              <span
+              <btn.icon
                 className="iconSize"
                 style={{ color: btn.textColor || "#fff" }}
-              >
-                {btn.icon}
-              </span>
+              />
             )}
             {btn.label}
           </button>
@@ -146,7 +157,7 @@ export default function OngoingTrain({
 
           <div className="d-flex flex-column justify-content-start align-items-start">
             <h4 className="fw-semibold m-0 ">{col.name}</h4>
-            {col.id && <h4 className="fw-semibold m-0 ">ID:{col.id}</h4> }
+            {col.id && <h4 className="fw-semibold m-0 ">ID:{col.id}</h4>}
             <h4 className="text-muted small m-0 ">{col.phone}</h4>
             <h4 className="text-muted small m-0 ">{col.email}</h4>
           </div>

@@ -100,7 +100,7 @@ export default function AdminNotifi() {
           <div className="col-lg-4 col-xl-3 col-sm-12 d-flex justify-content-start align-items-center flex-column gap-4">
             <div className="d-flex justify-content-between align-items-center gap-5 w-100">
               <h2 className="hvvv m-3">{info[0].tit}</h2>
-              <Filterr className="iconSize1" />
+              {/* <Filterr className="iconSize1" /> */}
             </div>
 
             {/* Tabs */}

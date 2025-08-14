@@ -45,7 +45,7 @@ export default function LineChart() {
 
     return (
       <div className=" container-fluid  rounded-3 shadow-sm    p-md-5  p-2 text-center    bg-white ">
-        <h3>{t("linchart")}</h3>
+        <h3 className='fw-bold'>{t("linchart")}</h3>
         <h6> {t("linechart")} </h6>
 
         <div

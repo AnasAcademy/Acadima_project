@@ -1,8 +1,7 @@
   import React from 'react'
   import { useTranslations } from "next-intl";
-  import Backg from "@/assets/admin/Backund.png";
   import Image from "next/image";
-  export default function CompnamCard({dat}) {
+  export default function CompnamCard({dat, Img}) {
 
   
   
@@ -10,10 +9,9 @@
 
     return (
       <>
-        <h2 className=" hvvv p-4 pb-0 pt-0"> {t("ref")} </h2>
-        <div className=" col-xl-4 ">
+       
           <div className="  position-relative ">
-            <div className="  text-white position-absolute  z-0    p-5   ">
+            <div className="  text-white position-absolute  z-0    p-5 w-75  ">
               <h3 className="tit-18-700 text-white"> {t("company_name")} </h3>
               <h3 className="tit-18-700 text-white">
                 {" "}
@@ -50,9 +48,8 @@
               </div>
             </div>
 
-            <Image src={Backg} alt="ai" className=" w-100" height={294} />
+            <Image src={Img} alt="ai" className=" w-100" height={294} />
           </div>
-        </div>
       </>
     );
   }

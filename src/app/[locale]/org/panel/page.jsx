@@ -59,7 +59,6 @@ export default async function Admin() {
       );
 
       const respond = await res.json();
-      console.log("Fetched program percentages:", respond);
       return {
         data: respond.data || [],
         currentPage: respond.current_page || 1,
@@ -93,11 +92,11 @@ export default async function Admin() {
             <TrainigControlPanel />
           </div>
 
-          <div className="col-xl-7 col-lg-12 col-12">
+          <div className="col-xl-6 col-lg-12 col-12">
             <LineChart />
           </div>
 
-          <div className="col-xl-5 col-lg-12 col-12">
+          <div className="col-xl-6 col-lg-12 col-12">
             <ActiveUsersAnalysis dat={dashboardData} />
           </div>
 

@@ -31,10 +31,8 @@ export default function OngoingTraincomp({
 
       const rows = respond?.data ?? [];
       setDataa(rows);
-      setCurrentPage(respond?.current_page ?? pageNumber); // ✅ don't touch `page`
+      setCurrentPage(respond?.current_page ?? pageNumber); 
       setTotalPages(respond?.last_page ?? 1);
-      // ❌ remove setFilter(...)
-      // ❌ don't do setPage(...)
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -45,7 +43,7 @@ export default function OngoingTraincomp({
   // Fetch on mount and whenever `page` changes
   useEffect(() => {
     fetchData(page);
-  }, [page]); // ✅ you don't need isInitialRender
+  }, [page]); 
 
   const TableHead = ["#", t("tableHead3"), t("tableHead2"), t("tableHead1")];
 
@@ -61,7 +59,7 @@ export default function OngoingTraincomp({
 
   return (
     <div className="rounded-4 shadow-sm p-md-4 p-2 container-fluid cardbg min-train-ht">
-      <h3>{t("trainpro")}</h3>
+      <h3 className="fw-bold">{t("trainpro")}</h3>
       <div className="d-flex gap-2">
         <Circle />
         <h6 className="h6v">{t("subtrainpro")}</h6>

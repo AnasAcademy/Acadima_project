@@ -43,7 +43,7 @@ export default function OrgsettingAcc() {
                 <input
                   disabled
                   type="text"
-                  value={" خالد محمد العنزي"}
+                  // value={" خالد محمد العنزي"}
                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100   "
                   style={{ border: "1px  solid  #E3E3E3" }}
                 />
@@ -57,7 +57,7 @@ export default function OrgsettingAcc() {
                 <input
                   disabled
                   type="text"
-                  value={" Khaled_Mohammed@gmail.com  "}
+                  // value={" Khaled_Mohammed@gmail.com  "}
                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2  Tit-14-700  w-100  "
                   style={{ border: "1px  solid  #E3E3E3" }}
                 />
@@ -71,7 +71,7 @@ export default function OrgsettingAcc() {
                 <input
                   disabled
                   type="text"
-                  value={" 55 555 5555  966+ "}
+                  // value={" 55 555 5555  966+ "}
                   className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2  Tit-14-700 w-100  "
                   style={{ border: "1px  solid  #E3E3E3" }}
                 />
@@ -96,7 +96,7 @@ export default function OrgsettingAcc() {
 
               <input
                 type="text"
-                value={" XXXXXXXXXX  "}
+                // value={" XXXXXXXXXX  "}
                 className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700  w-100 "
                 style={{ border: "1px  solid  #E3E3E3" }}
               />
@@ -140,7 +140,7 @@ export default function OrgsettingAcc() {
 
               <input
                 type="text"
-                value={" الوضع الفاتح  "}
+                // value={" الوضع الفاتح  "}
                 className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2 Tit-14-700 w-100  "
                 style={{ border: "1px  solid  #E3E3E3" }}
               />
@@ -151,7 +151,7 @@ export default function OrgsettingAcc() {
 
               <input
                 type="text"
-                value={" اللغة العربية  "}
+                // value={" اللغة العربية  "}
                 className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2  Tit-14-700 w-100  "
                 style={{ border: "1px  solid  #E3E3E3" }}
               />
@@ -162,7 +162,7 @@ export default function OrgsettingAcc() {
 
               <input
                 type="text"
-                value={" اختر المنطقة الزمنية  "}
+                // value={" اختر المنطقة الزمنية  "}
                 className=" d-flex  justify-content-center align-items-center rounded-3  p-2  gap-2  Tit-14-700  w-100 "
                 style={{ border: "1px  solid  #E3E3E3" }}
               />
