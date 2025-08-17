@@ -2055,7 +2055,11 @@ align-items: center;
 input[type=search]:active , input:focus{
   border: none;
 }
-
+.option-header {
+  font-weight: bold;
+  opacity: .7;            /* keep the "faded" feel */
+  pointer-events: none;   /* extra safety in custom lists */
+}
 @media (max-width: 500px) {
   
 

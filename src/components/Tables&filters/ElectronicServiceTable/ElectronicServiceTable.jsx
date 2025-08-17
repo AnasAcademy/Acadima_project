@@ -36,19 +36,13 @@ export default function ElectronicServiceTable({
   const [reqtble, setReqtble] = useState(false);
   const [reqtbledata, setReqtbledata] = useState([]);
   const {
-    statuses,
-    roles,
-    categories,
-    targetOptions,
-    bundles,
-    webinars, // Add webinars from context
     loading: contextLoading,
-    getRoleOptions,
     getStatusOptions,
     getTargetOptions,
     getBundleOptions,
     getWebinarOptions, // Add webinar options helper
   } = useUserData();
+  
   const { request } = useApiClient();
 
   async function fetchy(stat) {

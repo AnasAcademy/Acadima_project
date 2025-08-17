@@ -59,7 +59,6 @@ export default async function Admin() {
       );
 
       const respond = await res.json();
-      console.log("Fetched program percentages:", respond);
       return {
         data: respond.data || [],
         currentPage: respond.current_page || 1,

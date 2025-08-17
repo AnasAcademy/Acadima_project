@@ -14,14 +14,20 @@ export const useUserData = () => {
 
 export const UserDataProvider = ({ children }) => {
   const locale = useLocale(); // e.g., "en", "ar", "ar-SA"
+  const isAr = locale?.startsWith("ar");
 
-  const [statuses, setStatuses] = useState([]);     // [{ value, label_en, label_ar }]
-  const [roles, setRoles] = useState([]);           // [{ value, label_en, label_ar }]
+  const [statuses, setStatuses] = useState([]); // [{ value, label_en, label_ar }]
+  const [roles, setRoles] = useState([]); // [{ value, label_en, label_ar }]
   const [categories, setCategories] = useState([]);
   const [targetOptions, setTargetOptions] = useState([]); // [{ value, label_en, label_ar }]
   const [bundles, setBundles] = useState([]);
   const [webinars, setWebinars] = useState([]);
-  const [studentsList, setStudentsList] = useState([]);   // [{ user_id, full_name }]
+  const [studentsList, setStudentsList] = useState([]); // [{ user_id, full_name }]
+
+  // NEW: from /webinars
+  const [classesType, setClassesType] = useState(""); // e.g. "webinar"
+  const [classTypeOptions, setClassTypeOptions] = useState([]); // normalized typeOptions
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -38,7 +44,7 @@ export const UserDataProvider = ({ children }) => {
   const fetchStudentsPage = async (page = 1, term = "") => {
     const url = new URL(`${API_BASE}/students/all`);
     url.searchParams.set("page", String(page));
-    if (term) url.searchParams.set("full_name", term); // adjust if API differs
+    if (term) url.searchParams.set("full_name", term);
     const res = await fetch(url.toString(), {
       method: "GET",
       headers: commonHeaders,
@@ -55,7 +61,6 @@ export const UserDataProvider = ({ children }) => {
       const json = await fetchStudentsPage(page, term);
       const bucket = json?.students?.data || [];
       all = all.concat(bucket);
-
       const meta = json?.students || json || {};
       lastPage = meta.last_page ?? json?.last_page ?? page;
       page += 1;
@@ -71,8 +76,7 @@ export const UserDataProvider = ({ children }) => {
       }))
       .filter((x) => x.user_id && x.full_name);
 
-  // Normalize bilingual arrays like:
-  // [{ label_en: "Active", label_ar: "نشط", value?: "active" }, ...]
+  // Normalize bilingual arrays like [{ label_en, label_ar, value? }]
   const normalizeBilingual = (arr) =>
     (arr || [])
       .map((s) => {
@@ -87,10 +91,7 @@ export const UserDataProvider = ({ children }) => {
       })
       .filter((x) => x.value && (x.label_en || x.label_ar));
 
-  // Roles can arrive as:
-  // - [{ id, name }] (old)
-  // - [{ value, label_en, label_ar }] (bilingual)
-  // - ["Admin","Student"] (strings)
+  // Roles can arrive in various shapes
   const normalizeRoles = (arr) =>
     (arr || [])
       .map((r) => {
@@ -102,7 +103,6 @@ export const UserDataProvider = ({ children }) => {
             label_ar: name,
           };
         }
-        // bilingual case
         if (r.label_en || r.label_ar || r.value) {
           const nameForLabel = r.label_en ?? r.label_ar ?? r.value ?? "";
           return {
@@ -111,7 +111,6 @@ export const UserDataProvider = ({ children }) => {
             label_ar: r.label_ar ?? nameForLabel,
           };
         }
-        // id/name legacy case
         const name = r.name ?? r.id ?? "";
         return {
           value: String(r.value ?? name).toLowerCase(),
@@ -121,13 +120,28 @@ export const UserDataProvider = ({ children }) => {
       })
       .filter((x) => x.value && (x.label_en || x.label_ar));
 
-  // Exposed async loader for SearchSelect (fetches ALL pages for typed term)
+  // Exposed async loader for SearchSelect (fetches ALL pages)
   const loadStudentOptions = async (term) => {
     const all = await fetchAllStudents(term || "");
     const normalized = normalizeStudents(all);
     return normalized.map((s) => ({ value: s.user_id, label: s.full_name }));
   };
   // ----------------------------------
+
+  const pickTransTitle = (obj = {}) => {
+    const tr = Array.isArray(obj.translations) ? obj.translations : [];
+    const ar = tr.find((x) => String(x.locale || "").startsWith("ar"))?.title;
+    const en = tr.find((x) => String(x.locale || "").startsWith("en"))?.title;
+    return isAr ? ar ?? en : en ?? ar;
+  };
+
+  const catLabel = (c = {}) =>
+    pickTransTitle(c) ||
+    c.label ||
+    c.name ||
+    c.title ||
+    c.slug ||
+    `#${c.id ?? ""}`;
 
   const fetchUserData = async () => {
     setLoading(true);
@@ -150,10 +164,11 @@ export const UserDataProvider = ({ children }) => {
         method: "GET",
         headers: commonHeaders,
       });
-      const webinarsResponse = await fetch(
-        `${API_BASE}/webinars?type=webinar`,
-        { method: "GET", headers: commonHeaders }
-      );
+      // IMPORTANT: use /webinars endpoint (the one from your screenshot)
+      const webinarsResponse = await fetch(`${API_BASE}/webinars`, {
+        method: "GET",
+        headers: commonHeaders,
+      });
 
       if (!studentsResponse.ok)
         throw new Error(
@@ -178,60 +193,87 @@ export const UserDataProvider = ({ children }) => {
       const bundlesData = await bundlesResponse.json();
       const webinarsData = await webinarsResponse.json();
 
-      // statuses + categories
+      // statuses + categories (students response)
       const statusSrc =
         studentsData.statusOptions || studentsData.statuses || [];
-      setStatuses(normalizeBilingual(statusSrc)); // bilingual normalize
+      setStatuses(normalizeBilingual(statusSrc));
       setCategories(studentsData.category || studentsData.categories || []);
 
-      // roles (bilingual-aware)
+      // roles
       const rolesSrc = rolesData.roles || rolesData || [];
       setRoles(normalizeRoles(rolesSrc));
 
-      // target options (bilingual)
+      // target options
       const targetSrc = targetOptionsData.targetOptions || [];
       setTargetOptions(normalizeBilingual(targetSrc));
 
-      // students (only page 1 here; async loader handles search across all pages)
+      // students (page 1 only here)
       const normalizedStudents = normalizeStudents(
         studentsData?.students?.data || []
       );
       setStudentsList(normalizedStudents);
 
       // bundles
-      const formattedBundles = bundlesData.bundles
-        ? bundlesData.bundles.map((bundle) => ({
-            id: bundle.id,
-            title:
-              bundle.translations?.[0]?.title ??
-              bundle.translations?.title ??
-              bundle.bundle_name_certificate ??
-              `Bundle ${bundle.id}`,
-            slug: bundle.slug,
-            category_id: bundle.category_id,
-            teacher_id: bundle.teacher_id,
-            creator_id: bundle.creator_id,
-            price: bundle.price,
-            discount_rate: bundle.discount_rate,
-          }))
+      const bundlesSrc = Array.isArray(bundlesData?.bundles?.data)
+        ? bundlesData.bundles.data
+        : Array.isArray(bundlesData?.bundles)
+        ? bundlesData.bundles
+        : Array.isArray(bundlesData?.data)
+        ? bundlesData.data
+        : Array.isArray(bundlesData)
+        ? bundlesData
         : [];
+      const formattedBundles = bundlesSrc.map((bundle) => ({
+        id: bundle.id,
+        title:
+          bundle?.translations?.[0]?.title ??
+          bundle?.translations?.title ??
+          bundle?.bundle_name_certificate ??
+          `Bundle ${bundle.id}`,
+        slug: bundle.slug,
+        category_id: bundle.category_id,
+        teacher_id: bundle.teacher_id,
+        creator_id: bundle.creator_id,
+        price: bundle.price,
+        discount_rate: bundle.discount_rate,
+      }));
       setBundles(formattedBundles);
 
-      // webinars
-      const formattedWebinars =
-        webinarsData.webinars && webinarsData.webinars.data
-          ? webinarsData.webinars.data.map((webinar) => ({
-              id: webinar.id,
-              title:
-                webinar.translations?.[0]?.title ||
-                webinar.title ||
-                `Webinar ${webinar.id}`,
-              teacher: webinar.teacher,
-              category_id: webinar.category_id,
-              status: webinar.status,
-            }))
-          : [];
+      // ── NEW: pull extras from /webinars ─────────────────────────────────────
+      // Your screenshot shows "classesType" and "typeOptions" in this payload.
+      const w = webinarsData || {};
+      const list = w.webinars && w.webinars.data ? w.webinars.data : [];
+
+      const formattedWebinars = list.map((webinar) => ({
+        id: webinar.id,
+        title:
+          webinar?.translations?.[0]?.title ||
+          webinar?.title ||
+          `Webinar ${webinar.id}`,
+        teacher: webinar?.teacher,
+        category_id: webinar?.category_id,
+        status: webinar?.status,
+      }));
       setWebinars(formattedWebinars);
+
+      // classesType (e.g., "webinar")
+      if (typeof w.classesType === "string") {
+        setClassesType(w.classesType);
+      } else if (typeof w.classType === "string") {
+        setClassesType(w.classType);
+      }
+
+      // typeOptions (bilingual array) → normalize + store
+      const typeOpts = w.typeOptions || w.types || [];
+      setClassTypeOptions(normalizeBilingual(typeOpts));
+
+      // If webinars endpoint also returns category options, prefer those
+      const categoryFromWebinars =
+        w.categoryOptions || w.categories || w.category_list || [];
+      if (Array.isArray(categoryFromWebinars) && categoryFromWebinars.length) {
+        setCategories(categoryFromWebinars);
+      }
+      // ────────────────────────────────────────────────────────────────────────
     } catch (err) {
       console.error("Error fetching user data:", err);
       setError(err.message);
@@ -250,13 +292,20 @@ export const UserDataProvider = ({ children }) => {
   };
 
   const value = {
-    statuses,      // [{ value, label_en, label_ar }]
-    roles,         // [{ value, label_en, label_ar }]
+    // raw data
+    statuses,
+    roles,
     categories,
-    targetOptions, // [{ value, label_en, label_ar }]
+    targetOptions,
     bundles,
     webinars,
-    studentsList,  // [{ user_id, full_name }]
+    studentsList,
+
+    // NEW: metadata from /webinars
+    classesType, // e.g. "webinar"
+    classTypeOptions, // normalized bilingual array
+
+    // state
     loading,
     error,
     refetch,
@@ -288,18 +337,71 @@ export const UserDataProvider = ({ children }) => {
 
     getCategoryOptions: () =>
       categories.map((category) => ({
-        value: category.value || category,
-        label: category.label || category,
+        value: category.value ?? category.id ?? category,
+        label:
+          category.label ??
+          category.name ??
+          category.title ??
+          String(category.value ?? category.id ?? category),
       })),
+
+    // GROUPED (NEW) — parents are disabled, subcategories selectable
+    getCategoryGroupedOptions: () => {
+      const out = [];
+      (categories || []).forEach((parent) => {
+        const subs =
+          parent?.sub_categories ||
+          parent?.subcategories ||
+          parent?.children ||
+          [];
+        const parentLbl = catLabel(parent);
+
+        // Parent "header": unselectable & naturally faded by the browser
+        out.push({
+          value: `__cat_${parent.id ?? parentLbl}`, // sentinel, ignored in queries
+          label: parentLbl,
+          disabled: true,
+          className: "option-header", // (optional) if your Select supports className
+          __isHeader: true, // (optional) marker your SelectCard can use
+        });
+
+        if (Array.isArray(subs) && subs.length) {
+          subs.forEach((child) => {
+            out.push({
+              value: child.id, // sent to API
+              label: `\u00A0\u00A0\u00A0${catLabel(child)}`, // simple indent
+            });
+          });
+        } else {
+          // No subs → allow selecting the parent itself as a child line
+          out.push({
+            value: parent.id,
+            label: `\u00A0\u00A0\u00A0${parentLbl}`,
+          });
+        }
+      });
+      return out;
+    },
+
     getBundleOptions: () =>
       bundles.map((bundle) => ({
         value: bundle.id,
         label: bundle.title,
       })),
+
     getWebinarOptions: () =>
       webinars.map((webinar) => ({
         value: webinar.id,
         label: webinar.title,
+      })),
+
+    // NEW: class types (webinar/course/text_lesson/graduation_project)
+    getClassTypeOptions: () =>
+      classTypeOptions.map((o) => ({
+        value: (o.value || o.label_en || o.label_ar || "").toLowerCase(),
+        label: locale?.startsWith("ar")
+          ? o.label_ar || o.label_en
+          : o.label_en || o.label_ar,
       })),
 
     // Students helpers

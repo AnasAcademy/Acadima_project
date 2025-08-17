@@ -30,7 +30,7 @@ const TrainingGuideCard = () => {
             }}
           >
             <div className="d-flex flex-column w-lg-50">
-              <h3 className="text-white">{tD("training_dashboard_title")}</h3>
+              <h3 className="text-white fw-bold">{tD("training_dashboard_title")}</h3>
               <h4 className="text-white">{tD("training_dashboard_desc")}</h4>
             </div>
             <Link

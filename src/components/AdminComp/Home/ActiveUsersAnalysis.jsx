@@ -21,7 +21,10 @@ const ActiveUsersAnalysis = ({ dat }) => {
       name: t("active_webinars_percentage"),
       value: Math.round((dat.active_webinars_percentage || 0) * 10) / 10,
     },
-    { name: t("pending_webinars_percentage"), value: Math.round((dat.pending_webinars_percentage || 0) * 10) / 10 },
+    {
+      name: t("pending_webinars_percentage"),
+      value: Math.round((dat.pending_webinars_percentage || 0) * 10) / 10,
+    },
     {
       name: t("inactive_webinars_percentage"),
       value: Math.round((dat.inactive_webinars_percentage || 0) * 10) / 10,
@@ -30,7 +33,10 @@ const ActiveUsersAnalysis = ({ dat }) => {
       name: t("active_bundles_percentage"),
       value: Math.round((dat.active_bundles_percentage || 0) * 10) / 10,
     },
-    { name: t("pending_bundles_percentage"), value: Math.round((dat.pending_bundles_percentage || 0) * 10) / 10 },
+    {
+      name: t("pending_bundles_percentage"),
+      value: Math.round((dat.pending_bundles_percentage || 0) * 10) / 10,
+    },
     {
       name: t("inactive_bundles_percentage"),
       value: Math.round((dat.inactive_bundles_percentage || 0) * 10) / 10,
@@ -69,7 +75,12 @@ const ActiveUsersAnalysis = ({ dat }) => {
 
             {/* Remove these for clean look */}
             {/* <CartesianGrid /> */}
-            <XAxis dataKey="name" />
+            <XAxis
+              dataKey="name"
+              tick={{ fill: "#fff", fontSize: 14 }}
+              tickLine={false}
+              // axisLine={false}
+            />
             <Tooltip
               formatter={(val) => [`${val}%`]} // [value, label]
               cursor={{ fill: "rgba(255,255,255,0.08)" }}
@@ -94,7 +105,7 @@ const ActiveUsersAnalysis = ({ dat }) => {
 
       {/* Title */}
       <div className="mb-4">
-        <h3>{t("active_users_analysis_title")}</h3>
+        <h3 className="fw-bold">{t("active_users_analysis_title")}</h3>
         <p>{t("active_users_analysis_desc")}</p>
       </div>
 
@@ -102,10 +113,10 @@ const ActiveUsersAnalysis = ({ dat }) => {
       <div className="row g-3 px-3">
         <div className={`col-6 col-md-3 ${isRTL ? "text-start" : "text-end"}`}>
           <div className="d-flex flex-row align-items-center">
-            <div className="secColor text-white rounded-3 p-1">
+            <div className="secColor text-white rounded-3 p-1 px-2">
               <RiBarChart2Fill size={16} />
             </div>
-            <h6 className="mx-1">{t("total_courses")}</h6>
+            <h6 className="mx-2 my-0">{t("total_courses")}</h6>
           </div>
           <h3 className="my-2">{dat.total_webinars}</h3>
           <div
@@ -125,10 +136,10 @@ const ActiveUsersAnalysis = ({ dat }) => {
 
         <div className={`col-6 col-md-3 ${isRTL ? "text-start" : "text-end"}`}>
           <div className="d-flex flex-row align-items-center">
-            <div className="secColor text-white rounded-3 p-1">
+            <div className="secColor text-white rounded-3 p-1 px-2">
               <RiBarChart2Fill size={16} />
             </div>
-            <h6 className="mx-1">{t("completed_courses")}</h6>
+            <h6 className="mx-2 my-0">{t("completed_courses")}</h6>
           </div>
           <h3 className="my-2">{dat.total_bundles}</h3>
           <div
@@ -148,10 +159,10 @@ const ActiveUsersAnalysis = ({ dat }) => {
 
         <div className={`col-6 col-md-3 ${isRTL ? "text-start" : "text-end"}`}>
           <div className="d-flex flex-row align-items-center">
-            <div className="secColor text-white rounded-3 p-1">
+            <div className="secColor text-white rounded-3 p-1 px-2">
               <IoIosRocket size={16} />
             </div>
-            <h6 className="mx-1">{t("ongoing_courses")}</h6>
+            <h6 className="mx-2 my-0">{t("ongoing_courses")}</h6>
           </div>
           <h3 className="my-2">{dat.total_active_webinars}</h3>
           <div
@@ -173,10 +184,10 @@ const ActiveUsersAnalysis = ({ dat }) => {
           className={`col-6 col-md-3 ${isRTL ? "text-start" : "text-end"} pb-4`}
         >
           <div className="d-flex flex-row align-items-center">
-            <div className="secColor text-white rounded-3 p-1">
+            <div className="secColor text-white rounded-3 p-1 px-2">
               <LiaCertificateSolid size={16} />
             </div>
-            <h6 className="mx-1">{t("issued_certificates")}</h6>
+            <h6 className="mx-2 my-0">{t("issued_certificates")}</h6>
           </div>
           <h3 className="my-2">{dat.total_certificates}</h3>
           <div
