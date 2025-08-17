@@ -535,7 +535,7 @@ export default function CourseRegTable({
 
   return (
     <>
-      <div className="rounded-4 p-md-4 p-2 container-fluid min-train-ht">
+      <div className="rounded-4 p-2 container-fluid min-train-ht">
         {/* EDIT FORMS */}
         {showGroupModal && (
           <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">

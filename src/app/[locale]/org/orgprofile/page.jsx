@@ -1,9 +1,12 @@
 import React from "react";
 import Logo from "@/assets/admin/73763.svg";
 import LatestTrain from "@/components/AdminComp/latestTrain/LatestTrain";
-import OrgProfileTable from "@/components/OrgProfileTable/OrgProfileTable"
-import { useTranslations } from "next-intl";
- 
+import OrgProfileTable from "@/components/OrgProfileTable/OrgProfileTable";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
+
+import Planbg from "@/assets/admin/icon1.svg";
+
 import Trianum from "@/assets/admin/VectorGraph.svg";
 import Trainmn from "@/assets/admin/Vectortr12.svg";
 import Arrow from "@/assets/admin/arrow down.svg";
@@ -12,14 +15,69 @@ import photo from "@/assets/admin/photo.png";
 import Image from "next/image";
 import Icon from "@/assets/admin/Icon.svg";
 import Icon2 from "@/assets/admin/Icon2.svg";
+import Icon3 from "@/assets/payments icons/rs.svg";
+
+import Org1 from "@/assets/admin/org1.svg";
+import Org2 from "@/assets/admin/org2.svg";
+import Org3 from "@/assets/admin/org3.svg";
+
 import Search from "@/assets/admin/search.svg";
 import Circles from "@/assets/admin/circles.svg";
-import SelectCard from "@/components/SelectCard/SelectCard";
 
+export default async function OrgProfile() {
+  const t = await getTranslations("employee_progress");
+  const ts = await getTranslations("orgProfile");
 
-export default function OrgProfile() {
-  const t = useTranslations("employee_progress");
-  const ts = useTranslations("orgProfile");
+  const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token")?.value;
+
+  const companyName = process.env.company_name;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL.replace(
+    "${company_name}",
+    companyName
+  );
+
+  let dataa = [];
+
+  try {
+    const data = await fetch(`${baseUrl}/plans`, {
+      method: "GET",
+      headers: {
+        "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      cache: "no-store", // prevent stale data
+    });
+
+    const respond = await data.json();
+    dataa = respond.message.plans;
+    console.log(dataa);
+  } catch (err) {
+    console.error("Fetch error:", err);
+  }
+
+  async function fetchDashboardData() {
+    try {
+      const res = await fetch(`${baseUrl}`, {
+        method: "GET",
+        headers: {
+          "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        cache: "no-store", // prevent stale data
+      });
+
+      const respond = await res.json();
+      return respond.data || {};
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+      return {};
+    }
+  }
+
+  const dashboardData = await fetchDashboardData();
 
   return (
     <>
@@ -82,152 +140,215 @@ export default function OrgProfile() {
               </div>
             </div>
           </div>
+          {(() => {
+            const active = (dataa || []).find(
+              (p) => Number(p?.is_active) === 1
+            );
+            return active ? (
+              <div className=" row m-0   g-3   ">
+                <h2 className=" hvvv p-4 pb-0"> </h2>
+                <div className="col-lg-5 g-4">
+                  <div className="rounded-4 shadow-sm     p-3 py-4 cardbg    ">
+                    <Logo className=" iconSize15" />
 
-          <div className=" row m-0   g-3   ">
-            <h2 className=" hvvv p-4 pb-0"> </h2>
-            <div className="col-lg-6 col-xl-4 ">
-              <div className=" position-relative rounded-4 shadow-sm     p-5 cardbg   min-prf-ht  ">
+                    <p className=" tit-16-400">
+                      <span className="fw-bold">{ts("company_title")}</span>
+                      {ts("company_desc")}
+                    </p>
+                  </div>
 
-                <Logo className=" iconSize4" />
-
-                <p className=" tit-12-400">{ts("company_desc")}</p>
-
-                <div className=" d-flex flex-column gap-1">
-                  <h5 className="  tit-14-400">
-                    <span className=" textcolor"> اسم المنشأة :</span> شركة
-                    الرؤية المستقبلية للتقنيات
-                  </h5>
-                  <h5 className="  tit-14-400">
-                    {" "}
-                    <span className=" textcolor"> المجال:</span> تقنية معلومات
-                  </h5>
-                  <h5 className="  tit-14-400">
-                    {" "}
-                    <span className=" textcolor">عدد الموظفين:</span> 125 موظف
-                  </h5>
-                  <h5 className="  tit-14-400">
-                    <span className=" textcolor">المدينة:</span>
-                    الرياض، السعودية
-                  </h5>
-                  <h5 className="  tit-14-400">
-                    <span className=" textcolor"> خطة الاشتراك: </span>
-                    باقة الشركات المتقدمة
-                  </h5>
-                  <h5 className="  tit-14-400">
-                    <span className=" textcolor"> تاريخ التسجيل: </span>
-                    12 فبراير 2024
-                  </h5>
-                  <h5 className="  tit-14-400">
-                    <span className=" textcolor"> تاريخ إنتهاء الإشتراك :</span>
-                    12 فبراير 2025
-                  </h5>
-                </div>
-              </div>
-            </div>
-
-            <div className="  col-lg-6 col-xl-5   ">
-              <div className=" d-flex flex-column gap-3 cardbg rounded-4 p-5 min-prf-ht ">
-
-                <div className="  d-flex  justify-content-between">
-                  <h4 className="  tit-18-700 "> مؤشرات أداء التدريب </h4>
-
-                  <div className="d-flex justify-content-center  align-items-center   position-relative   ">
-                    <select
-                      className="form-selectt   cselect  custroundbtn  tit-9-400   "
-                      aria-label="Default select example"
-                      defaultValue={0}
-                    >
-                      <option value="0"> الشهر الحالي </option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                    <Arrow className="iconSize5 position-absolute selclass p-1" />
+                  <div className="bg-white card border-0 rounded-4 p-3 py-4 shadow-sm mt-3  d-flex flex-column justify-content-center align-items-center  align-items-md-start justify-content-md-start">
+                    <div className="position-relative p-0  col-12  d-flex justify-content-center align-items-center align-items-md-start justify-content-md-start ">
+                      <div className=" d-flex   justify-content-center justify-content-md-start ">
+                        <Planbg
+                          className="h-auto"
+                          style={{ opacity: 0.8 }}
+                          width={210}
+                          height={50}
+                        />
+                      </div>
+                      <h4 className="position-absolute text-white planabsolute text-nowrap m-0">
+                        {active.name}
+                      </h4>
+                    </div>
+                    <h3 className="  tit-20-700 text-dark text-nowrap">
+                      {active.name_ar}
+                    </h3>
+                    <h4 className="tit-16-400">{active.description}</h4>
+                    <div className="d-flex  justify-content-center  justify-content-md-start mt-5">
+                      <h3 className="tit-40-700 text-dark text-start text-nowrap d-flex  justify-content-center align-items-center ">
+                        <Icon3 />
+                        {active.price}
+                      </h3>
+                      <h4 className="tit-20-400 pt-3 text-start text-nowrap">
+                        /الشهر
+                      </h4>
+                    </div>
                   </div>
                 </div>
 
-                <div className=" row ">
-                  <div className="col-6  ">
-                    <div className=" d-flex gap-3  flex-column">
-                      <div className="trainNum  rounded-4  p-0  ">
-                        <div className="  p-3 pb-5 mb-4">
-                          <h4 className=" tit-12-400 text-white">
-                            {" "}
-                            عدد المتدربين الإجمالي{" "}
-                          </h4>
-
-                          <div className=" d-flex align-items-center">
-                            <h1 className=" tit-20-700 text-white">112</h1>
-                            <h4 className=" tit-10-700 text-white">متدرب</h4>
-                          </div>
-
-                          <h4 className=" tit-10-400 text-white">+9%</h4>
-                        </div>
-                        <div className="   ">
-                          <Trianum className=" iconSize13 " />
-                        </div>
-                      </div>
-
-                      <div className=" bg-white rounded-4 p-3 cardbg  border-1  border-dark-subtle border  bgprim ">
-                        <h4 className=" tit-12-400 text-white">
+                <div className="col-lg-3">
+                  <div className="bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm d-flex flex-column justify-content-center align-items-center  align-items-md-start justify-content-md-start">
+                    <div className="border rounded-2 shadow-sm width-fit p-2">
+                      <Org1 className={`iconcolor`} />
+                    </div>
+                    <div className="d-flex flex-row justify-content-between align-items-start w-100">
+                      <div className="d-flex flex-column align-items-start">
+                        <h3 className="tit-18-700 textcolor">اسم المنشأة:</h3>
+                        <p className="tit-16-400">
                           {" "}
-                          الشهادات المُصدّرة{" "}
-                        </h4>
-
-                        <div className=" d-flex">
-                          <h2 className=" text-white">68</h2>
-                          <h4 className=" tit-10-400 text-white"> شهادة</h4>
-                        </div>
-
-                        <Up className="iconSize9" />
+                          شركة الرؤية المستقبلية للتقنيات
+                        </p>
+                      </div>
+                      <div className="d-flex flex-column align-items-start">
+                        <h3 className="tit-18-700 textcolor ">المجال : </h3>
+                        <p className="tit-16-400">تقنية معلومات </p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="col-6">
-                    <div className=" d-flex flex-column gap-3 ">
-                      <div className=" bg-white rounded-4 p-3  cardbg border-1  border-dark-subtle border  ">
-                        <h4 className=" tit-12-400"> الشهادات المُصدّرة </h4>
+                  <div className="bg-white card border-0 rounded-4 gap-3 shadow-sm p-3 mt-3 d-flex flex-column justify-content-center align-items-center  align-items-md-start justify-content-md-start">
+                    <div className="border rounded-2 shadow-sm width-fit p-2">
+                      <Org2 />
+                    </div>
+                    <div className="d-flex flex-row justify-content-between align-items-center w-100">
+                      <div className="d-flex flex-column align-items-start">
+                        <h3 className="tit-18-700 textcolor">عدد الموظفين:</h3>
+                        <p className="tit-16-400">
+                          {dashboardData.total_users} موظف
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-                        <div className=" d-flex">
-                          <h2>68</h2>
-                          <h4 className=" tit-10-400"> شهادة</h4>
+                  <div className="bg-white card border-0 rounded-4 p-3 mt-3 gap-3  shadow-sm d-flex flex-column justify-content-center align-items-center  align-items-md-start justify-content-md-start">
+                    <div className="border rounded-2 shadow-sm width-fit p-2">
+                      <Org3 />
+                    </div>
+                    <div className="d-flex flex-row justify-content-between align-items-center w-100">
+                      <div className="d-flex flex-column align-items-start">
+                        <h3 className="tit-18-700 textcolor">تاريخ التسجيل:</h3>
+                        <p className="tit-16-400"> {active.start_date} </p>
+                      </div>
+                      <div className="d-flex flex-column align-items-start">
+                        <h3 className="tit-18-700 textcolor ">
+                          {" "}
+                          تاريخ إنتهاء الإشتراك :{" "}
+                        </h3>
+                        <p className="tit-16-400"> {active.end_date} </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="  col-lg-4   ">
+                  <div className=" d-flex flex-column gap-3 cardbg rounded-4 p-3  ">
+                    <div className="  d-flex  justify-content-between">
+                      <h4 className="  tit-18-700 "> مؤشرات أداء التدريب </h4>
+
+                      {/* <div className="d-flex justify-content-center  align-items-center   position-relative   ">
+                        <select
+                          className="form-selectt   cselect  custroundbtn  tit-9-400   "
+                          aria-label="Default select example"
+                          defaultValue={0}
+                        >
+                          <option value="0"> الشهر الحالي </option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                        <Arrow className="iconSize5 position-absolute selclass p-1" />
+                      </div> */}
+                    </div>
+
+                    <div className=" row ">
+                      <div className="col-6  ">
+                        <div className=" d-flex gap-3  flex-column">
+                          <div className="trainNum  rounded-4  p-0  ">
+                            <div className="  p-3 pb-5 mb-4">
+                              <h4 className=" tit-12-400 text-white">
+                                {" "}
+                                عدد المتدربين الإجمالي{" "}
+                              </h4>
+
+                              <div className=" d-flex align-items-center">
+                                <h1 className=" tit-20-700 text-white">{dashboardData.total_users}</h1>
+                                <h4 className=" tit-10-700 text-white">
+                                  متدرب
+                                </h4>
+                              </div>
+
+                              <h4 className=" tit-10-400 text-white">+9%</h4>
+                            </div>
+                            <div className="   ">
+                              <Trianum className=" iconSize13 " />
+                            </div>
+                          </div>
+
+                          <div className=" bg-white rounded-4 p-3 cardbg  border-1  border-dark-subtle border  bgprim ">
+                            <h4 className=" tit-12-400 text-white">
+                              {" "}
+                               البرامج التدريبية المكتملة{" "}
+                            </h4>
+
+                            <div className=" d-flex">
+                              <h2 className=" text-white">{dashboardData.total_active_webinars}</h2>
+                              <h4 className=" tit-10-400 text-white"> شهادة</h4>
+                            </div>
+
+                            <Up className="iconSize9" />
+                          </div>
                         </div>
-
-                        <h4 className=" tit-10-400 text-success">
-                          + 12%من الشهر الماضي
-                        </h4>
                       </div>
 
-                      <div className=" bg-white rounded-4 border-1  border-dark-subtle border ">
-                        <div className=" p-3 pb-5 mb-4">
-                          <h4 className=" tit-12-400 text-dark">
-                            {" "}
-                            عدد المتدربين الإجمالي{" "}
-                          </h4>
+                      <div className="col-6">
+                        <div className=" d-flex flex-column gap-3 ">
+                          <div className=" bg-white rounded-4 p-3  cardbg border-1  border-dark-subtle border  ">
+                            <h4 className=" tit-12-400">
+                               {" "}
+                              الشهادات المُصدّرة{" "}
+                             
+                            </h4>
 
-                          <div className=" d-flex align-items-center">
-                            <h1 className=" tit-20-700 text-dark">112</h1>
-                            <h4 className=" tit-10-700 text-dark">متدرب</h4>
+                            <div className=" d-flex">
+                              <h2>{dashboardData.total_certificates}</h2>
+                              <h4 className=" tit-10-400"> شهادة</h4>
+                            </div>
+
+                            <h4 className=" tit-10-400 text-success">
+                              + 12%من الشهر الماضي
+                            </h4>
                           </div>
-                          <h4 className=" text-danger tit-10-400">
-                            -6%% من الشهر الماضي
-                          </h4>
-                        </div>
-                        <div className="      ">
-                          <Trainmn className=" iconSize13 " />
+
+                          <div className=" bg-white rounded-4 border-1  border-dark-subtle border ">
+                            <div className=" p-3 pb-5 mb-4">
+                              <h4 className=" tit-12-400 text-dark">
+                                {" "}
+                                نسبة  البرامج المكتملة {" "}
+                              </h4>
+
+                              <div className=" d-flex align-items-center">
+                                <h1 className=" tit-20-700 text-dark">{dashboardData.active_bundles_percentage}</h1>
+                                <h4 className=" tit-10-700 text-dark">%</h4>
+                              </div>
+                              <h4 className=" text-danger tit-10-400">
+                                -6%% من الشهر الماضي
+                              </h4>
+                            </div>
+                            <div className="      ">
+                              <Trainmn className=" iconSize13 " />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* <div className="  col-lg-12 col-xl-3    ">
+                {/* <div className="  col-lg-12 col-xl-3    ">
               <LatestTrain h={"min-prf-ht"} />
             </div> */}
-{/* 
+                {/* 
             <div className="col-12">
               <SelectCard selectCardData={selectCardData} isOrgProfile={true} />
             </div>
@@ -235,7 +356,9 @@ export default function OrgProfile() {
             <div className="col-lg-12  ">
                   <OrgProfileTable />
             </div> */}
-          </div>
+              </div>
+            ) : null;
+          })()}
         </div>
       </div>
     </>

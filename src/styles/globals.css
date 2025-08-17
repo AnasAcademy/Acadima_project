@@ -1109,6 +1109,10 @@ table tbody td:first-child {
   width: 300px;
   height: 250px;
 }
+.iconSize15 {
+  width: 130px;
+  height: 90px;
+}
 .coverimg {
   margin: 80px;
 }
@@ -2019,7 +2023,7 @@ align-items: center;
 .planabsolute{
 
 
-   top: 10px;
+   top: 6px;
   right: 30px !important;
 }
 .active-bg {
