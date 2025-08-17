@@ -5,7 +5,6 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
-import roundimage from "@/assets/admin/personla.png";
 import Editform from "@/components/Editform/Editform";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import { useApiClient } from "@/hooks/useApiClient";

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import * as Yup from "Yup";
+import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { useUserData } from "@/context/UserDataContext";
 
@@ -16,11 +16,14 @@ function SearchSelect({
   onChange, // expects number or "" to clear
   loadOptions, // async (term) => Promise<{label,value}[]>
 }) {
-  const [open, setOpen] = React.useState(false);
-  const [term, setTerm] = React.useState("");
-  const [remote, setRemote] = React.useState([]);
-  const [loadingRemote, setLoadingRemote] = React.useState(false);
-  const boxRef = React.useRef(null);
+
+
+  const [open, setOpen] = useState(false);
+  const [term, setTerm] = useState("");
+  const [remote, setRemote] = useState([]);
+ 
+  const [loadingRemote, setLoadingRemote] = useState(false);
+  const boxRef = useRef(null);
 
   // Close on outside click
   React.useEffect(() => {
@@ -264,10 +267,36 @@ export default function Editform({
   extraForm,
 
 }) {
+   const [addReq, setAddReq] = useState([]);
   const t = useTranslations("tables");
-  const [req, setReq] = useState([]);
+  const [req, setReq] = useState([
+
+ 
+  ]);
 
   const { loadStudentOptions } = useUserData();
+
+
+
+const addField = (title, desc) => {
+  setAddReq([...addReq, { title: title, description: desc }]);
+};
+
+ const removeField = () => {
+  if(addReq.length > 1) 
+    {
+   setAddReq(addReq.slice(0, -1));
+  }else if (addReq.length === 1) {
+
+    setAddReq([]);
+   }
+
+
+ }
+
+
+
+
 
   // Build validation schema
   const validationSchema = Yup.object(
@@ -364,10 +393,7 @@ export default function Editform({
     if (field.onChange) field.onChange(value);
   };
 
-  function toogle() {
-    setReq(!req);
-  }
-
+  
   return (
     <form
       onSubmit={(e) => {
@@ -511,37 +537,41 @@ export default function Editform({
           })}
           {extraForm ? (
             <>
-              <div className=" d-flex justify-content-between">
+              <div className="d-flex justify-content-between">
                 <h3>اضافه متطلبات القبول في البرنامج</h3>
                 <button
-                  className="  btn btn-success "
+                  className="btn btn-success"
                   type="button"
-                  onClick={toogle}
+                  onClick={addField}
                 >
-                  {" "}
                   + add requirements
                 </button>
               </div>
-              {req ? (
-                <div className="  d-flex flex-column gap-3">
-                  {" "}
+
+              {addReq.map((num) => (
+                <div key={num} className="d-flex flex-column gap-3">
+                  <div className=" d-flex justify-content-between align-items-center gap-3">
+                    <input
+                      type="text"
+                      className="w-100 p-1"
+                      placeholder="title"
+                    />
+
+                    <button className=" btn btn-danger " type="button" onClick={removeField}>
+                      {" "}
+                      x{" "}
+                    </button>
+                  </div>
                   <input
                     type="text"
-                    className=" w-100  p-1"
-                    placeholder="title"
-                  />
-                  <input
-                    type="text"
-                    className=" w-100  p-1"
-                    placeholder="admin/main.decription"
+                    className="w-100 p-1"
+                    placeholder="admin/main.description"
                   />
                 </div>
-              ) : (
-                ""
-              )}
+              ))}
             </>
           ) : (
-            " "
+            ""
           )}
 
           <div className="d-flex col-7 mt-3">
@@ -556,7 +586,7 @@ export default function Editform({
             <button
               className="btn btn-light custfontbtn w-25"
               type="button"
-              onClick={setShowModal}
+              onClick={ setShowModal }
               disabled={loading}
             >
               {t("close")}

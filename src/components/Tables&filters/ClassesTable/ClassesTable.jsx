@@ -8,19 +8,25 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useApiClient } from "@/hooks/useApiClient";
 import AlertModal from "@/components/AlertModal/AlertModal";
+import { useUserData } from "@/context/UserDataContext";
+import { object } from "yup";
 export default function ClassesTable({ dat }) {
   const ts = useTranslations("SidebarA");
+  const tr = useTranslations("settings");
   const [showModal, setShowModal] = useState(false);
   const [formState, setFormState] = useState("");
   const [title, setTitle] = useState("");
   const [data, setData] = useState(dat);
   const [datast, setDatast] = useState([]);
+  const [Sdata, setSData] = useState([]);
   const [datarg, setDatarg] = useState([]);
   const [dataUser, setDataUser] = useState([]);
   const [Itemid, setId] = useState(null);
+  const [student, setStudent] = useState(false);
   const [page, setPage] = useState("classes");
   const t = useTranslations("tables");
   const [resultMessage, setResultMessage] = useState("");
+  const { getRoleOptions, getStatusOptions } = useUserData();
   const { request } = useApiClient();
   const [showResultModal, setShowResultModal] = useState(false);
   const fetchData = async (Itemid, page) => {
@@ -65,6 +71,22 @@ export default function ClassesTable({ dat }) {
       console.error("Fetch failed:", error);
     }
   };
+
+  const fetchStudents = async (Itemid) => {
+    try {
+      const response = await request({
+        method: "GET",
+        urlPath: `/students/${Itemid}`,
+      });
+      setSData(response[0][0]);
+      console.log(response[0][0]);
+
+    } catch (error) {
+      console.error("Fetch students failed:", error);
+    }
+  };
+
+
   const remove = async (id) => {
     try {
       const data = await request({
@@ -112,7 +134,6 @@ export default function ClassesTable({ dat }) {
       );
     } catch (error) {
       console.error("Status update failed:", error);
-
       setShowModal(false);
       setResultMessage("تعذر تحديث الحالة، حاول مرة أخرى.");
       setShowResultModal(true);
@@ -173,9 +194,11 @@ export default function ClassesTable({ dat }) {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
-          setShowModal(!showModal);
-          setId(item.id);
-          setFormState("edit");
+           setShowModal(!showModal);
+     
+           setStudent(true);
+           setFormState("edit");
+        
         },
         icon: Arrowdown,
         color: "#48BB78",
@@ -186,6 +209,7 @@ export default function ClassesTable({ dat }) {
               setShowModal(!showModal);
               setId(item.id);
               setFormState("edit");
+                  fetchStudents(item.id);
             },
             icon: Pen,
           },
@@ -214,7 +238,7 @@ export default function ClassesTable({ dat }) {
         label: t("actions"),
         action: () => {
           setShowModal(!showModal);
-          setId(item.id);
+        
           setFormState("edit");
         },
         icon: Arrowdown,
@@ -224,8 +248,11 @@ export default function ClassesTable({ dat }) {
             label: t("edit"),
             action: () => {
               setShowModal(!showModal);
-              setId(item.id);
+              setId(item.buyer.id);
+              console.log(item.buyer.id);
+              setStudent(true);
               setFormState("edit");
+              fetchStudents(item.buyer.id);
             },
             icon: Pen,
           },
@@ -253,9 +280,10 @@ export default function ClassesTable({ dat }) {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
-          setShowModal(!showModal);
-          setId(item.id);
-          setFormState("edit");
+           setShowModal(!showModal);
+    
+           setStudent(true);
+           setFormState("edit");
         },
         icon: Arrowdown,
         color: "#48BB78",
@@ -264,8 +292,10 @@ export default function ClassesTable({ dat }) {
             label: t("edit"),
             action: () => {
               setShowModal(!showModal);
-              setId(item.id);
+              setId(item.student.id);
+        console.log(item.student.id);
               setFormState("edit");
+                fetchStudents(item.student.user_id);
             },
             icon: Pen,
           },
@@ -296,8 +326,10 @@ export default function ClassesTable({ dat }) {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
+        
           setShowModal(!showModal);
           setId(item.id);
+            console.log(item.id);
           setFormState("edit");
         },
         icon: Arrowdown,
@@ -308,6 +340,8 @@ export default function ClassesTable({ dat }) {
             action: () => {
               setShowModal(!showModal);
               setId(item.id);
+                   console.log(item.id);
+              setStudent(false);
               setFormState("edit");
             },
             icon: Pen,
@@ -323,6 +357,7 @@ export default function ClassesTable({ dat }) {
             action: () => {
               setPage("students");
               setId(item.id);
+              console.log(item.id);
               fetchData(item.id, "students");
               //  fetchpages(item.id, "students");
               setTitle(item.title);
@@ -409,6 +444,82 @@ export default function ClassesTable({ dat }) {
     ],
   }));
 
+
+
+    const handleSubmitEditStudent = async (dataa) => {
+         console.log("here " , dataa);
+         console.log(Itemid);
+         
+       
+         Object.keys(dataa).forEach((key) => {
+           if (dataa[key] === "") {
+             dataa[key] = null;
+           }
+         });
+    
+      console.log(dataa);
+      try {
+        const result = await request({
+          method: "PUT",
+          urlPath: `/students/${Itemid}`,
+          body: {
+            full_name: dataa.full_name,
+            en_name: dataa.en_name,
+            role_name: dataa.role_name,
+            email: dataa.email,
+            mobile: dataa.mobile,
+            password: dataa.password,
+            bio: dataa.bio,
+            about: dataa.about,
+            status: dataa.status,
+          },
+        });
+        if (result.message === "User updated successfully") {
+          setShowModal(false);
+          setResultMessage(result.message);
+          setShowResultModal(true);
+        }else{
+
+           console.log(result.errors);
+        }
+
+        const updatedItem = {
+          ...data.find((item) => item.id === Itemid),  
+          ...dataa,
+        };
+        setDatast((prev) =>
+          prev.map(
+            (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
+          )
+        );
+      } 
+      catch (error) {
+        const apiErrors = error?.data?.errors;
+
+        if (apiErrors) {
+          Object.entries(apiErrors).forEach(([field, msgs]) => {
+            console.error(`${field}: ${msgs.ar || msgs.en}`);
+           setResultMessage(`${msgs.ar || msgs.en}`);
+          });
+        } else {
+          console.error("Unexpected error:", error.message);
+        }
+      
+        // setShowModal(false);
+        setShowResultModal(true);
+      }
+    };
+
+
+
+
+
+
+
+
+
+
+
   const formTitles = [
     {
       label:
@@ -427,6 +538,39 @@ export default function ClassesTable({ dat }) {
     { name: "start_date", label: t("start_date"), type: "date" },
     { name: "end_date", label: t("end_date"), type: "date" },
   ];
+
+
+  const studentFields = [
+    { name: "full_name", label: tr("full_name"), type: "text" },
+    { name: "en_name", label: tr("en_name"), type: "text" },
+    {
+      name: "role_name",
+      label: tr("user_role"),
+      type: "select",
+      options: getRoleOptions(),
+    },
+    { name: "email", label: tr("email"), type: "text" },
+    { name: "mobile", label: tr("mobile"), type: "text" },
+    { name: "password", label: tr("password"), type: "text" },
+    { name: "bio", label: tr("bio"), type: "text" },
+    { name: "about", label: tr("about"), type: "text" },
+    {
+      name: "status",
+      label: t("status"),
+      type: "select",
+      options: getStatusOptions(),
+    },
+  ];
+
+
+
+
+
+
+
+
+
+
 
   const pageTitles = {
     classes: <OngoingTrain TableHead={TableHead} trainingData={trainingData} />,
@@ -482,15 +626,26 @@ export default function ClassesTable({ dat }) {
     <>
       {showModal ? (
         <div className="rounded-4 shadow-sm p-md-4 p-2 container-fluid cardbg min-train-ht">
-          <Editform
-            fields={fields}
-            data={data}
-            formTitles={formTitles}
-            handleSubmitEdit={handleSubmitEdit}
-            setShowModal={toogle}
-            // handleSubmitAdd={handleSubmitAdd}
-            formState={formState}
-          />
+          {student ? (
+            <Editform
+              fields={studentFields}
+              data={Sdata || {}}
+              formTitles={formTitles}
+              handleSubmitEdit={handleSubmitEditStudent}
+              setShowModal={toogle}
+              formState={formState}
+            />
+          ) : (
+            <Editform
+              fields={fields}
+              data={data.find((item) => item.id === Itemid) || {}}
+              formTitles={formTitles}
+              handleSubmitEdit={handleSubmitEdit}
+              setShowModal={toogle}
+              // handleSubmitAdd={handleSubmitAdd}
+              formState={formState}
+            />
+          )}
         </div>
       ) : (
         <>
@@ -515,33 +670,40 @@ export default function ClassesTable({ dat }) {
             ) : null}{" "}
             {page === "scholarship" ? (
               <h2 className="hvvv">{t("register_scholarship")}</h2>
-            ) : null}{" "}  
+            ) : null}{" "}
             {page === "requirements" ? (
               <h2 className="hvvv">{t("req_form")}</h2>
             ) : null}{" "}
             <button
               className="btn btn-light custfontbtn"
               onClick={() => {
-                setPage("classes");
+                         if (page !== "classes"){
+                  setPage("classes")  } else {
+
+                 console.log("not classes");
+
+                                }
+                         ;
               }}
             >
-              {t("back")}
+              {page === "classes" ? "Fdg" : t("back")}
             </button>
           </div>
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht ">
             {pageTitles[page]}
           </div>
           {/* Result Modal */}
-          <AlertModal
-            show={showResultModal}
-            onClose={() => setShowResultModal(false)}
-            onSubmit={() => setShowResultModal(false)}
-            title={resultMessage || t("operation_completed")}
-          >
-            <p className="m-0 text-center">{resultMessage}</p>
-          </AlertModal>
         </>
       )}
+
+      <AlertModal
+        show={showResultModal}
+        onClose={() => setShowResultModal(false)}
+        onSubmit={() => setShowResultModal(false)}
+        title={resultMessage || t("operation_completed")}
+      >
+        <p className="m-0 text-center">{resultMessage}</p>
+      </AlertModal>
     </>
   );
 }

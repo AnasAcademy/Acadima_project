@@ -21,6 +21,7 @@ export const useApiClient = () => {
     try {
       data = await res.json();
     } catch (err) {
+      console.error("JSON parse error:", err);
       const text = await res.text();
       console.error('Non-JSON response from API:', text);
       throw new Error(`Invalid JSON: ${text}`);
@@ -29,7 +30,14 @@ export const useApiClient = () => {
     // console.log('Response Status:', res.status);
     // console.log('Response Data:', data);
 
-    if (!res.ok) throw new Error(data.message || 'API Error');
+     if (!res.ok) {
+      throw {
+        status: res.status,
+        data, // 👈 keeps { errors: { password: { ar: "...", en: "..." } } }
+        message: data.message || 'API Error',
+      };
+    }
+
     return data;
   };
 

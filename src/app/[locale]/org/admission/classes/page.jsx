@@ -4,11 +4,11 @@ import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
 
 export default async function Classes() {
-  const ts = await getTranslations("SidebarA");
-  const cookieStore = cookies();
-  const token = cookieStore.get("auth_token")?.value;
-  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const ts = await getTranslations("SidebarA");
+const cookieStore = cookies();
+const token = cookieStore.get("auth_token")?.value;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   
 let dat = [];

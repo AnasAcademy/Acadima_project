@@ -21,7 +21,6 @@ export default function AllStudentsTable({
   const ts = useTranslations("settings");
   const { getRoleOptions, getStatusOptions } = useUserData();
   const { request } = useApiClient();
-
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
   const [loading, setLoading] = useState(false);
@@ -30,7 +29,6 @@ export default function AllStudentsTable({
   const [totalPages, setTotalPages] = useState(initialTotalPages);
   const [isInitialRender, setIsInitialRender] = useState(true);
   const [currentFilters, setCurrentFilters] = useState({});
-
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);

@@ -7,7 +7,6 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import NavbarWrapper from "../../components/AdminComp/navbarWrapper/NavbarWrapper";
 import NotificationProvider from "@/context/NotificationContext";
-import { cookies } from "next/headers";
 import { UserDataProvider } from "@/context/UserDataContext";
 import BootstrapClient from '@/components/bootstrapClient/BootstrapClient'
 import SideBarWrapper from "@/components/sideBarWrapper/SideBarWrapper";
