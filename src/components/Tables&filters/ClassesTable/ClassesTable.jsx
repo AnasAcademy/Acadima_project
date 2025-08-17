@@ -686,7 +686,7 @@ export default function ClassesTable({ dat }) {
                          ;
               }}
             >
-              {page === "classes" ? "Fdg" : t("back")}
+              {page === "classes" ? " اضافة دفعه" : t("back")}
             </button>
           </div>
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht ">
