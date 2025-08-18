@@ -6,6 +6,8 @@ import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import Arrowdown from "@/assets/admin/arrow down.svg";
+import X from "@/assets/admin/x.svg";
+import check from "@/assets/admin/Check.svg";
 import { useApiClient } from "@/hooks/useApiClient";
 import { useUserData } from "@/context/UserDataContext"; // ⬅️ use provider
 
@@ -171,6 +173,79 @@ export default function CourseDetailsTable({
     }
   };
 
+   const Accept = async (id) => {
+    try {
+      // Optimistically update the status to "approved" immediately
+      const updatedData = dataa.map((item) =>
+        item.id === id ? { ...item, status: "approved" } : item
+      );
+      const updatedFilter = filter.map((item) =>
+        item.id === id ? { ...item, status: "approved" } : item
+      );
+      setDataa(updatedData);
+      setFilter(updatedFilter);
+      const data = await request({
+        method: "GET",
+        urlPath: `/webinars/${id}/approve`,
+      });
+
+      if ( !data.success) {
+        // If approval failed, restore the original data
+        setDataa(dataa);
+        setFilter(filter);
+        throw new Error("Failed to approve");
+      }
+
+      setResultMessage(t("requirements_approved"));
+      setShowResultModal(true);
+    } catch (error) {
+      console.error("Status update failed:", error);
+      fetchData(page);
+      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+    }
+  };
+
+  const Decline = async (id) => {
+    try {
+      // Optimistically update the status to "rejected" immediately
+      const updatedData = dataa.map((item) =>
+        item.id === selectedId ? { ...item, status: "rejected" } : item
+      );
+      const updatedFilter = filter.map((item) =>
+        item.id === selectedId ? { ...item, status: "rejected" } : item
+      );
+      setDataa(updatedData);
+      setFilter(updatedFilter);
+
+      const data = await request(
+    
+        {
+          method: "GET",
+          urlPath: `/webinars/${selectedId}/reject`,
+          body: payload,
+        }
+      );
+
+
+      if ( !data.success) {
+        // If rejection failed, restore the original data
+        setDataa(dataa);
+        setFilter(filter);
+        throw new Error("Failed to reject");
+      }
+
+      setResultMessage(t("requirements_rejected"));
+      setShowResultModal(true);
+      setShowModal(false);
+      setSelectedId(null);
+    } catch (error) {
+      console.error("Rejection failed:", error);
+      // Restore original data on error
+      fetchData(page);
+      alert("فشل الرفض. حاول مرة أخرى.");
+    }
+  };
+
   // ---------- Table mapping ----------
   const trainingData = filteredRows.map((item, index) => ({
     key: item?.id ?? index,
@@ -225,11 +300,22 @@ export default function CourseDetailsTable({
           //   },
           //   icon: Pen,
           // },
-          // {
-          //   label: t("delete"),
-          //   action: () => remove(item.id),
-          //   icon: X,
-          // },
+          // {  item?.status }
+          {
+            label: t("accept"),
+            action: () => Accept(item.id),
+            icon: check,
+          },
+          {
+            label: t("reject"),
+            action: () => Decline(item.id),
+            icon: X,
+          },
+          {
+            label: t("delete"),
+            action: () => remove(item.id),
+            icon: X,
+          },
         ],
         id: item?.id,
       },

@@ -82,7 +82,9 @@
     "graduation_projects": "Graduation Projects",
     "text_lessons": "Text Lessons",
     "logout": "Logout",
-    "plans": "Plans & Subscriptions"
+    "plans": "Plans & Subscriptions",
+    "programs": "Programs",
+    "bridging_programs": "Bridging Programs"
   },
   "NavbarA": {
     "search": "Search...",
@@ -729,7 +731,19 @@
     "emaill": "Email: oliver@burrito.com",
     "referenceNumber": "Number: FRB1235476",
     "num": "90 employees",
-    "ref": "User progress tracking"
+    "ref": "User progress tracking",
+    "Unsubscribe": "Unsubscribe",
+    "show_bundles": "Show Bundles",
+     "add_new_payment_method": "Add New Payment Method",
+    "additional_card": "Additional Card", 
+    "buy_now_pay_later": "Buy Now, Pay Later",
+    "apple_pay": "Apple Pay",
+    "card_holder_name": "Card Holder Name",
+    "enter_card_holder_name": "Enter cardholder name",
+    "card_number": "Card Number",
+    "expiry_date": "Expiry Date",
+    "cvv_code": "CVV Code",
+    "save_payment_method": "Save Payment Method"
   },
   "yourplan": {
     "your_plan": "Your plan",

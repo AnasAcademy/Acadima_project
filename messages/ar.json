@@ -80,7 +80,9 @@
     "graduation_projects": "مشاريع التخرج",
     "text_lessons": "المقررات الكتابية",
     "logout": " تسجيل الخروج",
-    "plans": "الخطة والاشتراكات"
+    "plans": "الخطة والاشتراكات",
+    "programs": "البرامج الدراسية",
+    "bridging_programs": "برامج التجسير"
   },
 
   "add-student-to-class": {
@@ -701,6 +703,7 @@
     "membership": "ترقية الباقة",
     "view_plans": "استعراض الباقات",
     "info2": "Subscription State",
+    "info3": "Membership Management",
     "title1": "حالة الإشتراك",
     "btn2": "نشط",
     "days_remaining": "متبقي 21 يوم على نهاية الباقة",
@@ -727,7 +730,19 @@
     "emaill": "الإيميل : oliver@burrito.com",
     "referenceNumber": "رقم : FRB1235476",
     "num": "90 موظف/ة",
-    "ref": "متابعة تقدم المستخدمين"
+    "ref": "متابعة تقدم المستخدمين",
+    "Unsubscribe": "إلغاء الاشتراك",
+    "show_bundles": "عرض الباقات",
+    "add_new_payment_method": "إضافة وسيلة دفع جديدة",
+    "additional_card": "بطاقة إضافية",
+    "buy_now_pay_later": "اشتري الآن وادفع لاحقا", 
+    "apple_pay": "آبل باي",
+    "card_holder_name": "اسم حامل البطاقة",
+    "enter_card_holder_name": "أدخل اسم حامل البطاقة",
+    "card_number": "رقم البطاقة", 
+    "expiry_date": "تاريخ الانتهاء",
+    "cvv_code": "رقم الحماية CVV",
+    "save_payment_method": "حفظ وسيلة الدفع"
   },
   "yourplan": {
     "your_plan": "خطتك",

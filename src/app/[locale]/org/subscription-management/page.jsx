@@ -7,25 +7,31 @@ import PymntDetails from "@/components/PymntDetails/PymntDetails";
 import Yourplan from "@/components/Yourplan/Yourplan";
 import Blue from "@/assets/admin/blue screen.svg";
 import Backg from "@/assets/admin/Backund.png";
+import { cookies } from "next/headers";
+
 
 export default async function SubscriptionManagement() {
+  const t = await getTranslations("SubMan");
+const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token")?.value;
 
-    const t = await getTranslations("SubMan");
-
+  const companyName = process.env.company_name;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL.replace(
+    "${company_name}",
+    companyName
+  );
   let dataa = [];
 
   try {
-    const data = await fetch(
-      "https://api.lxera.net/api/development/organization/vodafone/plans",
-      {
-        method: "GET",
-        headers: {
-          "x-api-key": "1234",
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUwODQzMzU1LCJuYmYiOjE3NTA4NDMzNTUsImp0aSI6IjBVZDcwYTNoa1RpZDd3WUMiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.LKM9YIlrS8FOnNBTXP7aRm2gLNDNbJflcB4_rHIFJBs`,
-        },
-      }
-    );
+    const data = await fetch(`${baseUrl}/plans`, {
+      method: "GET",
+      headers: {
+        "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      cache: "no-store", // prevent stale data
+    });
 
     const respond = await data.json();
     dataa = respond.message;
@@ -43,7 +49,7 @@ export default async function SubscriptionManagement() {
               <CompnamCard dat={dataa} Img={Backg} />
             </div>
             <div className="  col-lg-7 col-xl-4  d-flex  gap-2">
-              <AdminSmallCard Frame="SubMan" Img={Blue} />
+              <AdminSmallCard Frame="SubMan" Img={Blue} isUpgrade={true} />
               <AdminSmallCard Frame="SubMan" Img={Blue} />
             </div>
 

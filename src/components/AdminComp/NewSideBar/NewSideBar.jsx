@@ -312,6 +312,18 @@ export default function NewSideBar() {
       tit: "bundles",
       href: "/org/education/bundles",
       bg: isBundles,
+      arrow: arrowDown,
+      icon2: point,
+      children: [
+        {
+          tit: "programs",
+          href: "/org/education/bundles/programs",
+        },
+        {
+          tit: "bridging_programs",
+          href: "/org/education/bundles/bridging-programs",
+        }
+      ],
     },
     {
       icon: Programs,
@@ -634,7 +646,7 @@ export default function NewSideBar() {
           <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
             {finan.map((item, index) => {
               return (
-                <li 
+                <li
                   key={index}
                   className={`nav-item d-flex    w-100  align-items-center  p-2 ${
                     item.bg ? " bgNewSidebar rounded-3" : ""
@@ -876,7 +888,7 @@ export default function NewSideBar() {
                       </Link>
                     </li>
 
-                    <li
+                    {/* <li
                       className={`nav-item besideHover width-fit  ${
                         isEmployeeprogress && "onSelect"
                       }  `}
@@ -903,7 +915,7 @@ export default function NewSideBar() {
                           {t("Employee progress")}
                         </span>
                       </Link>
-                    </li>
+                    </li> */}
 
                     <li
                       className={`nav-item  besideHover width-fit  ${
@@ -970,7 +982,7 @@ export default function NewSideBar() {
                         href="/org/orgprofile"
                         className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
-                          setactvv("accmange");
+                          setactvv("");
                         }}
                       >
                         <Accmanage
@@ -1217,9 +1229,37 @@ export default function NewSideBar() {
                   >
                     <div className="d-flex align-items-center justify-content-center">
                       <h6 className=" text-center text-nowrap tit-10-400 ">
-                        {t("logout")}
+                        {t("Settings")}
                       </h6>
                     </div>
+
+                    <li
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit  ${
+                        isSettings && "onSelect"
+                      }  `}
+                    >
+                      <Link
+                        href="/org/settings"
+                        onClick={() => {
+                          setactvv("");
+                        }}
+                      >
+                        <Acc3
+                          className={`iconSize2    ${
+                            isSettings ? "iconcolor" : "iconcolor2"
+                          }  `}
+                        />
+                        <span
+                          className={`text-nowrap custfont ${
+                            sidebarOpen
+                              ? "tooltipText text-body-secondary"
+                              : "w-100"
+                          }`}
+                        >
+                          {t("Settings")}
+                        </span>
+                      </Link>
+                    </li>
 
                     <li
                       className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit  ${
