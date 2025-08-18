@@ -325,7 +325,7 @@ export default function AdmissionReqTable({
       <div className="col-12">
         <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
           <ExcelDownload
-            endpoint="/api/proxy/requirements/excel"
+            endpoint="/api/proxy/requirements/export"
             filename="admission_requirements_report"
             className="btn custfontbtn rounded-2 mb-3"
             onSuccess={() => {

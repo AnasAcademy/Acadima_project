@@ -6,7 +6,7 @@ import CourseDetailsTable from "@/components/Tables&filters/Courses/CourseDetail
 export default async function CourseDetails() {
   const t = await getTranslations("tables");
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get("auth_token")?.value || "";
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;

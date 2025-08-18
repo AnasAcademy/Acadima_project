@@ -735,11 +735,11 @@
     "show_bundles": "عرض الباقات",
     "add_new_payment_method": "إضافة وسيلة دفع جديدة",
     "additional_card": "بطاقة إضافية",
-    "buy_now_pay_later": "اشتري الآن وادفع لاحقا", 
+    "buy_now_pay_later": "اشتري الآن وادفع لاحقا",
     "apple_pay": "آبل باي",
     "card_holder_name": "اسم حامل البطاقة",
     "enter_card_holder_name": "أدخل اسم حامل البطاقة",
-    "card_number": "رقم البطاقة", 
+    "card_number": "رقم البطاقة",
     "expiry_date": "تاريخ الانتهاء",
     "cvv_code": "رقم الحماية CVV",
     "save_payment_method": "حفظ وسيلة الدفع"
@@ -913,9 +913,8 @@
     "delete": "حذف",
     "edit": "تعديل",
     " entity_name_label": "اسم المنشأة:",
-    "company_title":"شركة الرؤية المستقبلية للتقنيات",
+    "company_title": "شركة الرؤية المستقبلية للتقنيات",
     "company_desc": " هي إحدى الشركات السعودية الرائدة في مجال التحول الرقمي، وتسعى إلى تمكين كوادرها من خلال برامج تدريبية متخصصة تهدف إلى رفع الكفاءة وتعزيز الإنتاجية داخل بيئة العمل."
-    
   },
 
   "adminSettings": {
@@ -1291,13 +1290,31 @@
     "confirm_action": "يرجى تأكيد هذا الإجراء",
     "unknown": "غير معروف",
     "free": "مجاناً",
-    "sales": "المبيعات",
     "courses": "الفصول",
     "teacher": "معلم",
-    "revenue": "الدخل",
     "categories": "الفئات",
    "create_new_batch":"إنشاء دفعة جديدة",
    "addRequirements": "إضافة متطلبات القبول في البرنامج",
-   "addReqButton": "+ إضافة متطلبات"
+   "addReqButton": "+ إضافة متطلبات",
+    "create_new_batch": "إنشاء دفعة جديدة",
+    "editing_webinar": "تعديل المقرر",
+    "editing_student": "تعديل الطالب",
+    "course_name_certificate": "اسم المقرر في الشهادة",
+    "teacher_id": "معرف المعلم",
+    "category_id": "معرف الفئة",
+    "unattached": "غير مرتبط",
+    "hasGroup": "له مجموعة",
+    "partner_instructor": "مدرب شريك",
+    "message_for_reviewer": "رسالة للمراجع",
+    "partners_csv": "الشركاء (CSV)",
+    "student_ids_csv": "معرفات الطلاب (CSV)",
+    "no_changes_to_submit": "لا توجد تغييرات للإرسال",
+    "allow_access": "السماح بالوصول",
+    "block_access": "حظر الوصول",
+    "rate": "التقييم",
+    "learning": "تقدم التعلم",
+    "user_group": "مجموعة المستخدم",
+    "revenue": "الإيرادات",
+    "sales": "المبيعات"
   }
 }

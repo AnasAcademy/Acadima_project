@@ -233,7 +233,7 @@ export default function QuizCertificatesTable({
           <div className="d-flex justify-content-between align-items-center mb-3">
             {/* Replace the old button with ExcelDownload component */}
             <ExcelDownload
-              endpoint="https://api.lxera.net/api/development/organization/vodafone/certificates/excel"
+              endpoint="https://api.lxera.net/api/development/organization/vodafone/certificates/export"
               filename="quiz_certificates_report"
               className="btn custfontbtn rounded-2"
               onSuccess={(message) => {
