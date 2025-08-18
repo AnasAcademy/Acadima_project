@@ -1296,6 +1296,8 @@
     "teacher": "معلم",
     "revenue": "الدخل",
     "categories": "الفئات",
-   "create_new_batch":"إنشاء دفعة جديدة"
+   "create_new_batch":"إنشاء دفعة جديدة",
+   "addRequirements": "إضافة متطلبات القبول في البرنامج",
+   "addReqButton": "+ إضافة متطلبات"
   }
 }

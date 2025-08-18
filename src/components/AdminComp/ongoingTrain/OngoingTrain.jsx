@@ -98,7 +98,7 @@ export default function OngoingTrain({
     buttons: (col, key) => (
       <td
         key={key}
-        className="d-flex gap-1 align-items-center px-1 justify-content-center"
+        className="d-flex gap-1 align-items-center px-1 "
       >
         {col.buttons?.map((btn, index) => (
           <button

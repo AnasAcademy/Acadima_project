@@ -15,7 +15,7 @@ function SearchSelect({
   minChars = 3,
   onChange, // expects number or "" to clear
   loadOptions, // async (term) => Promise<{label,value}[]>
-  setId,
+ 
 }) {
   const [open, setOpen] = useState(false);
   const [term, setTerm] = useState("");
@@ -264,38 +264,27 @@ export default function Editform({
   formState,
   loading = false,
   extraForm,
-
+  setId,
+  reqtble,
+  setReqTable,
 }) {
-   const [addReq, setAddReq] = useState([]);
+  const [addReq, setAddReq] = useState([]);
   const t = useTranslations("tables");
-  const [req, setReq] = useState([
 
- 
-  ]);
 
   const { loadStudentOptions } = useUserData();
 
+  const addField = (title, desc) => {
+    setAddReq([...addReq, { title: title, description: desc }]);
+  };
 
-
-const addField = (title, desc) => {
-  setAddReq([...addReq, { title: title, description: desc }]);
-};
-
- const removeField = () => {
-  if(addReq.length > 1) 
-    {
-   setAddReq(addReq.slice(0, -1));
-  }else if (addReq.length === 1) {
-
-    setAddReq([]);
-   }
-
-
- }
-
-
-
-
+  const removeField = () => {
+    if (addReq.length > 1) {
+      setAddReq(addReq.slice(0, -1));
+    } else if (addReq.length === 1) {
+      setAddReq([]);
+    }
+  };
 
   // Build validation schema
   const validationSchema = Yup.object(
@@ -392,7 +381,6 @@ const addField = (title, desc) => {
     if (field.onChange) field.onChange(value);
   };
 
-  
   return (
     <form
       onSubmit={(e) => {
@@ -537,26 +525,31 @@ const addField = (title, desc) => {
           {extraForm ? (
             <>
               <div className="d-flex justify-content-between">
-                <h3>اضافه متطلبات القبول في البرنامج</h3>
+                <h3> {t("addRequirements")} </h3>
                 <button
                   className="btn btn-success"
                   type="button"
                   onClick={addField}
                 >
-                  + add requirements
+                  {t("addReqButton")}
                 </button>
               </div>
 
-              {addReq.map((num) => (
-                <div key={num} className="d-flex flex-column gap-3">
+              {reqtble.map((item, index) => (
+                <div key={index} className="d-flex flex-column gap-3">
                   <div className=" d-flex justify-content-between align-items-center gap-3">
                     <input
                       type="text"
                       className="w-100 p-1"
                       placeholder="title"
+                      value={item.title}
                     />
 
-                    <button className=" btn btn-danger " type="button" onClick={removeField}>
+                    <button
+                      className=" btn btn-danger "
+                      type="button"
+                      onClick={removeField}
+                    >
                       {" "}
                       x{" "}
                     </button>
@@ -565,6 +558,7 @@ const addField = (title, desc) => {
                     type="text"
                     className="w-100 p-1"
                     placeholder="admin/main.description"
+                    value={item.description}
                   />
                 </div>
               ))}
@@ -585,7 +579,7 @@ const addField = (title, desc) => {
             <button
               className="btn btn-light custfontbtn w-25"
               type="button"
-              onClick={ setShowModal }
+              onClick={setShowModal}
               disabled={loading}
             >
               {t("close")}

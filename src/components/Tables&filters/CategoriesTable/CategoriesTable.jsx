@@ -19,7 +19,10 @@ export default function CategoriesTable({ dat }) {
   const [data, setData] = useState(dat);
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [Itemid, setId] = useState(null);
+  const [reqtable , setReqTable] = useState([])
   const [Alertmssg, setAlertmssg] = useState("");
+  const [subcat ,setSubcat] = useState(false)
+  
   const { request } = useApiClient();
 
 //  async function fetchy(stat) {
@@ -66,11 +69,47 @@ export default function CategoriesTable({ dat }) {
    }
  };
 
+const getSubcatData = async (Itemid) => {
+  try {
+    const result = await request({
+      method: "GET",
+      urlPath: `/categories/subCategories/${Itemid}`,
+    });
+     
+    console.log(result);
+      setData(result.message.subCategories.data);
+       setSubcat(true);
+  } catch (error) {
+    console.error("Status update failed:", error);
+    alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+  }
+};
+
+
+const getreqData = async (Itemid) => {
+  try {
+    const result = await request({
+      method: "GET",
+      urlPath: `/categories/${Itemid}`,
+    });
+
+    const res = result.data.category_requirements;
+    const subcatt = result.data.category_requirements;
+   setReqTable( res);
+   
+   
+  } catch (error) {
+    console.error("Status update failed:", error);
+    alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+  }
+};
+
+
  const handleSubmitEdit = async (dataa) => {
    try {
      const result = await request({
        method: "PUT",
-       urlPath: `/categories/${Itemid}/update`,
+       urlPath: `/categories/${Itemid}`,
        body: { title: dataa.title, status: dataa.status, icon: dataa.icon , },
      });
 
@@ -148,23 +187,44 @@ export default function CategoriesTable({ dat }) {
 
 
   const TableHead = [
-    t("icon"), 
+    t("icon"),
     t("order"),
     t("title"),
-    t("subCategories"),
+    !subcat && t("subCategories"),
     t("chapters"),
     t("teachers"),
     t("status"),
     t("actions"),
-  ];
+  ].filter(Boolean);
 
   const trainingData = data.map((item, index) => ({
     columns: [
-      
       { type: "text", value: item.icon || "icon" },
       { type: "text", value: item.order },
       { type: "text", value: item.title },
-      { type: "text", value: item.subCategories },
+     !subcat &&{ type: "buttons",
+        buttons: [
+          {
+            label:  item.subCategoriesCount + " تصنيفات",
+            color: "#0dac0dff",
+            action: () => {
+               if (item.subCategoriesCount <= 0) {
+                   console.log(item.subCategoriesCount);
+               }else{ getSubcatData(item.id);} 
+  
+         
+            },
+          },
+        ],
+        id: item.id,
+      },
+      // {
+      //   type: "buttons",
+      //   label: item.subCategories,
+      //   action: () => {
+      //
+      //   },
+      // },
       { type: "text", value: item.courses_count },
       { type: "text", value: item.teachers_count },
       { type: "text", value: item.status },
@@ -184,6 +244,7 @@ export default function CategoriesTable({ dat }) {
             action: () => {
               setShowModal(!showModal);
               setId(item.id);
+              getreqData(item.id);
               setFormState("edit");
             },
             icon: Pen,
@@ -196,7 +257,7 @@ export default function CategoriesTable({ dat }) {
         ],
         id: item.id,
       },
-    ],
+    ].filter(Boolean),
   }));
 
 
@@ -216,8 +277,11 @@ const fields = [
     name: "status",
     label: t("status"),
     type: "select",
-    // getStatusOptions().filter((item) => item.value !== "pending") || 
-    options: [],
+    // getStatusOptions().filter((item) => item.value !== "pending") ||
+    options: [
+      { label: "active", value: "active" },
+      { label: "inactive", value: "inactive" },
+    ],
   },
   { name: "icon", label: t("icon"), type: "text" },
   { name: "slug", label: "url", type: "text" },
@@ -227,47 +291,47 @@ const fields = [
 
   return (
     <>
-    
-       {showModal ? (
-                 <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-                   <Editform
-                     fields={fields}
-                     data={data.find((item) => item.id === Itemid) || {}}
-                     formTitles={formTitles}
-                     handleSubmitEdit={handleSubmitEdit}
-                     setShowModal={toogle}
-                    //  handleSubmitAdd={handleSubmitAdd}
-                     formState={formState}
-                     extraForm={true}
-                    
-                   />
-       
-                   <AlertModal
-                     show={showAlertModal}
-                     onClose={() => setShowAlertModal(false)}
-                     onSubmit={() => console.log("submitted")}
-                     title="? Are you sure you want to delete this user"
-                   >
-                     <form
-                       onSubmit={(e) => {
-                         e.preventDefault();
-                         DeleteUser();
-                       }}
-                     >
-                       <div className="mb-3">
-                         <p className="m-0 text-center">{Alertmssg}</p>
-                       </div>
-                     </form>
-                   </AlertModal>
-                 </div>
-               ) : (
-                 <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-               
-                  
-                     <OngoingTrain TableHead={TableHead} trainingData={trainingData} />
-                  
-       
-                   {/* <div className="row justify-content-center align-items-center gap-3 mt-3">
+      <div>
+        <h2 className="hvvv">{ subcat ? t("subCategories") : ts("categories") }</h2>
+      </div>
+      {showModal ? (
+        <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+          <Editform
+            fields={fields}
+            data={data.find((item) => item.id === Itemid) || {}}
+            formTitles={formTitles}
+            handleSubmitEdit={handleSubmitEdit}
+            setShowModal={toogle}
+            //  handleSubmitAdd={handleSubmitAdd}
+            formState={formState}
+            extraForm={true}
+            reqtble = {reqtable}
+            setReqTable = {setReqTable}
+          />
+
+          <AlertModal
+            show={showAlertModal}
+            onClose={() => setShowAlertModal(false)}
+            onSubmit={() => console.log("submitted")}
+            title="? Are you sure you want to delete this user"
+          >
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                DeleteUser();
+              }}
+            >
+              <div className="mb-3">
+                <p className="m-0 text-center">{Alertmssg}</p>
+              </div>
+            </form>
+          </AlertModal>
+        </div>
+      ) : (
+        <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+          <OngoingTrain TableHead={TableHead} trainingData={trainingData} />
+
+          {/* <div className="row justify-content-center align-items-center gap-3 mt-3">
                      <button
                        disabled={currentPage === 1}
                        className="btn custfontbtn col-1"
@@ -290,12 +354,8 @@ const fields = [
                        {t("next-page")}
                      </button>
                    </div> */}
-                 </div>
-               )}
-
-
-
-
+        </div>
+      )}
     </>
   );
 }

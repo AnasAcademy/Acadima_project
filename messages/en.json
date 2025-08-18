@@ -1294,6 +1294,8 @@
     "teacher": "Teacher",
     "revenue": "Revenue",
     "categories": "Categories",
-     "create_new_batch":"Create New Batch"
+     "create_new_batch":"Create New Batch",
+     "addRequirements": "Add admission requirements to the program",
+     "addReqButton": "+ Add Requirements"
   }
 }
