@@ -15,13 +15,12 @@ function SearchSelect({
   minChars = 3,
   onChange, // expects number or "" to clear
   loadOptions, // async (term) => Promise<{label,value}[]>
+  setId,
 }) {
-
-
   const [open, setOpen] = useState(false);
   const [term, setTerm] = useState("");
   const [remote, setRemote] = useState([]);
- 
+
   const [loadingRemote, setLoadingRemote] = useState(false);
   const boxRef = useRef(null);
 

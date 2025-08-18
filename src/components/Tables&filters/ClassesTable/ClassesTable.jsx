@@ -140,6 +140,63 @@ export default function ClassesTable({ dat }) {
     }
   };
 
+
+   const handleSubmitAdd = async (dataa) => {
+    console.log("here ", dataa);
+    Object.keys(dataa).forEach((key) => {
+      if (dataa[key] === "") {
+        dataa[key] = null;
+      }
+    });
+    console.log(dataa); 
+    try {
+      const result = await request({
+        method: "POST", 
+        urlPath: `/classes`,
+        body: {
+          title: dataa.title,
+          start_date: dataa.start_date,
+          end_date: dataa.end_date,
+        },
+      });
+      if (result.message === "تم اضافة دفعة جديدة بنجاح") {
+        setShowModal(false);
+        setResultMessage(result.message);
+        setShowResultModal(true);
+      }
+      const newItem = {
+        id: result.id,
+        title: dataa.title,
+        start_date: dataa.start_date,
+        end_date: dataa.end_date,
+      };
+      setData((prev) => [...prev, newItem]); // Add the new item to the existing data
+    } catch (error) {
+      const apiErrors = error?.data?.errors;
+      if (apiErrors) {
+        Object.entries(apiErrors).forEach(([field, msgs]) => {
+          console.error(`${field}: ${msgs.ar || msgs.en}`);
+          setResultMessage(`${msgs.ar || msgs.en}`);
+        });
+      } else {
+        console.error("Unexpected error:", error.message);
+      }
+      setShowModal(false);
+      setShowResultModal(true);
+    } 
+  };
+
+
+
+
+
+
+
+
+
+
+
+  
   const TableHeadstudents = [
     "ID",
     t("student_code"),
@@ -340,7 +397,7 @@ export default function ClassesTable({ dat }) {
             action: () => {
               setShowModal(!showModal);
               setId(item.id);
-                   console.log(item.id);
+              console.log(item.id);
               setStudent(false);
               setFormState("edit");
             },
@@ -634,6 +691,8 @@ export default function ClassesTable({ dat }) {
               handleSubmitEdit={handleSubmitEditStudent}
               setShowModal={toogle}
               formState={formState}
+              setId={setId}
+       
             />
           ) : (
             <Editform
@@ -642,7 +701,7 @@ export default function ClassesTable({ dat }) {
               formTitles={formTitles}
               handleSubmitEdit={handleSubmitEdit}
               setShowModal={toogle}
-              // handleSubmitAdd={handleSubmitAdd}
+              handleSubmitAdd={handleSubmitAdd}
               formState={formState}
             />
           )}
@@ -677,16 +736,17 @@ export default function ClassesTable({ dat }) {
             <button
               className="btn btn-light custfontbtn"
               onClick={() => {
-                         if (page !== "classes"){
-                  setPage("classes")  } else {
-
-                 console.log("not classes");
-
-                                }
-                         ;
+                if (page !== "classes") {
+                  setPage("classes");
+                } else {
+                  setShowModal(!showModal);
+                  setId(null);
+                  setStudent(false);
+                  setFormState("add");
+                }
               }}
             >
-              {page === "classes" ? " اضافة دفعه" : t("back")}
+              {page === "classes" ? t("create_new_batch") : t("back")}
             </button>
           </div>
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht ">

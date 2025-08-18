@@ -1194,7 +1194,7 @@
     "name": "الاسم",
     "national_id": "الهوية الوطنية",
     "registered_diplomas": "الدبلومات المسجلة",
-    "register_enrollments": " عدد طلبة إنشاء حساب",
+    "register_enrollments": "طلبة إنشاء ",
     "students_list": "قائمة الطلاب",
     "add_student_code": "إضافة كود طالب",
     "student_code_required": "كود الطالب مطلوب",
@@ -1245,11 +1245,11 @@
     "request_approval_failed": "فشل في قبول الطلب",
     "request_rejection_failed": "فشل في رفض الطلب",
     "user_enrolled_successfully": "تم تسجيل المستخدم بنجاح",
-    "ListReserveSeat": "قائمة حجز المقاعد",
-    "Program Registration": "تسجيل البرنامج",
+    "ListReserveSeat": " حجز المقاعد",
+    "Program Registration": " البرامج",
     "Direct Registration": "تسجيل مباشر",
-    "register_scholarship": "تسجيل المنح دراسية",
-    "req_form": "نموذج المتطلبات",
+    "register_scholarship": " المنح دراسية",
+    "req_form": " المتطلبات",
     "status_refund": "مسترد",
     "status_success": "ناجح",
     "status_blocked": "محظور",
@@ -1280,6 +1280,7 @@
     "courses": "الفصول",
     "teacher": "معلم",
     "revenue": "الدخل",
-    "categories": "الفئات"
+    "categories": "الفئات",
+   "create_new_batch":"إنشاء دفعة جديدة"
   }
 }

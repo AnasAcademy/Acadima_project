@@ -1279,6 +1279,7 @@
     "courses": "Courses",
     "teacher": "Teacher",
     "revenue": "Revenue",
-    "categories": "Categories"
+    "categories": "Categories",
+     "create_new_batch":"Create New Batch"
   }
 }
