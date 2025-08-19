@@ -693,7 +693,7 @@ export default function Editform({
     initialValues: {
       ...initialValues,
       sub_categories: sub || [],
-      requirements: reqtble || [],
+      requirements: reqtble || "",
     },
     validationSchema,
     onSubmit: (values) => {

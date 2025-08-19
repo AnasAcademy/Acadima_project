@@ -35,6 +35,7 @@ export default function CourseDetailsTable({
     getStudentPairs,
     getStudentOptions,
     instructors,
+    getInstructorOptions,
   } = useUserData();
 
   // webinars data
@@ -320,12 +321,23 @@ export default function CourseDetailsTable({
   };
 
   // ---- Webinar: Edit (form) ----
-  const openWebinarEdit = (webinar) => {
+  const openWebinarEdit = async (webinar) => {
     setSelectedWebinarId(webinar?.id);
-    setWebinarEditData(webinar || {});
-    setShowWebinarEditForm(true);
+    setWebinarEditLoading(true);
+    try {
+      const res = await request({
+        method: "GET",
+        urlPath: `/webinars/${webinar.id}`,
+      });
+      // detail payload key may differ; adjust if your API wraps it:
+      setWebinarEditData(res?.webinar || webinar);
+    } finally {
+      setWebinarEditLoading(false);
+      setShowWebinarEditForm(true);
+    }
   };
 
+  // ---- Webinar: Edit (form) ----
   const handleSubmitWebinarEdit = async (formData) => {
     if (!selectedWebinarId) return;
 
@@ -333,11 +345,38 @@ export default function CourseDetailsTable({
       setWebinarEditLoading(true);
 
       const apiData = {};
+
+      // 1) Arrays we care about — build them explicitly
+      if (Array.isArray(formData.partners)) {
+        apiData.partners = formData.partners
+          .map(Number)
+          .filter(Number.isFinite);
+      }
+
+      if (Array.isArray(formData.students_excluded)) {
+        // If your API wants plain IDs:
+        apiData.students_excluded = formData.students_excluded
+          .map(Number)
+          .filter(Number.isFinite);
+
+        // If your API instead wants objects like {student_id: X}, use this line instead:
+        // apiData.students_excluded = formData.students_excluded.map((id) => ({ student_id: Number(id) }));
+      }
+
+      // 2) Toggle as 0/1
+      if (typeof formData.partner_instructor !== "undefined") {
+        apiData.partner_instructor = Number(
+          Boolean(formData.partner_instructor)
+        );
+      }
+
+      // 3) Copy over changed scalars (skip the arrays we handled above)
       Object.entries(formData).forEach(([k, v]) => {
+        if (["partners", "students_excluded", "partner_instructor"].includes(k))
+          return;
         const orig = webinarEditData?.[k];
         const cleaned = typeof v === "string" ? v.trim() : v;
         const cleanedOrig = typeof orig === "string" ? orig.trim() : orig;
-
         if (
           cleaned !== cleanedOrig &&
           cleaned !== "" &&
@@ -348,29 +387,10 @@ export default function CourseDetailsTable({
         }
       });
 
-      // CSV -> arrays
-      if (apiData.partners_csv !== undefined) {
-        apiData.partners = String(apiData.partners_csv)
-          .split(",")
-          .map((x) => x.trim())
-          .filter(Boolean)
-          .map((x) => Number(x));
-        delete apiData.partners_csv;
-      }
-      if (apiData.student_ids_csv !== undefined) {
-        apiData.student_id = String(apiData.student_ids_csv)
-          .split(",")
-          .map((x) => x.trim())
-          .filter(Boolean)
-          .map((x) => Number(x));
-        delete apiData.student_ids_csv;
-      }
-
-      // normalize numeric fields
+      // 4) Normalize a few numeric fields
       [
         "unattached",
         "hasGroup",
-        "partner_instructor",
         "teacher_id",
         "category_id",
         "duration",
@@ -383,13 +403,20 @@ export default function CourseDetailsTable({
         }
       });
 
+      // 5) DEFENSIVE: nuke any legacy keys that might be injected upstream
+      delete apiData.student_id;
+      delete apiData.student_ids;
+      delete apiData.student_ids_csv;
+
+      console.log("PUT /webinars payload →", apiData); // verify in the console
+
       await request({
         method: "PUT",
         urlPath: `/webinars/${selectedWebinarId}`,
         body: apiData,
       });
 
-      // optimistic local update
+      // optimistic update
       setRows((prev) =>
         prev.map((w) => (w.id === selectedWebinarId ? { ...w, ...apiData } : w))
       );
@@ -669,11 +696,12 @@ export default function CourseDetailsTable({
     { name: "description", label: t("description"), type: "textarea" },
     { name: "requirements", label: t("requirements"), type: "textarea" },
     {
-      name: "student_id",
-      label: t("student_exception"),
       type: "multiselectsearch",
-      options: getStudentOptions(), // big list
+      name: "students_excluded", // must match editData.students_excluded
+      label: t("students_excluded"),
       placeholder: t("name-search"),
+      options: getStudentPairs(), // or use loadOptions: loadStudentOptions
+      // loadOptions: loadStudentOptions
     },
     {
       name: "teacher_id",
@@ -684,16 +712,16 @@ export default function CourseDetailsTable({
     },
     {
       type: "toggleSelectSearch",
-      name: "partner_instructor", 
+      name: "partner_instructor",
       label: t("partner_instructor"),
-      required: true, 
-      toggleLabel: t("partner_instructor"), 
+      required: true, // child becomes required when checked
+      toggleLabel: t("partner_instructor"),
       child: {
-        name: "partners", 
+        name: "partners", // must match editData.partners
         label: t("teacher_id"),
         placeholder: t("name-search"),
-        options: instructors, 
-        multiple: true, 
+        options: instructors, // [{value,label}] baseline; loader optional
+        multiple: true, // renders MultiSearchSelect
       },
     },
     { type: "" },
@@ -723,6 +751,28 @@ export default function CourseDetailsTable({
     },
   ];
 
+  const raw =
+    (webinarEditData && webinarEditData.id === selectedWebinarId
+      ? webinarEditData
+      : null) ||
+    rows.find((w) => w.id === selectedWebinarId) ||
+    {};
+
+  const partners = (raw?.webinar_partner_teacher || [])
+    .map((p) => Number(p.teacher_id ?? p.teacher?.id))
+    .filter((n) => Number.isFinite(n));
+
+  const studentsExcluded = (raw?.students_excluded || [])
+  .map((s) => Number(s.student_id ?? s.id ?? s))
+  .filter(Number.isFinite);
+
+  const editData = {
+    ...raw,
+    teacher_id: raw?.teacher?.id ?? raw?.teacher_id ?? "",
+    partner_instructor: Boolean(raw?.partner_instructor) || partners.length > 0,
+    partners,
+    students_excluded: studentsExcluded,
+  };
   // ---------- Render ----------
   return (
     <div className="row g-3">
@@ -738,14 +788,9 @@ export default function CourseDetailsTable({
             >
               {t("back")}
             </button>
-
             <Editform
               fields={webinarFields}
-              data={
-                rows.find((w) => w.id === selectedWebinarId) ||
-                webinarEditData ||
-                {}
-              }
+              data={editData}
               formTitles={webinarFormTitles}
               handleSubmitEdit={handleSubmitWebinarEdit}
               setShowModal={() => setShowWebinarEditForm(false)}

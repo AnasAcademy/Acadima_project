@@ -1312,7 +1312,7 @@
     "revenue": "Revenue",
     "sales": "Sales",
     "addSubCategory":"Add Subcategory",
-    "student_exception": "Exclude a student from the certificate",
+    "students_excluded": "Exclude a student from the certificate",
     "choose_teacher": "Choose Teacher",
     "partner_instructor": "Partner Instructor",
     "partners": "Partners",
