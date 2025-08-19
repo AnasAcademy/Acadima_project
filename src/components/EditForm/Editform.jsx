@@ -533,18 +533,16 @@ export default function Editform({
   reqtble,
   setReqTable,
   sub,
-  setSub
+  setSub,
 }) {
-
   const t = useTranslations("tables");
   const { loadStudentOptions } = useUserData();
 
   const addField = () => {
-  const updated = [...reqtble, { title: "", description: "" }];
-  setReqTable(updated);
-   
+    const updated = [...reqtble, { title: "", description: "" }];
+    setReqTable(updated);
 
-      formik.setFieldValue("requirements", updated);
+    formik.setFieldValue("requirements", updated);
   };
 
   const removeField = () => {
@@ -553,23 +551,23 @@ export default function Editform({
     } else if (reqtble.length === 1) {
       setReqTable([]);
     }
-      formik.setFieldValue("requirements", reqtble);
+    formik.setFieldValue("requirements", reqtble);
   };
-    const addsubField = () => {
-       const updated = [...sub, { title: "", slug: "", icon: "" }];
-      setSub(updated);
+  const addsubField = () => {
+    const updated = [...sub, { title: "", slug: "", icon: "" }];
+    setSub(updated);
 
-       formik.setFieldValue("sub_categories", updated);
-    };
+    formik.setFieldValue("sub_categories", updated);
+  };
 
-    const removesubField = () => {
-      if (sub.length > 1) {
-        setSub(sub.slice(0, -1));
-      } else if (sub.length === 1) {
-        setSub([]);
-      }
-      formik.setFieldValue("sub_categories", sub);
-    };
+  const removesubField = () => {
+    if (sub.length > 1) {
+      setSub(sub.slice(0, -1));
+    } else if (sub.length === 1) {
+      setSub([]);
+    }
+    formik.setFieldValue("sub_categories", sub);
+  };
 
   // Build validation schema
   const validationSchema = Yup.object(
@@ -618,22 +616,29 @@ export default function Editform({
 
         // Toggle (boolean) with conditional child selectsearch (rendered as radios)
         case "toggleSelectSearch": {
-          acc[name] = Yup.boolean(); // boolean for radio yes/no
+          acc[name] = Yup.boolean(); // the checkbox
 
-          const childName = field.child?.name;
+          const child = field.child || {};
+          const childName = child.name;
+
           if (childName) {
-            acc[childName] = Yup.number()
-              .transform((val, orig) => (orig === "" ? undefined : val))
-              .typeError(`${t(childName)} يجب أن يكون رقمًا`)
-              .when(name, {
-                is: true,
-                then: (s) => s.required(`${t(childName)} ${t("is_required")}`),
-                otherwise: (s) => s.notRequired(),
-              });
-          }
-          return acc; // skip generic handling below
-        }
+            const childRule = child.multiple
+              ? Yup.array().of(Yup.number())
+              : Yup.number()
+                  .transform((val, orig) => (orig === "" ? undefined : val))
+                  .typeError(`${t(childName)} يجب أن يكون رقمًا`);
 
+            acc[childName] = childRule.when(name, {
+              is: true,
+              then: (s) =>
+                child.multiple
+                  ? s.min(1, `${t(childName)} ${t("is_required")}`)
+                  : s.required(`${t(childName)} ${t("is_required")}`),
+              otherwise: (s) => s.notRequired(),
+            });
+          }
+          return acc; // skip generic handling
+        }
         default:
           rule = Yup.string();
       }
@@ -664,11 +669,15 @@ export default function Editform({
     } else if (field.type === "date" && typeof rawValue === "string") {
       acc[field.name] = rawValue.split("T")[0]?.split(" ")[0] || "";
     } else if (field.type === "toggleSelectSearch") {
-      acc[field.name] = Boolean(rawValue); // radio boolean
+      acc[field.name] = Boolean(rawValue); // checkbox
       const childName = field.child?.name;
       if (childName) {
         const childVal = data?.[childName];
-        acc[childName] = childVal ?? "";
+        acc[childName] = field.child?.multiple
+          ? Array.isArray(childVal)
+            ? childVal
+            : []
+          : childVal ?? "";
       }
     } else if (field.type === "checkbox01") {
       acc[field.name] =
@@ -852,68 +861,84 @@ export default function Editform({
                     />
                   ) : type === "toggleSelectSearch" ? (
                     (() => {
-                      const checked = Boolean(formik.values[name]);
+                      const on = Boolean(formik.values[name]);
                       const child = field.child || {};
                       const childName = child.name;
+                      const multiple = !!child.multiple; // if true -> MultiSearchSelect
 
                       return (
                         <>
-                          {/* Radio group */}
-                          <div className="d-flex align-items-center gap-3">
-                            <label className="d-flex align-items-center gap-1">
-                              <input
-                                type="radio"
-                                name={name}
-                                value="true"
-                                checked={checked === true}
-                                onChange={() =>
-                                  formik.setFieldValue(name, true)
-                                }
-                                disabled={loading}
-                              />
-                              <span>{t("yes")}</span>
-                            </label>
-                            <label className="d-flex align-items-center gap-1">
-                              <input
-                                type="radio"
-                                name={name}
-                                value="false"
-                                checked={checked === false}
-                                onChange={() => {
-                                  formik.setFieldValue(name, false);
-                                  if (childName)
-                                    formik.setFieldValue(childName, "");
-                                }}
-                                disabled={loading}
-                              />
-                              <span>{t("no")}</span>
-                            </label>
-                          </div>
-
-                          {/* Conditional selectsearch */}
-                          {checked && childName && (
-                            <div className="mt-2">
-                              <h3 className="Tit-12-700">{child.label}</h3>
-                              <SearchSelect
-                                name={childName}
-                                value={formik.values[childName]}
-                                options={child.options || []}
-                                disabled={loading}
-                                placeholder={child.placeholder || "Search"}
-                                minChars={child.minChars || 3}
-                                onChange={(v) =>
+                          {/* Checkbox toggle */}
+                          <label className=" align-items-center">
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              checked={on}
+                              onChange={(e) => {
+                                const v = e.target.checked;
+                                formik.setFieldValue(name, v);
+                                if (!v && childName) {
+                                  // clear child when turned off
                                   formik.setFieldValue(
                                     childName,
-                                    v === "" ? "" : Number(v)
-                                  )
+                                    multiple ? [] : ""
+                                  );
                                 }
-                                loadOptions={
-                                  child.loadOptions ||
-                                  (childName === "user_id"
-                                    ? loadStudentOptions
-                                    : undefined)
-                                }
-                              />
+                              }}
+                              disabled={loading}
+                            />
+                            <span>{field.toggleLabel || label}</span>
+                          </label>
+
+                          {/* Conditional child select */}
+                          {on && childName && (
+                            <div className="mt-2">
+                              <h3 className="Tit-12-700">{child.label}</h3>
+
+                              {multiple ? (
+                                <MultiSearchSelect
+                                  name={childName}
+                                  value={formik.values[childName] || []}
+                                  options={child.options || []}
+                                  disabled={loading}
+                                  placeholder={child.placeholder || "Search"}
+                                  minChars={child.minChars || 3}
+                                  onChange={(arr) =>
+                                    formik.setFieldValue(
+                                      childName,
+                                      arr.map(Number)
+                                    )
+                                  }
+                                  loadOptions={
+                                    child.loadOptions ||
+                                    (childName === "user_id"
+                                      ? loadStudentOptions
+                                      : undefined)
+                                  }
+                                />
+                              ) : (
+                                <SearchSelect
+                                  name={childName}
+                                  value={formik.values[childName]}
+                                  options={child.options || []}
+                                  disabled={loading}
+                                  placeholder={child.placeholder || "Search"}
+                                  minChars={child.minChars || 3}
+                                  onChange={(v) =>
+                                    formik.setFieldValue(
+                                      childName,
+                                      v === "" ? "" : Number(v)
+                                    )
+                                  }
+                                  loadOptions={
+                                    child.loadOptions ||
+                                    (childName === "user_id"
+                                      ? loadStudentOptions
+                                      : undefined)
+                                  }
+                                />
+                              )}
+
                               {formik.touched[childName] &&
                                 formik.errors[childName] && (
                                   <div className="text-danger mt-1">
@@ -970,7 +995,7 @@ export default function Editform({
               </div>
             );
           })}
-           {extraForm ? (
+          {extraForm ? (
             <>
               <div className=" d-flex flex-column row g-3">
                 <div className=" d-flex  flex-column gap-3 col-12  col-lg-7  col-xl-6">
@@ -984,7 +1009,7 @@ export default function Editform({
                       {t("add")}
                     </button>
                   </div>
- 
+
                   {sub.map((item, index) => (
                     <div
                       key={index}
@@ -1003,7 +1028,7 @@ export default function Editform({
                             formik.setFieldValue("sub_categories", updated);
                           }}
                         />
- 
+
                         <button
                           className=" btn btn-danger "
                           type="button"
@@ -1040,7 +1065,7 @@ export default function Editform({
                     </div>
                   ))}
                 </div>
- 
+
                 <div className=" d-flex  flex-column gap-3 col-12  col-lg-7 col-xl-6">
                   <div className="d-flex justify-content-between">
                     <h3> {t("addRequirements")} </h3>
@@ -1052,7 +1077,7 @@ export default function Editform({
                       {t("addReqButton")}
                     </button>
                   </div>
- 
+
                   {reqtble.map((item, index) => (
                     <div
                       key={index}
@@ -1065,7 +1090,7 @@ export default function Editform({
                           placeholder="title"
                           value={item.title}
                         />
- 
+
                         <button
                           className=" btn btn-danger "
                           type="button"
@@ -1089,7 +1114,7 @@ export default function Editform({
           ) : (
             ""
           )}
- 
+
           <div className="d-flex col-7 mt-4 ">
             <button
               className="btn btn-light custfontbtn w-25"
@@ -1098,7 +1123,7 @@ export default function Editform({
             >
               {formTitles?.[1]?.label}
             </button>
- 
+
             <button
               className="btn btn-light custfontbtn w-25"
               type="button"

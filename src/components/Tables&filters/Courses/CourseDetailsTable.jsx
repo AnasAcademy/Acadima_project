@@ -684,14 +684,16 @@ export default function CourseDetailsTable({
     },
     {
       type: "toggleSelectSearch",
-      name: "partner_instructor", // boolean
+      name: "partner_instructor", 
       label: t("partner_instructor"),
-      required: true,
+      required: true, 
+      toggleLabel: t("partner_instructor"), 
       child: {
-        name: "partners",
+        name: "partners", 
         label: t("teacher_id"),
         placeholder: t("name-search"),
-        options: instructors,
+        options: instructors, 
+        multiple: true, 
       },
     },
     { type: "" },
@@ -714,7 +716,7 @@ export default function CourseDetailsTable({
       type: "select",
       options: getCategoryGroupedOptions(),
     },
-    { 
+    {
       name: "message_for_reviewer",
       label: t("message_for_reviewer"),
       type: "textarea",
