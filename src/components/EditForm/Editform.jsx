@@ -1013,12 +1013,14 @@ export default function Editform({
                   {sub.map((item, index) => (
                     <div
                       key={index}
-                      className="d-flex flex-column gap-3 border-dark-subtle border-1 border p-2"
+                      className="d-flex flex-column gap-3  p-3  rounded-3"
+                      style={{ border: "1px solid #E3E3E3" }}
                     >
                       <div className=" d-flex justify-content-between align-items-center gap-3">
                         <input
                           type="text"
-                          className="w-100 p-1 border-dark-subtle border-1"
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                          style={{ border: "1px solid #E3E3E3" }}
                           placeholder="sub"
                           value={item.title}
                           onChange={(e) => {
@@ -1040,7 +1042,8 @@ export default function Editform({
                       </div>
                       <input
                         type="text"
-                        className="w-100 p-1 border-dark-subtle border-1"
+                        className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                        style={{ border: "1px solid #E3E3E3" }}
                         placeholder="admin/subcat"
                         value={item.slug}
                         onChange={(e) => {
@@ -1052,7 +1055,8 @@ export default function Editform({
                       />
                       <input
                         type="text"
-                        className="w-100 p-1 border-dark-subtle border-1"
+                        className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                        style={{ border: "1px solid #E3E3E3" }}
                         placeholder="admin/subcat"
                         value={item.icon}
                         onChange={(e) => {
@@ -1081,12 +1085,14 @@ export default function Editform({
                   {reqtble.map((item, index) => (
                     <div
                       key={index}
-                      className="d-flex flex-column gap-3   border-dark-subtle border-1 border p-2"
+                      className="d-flex flex-column gap-3 p-3  rounded-3 "
+                      style={{ border: "1px solid #E3E3E3" }}
                     >
                       <div className=" d-flex justify-content-between align-items-center gap-3">
                         <input
                           type="text"
-                          className="w-100 p-1 border-dark-subtle border-1"
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                          style={{ border: "1px solid #E3E3E3" }}
                           placeholder="title"
                           value={item.title}
                         />
@@ -1102,7 +1108,8 @@ export default function Editform({
                       </div>
                       <input
                         type="text"
-                        className="w-100 p-1 border-dark-subtle border-1"
+                        className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                        style={{ border: "1px solid #E3E3E3" }}
                         placeholder="admin/main.description"
                         value={item.description}
                       />

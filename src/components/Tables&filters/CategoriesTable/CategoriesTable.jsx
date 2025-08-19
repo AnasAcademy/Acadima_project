@@ -109,7 +109,7 @@ const getreqData = async (Itemid) => {
 
  const handleSubmitEdit = async (dataa) => {
         console.log( ' this data ' ,dataa)
-        console.log(Itemid);
+        console.log(dataa.has_sub === 0 ? "off" : "on");
    try {
      const result = await request({
        method: "PUT",
@@ -119,6 +119,7 @@ const getreqData = async (Itemid) => {
          status: dataa.status,
          icon: dataa.icon,
          slug: dataa.slug,
+         has_sub: dataa.has_sub === 0 ? "off" : "on",
          sub_categories: dataa.sub_categories,
          requirements: dataa.requirements,
        },
@@ -213,22 +214,24 @@ const getreqData = async (Itemid) => {
       { type: "text", value: item.icon || "icon" },
       { type: "text", value: item.order },
       { type: "text", value: item.title },
-     !subcat &&{ type: "buttons",
+      !subcat && {
+        type: "buttons",
         buttons: [
           {
-            label:  item.subCategoriesCount + " تصنيفات",
+            label: item.subCategoriesCount + " تصنيفات",
             color: "#0dac0dff",
             action: () => {
-               if (item.subCategoriesCount <= 0) {
-                   console.log(item.subCategoriesCount);
-               }else{ getSubcatData(item.id);} 
-  
-         
+              if (item.subCategoriesCount <= 0) {
+                console.log(item.subCategoriesCount);
+              } else {
+                getSubcatData(item.id);
+              }
             },
           },
         ],
         id: item.id,
       },
+    
       // {
       //   type: "buttons",
       //   label: item.subCategories,
@@ -294,8 +297,16 @@ const fields = [
       { label: "inactive", value: "inactive" },
     ],
   },
+
   { name: "icon", label: t("icon"), type: "text" },
   { name: "slug", label: "url", type: "text" },
+  {
+    name: "has_sub",
+    label: t("sub_cat_included"),
+    type: "checkbox01",
+    required: true, // set true if you need it to be 1
+    checkboxLabel: t("sub_cat_included"), // optional; otherwise falls back to `label`
+  },
 ];
 
 
