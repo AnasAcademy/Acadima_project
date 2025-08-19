@@ -1296,7 +1296,7 @@
    "create_new_batch":"إنشاء دفعة جديدة",
    "addRequirements": "إضافة متطلبات القبول في البرنامج",
    "addReqButton": "+ إضافة متطلبات",
-    "create_new_batch": "إنشاء دفعة جديدة",
+
     "editing_webinar": "تعديل المقرر",
     "editing_student": "تعديل الطالب",
     "course_name_certificate": "اسم المقرر في الشهادة",
@@ -1315,6 +1315,7 @@
     "learning": "تقدم التعلم",
     "user_group": "مجموعة المستخدم",
     "revenue": "الإيرادات",
-    "sales": "المبيعات"
+    "sales": "المبيعات",
+    "addSubCategory":" إضافة قسم فرعي"  
   }
 }

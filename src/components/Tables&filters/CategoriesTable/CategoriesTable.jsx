@@ -22,7 +22,7 @@ export default function CategoriesTable({ dat }) {
   const [reqtable , setReqTable] = useState([])
   const [Alertmssg, setAlertmssg] = useState("");
   const [subcat ,setSubcat] = useState(false)
-  
+    const [sub, setSub] = useState([]);
   const { request } = useApiClient();
 
 //  async function fetchy(stat) {
@@ -94,8 +94,10 @@ const getreqData = async (Itemid) => {
     });
 
     const res = result.data.category_requirements;
-    const subcatt = result.data.category_requirements;
+    const sub = result.data.sub_categories;
+    console.log(res , sub)
    setReqTable( res);
+   setSub(sub)
    
    
   } catch (error) {
@@ -106,11 +108,20 @@ const getreqData = async (Itemid) => {
 
 
  const handleSubmitEdit = async (dataa) => {
+        console.log( ' this data ' ,dataa)
+        console.log(Itemid);
    try {
      const result = await request({
        method: "PUT",
        urlPath: `/categories/${Itemid}`,
-       body: { title: dataa.title, status: dataa.status, icon: dataa.icon , },
+       body: {
+         title: dataa.title,
+         status: dataa.status,
+         icon: dataa.icon,
+         slug: dataa.slug,
+         sub_categories: dataa.sub_categories,
+         requirements: dataa.requirements,
+       },
      });
 
 
@@ -307,6 +318,8 @@ const fields = [
             extraForm={true}
             reqtble = {reqtable}
             setReqTable = {setReqTable}
+            sub={sub}
+            setSub={setSub}
           />
 
           <AlertModal

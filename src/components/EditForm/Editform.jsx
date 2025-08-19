@@ -267,24 +267,46 @@ export default function Editform({
   setId,
   reqtble,
   setReqTable,
+  sub,
+  setSub
 }) {
-  const [addReq, setAddReq] = useState([]);
+
   const t = useTranslations("tables");
 
 
   const { loadStudentOptions } = useUserData();
 
-  const addField = (title, desc) => {
-    setAddReq([...addReq, { title: title, description: desc }]);
+  const addField = () => {
+  const updated = [...reqtble, { title: "", description: "" }];
+  setReqTable(updated);
+   
+
+      formik.setFieldValue("requirements", updated);
   };
 
   const removeField = () => {
-    if (addReq.length > 1) {
-      setAddReq(addReq.slice(0, -1));
-    } else if (addReq.length === 1) {
-      setAddReq([]);
+    if (reqtble.length > 1) {
+      setReqTable(reqtble.slice(0, -1));
+    } else if (reqtble.length === 1) {
+      setReqTable([]);
     }
+      formik.setFieldValue("requirements", reqtble);
   };
+    const addsubField = () => {
+       const updated = [...sub, { title: "", slug: "", icon: "" }];
+      setSub(updated);
+
+       formik.setFieldValue("sub_categories", updated);
+    };
+
+    const removesubField = () => {
+      if (sub.length > 1) {
+        setSub(sub.slice(0, -1));
+      } else if (sub.length === 1) {
+        setSub([]);
+      }
+      formik.setFieldValue("sub_categories", sub);
+    };
 
   // Build validation schema
   const validationSchema = Yup.object(
@@ -353,7 +375,11 @@ export default function Editform({
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues,
+    initialValues: {
+      ...initialValues,
+      sub_categories: sub || [],
+      requirements: reqtble || [],
+    },
     validationSchema,
     onSubmit: (values) => {
       if (formState === "edit") {
@@ -524,50 +550,125 @@ export default function Editform({
           })}
           {extraForm ? (
             <>
-              <div className="d-flex justify-content-between">
-                <h3> {t("addRequirements")} </h3>
-                <button
-                  className="btn btn-success"
-                  type="button"
-                  onClick={addField}
-                >
-                  {t("addReqButton")}
-                </button>
-              </div>
-
-              {reqtble.map((item, index) => (
-                <div key={index} className="d-flex flex-column gap-3">
-                  <div className=" d-flex justify-content-between align-items-center gap-3">
-                    <input
-                      type="text"
-                      className="w-100 p-1"
-                      placeholder="title"
-                      value={item.title}
-                    />
-
+              <div className=" d-flex flex-column row g-3">
+                <div className=" d-flex  flex-column gap-3 col-12  col-lg-7  col-xl-6">
+                  <div className="d-flex justify-content-between ">
+                    <h3> {t("addSubCategory")} </h3>
                     <button
-                      className=" btn btn-danger "
+                      className="btn btn-success"
                       type="button"
-                      onClick={removeField}
+                      onClick={addsubField}
                     >
-                      {" "}
-                      x{" "}
+                      {t("add")}
                     </button>
                   </div>
-                  <input
-                    type="text"
-                    className="w-100 p-1"
-                    placeholder="admin/main.description"
-                    value={item.description}
-                  />
+
+                  {sub.map((item, index) => (
+                    <div
+                      key={index}
+                      className="d-flex flex-column gap-3 border-dark-subtle border-1 border p-2"
+                    >
+                      <div className=" d-flex justify-content-between align-items-center gap-3">
+                        <input
+                          type="text"
+                          className="w-100 p-1 border-dark-subtle border-1"
+                          placeholder="sub"
+                          value={item.title}
+                          onChange={(e) => {
+                            const updated = [...sub];
+                            updated[index].title = e.target.value;
+                            setSub(updated);
+                            formik.setFieldValue("sub_categories", updated);
+                          }}
+                        />
+
+                        <button
+                          className=" btn btn-danger "
+                          type="button"
+                          onClick={removesubField}
+                        >
+                          {" "}
+                          x{" "}
+                        </button>
+                      </div>
+                      <input
+                        type="text"
+                        className="w-100 p-1 border-dark-subtle border-1"
+                        placeholder="admin/subcat"
+                        value={item.slug}
+                        onChange={(e) => {
+                          const updated = [...sub];
+                          updated[index].slug = e.target.value;
+                          setSub(updated);
+                          formik.setFieldValue("sub_categories", updated);
+                        }}
+                      />
+                      <input
+                        type="text"
+                        className="w-100 p-1 border-dark-subtle border-1"
+                        placeholder="admin/subcat"
+                        value={item.icon}
+                        onChange={(e) => {
+                          const updated = [...sub];
+                          updated[index].icon = e.target.value;
+                          setSub(updated);
+                          formik.setFieldValue("sub_categories", updated);
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
+
+                <div className=" d-flex  flex-column gap-3 col-12  col-lg-7 col-xl-6">
+                  <div className="d-flex justify-content-between">
+                    <h3> {t("addRequirements")} </h3>
+                    <button
+                      className="btn btn-success  "
+                      type="button"
+                      onClick={addField}
+                    >
+                      {t("addReqButton")}
+                    </button>
+                  </div>
+
+                  {reqtble.map((item, index) => (
+                    <div
+                      key={index}
+                      className="d-flex flex-column gap-3   border-dark-subtle border-1 border p-2"
+                    >
+                      <div className=" d-flex justify-content-between align-items-center gap-3">
+                        <input
+                          type="text"
+                          className="w-100 p-1 border-dark-subtle border-1"
+                          placeholder="title"
+                          value={item.title}
+                        />
+
+                        <button
+                          className=" btn btn-danger "
+                          type="button"
+                          onClick={removeField}
+                        >
+                          {" "}
+                          x{" "}
+                        </button>
+                      </div>
+                      <input
+                        type="text"
+                        className="w-100 p-1 border-dark-subtle border-1"
+                        placeholder="admin/main.description"
+                        value={item.description}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </>
           ) : (
             ""
           )}
 
-          <div className="d-flex col-7 mt-3">
+          <div className="d-flex col-7 mt-4 ">
             <button
               className="btn btn-light custfontbtn w-25"
               type="submit"

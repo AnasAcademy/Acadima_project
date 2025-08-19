@@ -1295,7 +1295,7 @@
      "create_new_batch":"Create New Batch",
      "addRequirements": "Add admission requirements to the program",
      "addReqButton": "+ Add Requirements",
-    "create_new_batch": "Create New Batch",
+
     "editing_webinar": "Editing Webinar",
     "editing_student": "Editing Student",
     "course_name_certificate": "Course Name on Certificate",
@@ -1314,6 +1314,7 @@
     "learning": "Learning Progress",
     "user_group": "User Group",
     "revenue": "Revenue",
-    "sales": "Sales"
+    "sales": "Sales",
+    "addSubCategory":"Add Subcategory"
   }
 }
