@@ -1293,7 +1293,6 @@
     "courses": "الفصول",
     "teacher": "معلم",
     "categories": "الفئات",
-   "create_new_batch":"إنشاء دفعة جديدة",
    "addRequirements": "إضافة متطلبات القبول في البرنامج",
    "addReqButton": "+ إضافة متطلبات",
 
@@ -1302,12 +1301,9 @@
     "course_name_certificate": "اسم المقرر في الشهادة",
     "teacher_id": "معرف المعلم",
     "category_id": "معرف الفئة",
-    "unattached": "غير مرتبط",
-    "hasGroup": "له مجموعة",
-    "partner_instructor": "مدرب شريك",
+    "unattached": "نوع الدورة",
+    "hasGroup": " يتم تقسيمة لجروبات",
     "message_for_reviewer": "رسالة للمراجع",
-    "partners_csv": "الشركاء (CSV)",
-    "student_ids_csv": "معرفات الطلاب (CSV)",
     "no_changes_to_submit": "لا توجد تغييرات للإرسال",
     "allow_access": "السماح بالوصول",
     "block_access": "حظر الوصول",
@@ -1316,6 +1312,11 @@
     "user_group": "مجموعة المستخدم",
     "revenue": "الإيرادات",
     "sales": "المبيعات",
-    "addSubCategory":" إضافة قسم فرعي"  
+    "addSubCategory":" إضافة قسم فرعي",  
+    "student_exception":"استثناء طالب من الشهادة",
+    "choose_teacher": "اختر معلم",
+    "partner_instructor": "معلم مساعد",
+    "partners": "معلم مساعد",
+    "student_id": "معرف الطالب"
   }
 }

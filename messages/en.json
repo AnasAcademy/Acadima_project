@@ -1292,7 +1292,6 @@
     "courses": "Courses",
     "teacher": "Teacher",
     "categories": "Categories",
-     "create_new_batch":"Create New Batch",
      "addRequirements": "Add admission requirements to the program",
      "addReqButton": "+ Add Requirements",
 
@@ -1301,12 +1300,9 @@
     "course_name_certificate": "Course Name on Certificate",
     "teacher_id": "Teacher ID",
     "category_id": "Category ID",
-    "unattached": "Unattached",
-    "hasGroup": "Has Group",
-    "partner_instructor": "Partner Instructor",
+    "unattached": "Program Type",
+    "hasGroup": " Divided into Groups",
     "message_for_reviewer": "Message for Reviewer",
-    "partners_csv": "Partners (CSV)",
-    "student_ids_csv": "Student IDs (CSV)",
     "no_changes_to_submit": "No changes to submit",
     "allow_access": "Allow Access",
     "block_access": "Block Access",
@@ -1315,6 +1311,11 @@
     "user_group": "User Group",
     "revenue": "Revenue",
     "sales": "Sales",
-    "addSubCategory":"Add Subcategory"
+    "addSubCategory":"Add Subcategory",
+    "student_exception": "Exclude a student from the certificate",
+    "choose_teacher": "Choose Teacher",
+    "partner_instructor": "Partner Instructor",
+    "partners": "Partners",
+    "student_id": "Student ID"
   }
 }

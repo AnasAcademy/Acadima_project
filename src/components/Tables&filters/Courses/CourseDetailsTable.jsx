@@ -14,6 +14,7 @@ import Pen from "@/assets/admin/pen.svg";
 
 import { useApiClient } from "@/hooks/useApiClient";
 import { useUserData } from "@/context/UserDataContext";
+import { Placeholder } from "react-bootstrap";
 
 export default function CourseDetailsTable({
   initialData = [],
@@ -24,8 +25,17 @@ export default function CourseDetailsTable({
   const ts = useTranslations("settings");
   const { request } = useApiClient();
 
-  const { getStatusOptions, getCategoryGroupedOptions, getRoleOptions } =
-    useUserData();
+  const {
+    getStatusOptions,
+    getCategoryGroupedOptions,
+    getRoleOptions,
+    getClassTypeOptions,
+    getProgramAttachmentOptions,
+    studentOptions,
+    getStudentPairs,
+    getStudentOptions,
+    instructors,
+  } = useUserData();
 
   // webinars data
   const [rows, setRows] = useState(initialData);
@@ -501,11 +511,19 @@ export default function CourseDetailsTable({
         lists: [
           ...(item?.status === "pending"
             ? [
-                { label: t("accept"), action: () => Accept(item.id), icon: check },
+                {
+                  label: t("accept"),
+                  action: () => Accept(item.id),
+                  icon: check,
+                },
                 { label: t("reject"), action: () => Decline(item.id), icon: X },
               ]
             : []),
-          { label: t("view_students"), action: () => fetchStudents(item.id, 1), icon: Eye },
+          {
+            label: t("view_students"),
+            action: () => fetchStudents(item.id, 1),
+            icon: Eye,
+          },
           { label: t("edit"), action: () => openWebinarEdit(item), icon: Pen },
           { label: t("delete"), action: () => remove(item.id), icon: X },
         ],
@@ -633,12 +651,13 @@ export default function CourseDetailsTable({
       name: "type",
       label: t("type"),
       type: "select",
-      options: [
-        { value: "webinar", label: "webinar" },
-        { value: "course", label: "course" },
-        { value: "text_lesson", label: "text_lesson" },
-        { value: "graduation_project", label: "graduation_project" },
-      ],
+      options: getClassTypeOptions(),
+    },
+    {
+      name: "unattached",
+      label: t("unattached"),
+      type: "select",
+      options: getProgramAttachmentOptions(),
     },
     { name: "title", label: t("title"), type: "text" },
     {
@@ -649,52 +668,57 @@ export default function CourseDetailsTable({
 
     { name: "description", label: t("description"), type: "textarea" },
     { name: "requirements", label: t("requirements"), type: "textarea" },
-
-    { name: "teacher_id", label: t("teacher_id"), type: "number" },
-    { name: "category_id", label: t("category_id"), type: "number" },
-
-    { name: "duration", label: t("duration"), type: "number" },
-    { name: "capacity", label: t("capacity"), type: "number" },
-    { name: "price", label: t("price"), type: "number" },
-
     {
-      name: "unattached",
-      label: t("unattached"),
-      type: "select",
-      options: [
-        { value: 1, label: "1" },
-        { value: 0, label: "0" },
-      ],
+      name: "student_id",
+      label: t("student_exception"),
+      type: "multiselectsearch",
+      options: getStudentOptions(), // big list
+      placeholder: t("name-search"),
     },
+    {
+      name: "teacher_id",
+      label: t("choose_teacher"),
+      type: "selectsearch",
+      options: instructors,
+      Placeholder: t("name-search"),
+    },
+    {
+      type: "toggleSelectSearch",
+      name: "partner_instructor", // boolean
+      label: t("partner_instructor"),
+      required: true,
+      child: {
+        name: "partners",
+        label: t("teacher_id"),
+        placeholder: t("name-search"),
+        options: instructors,
+      },
+    },
+    { type: "" },
+    { name: "start_date", label: t("start_date"), type: "date" },
+    { name: "duration", label: t("duration") + "(hrs)", type: "number" },
     {
       name: "hasGroup",
       label: t("hasGroup"),
-      type: "select",
-      options: [
-        { value: 1, label: "1" },
-        { value: 0, label: "0" },
-      ],
+      type: "checkbox01",
+      required: false, // set true if you need it to be 1
+      checkboxLabel: t("hasGroup"), // optional; otherwise falls back to `label`
     },
-    {
-      name: "partner_instructor",
-      label: t("partner_instructor"),
-      type: "select",
-      options: [
-        { value: 1, label: "1" },
-        { value: 0, label: "0" },
-      ],
-    },
+    { name: "capacity", label: t("capacity"), type: "number" },
 
-    { name: "start_date", label: t("start_date"), type: "date" },
+    { name: "price", label: t("price"), type: "number" },
+    { type: "" },
     {
+      name: "category_id",
+      label: t("category_id"),
+      type: "select",
+      options: getCategoryGroupedOptions(),
+    },
+    { 
       name: "message_for_reviewer",
       label: t("message_for_reviewer"),
       type: "textarea",
     },
-
-    // CSV helpers
-    { name: "partners_csv", label: t("partners_csv"), type: "text" },
-    { name: "student_ids_csv", label: t("student_ids_csv"), type: "text" },
   ];
 
   // ---------- Render ----------
