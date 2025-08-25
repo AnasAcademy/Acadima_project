@@ -21,10 +21,10 @@ const [Itemid, setId] = useState(null);
 const t = useTranslations("tables");
 const ts = useTranslations("SidebarA");
 const [data, setData] = useState(dat);
+const [web , setWeb] = useState([]);
 const [formState, setFormState] = useState("");
-const [reqtble, setReqtble] = useState(false);
-const [reqtbledata, setReqtbledata] = useState([]);
-
+const [restble, setRestble] = useState(false);
+const [restbledata, setRestbledata] = useState([]);
 const { request } = useApiClient();
 
 // async function fetchy(stat) {
@@ -61,21 +61,17 @@ const { request } = useApiClient();
 
 const remove = async (id) => {
   try {
-    const response = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/services/${id}`,
+    const response = await request(
+    
       {
         method: "DELETE",
-        headers: {
-          "x-api-key": "1234",
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-        },
+        urlPath: `/quizzes/${id}`,
       }
     );
 
-    const data = await response.json();
+    console.log(response);
 
-    setData((prev) => prev.filter((item) => item.id !== id));
+    setData((prev) => prev.filter((item) => item.quizId !== id));
 
   } catch (error) {
     console.error("Status update failed:", error);
@@ -84,45 +80,61 @@ const remove = async (id) => {
 };
 
 
-const handleSubmitEdit = async (dataa) => {
+const removeRes = async (id) => {
+     console.log(id);
   try {
-    const response = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/services/${Itemid}`,
-      {
-        method: "PUT",
-        headers: {
-          "x-api-key": "1234",
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-        },
-        body: JSON.stringify({
-          title: dataa.title || "null",
-          description: dataa.description,
-          price: dataa.price,
-        }),
-      }
-    );
+    const response = await request({
+      method: "DELETE",
+      urlPath: `/quizzes/result/${id}`,
+    });
 
-    const result = await response.json();
+  
+         console.log(response)
+    setRestbledata((prev) => prev.filter((item) => item.resultId !== id));
+  } catch (error) {
+    console.error("Status update failed:", error);
+    alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+  }
+};
+
+const handleSubmitEdit = async (dataa) => {
+   console.log(dataa)
+  try {
+    const response = await request({
+      method: "PUT",
+      urlPath: `/quizzes/${Itemid}`,
+      body: {
+        title: dataa.title || "null",
+        time: dataa.time,
+        attemp: dataa.attemp,
+        pass_mark: dataa.pass_mark,
+        expiry_days: dataa.expiry_days,
+           display_questions_randomly: 1,
+    certificate: 1,
+    status: "active"
+      },
+    });
+
+     console.log(response.message);
 
 
-    if (result.errors) {
-      const messages = Object.values(result.errors).map((error) => error.ar);
-      setAlertmssg(messages.join("\n"));
-      setShowAlertModal(true);
-    } else {
-      const updatedItem = {
-        ...data.find((item) => item.id === Itemid),
-        ...dataa,
-      };
-      setData((prev) =>
-        prev.map(
-          (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
-        )
-      );
+    // if (result.errors) {
+    //   const messages = Object.values(result.errors).map((error) => error.ar);
+    //   setAlertmssg(messages.join("\n"));
+    //   setShowAlertModal(true);
+    // } else {
+    //   const updatedItem = {
+    //     ...data.find((item) => item.id === Itemid),
+    //     ...dataa,
+    //   };
+    //   setData((prev) =>
+    //     prev.map(
+    //       (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
+    //     )
+    //   );
 
-      setShowModal(false);
-    }
+    //   setShowModal(false);
+    // }
   } catch (error) {
     console.error("Status update failed:", error);
     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
@@ -130,63 +142,90 @@ const handleSubmitEdit = async (dataa) => {
 };
 
 const handleSubmitAdd = async (dataa) => {
+console.log(dataa)
+   
   try {
-    const response = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/services`,
-      {
-        method: "POST",
-        headers: {
-          "x-api-key": "1234",
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-        },
-        body: JSON.stringify({
-          title: dataa.title,
-          description: dataa.description,
-          price: dataa.price,
-          start_date: dataa.start_date,
-          end_date: dataa.end_date,
-          status: dataa.status,
-          target: dataa.target,
-        }),
-      }
-    );
+    const response = await request({
+      method: "POST",
+      urlPath: `/quizzes`,
+      body: {
+        webinar_id: dataa.webinar_id,
+        title: dataa.title || "null",
+        time: dataa.time,
+        attemp: dataa.attemp,
+        pass_mark: dataa.pass_mark,
+        expiry_days: dataa.expiry_days,
+        display_questions_randomly: 1,
+        certificate: 1,
+        status: "active",
+      },
+    });
+ 
+     console.log(response); 
 
-    const result = await response.json();
-
-    if (result.service) {
-      const newItem = result.service;
-      setData((prev) => [...prev, newItem]);
-      //  Success Alert
-
-      alert("تمت الإضافة بنجاح ");
-      setShowModal(false);
-    } else {
-      alert("فشل في الإضافة، يرجى المحاولة مرة أخرى.");
-    }
+    // if (result.service) {
+    //   const newItem = result.service;
+    //   setData((prev) => [...prev, newItem]);
+    //   //  Success Alert
+    //   alert("تمت الإضافة بنجاح ");
+    //   setShowModal(false);
+    // } else {
+    //   alert("فشل في الإضافة، يرجى المحاولة مرة أخرى.");
+    // }
   } catch (err) {
     console.error("Status update failed:", err);
     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+
   }
 };
 
-const getReqData = async (id) => {
+
+const getwebninars = async () => {
   try {
-    const response = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/services/${id}/requests`,
+    const response = await request({
+      method: "GET",
+      urlPath: `/webinars`,
+    });
+
+        const titles = response.webinars.data.map((tem) => ({
+    value: tem.id,
+    label: tem.translations[0].title
+  }))
+
+        console.log(titles);
+
+        setWeb(titles);
+   
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+
+
+
+
+
+
+const getResData = async (id) => {
+
+  try {
+    const response = await request(
+     
       {
         method: "GET",
-        headers: {
-          "x-api-key": "1234",
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA`,
-        },
+        urlPath:`/quizzes/${id}/results`
       }
     );
+  
+    console.log(response)
+   
+    setRestbledata(response.quizzesResults);
+  } catch (err) {
 
-    const result = await response.json();
-    setReqtbledata(result.service_users.data);
-  } catch (error) {}
+           console.log(err)
+  }
 };
 
 function toogle() {
@@ -194,49 +233,65 @@ function toogle() {
 }
 
 const TableHead = [
-  "#",
+  //  "#",
   t("title"),
-  t("teachers"),
-  t("price"),
+  t("teacher"),
+  t("questions"),
+  t("students"),
+  t("average_grades"),
+  t("certificate"),
   t("status"),
-  t("creator"),
-  t("creation_date"),
-  t("start_date"),
-  t("end_date"),
+ t("actions"),
+];
+
+const TableHeadRes = [
+  t("title"),
+  t("studentt"),
+  t("teacher"),
+  t("grade"),
+  t("exams_date"),
+  t("status"),
   t("actions"),
 ];
 
-const TableHeadReq = [
-  "#",
-  t("student"),
-  t("student_name"),
-  t("request_status"),
-  t("request_content"),
-  t("request_date"),
-  // t("admin"),
-  // t("actions"),
-];
-
-const reqDat = reqtbledata.map((item, index) => ({
+const resDat = restbledata.map((item, index) => ({
   columns: [
-    { type: "text", value: index + 1 },
-    { type: "text", value: item.quizTitle },
-    { type: "text", value: item.user.full_name },
+    { type: "text", value: item.quiz_title },
+    { type: "text", value: item.student_name },
+    { type: "text", value: item.teacher_name },
+    { type: "text", value: item.grade },
+    { type: "text", value: item.quiz_date },
     { type: "text", value: item.status },
-    { type: "text", value: item.content },
-    { type: "text", value: item.created_at },
+    {
+      type: "actionbutton",
+      label: t("actions"),
+      action: () => {
+        setShowModal(!showModal);
+        setId(item.resultId);
+        setFormState("edit");
+      },
+      icon: Arrowdown,
+      color: "#48BB78",
+      lists: [
+        {
+          label: t("delete"),
+          action: () => removeRes(item.resultId),
+          icon: X,
+        },
+      ],
+      id: item.resultId,
+    },
     // { type: "text", value: item.content },
   ],
 }));
 
 const trainingData = data.map((item, index) => ({
   columns: [
-    { type: "text", value: index + 1 },
+    // { type: "text", value: index + 1 },
     { type: "text", value: item.quizTitle },
     { type: "text", value: item.teacher },
     { type: "text", value: item.quizQuestions },
     { type: "text", value: item.Students },
-    { type: "text", value: item.passedStudents },
     { type: "text", value: item.avgGrade },
     { type: "text", value: item.certificate },
     { type: "text", value: item.status },
@@ -245,28 +300,38 @@ const trainingData = data.map((item, index) => ({
       label: t("actions"),
       action: () => {
         setShowModal(!showModal);
-        setId(item.id);
+        setId(item.quizId);
         setFormState("edit");
       },
       icon: Arrowdown,
       color: "#48BB78",
       lists: [
         {
+          label: t("results"),
+          action: () => {
+           
+            setRestble(true)
+            getResData(item.quizId);
+             
+          },
+          icon: Pen,
+        },
+        {
           label: t("edit"),
           action: () => {
             setShowModal(!showModal);
-            setId(item.id);
+            setId(item.quizId);
             setFormState("edit");
           },
           icon: Pen,
         },
         {
           label: t("delete"),
-          action: () => remove(item.id),
+          action: () => remove(item.quizId),
           icon: X,
         },
       ],
-      id: item.id,
+      id: item.quizId,
     },
   ],
 }));
@@ -274,58 +339,84 @@ const trainingData = data.map((item, index) => ({
 const formTitles = [
   {
     label:
-      (formState === "add" ? t("add") + " " : t("edit") + " ") +
-      ts("electronic-services"),
+      (formState === "add" ? t("add") + " " : t("edit") + " ") + t("quiz"),
     type: "text",
   },
   { label: formState === "add" ? t("add") + " " : t("edit"), type: "text" },
 ];
 
 const fields = [
-  { name: "title", label: t("title"), type: "text" },
-  { name: "teachers", label: t("desc"), type: "text" },
-  { name: "price", label: t("price"), type: "number" },
-  { name: "status", label: t("status"), type: "text" },
-  { name: "target", label: t("creator"), type: "text" },
-  { name: "start_date", label: t("start_date"), type: "date" },
-  { name: "end_date", label: t("end_date"), type: "date" },
+  ...(formState === "add"
+    ? [
+        {
+          name: "webinar_id",
+          label: t("coursek"),
+          type: "select",
+          options: web,
+        },
+      ]
+    : []),
+  { name: "title", label: t("quiz_title"), type: "text" },
+  { name: "time", label: t("quiz_time"), type: "number" },
+  { name: "attemp", label: t("attempts"), type: "number" },
+  { name: "pass_mark", label: t("passing-grade"), type: "number" },
+  { name: "expiry_days", label: t("expiryDays"), type: "number" },
 ];
 
 
  const selectCardData = {
    inputs: [
      {
-       title: t("user-code"),
+       title: t("search"),
        type: "search",
-       filter: "quizTitle",
-       placeholder: t("code-search"),
-       apiKey: "user_code",
+       filter: "quizzesTable.quizTitle",
+       placeholder: t("quiz_title"),
+       apiKey: "title",
      },
-    //  {
-    //    title: t("user-mail"),
-    //    type: "search",
-    //    filter: "bundle_student.student.email",
-    //    placeholder: t("mail-search"),
-    //    apiKey: "email",
-    //  },
-    //  {
-    //    title: t("user-name"),
-    //    type: "search",
-    //    filter: "bundle_student.student.en_name",
-    //    placeholder: t("name-search"),
-    //    apiKey: "full_name",
-    //  },
-    //  {
-    //    title: t("user-phone"),
-    //    type: "search",
-    //    filter: "bundle_student.student.phone",
-    //    placeholder: t("phone-search"),
-    //    apiKey: "mobile",
-    //  },
+     {
+       title: t("start_date"),
+       type: "date",
+       filter: "",
+       placeholder: t("start_date"),
+       apiKey: "from",
+     },
+     {
+       title: t("end_date"),
+       type: "date",
+       filter: "",
+       placeholder: t("end_date"),
+       apiKey: "to",
+     },
+
+     {
+       title: t("teacher"),
+       type: "search",
+       filter: "quizzesTable.teacher",
+       placeholder: t("teacher"),
+       apiKey: "teacher_name",
+     },
+     {
+       title: t("coursek"),
+       type: "search",
+       filter: "quizzesTable.webinarTitle",
+       placeholder: t("coursek"),
+       apiKey: "webinar_name",
+     },
+     {
+       title: t("status"),
+       type: "select",
+       filter: "quizzesTable.status",
+       placeholder: t("status"),
+       apiKey: "status",
+       options: [
+         { value: "active", label: "active" },
+         { value: "inactive", label: "inactive" },
+       ],
+     },
    ],
  };
 const handleSearch = async (filters, pageNumber = 1) => {
-  setLoading(true);
+  // setLoading(true);
   try {
     const query = new URLSearchParams();
 
@@ -340,31 +431,27 @@ const handleSearch = async (filters, pageNumber = 1) => {
     // Append pagination separately
     query.append("page", pageNumber);
 
-    const res = await fetch(
-      `https://api.lxera.net/api/development/organization/vodafone/requirements/list?${query.toString()}`,
+    const res = await request(
+    
       {
         method: "GET",
-        headers: {
-          "x-api-key": "1234",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-        },
+        urlPath: `/quizzes?${query.toString()}`,
       }
     );
 
-    const respond = await res.json();
-    const data = respond.data?.data || [];
 
+    const data = res.quizzesTable || [];
+ console.log(data)
     setFilter(data);
-    setDataa(data); // Also update dataa to keep it in sync
-    setCurrentPage(respond.data?.current_page || 1);
-    setTotalPages(respond.data?.last_page || 1);
-    setPage(respond.data?.current_page || 1); // Update page state
+    setData(data); 
+    // Also update dataa to keep it in sync
+    // setCurrentPage(respond.data?.current_page || 1);
+    // setTotalPages(respond.data?.last_page || 1);
+    // setPage(respond.data?.current_page || 1); // Update page state
   } catch (error) {
     console.error("Search error:", error);
   } finally {
-    setLoading(false);
+    // setLoading(false);
   }
 };
 
@@ -376,20 +463,22 @@ return (
   <>
     <div className="row g-3">
       <div className="col-12">
-        <SelectCard
-          selectCardData={selectCardData}
-          isTechSupport={true}
-          dataa={dat}
-          setFilter={setFilter}
-          handleSearch={handleSearch}
-        />
+        {!showModal && (
+          <SelectCard
+            selectCardData={selectCardData}
+            isTechSupport={true}
+            dataa={dat}
+            setFilter={setFilter}
+            handleSearch={handleSearch}
+          />
+        )}
       </div>
       <div className="col-12">
         {showModal ? (
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg   min-train-ht">
             <Editform
               fields={fields}
-              data={data.find((item) => item.id === Itemid) || {}}
+              data={data.find((item) => item.quizId === Itemid) || {}}
               formTitles={formTitles}
               handleSubmitEdit={handleSubmitEdit}
               setShowModal={toogle}
@@ -418,14 +507,14 @@ return (
         ) : (
           <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
             <div className=" d-flex justify-content-end  ">
-              {reqtble ? (
+              {restble ? (
                 <div className=" d-flex justify-content-between w-100">
                   <h4>خدمة {} </h4>
 
                   <button
                     className="btn  btn-light custfontbtn "
                     onClick={() => {
-                      setReqtble(false);
+                      setRestble(false);
                     }}
                   >
                     {" "}
@@ -436,19 +525,20 @@ return (
                 <button
                   className=" btn  btn-light custfontbtn "
                   onClick={() => {
+                  getwebninars()
                     setShowModal(true);
                     setId(null);
                     setFormState("add");
                   }}
                 >
                   {" "}
-                  {t("add_new_service")}{" "}
+                  {t("new_quiz")}{" "}
                 </button>
               )}
             </div>
-            {reqtble ? (
+            {restble ? (
               <>
-                <OngoingTrain TableHead={TableHeadReq} trainingData={reqDat} />
+                <OngoingTrain TableHead={TableHeadRes} trainingData={resDat} />
               </>
             ) : (
               <OngoingTrain TableHead={TableHead} trainingData={trainingData} />

@@ -1,7 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
-
 import LineChart from "@/components/AdminComp/charts/LineChart/LineChart";
 import ActiveUsersAnalysis from "@/components/AdminComp/Home/ActiveUsersAnalysis";
 import DashboardCards from "@/components/AdminComp/Home/DashboardCards";
@@ -10,79 +9,64 @@ import OngoingTraincomp from "@/components/OngoingTraincomp/OngoingTraincomp";
 import TrainingGuideCard from "@/components/AdminComp/Home/TrainingGuideCard";
 import TrainigControlPanel from "@/components/AdminComp/Home/TrainigControlPanel";
 
+
+
 export default async function Admin() {
   const ts = await getTranslations("SidebarA");
 
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
   const token = cookieStore.get("auth_token")?.value;
 
-  const companyName = process.env.company_name;
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL.replace(
-    "${company_name}",
-    companyName
-  );
-
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   // Server-side fetch
-  async function fetchDashboardData() {
-    try {
-      const res = await fetch(`${baseUrl}`, {
-        method: "GET",
-        headers: {
-          "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        cache: "no-store", // prevent stale data
-      });
 
-      const respond = await res.json();
-      return respond.data || {};
-    } catch (error) {
-      console.error("Error fetching dashboard data:", error);
-      return {};
-    }
+  let dat = [];
+  let datad = [];
+  let current_page = [] || 1;
+  let totalPages = [];
+
+  try {
+    const res = await fetch(`${BASE_URL}`, {
+      method: "GET",
+      headers: {
+        "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const respond = await res.json();
+    dat = respond.data || {};
+    console.log(dat);
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error);
   }
 
-  async function fetchProgramPercentages(pageNumber = 1) {
-    try {
-      const res = await fetch(
-        `${baseUrl}/progress/bundlesProgress?page=${pageNumber}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-          },
-          cache: "no-store", // prevent stale data
-        }
-      );
+  // try {
+  //   const res = await fetch(`${BASE_URL}/progress/bundlesProgress`, {
+  //     method: "GET",
+  //     headers: {
+  //       "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
 
-      const respond = await res.json();
-      return {
-        data: respond.data || [],
-        currentPage: respond.current_page || 1,
-        totalPages: respond.last_page || 1,
-      };
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return { data: [], currentPage: 1, totalPages: 1 };
-    }
-  }
+  //   const respond = await res.json();
 
-  const [{ data, currentPage, totalPages }] = await Promise.all([
-    fetchProgramPercentages(1),
-  ]);
-
-  const dashboardData = await fetchDashboardData();
+  //   datad = respond.data || [];
+  //   current_page = respond.current_page || 1;
+  //   totalPages = respond.last_page || 1;
+  //   console.log(datad);
+  // } catch (error) {
+  //   console.error("Error fetching data:", error);
+  // }
 
   return (
     <div className="m-0 container-fluid p-0 d-flex flex-column">
       <div>
         <div className="row m-0 p-2 g-3">
-          <div className="col-lg-12">
-            <DashboardCards data={dashboardData} />
-          </div>
+          <div className="col-lg-12"><DashboardCards data={dat} /></div>
 
           <div className="col-xl-5 col-lg-12 col-md-12 col-12">
             <TrainingGuideCard />
@@ -97,7 +81,7 @@ export default async function Admin() {
           </div>
 
           <div className="col-xl-6 col-lg-12 col-12">
-            <ActiveUsersAnalysis dat={dashboardData} />
+            <ActiveUsersAnalysis dat={dat} />
           </div>
 
           <div className="col-xl-4 col-lg-12 col-12">
@@ -106,9 +90,7 @@ export default async function Admin() {
 
           <div className="col-xl-8 col-lg-12 col-12">
             <OngoingTraincomp
-              initialData={data}
-              initialPage={currentPage}
-              initialTotalPages={totalPages}
+       
             />
           </div>
         </div>

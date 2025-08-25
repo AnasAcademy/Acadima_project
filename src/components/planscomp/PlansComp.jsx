@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Planbg from "@/assets/admin/icon 1.svg";
-import Line from "@/assets/navbar assets/Line 49.svg";
 import Icon from "@/assets/payments icons/rs.svg"
 import Editform from "@/components/Editform/Editform";
 import { useTranslations } from "next-intl";

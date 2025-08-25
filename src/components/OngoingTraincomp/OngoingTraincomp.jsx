@@ -15,10 +15,10 @@ export default function OngoingTraincomp({
   const t = useTranslations("HomePageA");
   const { request } = useApiClient();              // ✅
 
-  const [dataa, setDataa] = useState(initialData);
-  const [page, setPage] = useState(initialPage);   // single source of truth
-  const [currentPage, setCurrentPage] = useState(initialPage);
-  const [totalPages, setTotalPages] = useState(initialTotalPages);
+  const [dataa, setDataa] = useState([]);
+  const [page, setPage] = useState(1);   // single source of truth
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async (pageNumber) => {

@@ -1295,7 +1295,6 @@
     "categories": "الفئات",
    "addRequirements": "إضافة متطلبات القبول في البرنامج",
    "addReqButton": "+ إضافة متطلبات",
-
     "editing_webinar": "تعديل المقرر",
     "editing_student": "تعديل الطالب",
     "course_name_certificate": "اسم المقرر في الشهادة",
@@ -1318,6 +1317,25 @@
     "partner_instructor": "معلم مساعد",
     "partners": "معلم مساعد",
     "student_id": "معرف الطالب",
-    "sub_cat_included": "الفئات الفرعية المشمولة"
+    "sub_cat_included": "الفئات الفرعية المشمولة",
+  "questions": "الاسئلة",
+  "students": "الطلاب",
+  "average_grades": "متوسط الدرجات",
+  "certificate": "شهادة",
+     "results": "النتائج",
+      "studentt": "طالب",
+       "grade": "درجة",
+        "exams_date": "تاريخ الاختبارات",
+         "quiz_title": "عنوان الاختبار",
+         "quiz_time": "زمن (الدقائق)",
+             "attempts": "عدد المحاولات",
+             "passing-grade": "درجة النجاح",
+              "expiryDays": "أيام الانتهاء",
+              "search": "بحث",
+              "sort_options": "خيارات الفرز",
+              "coursek": "مقرر",
+               "new_quiz": "اختبار جديد",
+                 "courses_count": "عدد المقررات",
+                 "divided_into": "مقسم إلى"
   }
 }

@@ -554,24 +554,33 @@ export default function Editform({
     formik.setFieldValue("requirements", reqtble);
   };
   const addsubField = () => {
+       
     const updated = [...sub, { title: "", slug: "", icon: "" }];
     setSub(updated);
 
     formik.setFieldValue("sub_categories", updated);
   };
 
-  const removesubField = () => {
+  const removesubField = (id) => {
+    console.log(id);
     if (sub.length > 1) {
-      setSub(sub.slice(0, -1));
+      setSub(sub.filter((it) => it.id !== id));
     } else if (sub.length === 1) {
       setSub([]);
     }
     formik.setFieldValue("sub_categories", sub);
   };
+  const subCategoryValidation = Yup.array().of(
+    Yup.object().shape({
+      title: Yup.string().required("عنوان التصنيف الفرعي مطلوب"),
+      slug: Yup.string(),
+      icon: Yup.string(),
+    })
+  );
 
   // Build validation schema
-  const validationSchema = Yup.object(
-    fields.reduce((acc, field) => {
+  const validationSchema = Yup.object({
+    ...fields.reduce((acc, field) => {
       const { name, type, required } = field;
       let rule;
 
@@ -657,8 +666,12 @@ export default function Editform({
 
       acc[name] = rule;
       return acc;
-    }, {})
-  );
+    }, {}),
+ sub_categories: subCategoryValidation,
+
+
+});
+  
 
   // Initial values
   const initialValues = fields.reduce((acc, field) => {
@@ -1017,24 +1030,32 @@ export default function Editform({
                       style={{ border: "1px solid #E3E3E3" }}
                     >
                       <div className=" d-flex justify-content-between align-items-center gap-3">
-                        <input
-                          type="text"
-                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
-                          style={{ border: "1px solid #E3E3E3" }}
-                          placeholder="sub"
-                          value={item.title}
-                          onChange={(e) => {
-                            const updated = [...sub];
-                            updated[index].title = e.target.value;
-                            setSub(updated);
-                            formik.setFieldValue("sub_categories", updated);
-                          }}
-                        />
-
+                        <div className=" d-flex flex-column">
+                          <input
+                            type="text"
+                            className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                            style={{ border: "1px solid #E3E3E3" }}
+                            placeholder="Title"
+                            value={item.title}
+                            onChange={(e) => {
+                              const updated = [...sub];
+                              updated[index].title = e.target.value;
+                              setSub(updated);
+                              formik.setFieldValue("sub_categories", updated);
+                            }}
+                          />
+                          {formik.errors.sub_categories?.[index]?.title && (
+                            <div className="text-danger mt-1">
+                              {formik.errors.sub_categories[index].title}
+                            </div>
+                          )}
+                        </div>
                         <button
                           className=" btn btn-danger "
                           type="button"
-                          onClick={removesubField}
+                          onClick={() => {
+                            removesubField(item.id);
+                          }}
                         >
                           {" "}
                           x{" "}
@@ -1044,7 +1065,7 @@ export default function Editform({
                         type="text"
                         className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
                         style={{ border: "1px solid #E3E3E3" }}
-                        placeholder="admin/subcat"
+                        placeholder="Add URL"
                         value={item.slug}
                         onChange={(e) => {
                           const updated = [...sub];
@@ -1053,11 +1074,12 @@ export default function Editform({
                           formik.setFieldValue("sub_categories", updated);
                         }}
                       />
+
                       <input
                         type="text"
                         className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
                         style={{ border: "1px solid #E3E3E3" }}
-                        placeholder="admin/subcat"
+                        placeholder="Icon"
                         value={item.icon}
                         onChange={(e) => {
                           const updated = [...sub];
@@ -1095,6 +1117,12 @@ export default function Editform({
                           style={{ border: "1px solid #E3E3E3" }}
                           placeholder="title"
                           value={item.title}
+                          onChange={(e) => {
+                            const updated = [...reqtble];
+                            updated[index].title = e.target.value;
+                            setReqTable(updated);
+                            formik.setFieldValue("requirements", updated);
+                          }}
                         />
 
                         <button
@@ -1112,6 +1140,12 @@ export default function Editform({
                         style={{ border: "1px solid #E3E3E3" }}
                         placeholder="admin/main.description"
                         value={item.description}
+                        onChange={(e) => {
+                          const updated = [...reqtble];
+                          updated[index].description = e.target.value;
+                          setReqTable(updated);
+                          formik.setFieldValue("requirements", updated);
+                        }}
                       />
                     </div>
                   ))}

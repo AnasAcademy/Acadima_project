@@ -24,6 +24,7 @@ export default function CategoriesTable({ dat }) {
   const [subcat ,setSubcat] = useState(false)
     const [sub, setSub] = useState([]);
   const { request } = useApiClient();
+  const [subCount , setSubCount] = useState(null)
 
 //  async function fetchy(stat) {
 //    const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
@@ -95,7 +96,8 @@ const getreqData = async (Itemid) => {
 
     const res = result.data.category_requirements;
     const sub = result.data.sub_categories;
-    console.log(res , sub)
+    // console.log(res , sub)
+     console.log(result.data.has_sub);
    setReqTable( res);
    setSub(sub)
    
@@ -110,16 +112,21 @@ const getreqData = async (Itemid) => {
  const handleSubmitEdit = async (dataa) => {
         console.log( ' this data ' ,dataa)
         console.log(dataa.has_sub === 0 ? "off" : "on");
+         console.log(subCount)
+         
+       
+
    try {
      const result = await request({
        method: "PUT",
        urlPath: `/categories/${Itemid}`,
        body: {
+      
          title: dataa.title,
          status: dataa.status,
          icon: dataa.icon,
          slug: dataa.slug,
-         has_sub: dataa.has_sub === 0 ? "off" : "on",
+         has_sub: dataa.has_sub,
          sub_categories: dataa.sub_categories,
          requirements: dataa.requirements,
        },
@@ -134,6 +141,7 @@ const getreqData = async (Itemid) => {
        const updatedItem = {
          ...data.find((item) => item.id === Itemid),
          ...dataa,
+          subCategoriesCount: dataa.sub_categories ? dataa.sub_categories.length : 0,
        };
        setData((prev) =>
          prev.map(
@@ -223,6 +231,7 @@ const getreqData = async (Itemid) => {
             action: () => {
               if (item.subCategoriesCount <= 0) {
                 console.log(item.subCategoriesCount);
+                   
               } else {
                 getSubcatData(item.id);
               }
@@ -256,7 +265,9 @@ const getreqData = async (Itemid) => {
           {
             label: t("edit"),
             action: () => {
+          
               setShowModal(!showModal);
+                  setSubCount(item.subCategoriesCount);
               setId(item.id);
               getreqData(item.id);
               setFormState("edit");
@@ -300,13 +311,7 @@ const fields = [
 
   { name: "icon", label: t("icon"), type: "text" },
   { name: "slug", label: "url", type: "text" },
-  {
-    name: "has_sub",
-    label: t("sub_cat_included"),
-    type: "checkbox01",
-    required: true, // set true if you need it to be 1
-    checkboxLabel: t("sub_cat_included"), // optional; otherwise falls back to `label`
-  },
+ 
 ];
 
 
@@ -314,7 +319,9 @@ const fields = [
   return (
     <>
       <div>
-        <h2 className="hvvv">{ subcat ? t("subCategories") : ts("categories") }</h2>
+        <h2 className="hvvv">
+          {subcat ? t("subCategories") : ts("categories")}
+        </h2>
       </div>
       {showModal ? (
         <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
@@ -327,10 +334,11 @@ const fields = [
             //  handleSubmitAdd={handleSubmitAdd}
             formState={formState}
             extraForm={true}
-            reqtble = {reqtable}
-            setReqTable = {setReqTable}
+            reqtble={reqtable}
+            setReqTable={setReqTable}
             sub={sub}
             setSub={setSub}
+          
           />
 
           <AlertModal

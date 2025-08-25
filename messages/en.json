@@ -1317,6 +1317,26 @@
     "partner_instructor": "Partner Instructor",
     "partners": "Partners",
     "student_id": "Student ID",
-     "sub_cat_included": "Sub-categories Included"
+     "sub_cat_included": "Sub-categories Included",
+
+  "questions": "Questions",
+  "students": "Students",
+  "average_grades": "Average Grades",
+  "certificate": "Certificate",
+    "results": "Results",
+     "studentt": "Student",
+       "grade": "Grade",
+        "exams_date": "Exams Date",
+         "quiz_title": "Quiz Title",
+          "quiz_time": "Time (minutes)",
+             "attempts": "Attempts",
+              "passing-grade": "Passing Grade",
+              "expiryDays": "Expiry days",
+             "search": "Search",
+"sort_options": "Sort Options",
+    "coursek": "Course",
+    "new_quiz": "New Quiz",
+      "courses_count": "Number of Courses",
+      "divided_into": "Divided into"
   }
 }

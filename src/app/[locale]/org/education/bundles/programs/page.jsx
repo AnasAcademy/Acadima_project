@@ -1,101 +1,51 @@
-"use client";
 import React from "react";
-import FilterCard from "@/components/FilterCard/FilterCard";
-import SelectCard from "@/components/SelectCard/SelectCard";
-import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
-import { useTranslations } from "next-intl";
-import Pin from "@/assets/admin/pin.svg";
-import Removebin from "@/assets/admin/removebin.svg";
-import roundimage from "@/assets/admin/personla.png";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
+import BundleProgramTable from '@/components/Tables&filters/BundleProgramTable/BundleProgramTable'
+export default async function Bundles() {
+ 
+ 
 
-export default function Bundles() {
-  const t = useTranslations("employee_progress");
+  
+const t = await getTranslations("employee_progress");
 
-  const TableHead = [
-    "",
-    t("employee_name"),
-    t("training_course"),
-    t("program_status"),
-    t("join_date"),
-    t("completion_rate"),
-    t("profile_access"),
-  ];
 
-  const trainingData = [
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#48BB78",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
+let dat = [];
+let current_page = [] || 1;
+let last_page = [];
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const cookieStore = cookies();
+const token = cookieStore.get("auth_token")?.value;
+
+
+
+
+try {
+  const respond = await fetch(`${BASE_URL}/bundles?type=program`, {
+    method: "GET",
+    headers: {
+      "x-api-key": API_KEY,
+      "Content-Type": "application/json",
+      Authorization: `Bearer  ${token}`,
     },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("inProgress"),
-          icon: false,
-          color: "#50C1FA",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("notStarted"),
-          icon: false,
-          color: "#CBD5E0",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-  ];
+  });
 
-  const selectCardData = {
-    inputs: [
-      {
-        title: "training_course",
-        type: "select",
-        options: ["React", "Next.js", "Laravel"],
-      },
-      {
-        title: "branch",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "department",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "program_status",
-        type: "select",
-        options: ["on", "off"],
-      },
-    ],
-  };
+  const data = await respond.json();
+  dat = data.bundles.data;
+  console.log(dat)
+  // current_page = respond.data.current_page;
+  // last_page = respond.data.last_page;
+} catch (error) {
+  console.error("Fetch error:", error);
+}
+
+
+
+
+
+  
 
   return (
     <>
@@ -104,20 +54,8 @@ export default function Bundles() {
           <div className=" row m-0  p-2 g-3">
             {/* <h2 className="hvvv"></h2> */}
 
-            <div className=" col-lg-12 ">
-              <SelectCard selectCardData={selectCardData} />
-            </div>
-
             <div className=" col-12 ">
-              <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-                <OngoingTrain
-                  TableHead={TableHead}
-                  trainingData={trainingData}
-                  button={false}
-                  Icon={Pin}
-                  Icon2={Removebin}
-                />
-              </div>
+              <BundleProgramTable dat={dat} />
             </div>
           </div>
         </div>
