@@ -208,7 +208,7 @@ const resDat = restbledata.map((item, index) => ({
     { type: "text", value: item.teacher_name },
     { type: "text", value: item.grade },
     { type: "text", value: item.quiz_date },
-    { type: "text", value: item.status },
+    { type: "label", value: item.status },
     {
       type: "actionbutton",
       label: t("actions"),

@@ -12,6 +12,9 @@ import check from "@/assets/admin/Check.svg";
 import Eye from "@/assets/admin/eye.svg";
 import Pen from "@/assets/admin/pen.svg";
 
+import DashboardCards from "@/components/AdminComp/Home/DashboardCards";
+import { FaUserTie, FaAward } from "react-icons/fa";
+
 import { useApiClient } from "@/hooks/useApiClient";
 import { useUserData } from "@/context/UserDataContext";
 import { Placeholder } from "react-bootstrap";
@@ -20,6 +23,7 @@ export default function CourseDetailsTable({
   initialData = [],
   initialPage = 1,
   initialTotalPages = 1,
+  info = {},
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("settings");
@@ -763,8 +767,8 @@ export default function CourseDetailsTable({
     .filter((n) => Number.isFinite(n));
 
   const studentsExcluded = (raw?.students_excluded || [])
-  .map((s) => Number(s.student_id ?? s.id ?? s))
-  .filter(Number.isFinite);
+    .map((s) => Number(s.student_id ?? s.id ?? s))
+    .filter(Number.isFinite);
 
   const editData = {
     ...raw,
@@ -773,7 +777,20 @@ export default function CourseDetailsTable({
     partners,
     students_excluded: studentsExcluded,
   };
-  // ---------- Render ----------
+
+  const cards = [
+    {
+      title: t("totalWebinars"),
+      value: info.totalWebinars,
+      icon: <FaUserTie size={18} />,
+    },
+    {
+      title: t("totalPendingWebinars"),
+      value: info.totalPendingWebinars,
+      icon: <FaAward size={18} />,
+    },
+  ];
+
   return (
     <div className="row g-3">
       {/* 1) Webinar edit form view (exclusive) */}
@@ -838,13 +855,18 @@ export default function CourseDetailsTable({
         <>
           <div className="col-12">
             {!showStudents && (
-              <SelectCard
-                selectCardData={selectCardData}
-                isTechSupport={true}
-                dataa={rows}
-                setFilter={setFilteredRows}
-                handleSearch={handleSearch}
-              />
+              <div className="row g-3">
+                <div className="col-lg-12">
+                  <DashboardCards cards={cards} />
+                </div>
+                <SelectCard
+                  selectCardData={selectCardData}
+                  isTechSupport={true}
+                  dataa={rows}
+                  setFilter={setFilteredRows}
+                  handleSearch={handleSearch}
+                />
+              </div>
             )}
           </div>
 

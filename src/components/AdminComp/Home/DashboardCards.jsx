@@ -1,38 +1,15 @@
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
-import { FaUserTie, FaAward } from "react-icons/fa";
-import { PiCertificateFill } from "react-icons/pi";
-import { RiBarChart2Fill } from "react-icons/ri";
 
 
-const DashboardCards = ({data}) => {
+
+const DashboardCards = ({cards}) => {
     const t = useTranslations("DashboardA");
 
     const locale = useLocale();
     const isRTL = locale === "ar"; 
 
-    const cards = [
-      {
-        title: t("employees_registered"),
-        value: data.total_users,
-        icon: <FaUserTie size={18} />,
-      },
-      {
-        title: t("active_courses"),
-        value: data.total_active_webinars,
-        icon: <RiBarChart2Fill size={18} />,
-      },
-      {
-        title: t("total_certificates"),
-        value: data.total_certificates,
-        icon: <FaAward size={18} />,
-      },
-      {
-        title: t("course_completion"),
-        value: `${data.active_webinars_percentage}%`,
-        icon: <PiCertificateFill size={18} />,
-      },
-    ];
+    
 
     return (
       <div className="  ">

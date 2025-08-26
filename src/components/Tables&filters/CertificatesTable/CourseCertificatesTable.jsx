@@ -10,6 +10,8 @@ import X from "@/assets/admin/x.svg";
 import printer from "@/assets/admin/printer.svg";
 import check from "@/assets/admin/Check.svg";
 import Pen from "@/assets/admin/pen.svg";
+import { useApiClient } from "@/hooks/useApiClient";
+
 
 export default function CourseCertificatesTable({
   initialData = [],
@@ -35,23 +37,17 @@ export default function CourseCertificatesTable({
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
   const [confirmMessage, setConfirmMessage] = useState("");
+    const { request } = useApiClient();
+  
 
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/course-competition?page=${pageNumber}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
-      const respond = await res.json();
+       const respond = await request({
+        method: "GET",
+        urlPath: `certificates/course-competition?page=${pageNumber}`,
+      });
+       
       const data = respond?.certificates?.data || respond?.data || [];
       setDataa(data);
       setFilter(data);
@@ -96,20 +92,12 @@ export default function CourseCertificatesTable({
       // Append pagination separately
       query.append("page", pageNumber);
 
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/course-competition?${query.toString()}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const respond = await request({
+        method: "GET",
+        urlPath: `/certificates/course-competition?${query.toString()}`,
+      });
+        
 
-      const respond = await res.json();
       const data = respond?.certificates?.data || respond?.data || [];
 
       setFilter(data);
@@ -138,11 +126,11 @@ export default function CourseCertificatesTable({
         { type: "text", value: item.bundle.slug || item.course_title || "-" },
         { type: "text", value: item.certificate_code || "-" },
         {
-          type: "text",
-          value: item.student?.full_name || "-",
+          type: "user",
+          name: item.student?.full_name || "-",
+          code: item.student?.user_code || "-",
+          email: item.student?.email || "-",
         },
-        { type: "text", value: item.student?.user_code || "-" },
-        { type: "text", value: item.student?.email || "-" },
         { type: "text", value: item.webinar?.teacher?.full_name || "-" },
         { type: "text", value: item.graduation_date || "-" },
         {
@@ -171,8 +159,6 @@ export default function CourseCertificatesTable({
     t("title"),
     t("certificate_code"),
     t("user"),
-    t("user-code"),
-    t("user-mail"),
     t("teacher-name"),
     // t("completion-rate"),
     t("date"),

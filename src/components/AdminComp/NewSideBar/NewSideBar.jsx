@@ -142,8 +142,9 @@ export default function NewSideBar() {
   const isUsersaccs = pathname.includes(
     "/org/user-management/users/not-access-to-content"
   );
+  const isLogOut = pathname.includes("/org/logout");
   const isNotfiPage = pathname.includes("/org/notifications");
-  const isAccMange = isOrgprofile || isAiAssistant || isSettings;
+  // const isAccMange = isOrgprofile || isAiAssistant || isSettings;
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [AiChatOpen, setAiChatOpen] = useState(false);
 
@@ -162,12 +163,12 @@ export default function NewSideBar() {
     //   href: "/org/ai-assistant",
     //   bg: isAiAssistant,
     // },
-    {
-      icon: Acc3,
-      tit: "Settings",
-      href: "/org/settings",
-      bg: isSettings,
-    },
+    // {
+    //   icon: Acc3,
+    //   tit: "Settings",
+    //   href: "/org/settings",
+    //   bg: isSettings,
+    // },
     // {
     //   icon: Acc3,
     //   tit: "plans",
@@ -734,20 +735,14 @@ export default function NewSideBar() {
   };
 
   function setactvv(loc) {
-    setSidebarOpen(true);
-    if (loc !== "") {
-      if (actv === true) {
-        setTit(loc);
-      } else {
-        setActv(!actv);
-        setTit(loc);
-      }
-    } else {
-      if (actv === true) {
-        setActv(!actv);
-      }
-    }
-  }
+  setActv(prev => {
+    const next = !prev;          // toggle
+    if (next && loc) setTit(loc); // only set title when opening
+    // optional: when closing you could clear the title
+    // if (!next) setTit("");
+    return next;
+  });
+}
 
   return (
     <>
@@ -975,7 +970,7 @@ export default function NewSideBar() {
                     </li>
                     <li
                       className={`nav-item  besideHover width-fit  ${
-                        isAccMange && "onSelect"
+                        isOrgprofile && "onSelect"
                       } `}
                     >
                       <Link
@@ -987,7 +982,7 @@ export default function NewSideBar() {
                       >
                         <Accmanage
                           className={`iconSize1    ${
-                            isAccMange ? "iconcolor" : "iconcolor2"
+                            isOrgprofile ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                         <span
@@ -1018,9 +1013,9 @@ export default function NewSideBar() {
                         setactvv("isAdmission");
                       }}
                     >
-                      <Link
-                        href="/org/admission/admission-requirements"
-                        className="d-flex    gap-2  align-items-end"
+                      <p
+                        // href="/org/admission/admission-requirements"
+                        className="d-flex  m-0  gap-2  align-items-end cursor-pointer"
                       >
                         <AdmissionIcon
                           className={`iconSize1    ${
@@ -1036,7 +1031,7 @@ export default function NewSideBar() {
                         >
                           {t("admission")}
                         </span>
-                      </Link>
+                      </p>
                     </li>
                     <li
                       className={`nav-item d-flex  gap-2   align-items-end besideHover width-fit  ${
@@ -1046,9 +1041,9 @@ export default function NewSideBar() {
                         setactvv("isRegistered");
                       }}
                     >
-                      <Link
-                        href="/org/students-records/all-students"
-                        className="d-flex  p-2   gap-2  align-items-end"
+                      <p
+                        // href="/org/students-records/all-students"
+                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                       >
                         <ClassesIcon
                           className={`iconSize1   ${
@@ -1064,7 +1059,7 @@ export default function NewSideBar() {
                         >
                           {t("registrations")}
                         </span>
-                      </Link>
+                      </p>
                     </li>
 
                     <li
@@ -1075,9 +1070,9 @@ export default function NewSideBar() {
                         setactvv("isEdu");
                       }}
                     >
-                      <Link
-                        href="/org/education/quizzes"
-                        className="d-flex  p-2   gap-2  align-items-end"
+                      <p
+                        // href="/org/education/quizzes"
+                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                       >
                         <Quiz
                           className={`iconSize1    ${
@@ -1093,7 +1088,7 @@ export default function NewSideBar() {
                         >
                           {t("education")}
                         </span>
-                      </Link>
+                      </p>
                     </li>
 
                     <li
@@ -1104,9 +1099,9 @@ export default function NewSideBar() {
                         setactvv("users");
                       }}
                     >
-                      <Link
-                        href="/org/user-management/users/staff"
-                        className="d-flex  p-2   gap-2  align-items-end"
+                      <p
+                        // href="/org/user-management/users/staff"
+                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                       >
                         <Userss
                           className={`iconSize1    ${
@@ -1122,7 +1117,7 @@ export default function NewSideBar() {
                         >
                           {t("users")}
                         </span>
-                      </Link>
+                      </p>
                     </li>
                   </ul>
                   <ul
@@ -1142,9 +1137,9 @@ export default function NewSideBar() {
                         setactvv("isprogramreg");
                       }}
                     >
-                      <Link
-                        href="/org/education/programs-statistics/bundlesStats"
-                        className="d-flex  p-2   gap-2  align-items-end"
+                      <p
+                        // href="/org/education/programs-statistics/bundlesStats"
+                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                       >
                         <Statics
                           className={`iconSize1    ${
@@ -1160,7 +1155,7 @@ export default function NewSideBar() {
                         >
                           {t("programs-statistics")}
                         </span>
-                      </Link>
+                      </p>
                     </li>
 
                     <li
@@ -1171,9 +1166,9 @@ export default function NewSideBar() {
                         setactvv("isFinancial");
                       }}
                     >
-                      <Link
-                        href="/org/financial/balances"
-                        className="d-flex  p-2   gap-2  align-items-end"
+                      <p
+                        // href="/org/financial/balances"
+                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                       >
                         <Card
                           className={`iconSize1    ${
@@ -1189,7 +1184,7 @@ export default function NewSideBar() {
                         >
                           {t("financial")}
                         </span>
-                      </Link>
+                      </p>
                     </li>
 
                     <li
@@ -1197,9 +1192,9 @@ export default function NewSideBar() {
                         isSubscriptionmanagement && "onSelect"
                       }  `}
                     >
-                      <Link
-                        href="/org/subscription-management"
-                        className="d-flex  p-2  gap-2  align-items-end"
+                      <p
+                        // href="/org/subscription-management"
+                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                         onClick={() => {
                           setactvv("");
                         }}
@@ -1220,7 +1215,7 @@ export default function NewSideBar() {
                         >
                           {t("Subscription Management")}
                         </span>
-                      </Link>
+                      </p>
                     </li>
                   </ul>
 
@@ -1245,7 +1240,7 @@ export default function NewSideBar() {
                         }}
                       >
                         <Acc3
-                          className={`iconSize2    ${
+                          className={`iconSize1    ${
                             isSettings ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
@@ -1263,7 +1258,7 @@ export default function NewSideBar() {
 
                     <li
                       className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit  ${
-                        isSubscriptionmanagement && "onSelect"
+                        isLogOut && "onSelect"
                       }  `}
                     >
                       <Link
@@ -1274,7 +1269,7 @@ export default function NewSideBar() {
                       >
                         <LogoutIcon
                           className={`iconSize2    ${
-                            isSubscriptionmanagement
+                            isLogOut
                               ? "iconcolor"
                               : "iconcolor2"
                           }  `}

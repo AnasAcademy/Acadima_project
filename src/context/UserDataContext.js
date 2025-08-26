@@ -287,8 +287,6 @@ export const UserDataProvider = ({ children }) => {
       const formattedBundles = bundlesSrc.map((bundle) => ({
         id: bundle.id,
         title:
-          bundle?.translations?.[0]?.title ??
-          bundle?.translations?.title ??
           bundle?.bundle_name_certificate ??
           `Bundle ${bundle.id}`,
         slug: bundle.slug,
