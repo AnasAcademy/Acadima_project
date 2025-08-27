@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
@@ -13,6 +13,39 @@ export default function OngoingTrain({
 }) {
   const [openId, setOpenId] = useState(null);
   const t = useTranslations("tables");
+
+  const cellRefs = useRef(new Map());
+
+  // helper to attach/detach refs per cell id
+  const setCellRef = (id) => (el) => {
+    if (el) cellRefs.current.set(id, el);
+    else cellRefs.current.delete(id);
+  };
+
+  useEffect(() => {
+    if (openId == null) return; // only listen while some menu is open
+
+    const handlePointerDown = (e) => {
+      const wrapper = cellRefs.current.get(openId);
+      if (!wrapper) return;
+      if (!wrapper.contains(e.target)) setOpenId(null);
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setOpenId(null);
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown, {
+      passive: true,
+    });
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [openId]);
 
   const renderCell = {
     image: (col, key) => (
@@ -50,7 +83,8 @@ export default function OngoingTrain({
         col.value === "active" ||
         col.value === "approved" ||
         col.value === "success" ||
-        col.value === "publish"
+        col.value === "publish" ||
+        col.value === "passed"
       ) {
         textClass = "text-bg-success p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
@@ -58,7 +92,8 @@ export default function OngoingTrain({
       else if (
         col.value === "pending" ||
         col.value === "refund" ||
-        col.value === "draft"
+        col.value === "draft" ||
+        col.value === "waiting"
       ) {
         textClass = "text-bg-warning p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
@@ -69,7 +104,8 @@ export default function OngoingTrain({
       } else if (
         col.value === "inactive" ||
         col.value === "rejected" ||
-        col.value === "blocked"
+        col.value === "blocked" ||
+        col.value === "failed"
       ) {
         textClass = "text-bg-danger p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
@@ -96,10 +132,7 @@ export default function OngoingTrain({
       );
     },
     buttons: (col, key) => (
-      <td
-        key={key}
-        className="d-flex gap-1 align-items-center px-1 "
-      >
+      <td key={key} className="d-flex gap-1 align-items-center px-1 ">
         {col.buttons?.map((btn, index) => (
           <button
             key={index}
@@ -158,6 +191,7 @@ export default function OngoingTrain({
           <div className="d-flex flex-column justify-content-start align-items-start">
             <h4 className="fw-semibold m-0 ">{col.name}</h4>
             {col.id && <h4 className="fw-semibold m-0 ">ID:{col.id}</h4>}
+            {col.code && <h4 className=" m-0 ">Code:{col.code}</h4>}
             <h4 className="text-muted small m-0 ">{col.phone}</h4>
             <h4 className="text-muted small m-0 ">{col.email}</h4>
           </div>
@@ -181,30 +215,34 @@ export default function OngoingTrain({
     ),
     actionbutton: (col, key) => (
       <td key={key}>
-        <div className=" justify-content-center  align-items-center  position-relative  ">
+        <div
+          ref={setCellRef(col.id)}
+          className="justify-content-center align-items-center position-relative"
+        >
           <button
             className={`tit-12-400 btncolor text-center cursor-pointer text-nowrap d-flex align-items-center gap-2 justify-content-center actionButton w-100 ${
-              openId === col.id ? "actionButton-borderradius" : " rounded-2"
+              openId === col.id ? "actionButton-borderradius" : "rounded-2"
             }`}
-            onClick={() => {
-              setOpenId((prev) => (prev === col.id ? null : col.id));
-            }}
+            onClick={() =>
+              setOpenId((prev) => (prev === col.id ? null : col.id))
+            }
           >
             {col.icon && <col.icon style={{ color: "#fff" }} />}
             {col.label}
           </button>
 
           {openId === col.id && (
-            <div className="  bg-white d-flex  flex-column justify-content-center align-items-center  position-absolute    z-3  w-100  border-1 border">
+            <div className="bg-white d-flex flex-column justify-content-center align-items-center position-absolute z-3 w-100 border-1 border">
               {col.lists.map((list, index) => (
                 <h6
-                  className=" text-dark d-flex  justify-content-center align-items-center gap-2 p-1 cursor-pointer"
                   key={`${col.id}-${index}`}
-                  onClick={list.action}
+                  className="text-dark d-flex justify-content-center align-items-center gap-2 p-1 cursor-pointer"
+                  onClick={() => {
+                    list.action();
+                    setOpenId(null);
+                  }} // optional: close after click
                 >
-                  {list.icon && (
-                    <list.icon style={{ color: "#fff" }}>{col.icon}</list.icon>
-                  )}
+                  {list.icon && <list.icon />}
                   {list.label}
                 </h6>
               ))}

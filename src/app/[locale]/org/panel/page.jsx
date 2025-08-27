@@ -9,10 +9,13 @@ import OngoingTraincomp from "@/components/OngoingTraincomp/OngoingTraincomp";
 import TrainingGuideCard from "@/components/AdminComp/Home/TrainingGuideCard";
 import TrainigControlPanel from "@/components/AdminComp/Home/TrainigControlPanel";
 
-
+import { FaUserTie, FaAward } from "react-icons/fa";
+import { PiCertificateFill } from "react-icons/pi";
+import { RiBarChart2Fill } from "react-icons/ri";
 
 export default async function Admin() {
   const ts = await getTranslations("SidebarA");
+  const t = await getTranslations("DashboardA");
 
   const cookieStore = cookies();
   const token = cookieStore.get("auth_token")?.value;
@@ -62,11 +65,36 @@ export default async function Admin() {
   //   console.error("Error fetching data:", error);
   // }
 
+  const cards = [
+    {
+      title: t("employees_registered"),
+      value: dat.total_users,
+      icon: <FaUserTie size={18} />,
+    },
+    {
+      title: t("active_courses"),
+      value: dat.total_active_webinars,
+      icon: <RiBarChart2Fill size={18} />,
+    },
+    {
+      title: t("total_certificates"),
+      value: dat.total_certificates,
+      icon: <FaAward size={18} />,
+    },
+    {
+      title: t("course_completion"),
+      value: `${dat.active_webinars_percentage || 0}%`,
+      icon: <PiCertificateFill size={18} />,
+    },
+  ];
+
   return (
     <div className="m-0 container-fluid p-0 d-flex flex-column">
       <div>
         <div className="row m-0 p-2 g-3">
-          <div className="col-lg-12"><DashboardCards data={dat} /></div>
+          <div className="col-lg-12">
+            <DashboardCards cards={cards} />
+          </div>
 
           <div className="col-xl-5 col-lg-12 col-md-12 col-12">
             <TrainingGuideCard />
@@ -89,9 +117,7 @@ export default async function Admin() {
           </div>
 
           <div className="col-xl-8 col-lg-12 col-12">
-            <OngoingTraincomp
-       
-            />
+            <OngoingTraincomp />
           </div>
         </div>
       </div>

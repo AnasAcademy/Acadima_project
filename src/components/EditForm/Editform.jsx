@@ -543,13 +543,37 @@ export default function Editform({
   question,
   setQuestion,
   updateQuetion,
+  controlByType = false,
   setQuestions
 }) {
-  const t = useTranslations("tables");
-  const { loadStudentOptions } = useUserData();
+
   const [addquestion, setAddquestion] = useState(false);
   const [multiqes, setMultiqes] = useState(false);
   const [add, setAdd] = useState(false);
+  const t = useTranslations("tables");
+  const { loadStudentOptions } = useUserData();
+
+  const [imagePreview, setImagePreview] = React.useState(null);
+
+  const onImageFileChange = (e) => {
+    const file = e.currentTarget.files?.[0];
+    if (!file) return;
+    formik.setFieldValue("image_file", file); // keep file separately
+    setImagePreview(URL.createObjectURL(file)); // local preview
+  };
+
+  const clearImageFile = () => {
+    formik.setFieldValue("image_file", null);
+    setImagePreview(null);
+  };
+
+  // cleanup object URL
+  React.useEffect(() => {
+    return () => {
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
+    };
+  }, [imagePreview]);
+
   const addField = () => {
     const updated = [...reqtble, { title: "", description: "" }];
     setReqTable(updated);
@@ -728,6 +752,8 @@ export default function Editform({
     return acc;
   }, {});
 
+  initialValues.image_file = null;
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -760,11 +786,45 @@ export default function Editform({
   const handleFieldChange = (e, field) => {
     const { name, value } = e.target;
     formik.handleChange(e);
-    if (field.onChange) field.onChange(value);
+    field.onChange?.(value);
+
+    if (!controlByType) return;
+
+    if (name === "type") {
+      if (value === "course") {
+        formik.setFieldValue("bundle", []);
+      } else if (value === "bundle" || value === "attendance") {
+        formik.setFieldValue("webinar", []);
+      } else {
+        // quiz or empty → hide both
+        formik.setFieldValue("webinar", []);
+        formik.setFieldValue("bundle", []);
+      }
+    }
+  };
+
+  const selectedType = formik.values.type;
+
+  const shouldShowField = (field) => {
+    if (!controlByType) return true;
+
+    // Hide dependents until a type is selected
+    if (!selectedType) {
+      return field.name !== "webinar" && field.name !== "bundle";
+    }
+
+    if (field.name === "webinar") {
+      return selectedType === "course";
+    }
+    if (field.name === "bundle") {
+      return selectedType === "bundle" || selectedType === "attendance";
+    }
+    return true;
   };
 
   return (
     <form
+      encType="multipart/form-data"
       onSubmit={(e) => {
         e.preventDefault();
         formik.handleSubmit(e);
@@ -775,11 +835,12 @@ export default function Editform({
         <div className="p-4 row g-3 d-flex justify-content-start">
           {fields.map((field, index) => {
             if (field.hidden) return null;
+            if (!shouldShowField(field)) return null;
 
             const { label, type, options, name } = field;
 
             return (
-              <div key={index} className="col-6 p-2">
+              <div key={index} className="col-lg-6 col-12 p-2">
                 <div>
                   <h3 className="Tit-12-700">{label}</h3>
 
@@ -995,7 +1056,7 @@ export default function Editform({
                     (() => {
                       const checked = Number(formik.values[name]) === 1;
                       return (
-                        <label className="align-items-center">
+                        <div className="d-flex align-items-center gap-2">
                           <input
                             type="checkbox"
                             className="form-check-input"
@@ -1008,12 +1069,72 @@ export default function Editform({
                             }
                             disabled={loading}
                           />
-                          <span>{field.checkboxLabel || label}</span>
-                        </label>
+                          <label className="align-items-center">
+                            <span>{field.checkboxLabel || label}</span>
+                          </label>
+                        </div>
                       );
                     })()
                   ) : type === "" ? (
                     <></>
+                  ) : name === "image" ? (
+                    <div className="d-flex flex-column gap-2">
+                      {/* Preview (file takes precedence; otherwise show URL if present) */}
+                      {/* {(imagePreview || formik.values.image) && (
+                        <div style={{ maxWidth: 50, maxHeight: 40 }}>
+                          <img
+                            src={imagePreview || String(formik.values.image)}
+                            alt="preview"
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              borderRadius: 8,
+                              border: "1px solid #E3E3E3",
+                            }}
+                          />
+                        </div>
+                      )} */}
+
+                      {/* URL input (optional, keeps backward compatibility) */}
+                      {/* <input
+                        type="text"
+                        name={name}
+                        value={formik.values[name]}
+                        onChange={(e) => handleFieldChange(e, field)}
+                        onBlur={formik.handleBlur}
+                        disabled={loading}
+                        placeholder="https://example.com/image.jpg"
+                        className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                        style={{ border: "1px solid #E3E3E3" }}
+                      /> */}
+
+                      {/* File input */}
+                      <div className="d-flex align-items-center gap-2">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={onImageFileChange}
+                          disabled={loading}
+                          className="form-control"
+                          style={{ maxWidth: 320 }}
+                        />
+                        {/* {formik.values.image_file && (
+                          <button
+                            type="button"
+                            className="btn btn-light"
+                            onClick={clearImageFile}
+                            disabled={loading}
+                          >
+                            {t?.("clear") || "Clear"}
+                          </button>
+                        )} */}
+                      </div>
+
+                      <small className="text-muted">
+                        You can paste an image URL **or** upload a file. If a
+                        file is selected, it will be used.
+                      </small>
+                    </div>
                   ) : (
                     <input
                       type={type}

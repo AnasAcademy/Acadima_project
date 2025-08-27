@@ -13,6 +13,7 @@ import Swap from "@/assets/admin/swap.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
 import { useLocale } from "next-intl";
+import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 
 export default function CourseRegTable({
   data = [],
@@ -704,20 +705,37 @@ export default function CourseRegTable({
             {view === "students" && (
               <>
                 <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-                  <button
-                    className="btn btn-light custfontbtn"
-                    onClick={() => {
-                      if (view === "students" && courseId) {
-                        fetchGroups(courseId, 1);
-                      } else {
-                        setView("list");
-                        setCourseId(null);
-                        setGroupId(null);
-                      }
-                    }}
-                  >
-                    {t("back")}
-                  </button>
+                  <div className="d-flex align-items-center justify-content-between gap-2 w-100">
+                    <ExcelDownload
+                      endpoint={`/api/proxy/courses/groups/${groupId}/exportExcel`}
+                      filename={`webinar_${groupId}_students`}
+                      className="btn custfontbtn"
+                      onSuccess={() => {
+                        setResultMessage(t("download_success"));
+                        setShowResultModal(true);
+                      }}
+                      onError={() => {
+                        setResultMessage(t("download_failed"));
+                        setShowResultModal(true);
+                      }}
+                    >
+                      Excel
+                    </ExcelDownload>
+                    <button
+                      className="btn btn-light custfontbtn"
+                      onClick={() => {
+                        if (view === "students" && courseId) {
+                          fetchGroups(courseId, 1);
+                        } else {
+                          setView("list");
+                          setCourseId(null);
+                          setGroupId(null);
+                        }
+                      }}
+                    >
+                      {t("back")}
+                    </button>
+                  </div>
                   <OngoingTrain
                     TableHead={[
                       "#",

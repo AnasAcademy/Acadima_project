@@ -11,6 +11,8 @@ import X from "@/assets/admin/x.svg";
 import printer from "@/assets/admin/printer.svg";
 import check from "@/assets/admin/Check.svg";
 import Pen from "@/assets/admin/pen.svg";
+import { useApiClient } from "@/hooks/useApiClient";
+
 
 export default function QuizCertificatesTable({
   initialData = [],
@@ -37,28 +39,24 @@ export default function QuizCertificatesTable({
   const [confirmAction, setConfirmAction] = useState(null);
   const [confirmMessage, setConfirmMessage] = useState("");
 
+    const { request } = useApiClient();
+  
+
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates?page=${pageNumber}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
-      const respond = await res.json();
-      const data = respond?.certificates?.data || [];
+      const res = await request({
+         method: "GET",
+         urlPath: `/certificates?page=${pageNumber}`,
+        query: { ...DEFAULT_QUERY, page: pageNumber },
+      });
+
+      const data = res?.certificates?.data || [];
       setDataa(data);
       setFilter(data);
-      setCurrentPage(respond?.certificates?.current_page || 1);
-      setTotalPages(respond?.certificates?.last_page || 1);
-      setPage(respond?.certificates?.current_page || 1);
+      setCurrentPage(res?.certificates?.current_page || 1);
+      setTotalPages(res?.certificates?.last_page || 1);
+      setPage(res?.certificates?.current_page || 1);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -91,29 +89,20 @@ export default function QuizCertificatesTable({
       // Append pagination separately
       query.append("page", pageNumber);
 
-      const res = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates?${query.toString()}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      const res = await request({
+        method: "GET",
+        urlPath: `/certificates?${query.toString()}`,
+      });
 
-      const respond = await res.json();
-      const data = respond.certificates?.data || [];
+      const data = res.certificates?.data || [];
 
       setFilter(data);
       setDataa(data);
-      setCurrentPage(respond?.certificates?.current_page || 1);
-      setTotalPages(respond?.certificates?.last_page || 1);
-      setPage(respond?.certificates?.current_page || 1);
+      setCurrentPage(res.certificates?.current_page || 1);
+      setTotalPages(res.certificates?.last_page || 1);
+      setPage(res.certificates?.current_page || 1);
     } catch (error) {
-      console.error("Search error:", error);
+      console.log("Search error:", error);
     } finally {
       setLoading(false);
     }
@@ -142,11 +131,12 @@ export default function QuizCertificatesTable({
       columns: [
         { type: "text", value: item.id },
         {
-          type: "text",
-          value:
-            item.quiz?.webinar.course_name_certificate ||
+          type: "user",
+          name:
+            item.quiz?.webinar?.course_name_certificate ||
             item.quiz_title ||
             "-",
+            email: item.quiz?.webinar?.translations?.[0]?.title || "-"
         },
         {
           type: "text",
@@ -233,7 +223,7 @@ export default function QuizCertificatesTable({
           <div className="d-flex justify-content-between align-items-center mb-3">
             {/* Replace the old button with ExcelDownload component */}
             <ExcelDownload
-              endpoint="https://api.lxera.net/api/development/organization/vodafone/certificates/export"
+              endpoint="/api/proxy/certificates/export"
               filename="quiz_certificates_report"
               className="btn custfontbtn rounded-2"
               onSuccess={(message) => {

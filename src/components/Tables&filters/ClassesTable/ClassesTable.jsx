@@ -246,7 +246,7 @@ export default function ClassesTable({ dat }) {
       },
       //  { type: "text", value: item.slug },
       { type: "text", value: item.created_at },
-      { type: "text", value: item.status },
+      { type: "label", value: item.status },
       {
         type: "actionbutton",
         label: t("actions"),

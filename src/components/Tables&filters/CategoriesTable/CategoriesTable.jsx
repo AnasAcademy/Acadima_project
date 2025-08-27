@@ -250,7 +250,7 @@ const getreqData = async (Itemid) => {
       // },
       { type: "text", value: item.courses_count },
       { type: "text", value: item.teachers_count },
-      { type: "text", value: item.status },
+      { type: "label", value: item.status },
       {
         type: "actionbutton",
         label: t("actions"),

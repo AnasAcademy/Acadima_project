@@ -9,6 +9,11 @@ import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import printer from "@/assets/admin/printer.svg";
 import Pen from "@/assets/admin/pen.svg";
+import { useApiClient } from "@/hooks/useApiClient";
+import { useLocale } from "next-intl";
+import { useUserData } from "@/context/UserDataContext";
+import { Placeholder } from "react-bootstrap";
+import { title } from "process";
 
 export default function CertificateTemplates({
   initialData = [],
@@ -17,6 +22,8 @@ export default function CertificateTemplates({
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("SidebarA");
+
+  const { getBundleOptions, getWebinarOptions } = useUserData();
 
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
@@ -34,7 +41,8 @@ export default function CertificateTemplates({
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
   const [confirmMessage, setConfirmMessage] = useState("");
-
+  const { request } = useApiClient();
+  const appLocale = useLocale();
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
     try {
@@ -87,282 +95,185 @@ export default function CertificateTemplates({
     setShowConfirmModal(true);
   };
 
+  // DELETE
   const deleteTemplate = async (id) => {
     try {
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/templates/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-        }
-      );
+      await request({
+        method: "DELETE",
+        urlPath: `/certificates/templates/${id}`,
+      });
 
-      if (response.ok) {
-        // Optimistically remove the item from the state
-        setDataa((prev) => prev.filter((item) => item.id !== id));
-        setFilter((prev) => prev.filter((item) => item.id !== id));
-        setResultMessage(t("template_deleted_successfully"));
-        setShowResultModal(true);
-      } else {
-        throw new Error("Failed to delete template");
-      }
-    } catch (error) {
-      console.error("Delete failed:", error);
+      // If request didn't throw, consider it success
+      setDataa((prev) => prev.filter((it) => it.id !== id));
+      setFilter((prev) => prev.filter((it) => it.id !== id));
+      setResultMessage(t("template_deleted_successfully"));
+      setShowResultModal(true);
+    } catch (err) {
+      console.error("Delete failed:", err);
       setResultMessage("فشل الحذف. حاول مرة أخرى.");
       setShowResultModal(true);
-      // Restore data on error
       fetchData(currentPage);
     } finally {
       setShowConfirmModal(false);
     }
   };
 
+  const toInt = (v) => {
+    const n = parseInt(v, 10);
+    return Number.isFinite(n) ? n : 0;
+  };
+  const toFloat = (v) => {
+    const n = parseFloat(v);
+    return Number.isFinite(n) ? n : 0;
+  };
+  const normalizeIdArray = (input) => {
+    if (!input) return [];
+    // Already numbers?
+    if (Array.isArray(input)) {
+      if (input.length && typeof input[0] === "object") {
+        return input
+          .map((o) => toInt(o?.value ?? o?.id))
+          .filter((x) => Number.isFinite(x));
+      }
+      return input.map((x) => toInt(x)).filter((x) => Number.isFinite(x));
+    }
+    // Comma-separated string fallback
+    return String(input)
+      .split(",")
+      .map((s) => toInt(s.trim()))
+      .filter((x) => Number.isFinite(x));
+  };
+
+  // Build payload identical for add/edit
+  const buildTemplatePayload = (formData) => ({
+    title: formData.title || "",
+    image: formData.image || "",
+    type: formData.type || "",
+    status: formData.status || "",
+    price: toFloat(formData.price),
+    student_name: formData.student_name || "",
+    position_x_student: toInt(formData.position_x_student),
+    position_y_student: toInt(formData.position_y_student),
+    font_size_student: toInt(formData.font_size_student) || 12,
+    text: formData.text || "",
+    position_x_text: toInt(formData.position_x_text),
+    position_y_text: toInt(formData.position_y_text),
+    font_size_text: toInt(formData.font_size_text) || 12,
+    course_name: formData.course_name || "",
+    position_x_course: toInt(formData.position_x_course),
+    position_y_course: toInt(formData.position_y_course),
+    font_size_course: toInt(formData.font_size_course) || 12,
+    graduation_date: formData.graduation_date || "",
+    position_x_date: toInt(formData.position_x_date),
+    position_y_date: toInt(formData.position_y_date),
+    font_size_date: toInt(formData.font_size_date) || 12,
+    gpa: formData.gpa || "",
+    position_x_gpa: toInt(formData.position_x_gpa),
+    position_y_gpa: toInt(formData.position_y_gpa),
+    font_size_gpa: toInt(formData.font_size_gpa) || 12,
+    text_color: formData.text_color || "#000000",
+    position_x_certificate_code: toInt(formData.position_x_certificate_code),
+    position_y_certificate_code: toInt(formData.position_y_certificate_code),
+    font_size_certificate_code:
+      toInt(formData.font_size_certificate_code) || 12,
+    locale: formData.locale || "en",
+    rtl: toInt(formData.rtl),
+    bundle: normalizeIdArray(formData.bundle),
+    webinar: normalizeIdArray(formData.webinar),
+  });
+
+  // Build a nice error message (handles { ar, en } objects)
+  const buildErrorMessage = (error, prefLang = "en", t) => {
+    const pref = (prefLang || "en").split("-")[0];
+    const data = error?.data || error?.response?.data;
+    const status = error?.status ?? error?.code ?? data?.status;
+    const rawErrors = data?.errors || error?.errors || null;
+
+    const joiner = typeof t === "function" ? ` ${t("and")} ` : " | ";
+
+    const pickMsg = (val) => {
+      if (typeof val === "string") return val;
+      if (Array.isArray(val)) return val.join(", ");
+      if (val && typeof val === "object") {
+        return (
+          val[pref] ||
+          val.en ||
+          val.ar ||
+          Object.values(val).map(pickMsg).filter(Boolean).join(joiner)
+        );
+      }
+      return "";
+    };
+
+    if (status === 422 || rawErrors) {
+      const parts = Object.entries(rawErrors || {}).map(([field, v]) => {
+        const m = pickMsg(v);
+        return m ? `${field}: ${m}` : field;
+      });
+      return `${parts.join(t("and"))}`;
+    }
+
+    if (data?.message) return data.message;
+    return "حدث خطأ غير متوقع. حاول مرة أخرى.";
+  };
+
   const handleSubmitAdd = async (formData) => {
     try {
-      // Prepare data for API
-      const apiData = {
-        title: formData.title,
-        image: formData.image,
-        type: formData.type,
-        status: formData.status,
-        price: parseFloat(formData.price) || 0,
-        student_name: formData.student_name,
-        position_x_student: parseInt(formData.position_x_student) || 0,
-        position_y_student: parseInt(formData.position_y_student) || 0,
-        font_size_student: parseInt(formData.font_size_student) || 12,
-        text: formData.text,
-        position_x_text: parseInt(formData.position_x_text) || 0,
-        position_y_text: parseInt(formData.position_y_text) || 0,
-        font_size_text: parseInt(formData.font_size_text) || 12,
-        course_name: formData.course_name,
-        position_x_course: parseInt(formData.position_x_course) || 0,
-        position_y_course: parseInt(formData.position_y_course) || 0,
-        font_size_course: parseInt(formData.font_size_course) || 12,
-        graduation_date: formData.graduation_date,
-        position_x_date: parseInt(formData.position_x_date) || 0,
-        position_y_date: parseInt(formData.position_y_date) || 0,
-        font_size_date: parseInt(formData.font_size_date) || 12,
-        gpa: formData.gpa,
-        position_x_gpa: parseInt(formData.position_x_gpa) || 0,
-        position_y_gpa: parseInt(formData.position_y_gpa) || 0,
-        font_size_gpa: parseInt(formData.font_size_gpa) || 12,
-        text_color: formData.text_color || "#000000",
-        position_x_certificate_code:
-          parseInt(formData.position_x_certificate_code) || 0,
-        position_y_certificate_code:
-          parseInt(formData.position_y_certificate_code) || 0,
-        font_size_certificate_code:
-          parseInt(formData.font_size_certificate_code) || 12,
-        locale: formData.locale || "en",
-        rtl: parseInt(formData.rtl) || 0,
-        bundles: formData.bundles
-          ? formData.bundles
-              .split(",")
-              .map((id) => parseInt(id.trim()))
-              .filter((id) => !isNaN(id))
-          : [],
-        webinars: formData.webinars
-          ? formData.webinars
-              .split(",")
-              .map((id) => parseInt(id.trim()))
-              .filter((id) => !isNaN(id))
-          : [],
-      };
+      const apiData = buildTemplatePayload(formData);
 
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/templates`,
-        {
-          method: "POST",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-          body: JSON.stringify(apiData),
-        }
-      );
+      const result = await request({
+        method: "POST",
+        urlPath: `/certificates/templates`,
+        body: apiData, // keep as object if your hook stringifies
+        // headers: { "Content-Type": "application/json" } // only if your hook needs it
+      });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        setResultMessage(result.message || t("template_created_successfully"));
-        setShowResultModal(true);
-        setShowEditForm(false);
-        fetchData(currentPage);
-      } else {
-        let errorText;
-        
-        if (result.errors) {
-          // Extract field names that have errors
-          const missingFields = Object.keys(result.errors);
-          errorText = `Missing fields: ${missingFields.join(", ")}`;
-          
-          // Also log detailed error messages for debugging
-          const errorDetails = Object.entries(result.errors)
-            .map(([field, messages]) => {
-              const fieldMessages = Array.isArray(messages) ? messages : [messages];
-              return `${field}: ${fieldMessages.join(", ")}`;
-            })
-            .join(" | ");
-          
-        } else {
-          errorText = result.message || `فشل الإضافة (${response.status})`;
-        }
-        
-        setResultMessage(`فشل الإضافة: ${errorText}`);
-        setShowResultModal(true);
-        throw new Error(errorText);
-      }
+      setResultMessage(result?.message || t("template_created_successfully"));
+      setShowResultModal(true);
+      setShowEditForm(false);
+      await fetchData(currentPage);
     } catch (error) {
-      console.error("Add failed:", error);
-      setResultMessage("فشل الإضافة. حاول مرة أخرى.");
+      const msg = buildErrorMessage(error, formData?.locale || appLocale, t);
+      setResultMessage(msg);
       setShowResultModal(true);
     }
   };
 
   const handleSubmitEdit = async (formData) => {
     try {
-      // Get the original item data for comparison
       const originalItem = dataa.find((item) => item.id === selectedId);
-      if (!originalItem) {
-        throw new Error("Original item not found");
-      }
+      if (!originalItem) throw new Error("Original item not found");
 
-      // Prepare complete data for API - send all fields
-      const apiData = {
-        title: formData.title || "",
-        image: formData.image || "",
-        type: formData.type || "",
-        status: formData.status || "",
-        price: parseFloat(formData.price) || 0,
-        student_name: formData.student_name || "",
-        position_x_student: parseInt(formData.position_x_student) || 0,
-        position_y_student: parseInt(formData.position_y_student) || 0,
-        font_size_student: parseInt(formData.font_size_student) || 12,
-        text: formData.text || "",
-        position_x_text: parseInt(formData.position_x_text) || 0,
-        position_y_text: parseInt(formData.position_y_text) || 0,
-        font_size_text: parseInt(formData.font_size_text) || 12,
-        course_name: formData.course_name || "",
-        position_x_course: parseInt(formData.position_x_course) || 0,
-        position_y_course: parseInt(formData.position_y_course) || 0,
-        font_size_course: parseInt(formData.font_size_course) || 12,
-        graduation_date: formData.graduation_date || "",
-        position_x_date: parseInt(formData.position_x_date) || 0,
-        position_y_date: parseInt(formData.position_y_date) || 0,
-        font_size_date: parseInt(formData.font_size_date) || 12,
-        gpa: formData.gpa || "",
-        position_x_gpa: parseInt(formData.position_x_gpa) || 0,
-        position_y_gpa: parseInt(formData.position_y_gpa) || 0,
-        font_size_gpa: parseInt(formData.font_size_gpa) || 12,
-        text_color: formData.text_color || "#000000",
-        position_x_certificate_code:
-          parseInt(formData.position_x_certificate_code) || 0,
-        position_y_certificate_code:
-          parseInt(formData.position_y_certificate_code) || 0,
-        font_size_certificate_code:
-          parseInt(formData.font_size_certificate_code) || 12,
-        locale: formData.locale || "en",
-        rtl: parseInt(formData.rtl) || 0,
-        bundles: formData.bundles
-          ? formData.bundles
-              .split(",")
-              .map((id) => parseInt(id.trim()))
-              .filter((id) => !isNaN(id))
-          : [],
-        webinars: formData.webinars
-          ? formData.webinars
-              .split(",")
-              .map((id) => parseInt(id.trim()))
-              .filter((id) => !isNaN(id))
-          : [],
-      };
+      const apiData = buildTemplatePayload(formData);
 
-      const response = await fetch(
-        `https://api.lxera.net/api/development/organization/vodafone/certificates/templates/${selectedId}`,
-        {
-          method: "PUT",
-          headers: {
-            "x-api-key": "1234",
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5seGVyYS5uZXQvYXBpL2RldmVsb3BtZW50L2xvZ2luIiwiaWF0IjoxNzUxMzU5MzEzLCJuYmYiOjE3NTEzNTkzMTMsImp0aSI6IjcwUHV3TVJQMkVpMUJrM1kiLCJzdWIiOiIxIiwicHJ2IjoiNDBhOTdmY2EyZDQyNGU3NzhhMDdhMGEyZjEyZGM1MTdhODVjYmRjMSJ9.Ph3QikoBXmTCZ48H5LCRNmdLcMB5mlHCDDVkXYk_sHA",
-          },
-          body: JSON.stringify(apiData),
-        }
-      );
-
-      // Handle the case where API returns 500 but actually updates the data
-      if (response.status === 500) {
-        
-        // Wait a moment for the server to process
-        setTimeout(async () => {
-          await fetchData(currentPage);
-          setResultMessage(t("template_updated_successfully") + " (تم التحديث رغم خطأ الخادم)");
-          setShowResultModal(true);
-          setShowEditForm(false);
-        }, 1000);
-        
-        return;
-      }
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setResultMessage(result.message || t("template_updated_successfully"));
+      const result = await request({
+        method: "PUT",
+        urlPath: `/certificates/templates/${selectedId}`,
+        body: apiData,
+      });
+      console.log("Edit result:", apiData);
+      setResultMessage(result?.message || t("template_updated_successfully"));
+      setShowResultModal(true);
+      setShowEditForm(false);
+      await fetchData(currentPage);
+    } catch (error) {
+      // Some backends succeed but return invalid JSON; keep your special case if needed:
+      if (
+        error?.message?.includes("Unexpected token") ||
+        error?.message?.includes("SyntaxError")
+      ) {
+        await fetchData(currentPage);
+        setResultMessage(
+          t("template_updated_successfully") +
+            " (تم التحديث رغم خطأ في الاستجابة)"
+        );
         setShowResultModal(true);
         setShowEditForm(false);
-        fetchData(currentPage);
-      } else {
-        let errorText = result.message || "فشل التحديث";
-
-        if (result.errors) {
-          // Extract field names that have errors
-          const missingFields = Object.keys(result.errors);
-          errorText = `Missing fields: ${missingFields.join(", ")}`;
-          
-          // Also log detailed error messages for debugging
-          const errorDetails = Object.entries(result.errors)
-            .map(([field, messages]) => {
-              const fieldMessages = Array.isArray(messages) ? messages : [messages];
-              return `${field}: ${fieldMessages.join(", ")}`;
-            })
-            .join(" | ");
-          
-        }
-
-        setResultMessage(errorText);
-        setShowResultModal(true);
-      }
-    } catch (error) {
-      console.error("Edit failed:", error);
-
-      // If it's a network error and we suspect the data might have been updated
-      if (
-        error.message.includes("Unexpected token") ||
-        error.message.includes("SyntaxError")
-      ) {
-        
-        // Wait and refresh data to check if update actually worked
-        setTimeout(async () => {
-          await fetchData(currentPage);
-          setResultMessage(
-            t("template_updated_successfully") + " (تم التحديث رغم خطأ في الاستجابة)"
-          );
-          setShowResultModal(true);
-          setShowEditForm(false);
-        }, 1000);
-        
         return;
       }
 
-      setResultMessage("فشل التحديث. حاول مرة أخرى.");
+      const msg = buildErrorMessage(error, formData?.locale || appLocale, t);
+      setResultMessage(msg);
       setShowResultModal(true);
     }
   };
@@ -422,7 +333,7 @@ export default function CertificateTemplates({
 
   const fields = [
     { name: "title", label: t("title"), type: "text" },
-    { name: "image", label: t("image"), type: "text" },
+    { name: "image", label: t("image"), type: "text", required: false },
     {
       name: "type",
       label: t("type"),
@@ -432,13 +343,22 @@ export default function CertificateTemplates({
         { value: "course", label: t("course") },
         { value: "bundle", label: t("bundle") },
         { value: "attendance", label: t("attendance") },
-        { value: "new_verssion_bundle", label: t("new_version_bundle") },
-        { value: "new_verssion_course", label: t("new_version_course") },
-        {
-          value: "new_verssion_attendance",
-          label: t("new_version_attendance"),
-        },
       ],
+    },
+    { type: "" },
+    {
+      name: "bundle",
+      label: t("bundles"),
+      type: "multiselectsearch",
+      options: getBundleOptions(),
+      Placeholder: t("search"),
+    },
+    {
+      name: "webinar",
+      label: t("webinars"),
+      type: "multiselectsearch",
+      options: getWebinarOptions(),
+      Placeholder: t("search"),
     },
     {
       name: "status",
@@ -536,18 +456,6 @@ export default function CertificateTemplates({
         { value: 1, label: t("yes") },
       ],
     },
-    {
-      name: "bundles",
-      label: t("bundles"),
-      type: "text",
-      placeholder: "29,30",
-    },
-    {
-      name: "webinars",
-      label: t("webinars"),
-      type: "text",
-      placeholder: "2061,2062",
-    },
   ];
 
   return (
@@ -556,6 +464,16 @@ export default function CertificateTemplates({
         <div className="row g-3">
           <div className="col-12">
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+              <div className="d-flex justify-content-end align-items-center mb-3">
+                <button
+                  type="button"
+                  className="btn btn-light custfontbtn d-inline-flex align-items-center gap-2"
+                  onClick={() => setShowEditForm(false)}
+                  aria-label="Back"
+                >
+                  {t?.("back")}
+                </button>
+              </div>
               <Editform
                 fields={fields}
                 formTitles={formTitles}
@@ -571,18 +489,21 @@ export default function CertificateTemplates({
                           dataa.find((i) => i.id === selectedId) || {};
                         return {
                           ...item,
+                          title: item.translations?.[0]?.title || "",
+                          image: item.image || "",
                           locale: item.locale || "en",
-                          rtl: item.rtl?.toString() || "0",
-                          bundles: Array.isArray(item.bundles)
-                            ? item.bundles.join(",")
-                            : item.bundles || "",
-                          webinars: Array.isArray(item.webinars)
-                            ? item.webinars.join(",")
-                            : item.webinars || "",
+                          rtl: String(item.rtl ?? "0"),
+                          bundle: Array.isArray(item.bundle)
+                            ? item.bundle // [29, 30]
+                            : normalizeIdArray(item.bundle), // fallback
+                          webinar: Array.isArray(item.webinar)
+                            ? item.webinar
+                            : normalizeIdArray(item.webinar),
                         };
                       })()
                     : {}
                 }
+                controlByType
               />
             </div>
           </div>
@@ -639,7 +560,7 @@ export default function CertificateTemplates({
         show={showResultModal}
         onClose={() => setShowResultModal(false)}
         onSubmit={() => setShowResultModal(false)}
-        title={t("operation_completed")}
+        title={t("operation_failed")}
       >
         <p className="m-0 text-center">{resultMessage}</p>
       </AlertModal>

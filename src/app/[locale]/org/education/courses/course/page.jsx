@@ -28,14 +28,15 @@ export default async function CourseDetails() {
         data: result.webinars?.data || [],
         currentPage: result.webinars?.current_page || 1,
         totalPages: result.webinars?.last_page || 1,
+        info: result || {},
       };
     } catch (error) {
       console.error("Error fetching course data:", error);
-      return { data: [], currentPage: 1, totalPages: 1 };
+      return { data: [], currentPage: 1, totalPages: 1, info: {} };
     }
   }
 
-  const { data, currentPage, totalPages } = await fetchData(1);
+  const { data, currentPage, totalPages, info } = await fetchData(1);
 
   return (
     <div className="m-0 container-fluid p-0 d-flex flex-column">
@@ -47,6 +48,7 @@ export default async function CourseDetails() {
               initialData={data}
               initialPage={currentPage}
               initialTotalPages={totalPages}
+              info={info}
             />
           </div>
         </div>
