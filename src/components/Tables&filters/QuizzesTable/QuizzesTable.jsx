@@ -25,7 +25,10 @@ const [web , setWeb] = useState([]);
 const [formState, setFormState] = useState("");
 const [restble, setRestble] = useState(false);
 const [restbledata, setRestbledata] = useState([]);
+const [questions , setQuestions] = useState([])
+const [question, setQuestion] = useState([]);
 const { request } = useApiClient();
+const [extraformquiz , setExtraformquiz] = useState(true)
 
 // async function fetchy(stat) {
 //   const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
@@ -104,20 +107,20 @@ const handleSubmitEdit = async (dataa) => {
       method: "PUT",
       urlPath: `/quizzes/${Itemid}`,
       body: {
-        title: dataa.title || "null",
+        title: dataa.quizTitle || "null",
         time: dataa.time,
         attemp: dataa.attemp,
         pass_mark: dataa.pass_mark,
         expiry_days: dataa.expiry_days,
-           display_questions_randomly: 1,
-    certificate: 1,
-    status: "active"
+        display_questions_randomly: 1,
+        certificate: 1,
+        status: "active",
       },
     });
 
-     console.log(response.message);
+    console.log(response.message);
 
-
+    setShowModal(false);
     // if (result.errors) {
     //   const messages = Object.values(result.errors).map((error) => error.ar);
     //   setAlertmssg(messages.join("\n"));
@@ -194,6 +197,8 @@ const getwebninars = async () => {
 
         console.log(titles);
 
+
+        
         setWeb(titles);
    
   } catch (err) {
@@ -203,9 +208,105 @@ const getwebninars = async () => {
 
 
 
+const getQuetions = async (id) => {
+  try {
+    const response = await request({
+      method: "GET",
+      urlPath: `/quizzes/questions/${id}`,
+    });
+
+  
+const questionTitles = response.data.quiz.quiz_questions
+// .map(
+//   (q , index) => 
+//      {  return { id : q.id,
+//       title :  q.translations[0]?.title ,
+//                    type: q.type,
+//                    grade: q.grade
+//   }
+//                               } 
+// );
+    // console.log(response.data.quiz.quiz_questions[0].translations[0].title);
+    
+      console.log(questionTitles);
+      setQuestions(questionTitles);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 
+const deleteQuetion = async (id) => {
+  try {
+    const response = await request({
+      method: "DELETE",
+      urlPath: `/quizzes/questions/${id}`,
+    });
 
+ 
+
+    console.log(response);
+    setQuestions(questions.filter((itm)=>(itm.id !== id  )))
+   
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const updateQuetion = async (data) => {
+   console.log(data)
+  try {
+    const response = await request({
+      method: "PUT",
+      urlPath: `/quizzes/questions/${data.id}`,
+      body: {
+        title: data.translations?.[0]?.title,
+        grade: data.grade,
+        type: data.type,
+        answers: data.quizzes_questions_answers.map((itm, inx) => ({
+          id: itm.id,
+          title: itm.translations[0]?.title,
+          correct:itm.correct
+        })),
+      },
+    });
+
+    console.log(response);
+      // setQuestions((prev) =>
+      //   prev.map((itm) => (itm.id === id ? { ...itm, ...updatedData } : itm))
+      // );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+const AddQuetion = async (data) => {
+  console.log(data);
+  try {
+    const response = await request({
+      method: "POST",
+      urlPath: `/quizzes/questions`,
+      body: {
+        title: data.translations?.[0]?.title,
+        grade: data.grade,
+        type: data.type,
+        answers: data.quizzes_questions_answers.map((itm, inx) => ({
+          id: itm.id,
+          title: itm.translations[0]?.title,
+          correct: itm.correct,
+        })),
+      },
+    });
+
+    console.log(response);
+    // setQuestions((prev) =>
+    //   prev.map((itm) => (itm.id === id ? { ...itm, ...updatedData } : itm))
+    // );
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 
 const getResData = async (id) => {
@@ -319,6 +420,7 @@ const trainingData = data.map((item, index) => ({
         {
           label: t("edit"),
           action: () => {
+            getQuetions(item.quizId);
             setShowModal(!showModal);
             setId(item.quizId);
             setFormState("edit");
@@ -356,7 +458,7 @@ const fields = [
         },
       ]
     : []),
-  { name: "title", label: t("quiz_title"), type: "text" },
+  { name: "quizTitle", label: t("quiz_title"), type: "text" },
   { name: "time", label: t("quiz_time"), type: "number" },
   { name: "attemp", label: t("attempts"), type: "number" },
   { name: "pass_mark", label: t("passing-grade"), type: "number" },
@@ -463,7 +565,7 @@ return (
   <>
     <div className="row g-3">
       <div className="col-12">
-        {!showModal && (
+        {!showModal && !restble && (
           <SelectCard
             selectCardData={selectCardData}
             isTechSupport={true}
@@ -484,6 +586,13 @@ return (
               setShowModal={toogle}
               handleSubmitAdd={handleSubmitAdd}
               formState={formState}
+              extraformquiz={extraformquiz}
+              questions={questions}
+              deleteQuetion={deleteQuetion}
+              setQuestion={setQuestion}
+              question={question}
+              updateQuetion={updateQuetion}
+              setQuestions= {setQuestions}
             />
 
             <AlertModal
@@ -525,7 +634,7 @@ return (
                 <button
                   className=" btn  btn-light custfontbtn "
                   onClick={() => {
-                  getwebninars()
+                    getwebninars();
                     setShowModal(true);
                     setId(null);
                     setFormState("add");

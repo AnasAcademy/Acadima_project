@@ -1337,6 +1337,8 @@
     "coursek": "Course",
     "new_quiz": "New Quiz",
       "courses_count": "Number of Courses",
-      "divided_into": "Divided into"
+      "divided_into": "Divided into",
+      "evaluations": "Evaluations", 
+      "learninbg": "Learning"
   }
 }

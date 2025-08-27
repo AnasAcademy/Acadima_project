@@ -4,7 +4,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { useUserData } from "@/context/UserDataContext";
-
+import { set } from "date-fns";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 /** Lightweight searchable select with optional async loader (no extra deps) */
 function SearchSelect({
   name,
@@ -14,12 +15,14 @@ function SearchSelect({
   disabled = false,
   minChars = 3,
   onChange, // expects number or "" to clear
-  loadOptions, // async (term) => Promise<{label,value}[]>
+  loadOptions,
+ // async (term) => Promise<{label,value}[]>
 }) {
   const [open, setOpen] = useState(false);
   const [term, setTerm] = useState("");
   const [remote, setRemote] = useState([]);
   const [loadingRemote, setLoadingRemote] = useState(false);
+
   const boxRef = useRef(null);
 
   // Close on outside click
@@ -534,16 +537,41 @@ export default function Editform({
   setReqTable,
   sub,
   setSub,
+  extraformquiz,
+  questions,
+  deleteQuetion,
+  question,
+  setQuestion,
+  updateQuetion,
+  setQuestions
 }) {
   const t = useTranslations("tables");
   const { loadStudentOptions } = useUserData();
-
+  const [addquestion, setAddquestion] = useState(false);
+  const [multiqes, setMultiqes] = useState(false);
+  const [add, setAdd] = useState(false);
   const addField = () => {
     const updated = [...reqtble, { title: "", description: "" }];
     setReqTable(updated);
 
     formik.setFieldValue("requirements", updated);
   };
+
+ 
+
+           
+//  const handleDragEnd = (result) => {
+//     if (!result.destination) return;
+
+//     const items = Array.from(questions);
+//     const [reorderedItem] = items.splice(result.source.index, 1);
+//     items.splice(result.destination.index, 0, reorderedItem);
+
+//     setQuestions(items); // update the state with reordered array
+
+
+//  }
+
 
   const removeField = () => {
     if (reqtble.length > 1) {
@@ -554,7 +582,6 @@ export default function Editform({
     formik.setFieldValue("requirements", reqtble);
   };
   const addsubField = () => {
-       
     const updated = [...sub, { title: "", slug: "", icon: "" }];
     setSub(updated);
 
@@ -577,6 +604,9 @@ export default function Editform({
       icon: Yup.string(),
     })
   );
+
+
+
 
   // Build validation schema
   const validationSchema = Yup.object({
@@ -667,11 +697,8 @@ export default function Editform({
       acc[name] = rule;
       return acc;
     }, {}),
- sub_categories: subCategoryValidation,
-
-
-});
-  
+    sub_categories: subCategoryValidation,
+  });
 
   // Initial values
   const initialValues = fields.reduce((acc, field) => {
@@ -705,8 +732,9 @@ export default function Editform({
     enableReinitialize: true,
     initialValues: {
       ...initialValues,
-      sub_categories: sub || [],
-      requirements: reqtble || "",
+      ...(sub ? { sub_categories: sub } : {}), 
+      ...(reqtble ? { requirements: reqtble } : {}), 
+ 
     },
     validationSchema,
     onSubmit: (values) => {
@@ -1151,6 +1179,274 @@ export default function Editform({
                   ))}
                 </div>
               </div>
+            </>
+          ) : (
+            ""
+          )}
+
+          {extraformquiz ? (
+            <>
+              <div className=" d-flex justify-content-between w-100">
+                <h3>{t("questions")}</h3>
+
+                <div className=" d-flex">
+                  <button
+                    className="btn btn-light custfontbtn"
+                    type="button"
+                    onClick={() => {
+                      setQuestion([]);
+                      setMultiqes(true);
+                      setAddquestion(!addquestion);
+                    }}
+                  >
+                    اضف اختيار من متعدد
+                  </button>
+                  <button
+                    className="btn btn-light custfontbtn"
+                    type="button"
+                    onClick={() => {
+                      setQuestion([]);
+                      setAdd(true);
+                      setMultiqes(false);
+                      setAddquestion(!addquestion);
+                    }}
+                  >
+                    اضافة مقالي
+                  </button>
+                </div>
+              </div>
+              <div className=" d-flex flex-column gap-5 mb-5">
+                 {questions.map((itm, index) => { return ( 
+                  <div className=" d-flex flex-column flex-md-row justify-content-between shadow-lg border-3 p-4 gap-3"> 
+                  <div> <h2> {question.id === itm.id ? (itm.translations[0].title = question.translations[0].title) :
+                   itm.translations[0]?.title} </h2> <div> <h5> {" "} {itm.type === "multiple" ? 
+                   "اختيار من متعدد" : "سؤال مقالي"}{" "} | الدرجة:{" "} {question.id === itm.id ?
+                    (itm.grade = question.grade) : itm.grade}{" "} </h5> </div> </div> <div className=" d-flex align-items-center gap-3"> 
+                    <button className="btn btn-success" type="button" onClick={() => { 
+                      setAdd(false) 
+                      setQuestion(itm);
+                       if (itm.type === "multiple") { setMultiqes(true); } setAddquestion(true); }} > {t("edit")}
+                        </button> <button className="btn btn-danger " type="button" onClick={() => { deleteQuetion(itm.id); }} >
+                           {t("delete")} </button> </div> </div> ); })}
+              </div>
+
+              {addquestion ? (
+                <div className=" position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center  p-3">
+                  <div className="bg-white w-50 h-75 rounded shadow p-4   ">
+                    <h2 className=" mb-4">سؤال وصفي جديد</h2>
+                    <div className=" row g-4  h-100  ">
+                      <div className=" col-12 col-md-7">
+                        <h5>عنوان السؤال</h5>
+                        <input
+                          type="text"
+                          name=""
+                          value={question.translations?.[0]?.title || ""}
+                          onChange={(e) => {
+                            const updated = {
+                              ...question,
+                              translations: [
+                                {
+                                  ...question.translations?.[0],
+                                  title: e.target.value,
+                                },
+                              ],
+                            };
+                            setQuestion(updated);
+                          }}
+                          id=""
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 "
+                        />
+                      </div>
+
+                      <div className="col-12 col-md-5">
+                        <h5> الدرجة</h5>
+                        <input
+                          type="text"
+                          name=""
+                          value={question.grade || ""}
+                          onChange={(e) => {
+                            const updated = {
+                              ...question,
+                              grade: e.target.value,
+                            };
+                            setQuestion(updated);
+                          }}
+                          id=""
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                        />
+                      </div>
+
+                      <div className=" col-12 col-md-6">
+                        <h5> صورة (اختياري)</h5>
+                        <input
+                          type="text"
+                          name=""
+                          id=""
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                        />
+                      </div>
+                      <div className="col-12 col-md-6">
+                        <h5> فيديو (اختياري)</h5>
+                        <input
+                          type="text"
+                          name=""
+                          id=""
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                        />
+                      </div>
+
+                      {multiqes ? (
+                        <div className=" col-12 gap-4 d-flex flex-column ">
+                          <div>
+                            <h2> الإجابات </h2>
+                            <button
+                              className=" btn btn-dark"
+                              type="button"
+                              onClick={() => {
+                                setQuestion((prev) => ({
+                                  ...prev,
+                                  quizzes_questions_answers: [
+                                    ...(prev.quizzes_questions_answers || []),
+                                    {
+                                      translations: [{ title: "" }],
+                                      correct: false,
+                                      image: "",
+                                    },
+                                  ],
+                                }));
+                              }}
+                            >
+                              اضافة اجابة
+                            </button>
+                          </div>
+                          <div
+                            className="overflow-auto"
+                            style={{ maxHeight: "200px" }}
+                          >
+                            {question.quizzes_questions_answers?.map(
+                              (itm, index) => (
+                                <div className=" row border-1 p-3 border border-dark-subtle m-3  g-3">
+                                  <div className=" col-12">
+                                    <h5> عنوان الاجابة</h5>
+                                    <input
+                                      type="text"
+                                      name=""
+                                      value={itm.translations[0]?.title}
+                                      onChange={(e) => {
+                                        const updatedAnswers =
+                                          question.quizzes_questions_answers.map(
+                                            (ans, i) =>
+                                              i === index
+                                                ? {
+                                                    ...ans,
+                                                    translations: [
+                                                      {
+                                                        ...ans.translations[0],
+                                                        title: e.target.value,
+                                                      },
+                                                    ],
+                                                  }
+                                                : ans
+                                          );
+
+                                        setQuestion({
+                                          ...question,
+                                          quizzes_questions_answers:
+                                            updatedAnswers,
+                                        });
+                                      }}
+                                      id=""
+                                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                                    />
+                                  </div>
+                                  <div className=" col-6">
+                                    <h5> صورة الاجابة (اختياري) </h5>
+                                    <input
+                                      type="text"
+                                      name=""
+                                      id=""
+                                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                                    />
+                                  </div>
+                                  <div className=" col-6 d-flex justify-content-center align-items-center">
+                                    <div class="form-check form-switch d-flex gap-4">
+                                      <h5> الاجابة الصحيحة </h5>
+                                      <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        checked={itm.correct}
+                                        onChange={(e) => {
+                                          const updatedAnswers =
+                                            question.quizzes_questions_answers.map(
+                                              (ans, i) =>
+                                                i === index
+                                                  ? {
+                                                      ...ans,
+                                                      correct: e.target.checked,
+                                                    }
+                                                  : ans
+                                            );
+
+                                          setQuestion({
+                                            ...question,
+                                            quizzes_questions_answers:
+                                              updatedAnswers,
+                                          });
+                                        }}
+                                        role="switch"
+                                        id="flexSwitchCheckDefault"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className=" col-12 ">
+                          <h5> الاجابة الصحيحة</h5>
+                          <textarea
+                            type="text"
+                            name=""
+                            id=""
+                            className="d-flex justify-content-end align-items-center rounded-3  gap-2 Tit-14-700  w-100  p-5"
+                          />
+                        </div>
+                      )}
+
+                      <div className=" d-flex   justify-content-end gap-2  align-items-center">
+                        <button
+                          className=" btn btn-success  "
+                          type="button"
+                          onClick={() => {
+                            {
+                              add
+                                ? AddQuestion(question)
+                                : updateQuetion(question);
+                            }
+                            setAddquestion(false);
+                          }}
+                        >
+                          {" "}
+                          حفظ{" "}
+                        </button>
+                        <button
+                          className=" btn btn-danger  "
+                          onClick={() => {
+                            setAddquestion(!addquestion);
+                          }}
+                        >
+                          {" "}
+                          اغلاق
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </>
           ) : (
             ""

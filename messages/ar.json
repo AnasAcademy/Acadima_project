@@ -1336,6 +1336,8 @@
               "coursek": "مقرر",
                "new_quiz": "اختبار جديد",
                  "courses_count": "عدد المقررات",
-                 "divided_into": "مقسم إلى"
+                 "divided_into": "مقسم إلى",
+                 "evaluations": "التقييمات",
+                 "learninbg": "التعلم"
   }
 }

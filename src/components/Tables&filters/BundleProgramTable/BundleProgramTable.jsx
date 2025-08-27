@@ -163,12 +163,12 @@ const getResData = async (id) => {
   try {
     const response = await request({
       method: "GET",
-      urlPath: `/quizzes/${id}/results`,
+      urlPath: `/bundles/${id}/students`,
     });
 
-    console.log(response);
+    console.log(response.students.data);
 
-    setRestbledata(response.quizzesResults);
+    setRestbledata(response.students.data);
   } catch (err) {
     console.log(err);
   }
@@ -192,29 +192,31 @@ const TableHead = [
 ];
 
 const TableHeadRes = [
-  t("title"),
-  t("studentt"),
-  t("teacher"),
-  t("grade"),
-  t("exams_date"),
+  "ID",
+  t("name"),
+  t("evaluations"),
+  t("learninbg"),
+  t("gpa"),
+  t("registration_date"),
   t("status"),
   t("actions"),
 ];
 
 const resDat = restbledata.map((item, index) => ({
   columns: [
-    { type: "text", value: item.quiz_title },
-    { type: "text", value: item.student_name },
-    { type: "text", value: item.teacher_name },
-    { type: "text", value: item.grade },
-    { type: "text", value: item.quiz_date },
+    { type: "text", value: item.id },
+    { type: "text", value: item.full_name  },
+    { type: "text", value: item.rate },
+    { type: "text", value: item.learning },
+    { type: "text", value: item.gpa },
+    { type: "text", value: item.bundle_join_date },
     { type: "text", value: item.status },
     {
       type: "actionbutton",
       label: t("actions"),
       action: () => {
         setShowModal(!showModal);
-        setId(item.resultId);
+        setId(item.id);
         setFormState("edit");
       },
       icon: Arrowdown,
@@ -222,11 +224,11 @@ const resDat = restbledata.map((item, index) => ({
       lists: [
         {
           label: t("delete"),
-          action: () => removeRes(item.resultId),
+          action: () => removeRes(item.id),
           icon: X,
         },
       ],
-      id: item.resultId,
+      id: item.id,
     },
     // { type: "text", value: item.content },
   ],
@@ -240,7 +242,7 @@ const trainingData = data.map((item, index) => ({
     { type: "text", value: item.teacher.full_name },
     { type: "text", value: item.price },
     { type: "text", value: item.bundle_webinars_count },
-    { type: "text", value: item.hasGroup },
+    { type: "text", value: item.hasGroup ? "مجموعات" : "دفعات" },
     { type: "text", value: item.start_date },
     { type: "text", value: item.end_date },
     { type: "text", value: item.status },
@@ -249,17 +251,17 @@ const trainingData = data.map((item, index) => ({
       label: t("actions"),
       action: () => {
         setShowModal(!showModal);
-        setId(item.quizId);
+        setId(item.id);
         setFormState("edit");
       },
       icon: Arrowdown,
       color: "#48BB78",
       lists: [
         {
-          label: t("results"),
+          label: t("users"),
           action: () => {
             setRestble(true);
-            getResData(item.quizId);
+            getResData(item.id);
           },
           icon: Pen,
         },
@@ -267,18 +269,18 @@ const trainingData = data.map((item, index) => ({
           label: t("edit"),
           action: () => {
             setShowModal(!showModal);
-            setId(item.quizId);
+            setId(item.id);
             setFormState("edit");
           },
           icon: Pen,
         },
         {
           label: t("delete"),
-          action: () => remove(item.quizId),
+          action: () => remove(item.id),
           icon: X,
         },
       ],
-      id: item.quizId,
+      id: item.id,
     },
   ],
 }));
