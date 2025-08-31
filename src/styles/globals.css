@@ -2044,6 +2044,14 @@ align-items: center;
   border-radius: 3px;
 }
 
+
+.questions-container {
+    position: relative;
+
+    
+
+}
+
 .multiselect-container::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }

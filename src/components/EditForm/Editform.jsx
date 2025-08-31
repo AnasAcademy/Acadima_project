@@ -5,7 +5,9 @@ import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { useUserData } from "@/context/UserDataContext";
 import { set } from "date-fns";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Drag from "@/assets/admin/drag.svg"
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+// import { GripVertical } from "lucide-react"; // optional icon
 /** Lightweight searchable select with optional async loader (no extra deps) */
 function SearchSelect({
   name,
@@ -544,9 +546,11 @@ export default function Editform({
   setQuestion,
   updateQuetion,
   controlByType = false,
-  setQuestions
+  setQuestions,
+  AddQuetion,
+  setQType,
+  reArrangeQuestions
 }) {
-
   const [addquestion, setAddquestion] = useState(false);
   const [multiqes, setMultiqes] = useState(false);
   const [add, setAdd] = useState(false);
@@ -581,21 +585,17 @@ export default function Editform({
     formik.setFieldValue("requirements", updated);
   };
 
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+
  
-
-           
-//  const handleDragEnd = (result) => {
-//     if (!result.destination) return;
-
-//     const items = Array.from(questions);
-//     const [reorderedItem] = items.splice(result.source.index, 1);
-//     items.splice(result.destination.index, 0, reorderedItem);
-
-//     setQuestions(items); // update the state with reordered array
-
-
-//  }
-
+    const items = Array.from(questions);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+  
+    setQuestions(items); // update the state with reordered array
+     reArrangeQuestions(items);
+  };
 
   const removeField = () => {
     if (reqtble.length > 1) {
@@ -628,9 +628,6 @@ export default function Editform({
       icon: Yup.string(),
     })
   );
-
-
-
 
   // Build validation schema
   const validationSchema = Yup.object({
@@ -758,9 +755,8 @@ export default function Editform({
     enableReinitialize: true,
     initialValues: {
       ...initialValues,
-      ...(sub ? { sub_categories: sub } : {}), 
-      ...(reqtble ? { requirements: reqtble } : {}), 
- 
+      ...(sub ? { sub_categories: sub } : {}),
+      ...(reqtble ? { requirements: reqtble } : {}),
     },
     validationSchema,
     onSubmit: (values) => {
@@ -1315,8 +1311,10 @@ export default function Editform({
                     className="btn btn-light custfontbtn"
                     type="button"
                     onClick={() => {
+                      setQType("multiple");
                       setQuestion([]);
                       setMultiqes(true);
+                      setAdd(true);
                       setAddquestion(!addquestion);
                     }}
                   >
@@ -1326,6 +1324,7 @@ export default function Editform({
                     className="btn btn-light custfontbtn"
                     type="button"
                     onClick={() => {
+                      setQType("rt");
                       setQuestion([]);
                       setAdd(true);
                       setMultiqes(false);
@@ -1336,19 +1335,85 @@ export default function Editform({
                   </button>
                 </div>
               </div>
-              <div className=" d-flex flex-column gap-5 mb-5">
-                 {questions.map((itm, index) => { return ( 
-                  <div className=" d-flex flex-column flex-md-row justify-content-between shadow-lg border-3 p-4 gap-3"> 
-                  <div> <h2> {question.id === itm.id ? (itm.translations[0].title = question.translations[0].title) :
-                   itm.translations[0]?.title} </h2> <div> <h5> {" "} {itm.type === "multiple" ? 
-                   "اختيار من متعدد" : "سؤال مقالي"}{" "} | الدرجة:{" "} {question.id === itm.id ?
-                    (itm.grade = question.grade) : itm.grade}{" "} </h5> </div> </div> <div className=" d-flex align-items-center gap-3"> 
-                    <button className="btn btn-success" type="button" onClick={() => { 
-                      setAdd(false) 
-                      setQuestion(itm);
-                       if (itm.type === "multiple") { setMultiqes(true); } setAddquestion(true); }} > {t("edit")}
-                        </button> <button className="btn btn-danger " type="button" onClick={() => { deleteQuetion(itm.id); }} >
-                           {t("delete")} </button> </div> </div> ); })}
+              <div className=" d-flex flex-column gap-5 mb-5  ">
+                <DragDropContext onDragEnd={handleDragEnd}>
+                  <Droppable droppableId="questions-list" direction="vertical">
+                    {(provided) => (
+                      <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        className="questions-container"
+                      >
+                        {questions.map((itm, index) => (
+                          <Draggable
+                            key={itm.id}
+                            draggableId={itm.id?.toString()}
+                            index={index}
+                          >
+                            {(provided) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className="d-flex flex-column flex-md-row justify-content-between shadow-lg border-3 p-4 gap-3 mb-3"
+                              >
+                                <div>
+                                  <div className=" d-flex align-items-center gap-3">
+                                    <h2 className=" bg-dark  p-2 text-white rounded-2">{index + 1}</h2>
+                                    <h2>
+                                      {question.id === itm.id
+                                        ? (itm.translations[0].title =
+                                            question.translations[0]?.title)
+                                        : itm.translations[0]?.title}
+                                    </h2>
+                                  </div>
+                                  <h5>
+                                    {" "}
+                                    {itm.type === "multiple"
+                                      ? "اختيار من متعدد"
+                                      : "سؤال مقالي"}{" "}
+                                    | الدرجة:{" "}
+                                    {question.id === itm.id
+                                      ? (itm.grade = question.grade)
+                                      : itm.grade}{" "}
+                                  </h5>
+                                </div>
+                                <div className="d-flex align-items-center gap-3">
+                                  <h2 className="btn btn-light d-flex align-items-center">
+                                    <Drag className=" iconSize" />
+                                  </h2>
+                                  <button
+                                    className="btn btn-success"
+                                    type="button"
+                                    onClick={() => {
+                                      setAdd(false);
+                                      setQuestion(itm);
+                                      if (itm.type === "multiple")
+                                        setMultiqes(true);
+                                      setAddquestion(true);
+                                    }}
+                                  >
+                                    {" "}
+                                    {t("edit")}{" "}
+                                  </button>{" "}
+                                  <button
+                                    className="btn btn-danger"
+                                    type="button"
+                                    onClick={() => deleteQuetion(itm.id)}
+                                  >
+                                    {" "}
+                                    {t("delete")}{" "}
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
               </div>
 
               {addquestion ? (
@@ -1543,7 +1608,7 @@ export default function Editform({
                           onClick={() => {
                             {
                               add
-                                ? AddQuestion(question)
+                                ? AddQuetion(question)
                                 : updateQuetion(question);
                             }
                             setAddquestion(false);

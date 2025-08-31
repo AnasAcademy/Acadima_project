@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useTranslations } from "next-intl";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import Editform from "@/components/Editform/Editform";
@@ -28,6 +28,7 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
   const [question, setQuestion] = useState([]);
   const { request } = useApiClient();
   const [extraformquiz, setExtraformquiz] = useState(true);
+  const [qType ,setQType] = useState("")
 
   // async function fetchy(stat) {
   //   const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
@@ -263,14 +264,17 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
 
   const AddQuetion = async (data) => {
     console.log(data);
+   console.log(Itemid);
     try {
       const response = await request({
         method: "POST",
         urlPath: `/quizzes/questions`,
         body: {
+          quiz_id: Itemid,
+          type: qType,
           title: data.translations?.[0]?.title,
           grade: data.grade,
-          type: data.type,
+          locale: "AR",
           answers: data.quizzes_questions_answers.map((itm, inx) => ({
             id: itm.id,
             title: itm.translations[0]?.title,
@@ -279,14 +283,45 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
         },
       });
 
-      console.log(response);
-      // setQuestions((prev) =>
-      //   prev.map((itm) => (itm.id === id ? { ...itm, ...updatedData } : itm))
-      // );
+     
+      const newQuestion = response.data;
+
+ console.log(newQuestion.question);
+ console.log(questions[0])
+
+      setQuestions((prev) => [...prev, newQuestion  ]);
     } catch (err) {
       console.log(err);
     }
   };
+
+
+  const reArrangeQuestions = async (items) => {
+
+    console.log("reArrangeQuestions");
+    console.log(Itemid);
+        console.log(items[0].id);
+    try {
+      const response = await request({
+        method: "POST",
+        urlPath: `/quizzes/questions/change/${Itemid}`,
+        body:{
+              items: items.map((itm , index)=>{
+                       return itm.id
+
+              }) ,
+            table:"quizzes_questions"
+        }
+      });
+
+      console.log(response);
+
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
 
   const getResData = async (id) => {
     try {
@@ -556,6 +591,9 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
                 question={question}
                 updateQuetion={updateQuetion}
                 setQuestions={setQuestions}
+                AddQuetion={AddQuetion}
+                setQType={setQType}
+                reArrangeQuestions={reArrangeQuestions}
               />
 
               <AlertModal
