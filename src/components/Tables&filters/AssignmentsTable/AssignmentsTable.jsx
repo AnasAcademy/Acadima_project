@@ -11,30 +11,25 @@ import AlertModal from "@/components/AlertModal/AlertModal";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import { useUserData } from "@/context/UserDataContext";
 
+export default function AssignmentsTable({ dat, current_page, last_page }) {
 
-export default function BundleProgramTable({ dat, current_page, last_page }) {
-
-    const [currentPage, setCurrentPage] = useState(current_page);
-    const [showModal, setShowModal] = useState(false);
-    const [showAlertModal, setShowAlertModal] = useState(false);
-    const [Alertmssg, setAlertmssg] = useState("");
-    const [filter, setFilter] = useState(dat);
-    const [Itemid, setId] = useState(null);
-    const t = useTranslations("tables");
-    const ts = useTranslations("SidebarA");
-    const [data, setData] = useState(dat);
-    const [web, setWeb] = useState([]);
-    const [formState, setFormState] = useState("");
-    const [restble, setRestble] = useState(false);
-    const [restbledata, setRestbledata] = useState([]);
-    const { request } = useApiClient();
-    const [batch, setBatch] = useState([]);
-   const [cate, setCate] = useState([]);
-const {
-  getCategoryGroupedOptions,
-
-} = useUserData();
-
+const [currentPage, setCurrentPage] = useState(current_page);
+const [showModal, setShowModal] = useState(false);
+const [showAlertModal, setShowAlertModal] = useState(false);
+const [Alertmssg, setAlertmssg] = useState("");
+const [filter, setFilter] = useState(dat);
+const [Itemid, setId] = useState(null);
+const t = useTranslations("tables");
+const ts = useTranslations("SidebarA");
+const [data, setData] = useState(dat);
+const [web, setWeb] = useState([]);
+const [formState, setFormState] = useState("");
+const [restble, setRestble] = useState(false);
+const [restbledata, setRestbledata] = useState([]);
+const { request } = useApiClient();
+const [batch, setBatch] = useState([]);
+const [cate, setCate] = useState([]);
+const { getCategoryGroupedOptions } = useUserData();
 
 const remove = async (id) => {
   try {
@@ -68,15 +63,13 @@ const removeRes = async (id) => {
   }
 };
 
-
 useEffect(() => {
-   console.log("✅ useEffect fired on mount");
+  console.log("✅ useEffect fired on mount");
   getBatches();
   getCatigories();
 }, []);
 
 const getBatches = async () => {
- 
   try {
     const response = await request({
       method: "GET",
@@ -84,12 +77,12 @@ const getBatches = async () => {
     });
 
     console.log(response.data);
-    const batches= response.data.map((tem) => ({
+    const batches = response.data.map((tem) => ({
       value: tem.id,
       label: tem.title,
     }));
-    console.log(batches)
-   setBatch(batches)
+    console.log(batches);
+    setBatch(batches);
   } catch (error) {
     console.error("Status update failed:", error);
     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
@@ -109,7 +102,7 @@ const getCatigories = async () => {
       label: tem.title,
     }));
     console.log(cate);
-     setCate(cate);
+    setCate(cate);
   } catch (error) {
     console.error("Status update failed:", error);
     alert("تعذر تحديث الحالة، حاول مرة أخرى.");
@@ -236,14 +229,10 @@ function toogle() {
 }
 
 const TableHead = [
-  "#",
   t("title"),
-  t("teacher"),
-  t("price"),
-  t("courses_count"),
-  t("divided_into"),
-  t("start_date"),
-  t("end_date"),
+  t("students"),
+  t("grade"),
+  t("passing-grade"),
   t("status"),
   t("actions"),
 ];
@@ -303,15 +292,15 @@ const resDat = restbledata.map((item, index) => ({
 const trainingData = data.map((item, index) => ({
   columns: [
     // { type: "text", value: index + 1 },
-    { type: "text", value: item.id },
-    { type: "user", name: item.translations?.[0]?.title, email: item.batch.title },
-    { type: "text", value: item.teacher.full_name },
-    { type: "text", value: item.price },
-    { type: "text", value: item.bundle_webinars_count },
-    { type: "text", value: item.hasGroup ? "مجموعات" : "دفعات" },
-    { type: "text", value: item.start_date },
-    { type: "text", value: item.end_date },
-    { type: "label", value: item.status },
+
+    {
+      type: "user",
+      name: item.assignmentTitle,
+    },
+    { type: "text", value: item.studentsCount },
+    { type: "text", value: item.assignmentGrade },
+    { type: "text", value: item.assignmentPassGrade },
+    { type: "label", value: item.assignmentStatus },
     {
       type: "actionbutton",
       label: t("actions"),
@@ -441,7 +430,7 @@ const handleSearch = async (filters, pageNumber = 1) => {
 
     const res = await request({
       method: "GET",
-      urlPath: `/bundles?type=program&${query.toString()}`,
+      urlPath: `/assignments?${query.toString()}`,
     });
 
     const data = res.bundles.data || [];
@@ -460,11 +449,14 @@ const handleSearch = async (filters, pageNumber = 1) => {
 };
 
 
+
+
   return (
     <>
+      {" "}
       <div className="row g-3">
         <div className="col-12">
-          { (
+          {
             <SelectCard
               selectCardData={selectCardData}
               isTechSupport={true}
@@ -472,7 +464,7 @@ const handleSearch = async (filters, pageNumber = 1) => {
               setFilter={setFilter}
               handleSearch={handleSearch}
             />
-          )}
+          }
         </div>
         <div className="col-12">
           {showModal ? (

@@ -21,7 +21,6 @@ const token = cookieStore.get("auth_token")?.value;
 
 
 
-
 try {
   const respond = await fetch(`${BASE_URL}/bundles?type=program`, {
     method: "GET",

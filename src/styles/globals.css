@@ -2052,6 +2052,8 @@ align-items: center;
 
 }
 
+
+
 .multiselect-container::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
@@ -2079,3 +2081,7 @@ input[type=search]:active , input:focus{
 
   
 }
+.questions-container > .dragging {
+  transform: translateY(var(--dnd-translate-y)) !important;
+}
+

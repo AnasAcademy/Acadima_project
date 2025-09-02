@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import Editform from "@/components/Editform/Editform";
@@ -29,6 +29,7 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
   const { request } = useApiClient();
   const [extraformquiz, setExtraformquiz] = useState(true);
   const [qType ,setQType] = useState("")
+  const [qId ,setQId] = useState("")
 
   // async function fetchy(stat) {
   //   const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
@@ -175,6 +176,12 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
     }
   };
 
+  // useEffect(() => {
+  //   if (questions.length > 0) {
+  //     console.log("✅ questions updated:", questions);
+  //   }
+  // }, [questions]);
+
   const getwebninars = async () => {
     try {
       const response = await request({
@@ -236,27 +243,63 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
   };
 
   const updateQuetion = async (data) => {
-    console.log(data);
-    try {
-      const response = await request({
-        method: "PUT",
-        urlPath: `/quizzes/questions/${data.id}`,
-        body: {
-          title: data.translations?.[0]?.title,
-          grade: data.grade,
-          type: data.type,
-          answers: data.quizzes_questions_answers.map((itm, inx) => ({
-            id: itm.id,
-            title: itm.translations[0]?.title,
-            correct: itm.correct,
-          })),
-        },
-      });
+    console.log("oldone" ,data);
 
-      console.log(response);
-      // setQuestions((prev) =>
-      //   prev.map((itm) => (itm.id === id ? { ...itm, ...updatedData } : itm))
-      // );
+    try {
+
+           const requestBody = {
+             type: data.type,
+             title: data.translations?.[0]?.title,
+             grade: data.grade,
+             locale: "AR",
+           };
+
+           // Conditionally add answers or correct field based on question type
+           if (qType === "multiple") {
+             requestBody.answers = data.quizzes_questions_answers.map(
+               (itm, inx) => ({
+                 id: itm.id,
+                 title: itm.translations[0]?.title,
+                 correct: itm.correct,
+               })
+             );
+           } else {
+             console.log(
+               "descriptive data.correct",
+               data.translations?.[0]?.correct
+             );
+             requestBody.correct = data.translations?.[0]?.correct;
+           }
+
+   const response = await request({
+     method: "PUT",
+     urlPath: `/quizzes/questions/${data.id}`,
+     body: requestBody,
+   });
+
+      // const response = await request({
+      //   method: "PUT",
+      //   urlPath: `/quizzes/questions/${data.id}`,
+      //   body: {
+      //     title: data.translations?.[0]?.title,
+      //     grade: data.grade,
+      //     type: data.type,
+      //     answers: data.quizzes_questions_answers.map((itm, inx) => ({
+      //       id: itm.id,
+      //       title: itm.translations[0]?.title,
+      //       correct: itm.correct,
+      //     })),
+      //   },
+      // });
+
+      console.log(response.data);
+      const  updatedData = response.data;
+      
+      setQuestions((prev) =>
+        prev.map((itm) =>
+          itm.id === data.id ? { ...itm, ...updatedData } : itm
+        )
+      );
     } catch (err) {
       console.log(err);
     }
@@ -265,31 +308,47 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
   const AddQuetion = async (data) => {
     console.log(data);
    console.log(Itemid);
-    try {
-      const response = await request({
-        method: "POST",
-        urlPath: `/quizzes/questions`,
-        body: {
-          quiz_id: Itemid,
-          type: qType,
-          title: data.translations?.[0]?.title,
-          grade: data.grade,
-          locale: "AR",
-          answers: data.quizzes_questions_answers.map((itm, inx) => ({
-            id: itm.id,
-            title: itm.translations[0]?.title,
-            correct: itm.correct,
-          })),
-        },
-      });
+  try {
+    const requestBody = {
+      quiz_id: Itemid,
+      type: qType,
+      title: data.translations?.[0]?.title,
+      grade: data.grade,
+      locale: "AR"
+    };
 
+    // Conditionally add answers or correct field based on question type
+    if (qType === "multiple") {
+      requestBody.answers = data.quizzes_questions_answers.map((itm, inx) => ({
+        id: itm.id,
+        title: itm.translations[0]?.title,
+        correct: itm.correct,
+      }));
+    } else {
+      console.log("descriptive data.correct", data.translations?.[0]?.correct);
+      requestBody.correct = data.translations?.[0]?.correct;
+    }
+
+    const response = await request({
+      method: "POST",
+      urlPath: `/quizzes/questions`,
+      body: requestBody,
+    });
+
+   
      
       const newQuestion = response.data;
 
- console.log(newQuestion.question);
- console.log(questions[0])
+ console.log("first" ,newQuestion.question);
+  console.log("second", questions[questions.length - 1]);
+  // console.log(newQuestion.question.id);
+  setQId(newQuestion.question.id)
 
-      setQuestions((prev) => [...prev, newQuestion  ]);
+
+      setQuestions((prev) => [...prev, newQuestion.question]);
+
+       console.log(" this->", questions[questions.length -1 ]);
+
     } catch (err) {
       console.log(err);
     }
@@ -594,6 +653,7 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
                 AddQuetion={AddQuetion}
                 setQType={setQType}
                 reArrangeQuestions={reArrangeQuestions}
+                qId={qId}
               />
 
               <AlertModal

@@ -549,7 +549,8 @@ export default function Editform({
   setQuestions,
   AddQuetion,
   setQType,
-  reArrangeQuestions
+  reArrangeQuestions,
+  qId
 }) {
   const [addquestion, setAddquestion] = useState(false);
   const [multiqes, setMultiqes] = useState(false);
@@ -586,13 +587,10 @@ export default function Editform({
   };
 
   const handleDragEnd = (result) => {
-    if (!result.destination) return;
-
- 
+    if (!result.destination) return; 
     const items = Array.from(questions);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-  
     setQuestions(items); // update the state with reordered array
      reArrangeQuestions(items);
   };
@@ -1324,7 +1322,7 @@ export default function Editform({
                     className="btn btn-light custfontbtn"
                     type="button"
                     onClick={() => {
-                      setQType("rt");
+                      setQType("descriptive");
                       setQuestion([]);
                       setAdd(true);
                       setMultiqes(false);
@@ -1346,67 +1344,90 @@ export default function Editform({
                       >
                         {questions.map((itm, index) => (
                           <Draggable
-                            key={itm.id}
-                            draggableId={itm.id?.toString()}
+                            key={itm.id ?? `temp-${index}`} // fallback key if id missing
+                            draggableId={(itm.id ?? `temp-${index}`).toString()}
                             index={index}
                           >
-                            {(provided) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className="d-flex flex-column flex-md-row justify-content-between shadow-lg border-3 p-4 gap-3 mb-3"
-                              >
-                                <div>
-                                  <div className=" d-flex align-items-center gap-3">
-                                    <h2 className=" bg-dark  p-2 text-white rounded-2">{index + 1}</h2>
-                                    <h2>
-                                      {question.id === itm.id
-                                        ? (itm.translations[0].title =
-                                            question.translations[0]?.title)
-                                        : itm.translations[0]?.title}
-                                    </h2>
+                            {(provided, snapshot) => {
+                              // lock movement to Y-axis only
+                              const style = {
+                                ...provided.draggableProps.style,
+                                transform:
+                                  provided.draggableProps.style?.transform?.replace(
+                                    /translate\(([^,]+),/,
+                                    "translate(0,"
+                                  ),
+                              };
+
+                              return (
+                                <div
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  style={style} // apply locked Y-axis style
+                                  className="d-flex flex-column flex-md-row justify-content-between shadow-lg border-3 p-4 gap-3 mb-3"
+                                >
+                                  <div>
+                                    <div className="d-flex align-items-center gap-3">
+                                      <h2 className="bg-dark p-2 text-white rounded-2">
+                                        {index + 1}
+                                      </h2>
+                                      <h2>
+                                        {itm.translations?.[0]?.title ||
+                                          "⚠️ No title"}
+                                      </h2>
+                                    </div>
+                                    <h5>
+                                      {itm.type === "multiple"
+                                        ? "اختيار من متعدد"
+                                        : itm.type === "descriptive"
+                                        ? "سؤال مقالي"
+                                        : "⚠️ No type"}
+                                      {" | "} الدرجة:{" "}
+                                      {itm.grade ?? "⚠️ No grade"}
+                                    </h5>
                                   </div>
-                                  <h5>
-                                    {" "}
-                                    {itm.type === "multiple"
-                                      ? "اختيار من متعدد"
-                                      : "سؤال مقالي"}{" "}
-                                    | الدرجة:{" "}
-                                    {question.id === itm.id
-                                      ? (itm.grade = question.grade)
-                                      : itm.grade}{" "}
-                                  </h5>
+
+                                  <div className="d-flex align-items-center gap-3">
+                                    <h2 className="btn btn-light d-flex align-items-center">
+                                      <Drag className="iconSize" />
+                                    </h2>
+
+                                    <button
+                                      className="btn btn-success"
+                                      type="button"
+                                      onClick={() => {
+                                        setAdd(false);
+                                        setQuestion(itm);
+                                        if (itm.type === "multiple") {
+                                          setMultiqes(true);
+                                        } else {
+                                          setMultiqes(false);
+                                        }
+                                        setAddquestion(true);
+                                      }}
+                                    >
+                                      {t("edit")}
+                                    </button>
+
+                                    <button
+                                      className="btn btn-danger"
+                                      type="button"
+                                      onClick={() => {
+                                        setAdd(false);
+                                        console.log(
+                                          "Deleting question id:",
+                                          itm.id || qId
+                                        );
+                                        deleteQuetion(itm.id || qId);
+                                      }}
+                                    >
+                                      {t("delete")}
+                                    </button>
+                                  </div>
                                 </div>
-                                <div className="d-flex align-items-center gap-3">
-                                  <h2 className="btn btn-light d-flex align-items-center">
-                                    <Drag className=" iconSize" />
-                                  </h2>
-                                  <button
-                                    className="btn btn-success"
-                                    type="button"
-                                    onClick={() => {
-                                      setAdd(false);
-                                      setQuestion(itm);
-                                      if (itm.type === "multiple")
-                                        setMultiqes(true);
-                                      setAddquestion(true);
-                                    }}
-                                  >
-                                    {" "}
-                                    {t("edit")}{" "}
-                                  </button>{" "}
-                                  <button
-                                    className="btn btn-danger"
-                                    type="button"
-                                    onClick={() => deleteQuetion(itm.id)}
-                                  >
-                                    {" "}
-                                    {t("delete")}{" "}
-                                  </button>
-                                </div>
-                              </div>
-                            )}
+                              );
+                            }}
                           </Draggable>
                         ))}
                         {provided.placeholder}
@@ -1593,9 +1614,21 @@ export default function Editform({
                         <div className=" col-12 ">
                           <h5> الاجابة الصحيحة</h5>
                           <textarea
-                            type="text"
+                            value={question.translations?.[0]?.correct || ""}
+                            onChange={(e) => {
+                              const updated = {
+                                ...question,
+                                translations: question.translations.map(
+                                  (tr, i) =>
+                                    i === 0
+                                      ? { ...tr, correct: e.target.value }
+                                      : tr
+                                ),
+                              };
+                              setQuestion(updated);
+                              console.log("update ", updated);
+                            }}
                             name=""
-                            id=""
                             className="d-flex justify-content-end align-items-center rounded-3  gap-2 Tit-14-700  w-100  p-5"
                           />
                         </div>
