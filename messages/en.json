@@ -1352,6 +1352,20 @@
     "and": "and",
     "totalWebinars": "Total Webinars",
     "totalPendingWebinars": "Total Pending Webinars",
-    "create_new_batch": "Create New Batch"
+    "create_new_batch": "Create New Batch",
+    "firstSubmission": "First Submission",
+    "lastSubmission": "Last Submission",
+     "course_type": "Course type",
+  "program_type": "Program type",
+
+  "certificate_course_name": "Course name on certificate",
+  "exclude_student_from_certificate": "Exclude student from certificate",
+  "add_teacher_to_attendance": "Add teacher to attendance",
+
+  "assistant_teacher": "Assistant teacher",
+
+  "course_requirements": "Course requirements",
+   "course_namee": "Course name"
+
   }
 }

@@ -1318,14 +1318,12 @@
     "partners": "معلم مساعد",
     "student_id": "معرف الطالب",
     "sub_cat_included": "الفئات الفرعية المشمولة",
-  
-         "quiz_time": "زمن (الدقائق)",
-             "attempts": "عدد المحاولات",
-             "passing-grade": "درجة النجاح",
-              "expiryDays": "أيام الانتهاء",
-              
-                 "evaluations": "التقييمات",
-                 "learninbg": "التعلم",
+    "quiz_time": "زمن (الدقائق)",
+    "attempts": "عدد المحاولات",
+    "passing-grade": "درجة النجاح",
+    "expiryDays": "أيام الانتهاء",
+    "evaluations": "التقييمات",
+    "learninbg": "التعلم",
     "questions": "الاسئلة",
     "students": "الطلاب",
     "average_grades": "متوسط الدرجات",
@@ -1356,6 +1354,16 @@
     "and": "و",
     "totalWebinars": "الاجمالي المقررات ",
     "totalPendingWebinars":"في انتظار المراجعة المقررات",
-    "create_new_batch": "إنشاء دفعة جديدة"
+    "create_new_batch": "إنشاء دفعة جديدة",
+    "firstSubmission": "التقديم الأول",
+    "lastSubmission": "آخر إرسال",
+    "course_type": "نوع المقرر",
+    "program_type": "نوع الدورة",
+    "certificate_course_name": "اسم المقرر في الشهادة",
+    "exclude_student_from_certificate": "استثناء طالب من الشهادة",
+    "add_teacher_to_attendance": "إضافة معلم للحضور",
+    "assistant_teacher": "مساعد معلم",
+    "course_requirements": "متطلبات الدورة",
+    "course_namee": "اسم المقرر"
   }
 }

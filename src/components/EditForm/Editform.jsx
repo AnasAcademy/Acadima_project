@@ -1461,7 +1461,7 @@ export default function Editform({
                             setQuestion(updated);
                           }}
                           id=""
-                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 "
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100  border-1"
                         />
                       </div>
 
@@ -1479,7 +1479,7 @@ export default function Editform({
                             setQuestion(updated);
                           }}
                           id=""
-                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100  border-1"
                         />
                       </div>
 
@@ -1489,7 +1489,7 @@ export default function Editform({
                           type="text"
                           name=""
                           id=""
-                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100  border-1"
                         />
                       </div>
                       <div className="col-12 col-md-6">
@@ -1498,7 +1498,7 @@ export default function Editform({
                           type="text"
                           name=""
                           id=""
-                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100  border-1"
                         />
                       </div>
 
@@ -1563,7 +1563,7 @@ export default function Editform({
                                         });
                                       }}
                                       id=""
-                                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100  border-1"
                                     />
                                   </div>
                                   <div className=" col-6">
@@ -1572,7 +1572,7 @@ export default function Editform({
                                       type="text"
                                       name=""
                                       id=""
-                                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100"
+                                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700  w-100  border-1"
                                     />
                                   </div>
                                   <div className=" col-6 d-flex justify-content-center align-items-center">

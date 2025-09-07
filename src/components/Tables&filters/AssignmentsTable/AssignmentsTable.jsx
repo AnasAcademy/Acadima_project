@@ -29,7 +29,11 @@ const [restbledata, setRestbledata] = useState([]);
 const { request } = useApiClient();
 const [batch, setBatch] = useState([]);
 const [cate, setCate] = useState([]);
-const { getCategoryGroupedOptions } = useUserData();
+const {
+  getCategoryGroupedOptions,
+  getClassTypeOptions,
+  getProgramAttachmentOptions,
+} = useUserData();
 
 const remove = async (id) => {
   try {
@@ -202,8 +206,8 @@ const getwebninars = async () => {
     }));
 
     console.log(titles);
-
     setWeb(titles);
+
   } catch (err) {
     console.log(err);
   }
@@ -213,12 +217,12 @@ const getResData = async (id) => {
   try {
     const response = await request({
       method: "GET",
-      urlPath: `/bundles/${id}/students`,
+      urlPath: `/assignments/${id}/students`,
     });
 
-    console.log(response.students.data);
+    console.log(response.data.histories.data);
 
-    setRestbledata(response.students.data);
+    setRestbledata(response.data.histories.data);
   } catch (err) {
     console.log(err);
   }
@@ -238,53 +242,53 @@ const TableHead = [
 ];
 
 const TableHeadRes = [
-  "ID",
-  t("name"),
-  t("evaluations"),
-  t("learninbg"),
-  t("gpa"),
+  t("studentt"),
   t("registration_date"),
+  t("firstSubmission"),
+  t("lastSubmission"),
+  t("attempts"),
+  t("grade"),
   t("status"),
-  t("actions"),
+  // t("actions"),
 ];
 
 const resDat = restbledata.map((item, index) => ({
   columns: [
-    { type: "text", value: item.id },
-    { type: "text", value: item.full_name },
-    { type: "text", value: item.rate },
-    { type: "text", value: item.learning },
-    { type: "text", value: item.gpa },
-    { type: "text", value: item.bundle_join_date },
+    { type: "user", name: item.student.full_name, email: item.student.email },
+    { type: "text", value: item.created_at },
+    { type: "text", value: item.first_submission },
+    { type: "text", value: item.last_submission },
+    { type: "text", value: item.usedAttemptsCount },
+    { type: "text", value: item.grade || "N/A" },
     { type: "text", value: item.status },
-    {
-      type: "actionbutton",
-      label: t("actions"),
-      action: () => {
-        setShowModal(!showModal);
-        setId(item.id);
-        setFormState("edit");
-      },
-      icon: Arrowdown,
-      color: "#48BB78",
-      lists: [
-        {
-          label: t("edit"),
-          action: () => {
-            setShowModal(!showModal);
-            setId(item.id);
-            setFormState("edit");
-          },
-          icon: Pen,
-        },
-        {
-          label: t("delete"),
-          action: () => removeRes(item.id),
-          icon: X,
-        },
-      ],
-      id: item.id,
-    },
+    // {
+    //   type: "actionbutton",
+    //   label: t("actions"),
+    //   action: () => {
+    //     setShowModal(!showModal);
+    //     setId(item.id);
+    //     setFormState("edit");
+    //   },
+    //   icon: Arrowdown,
+    //   color: "#48BB78",
+    //   lists: [
+    //     {
+    //       label: t("edit"),
+    //       action: () => {
+    //         setShowModal(!showModal);
+    //         setId(item.id);
+    //         setFormState("edit");
+    //       },
+    //       icon: Pen,
+    //     },
+    //     {
+    //       label: t("delete"),
+    //       action: () => removeRes(item.id),
+    //       icon: X,
+    //     },
+    //   ],
+    //   id: item.id,
+    // },
     // { type: "text", value: item.content },
   ],
 }));
@@ -296,6 +300,7 @@ const trainingData = data.map((item, index) => ({
     {
       type: "user",
       name: item.assignmentTitle,
+      email: item.webinarTitle,
     },
     { type: "text", value: item.studentsCount },
     { type: "text", value: item.assignmentGrade },
@@ -306,7 +311,7 @@ const trainingData = data.map((item, index) => ({
       label: t("actions"),
       action: () => {
         setShowModal(!showModal);
-        setId(item.id);
+        setId(item.assignmentId);
         setFormState("edit");
       },
       icon: Arrowdown,
@@ -316,7 +321,8 @@ const trainingData = data.map((item, index) => ({
           label: t("users"),
           action: () => {
             setRestble(true);
-            getResData(item.id);
+            getResData(item.assignmentId);
+               setId(item.assignmentId);
           },
           icon: Pen,
         },
@@ -324,25 +330,26 @@ const trainingData = data.map((item, index) => ({
           label: t("edit"),
           action: () => {
             setShowModal(!showModal);
-            setId(item.id);
+            setId(item.assignmentId);
             setFormState("edit");
           },
           icon: Pen,
         },
         {
           label: t("delete"),
-          action: () => remove(item.id),
+          action: () => remove(item.assignmentId),
           icon: X,
         },
       ],
-      id: item.id,
+      id: item.assignmentId,
     },
   ],
 }));
 
 const formTitles = [
   {
-    label: (formState === "add" ? t("add") + " " : t("edit") + " ") + t("quiz"),
+    label:
+      (formState === "add" ? t("add") + " " : t("edit") + " ") + t("coursek"),
     type: "text",
   },
   { label: formState === "add" ? t("add") + " " : t("edit"), type: "text" },
@@ -359,56 +366,75 @@ const fields = [
         },
       ]
     : []),
-  { name: "title", label: t("quiz_title"), type: "text" },
-  { name: "time", label: t("quiz_time"), type: "number" },
-  { name: "attemp", label: t("attempts"), type: "number" },
-  { name: "pass_mark", label: t("passing-grade"), type: "number" },
-  { name: "expiry_days", label: t("expiryDays"), type: "number" },
+  {
+    name: "title",
+    label: t("course_type"),
+    type: "select",
+    options: getClassTypeOptions(),
+  },
+  {
+    name: "time",
+    label: t("program_type"),
+    type: "select",
+    options: getProgramAttachmentOptions(),
+  },
+  { name: "attemp", label: t("course_namee"), type: "text" },
+  { name: "pass_mark", label: t("certificate_course_name"), type: "text" },
+  { name: "pass_mark", label: t("add_teacher_to_attendance"), type: "text" },
+  { name: "pass_mark", label: t("assistant_teacher"), type: "t" },
+  { name: "pass_mark", label: t("choose_teacher"), type: "select" },
+  { name: "pass_mark", label: t("desc"), type: "text" },
+  { name: "pass_mark", label: t("course_requirements"), type: "number" },
+  {
+    name: "expiry_days",
+    label: t("exclude_student_from_certificate"),
+    type: "number",
+  },
 ];
 
+ 
 const selectCardData = {
   inputs: [
     {
-      title: t("title"),
-      type: "search",
-      filter: "translations[0].title",
-      placeholder: t("search"),
-      apiKey: "title",
+      title: t("start_date"),
+      type: "date",
+      filter: "",
+      placeholder: t("start_date"),
+      apiKey: "from",
     },
     {
-      title: t("teacher"),
-      type: "search",
-      filter: "teacher.full_name",
-      placeholder: t("teacher"),
-      apiKey: "teacher_name",
-    },
-    {
-      title: t("batch-number"),
-      type: "select",
-      filter: "batch.title",
-      placeholder: t("batch-number"),
-      apiKey: "batch",
-      options: batch,
+      title: t("end_date"),
+      type: "date",
+      filter: "",
+      placeholder: t("end_date"),
+      apiKey: "to",
     },
 
     {
-      title: t("categories"),
-      type: "select",
-      filter: "",
-      placeholder: t("categories"),
-      apiKey: "category_id",
-      options: getCategoryGroupedOptions(),
+      title: restble ? t("studentt") : t("webinar"),
+      type: "search",
+      filter: restble ? "student.full_name" : "webinarTitle",
+      placeholder: restble ? t("studentt") : t("webinar"),
+      apiKey:    restble ?  "student"   :   "webinar_name",
     },
+
     {
       title: t("status"),
       type: "select",
-      filter: "quizzesTable.status",
+      filter: restble ? "status" : "assignmentStatus",
       placeholder: t("status"),
       apiKey: "status",
-      options: [
-        { value: "active", label: "active" },
-        { value: "inactive", label: "inactive" },
-      ],
+      options: restble
+        ? [
+            { value: "pending", label: "pending" },
+            { value: "passed", label: "passed" },
+            { value: "not_passed", label: "not passed" },
+            { value: "not_submitted", label: "not submitted" },
+          ]
+        : [
+            { value: "active", label: "active" },
+            { value: "inactive", label: "inactive" },
+          ],
     },
   ],
 };
@@ -427,16 +453,19 @@ const handleSearch = async (filters, pageNumber = 1) => {
 
     // Append pagination separately
     query.append("page", pageNumber);
-
+ 
+     console.log(Itemid)
     const res = await request({
       method: "GET",
-      urlPath: `/assignments?${query.toString()}`,
+      urlPath: restble
+        ? `/assignments/${Itemid}/students?${query.toString()}`
+        : `/assignments?${query.toString()}`,
     });
 
-    const data = res.bundles.data || [];
+    const data = restble ? res.data.histories.data : res.data.assignmentsTable || [];
     console.log(data);
     setFilter(data);
-    setData(data);
+       restble ? setRestbledata(data)   :  setData(data);
     // Also update dataa to keep it in sync
     // setCurrentPage(respond.data?.current_page || 1);
     // setTotalPages(respond.data?.last_page || 1);
@@ -456,7 +485,7 @@ const handleSearch = async (filters, pageNumber = 1) => {
       {" "}
       <div className="row g-3">
         <div className="col-12">
-          {
+          {!showModal &&
             <SelectCard
               selectCardData={selectCardData}
               isTechSupport={true}

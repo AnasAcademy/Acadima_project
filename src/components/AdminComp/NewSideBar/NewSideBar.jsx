@@ -48,7 +48,7 @@ import User12 from "@/assets/admin/user12.svg";
 import Accmanage from "@/assets/admin/accmange.svg";
 import Acc1 from "@/assets/admin/accmange1.svg";
 import Acc2 from "@/assets/admin/accmange2.svg";
-import Acc3 from "@/assets/admin/accmange3.svg";
+import SettingsIcons from "@/assets/admin/settingsIcons.svg";
 import Userss from "@/assets/admin/userss.svg";
 import Statics from "@/assets/admin/stattics.svg";
 import Submange from "@/assets/admin/submange.svg";
@@ -1229,7 +1229,7 @@ export default function NewSideBar() {
                     </div>
 
                     <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit  ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover     justify-content-center ${
                         isSettings && "onSelect"
                       }  `}
                     >
@@ -1238,9 +1238,10 @@ export default function NewSideBar() {
                         onClick={() => {
                           setactvv("");
                         }}
+                 
                       >
-                        <Acc3
-                          className={`iconSize1    ${
+                        <SettingsIcons
+                          className={`iconSize3    ${
                             isSettings ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
@@ -1257,7 +1258,7 @@ export default function NewSideBar() {
                     </li>
 
                     <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit  ${
+                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit   ${
                         isLogOut && "onSelect"
                       }  `}
                     >
@@ -1269,9 +1270,7 @@ export default function NewSideBar() {
                       >
                         <LogoutIcon
                           className={`iconSize2    ${
-                            isLogOut
-                              ? "iconcolor"
-                              : "iconcolor2"
+                            isLogOut ? "iconcolor" : "iconcolor2"
                           }  `}
                         />
                         <span
