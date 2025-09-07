@@ -61,7 +61,8 @@ import arrowDown from "@/assets/admin/Arrow-down.svg";
 import point from "@/assets/Vector.svg";
 
 export default function NewSideBar() {
-  const [actv, setActv] = useState(false);
+  // const [actv, setActv] = useState(false);
+  const [active, setActive] = useState(null);
   const [message, setMessage] = useState(false);
   const t = useTranslations("SidebarA");
   const pathname = usePathname();
@@ -734,15 +735,18 @@ export default function NewSideBar() {
     ),
   };
 
-  function setactvv(loc) {
-  setActv(prev => {
-    const next = !prev;          // toggle
-    if (next && loc) setTit(loc); // only set title when opening
-    // optional: when closing you could clear the title
-    // if (!next) setTit("");
-    return next;
-  });
-}
+  // function setactvv(loc) {
+  //   setActv(prev => {
+  //     const next = !prev;          
+  //     if (next && loc) setTit(loc); 
+  //     return next;
+  //   });
+  // }
+
+  function togglePanel(loc) {
+    setTit(loc);
+    setActive(prev => (prev === loc ? null : loc));
+} 
 
   return (
     <>
@@ -863,7 +867,7 @@ export default function NewSideBar() {
                         href="/org/panel"
                         className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
-                          setactvv("");
+                          togglePanel("");
                         }}
                       >
                         <Home
@@ -887,30 +891,30 @@ export default function NewSideBar() {
                       className={`nav-item besideHover width-fit  ${
                         isEmployeeprogress && "onSelect"
                       }  `}
-                    >
-                      <Link
-                        href="/org/employeeprogress"
-                        className="d-flex  p-2   gap-2  align-items-end"
-                        onClick={() => {
-                          setactvv("");
-                        }}
                       >
-                        <Stat
-                          className={`iconSize1  ${
-                            isEmployeeprogress ? "iconcolor" : "iconcolor2"
-                          } `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
+                        <Link
+                          href="/org/employeeprogress"
+                          className="d-flex  p-2   gap-2  align-items-end"
+                          onClick={() => {
+                            setactvv("");
+                          }}
                         >
-                          {t("Employee progress")}
-                        </span>
-                      </Link>
-                    </li> */}
+                          <Stat
+                            className={`iconSize1  ${
+                              isEmployeeprogress ? "iconcolor" : "iconcolor2"
+                            } `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("Employee progress")}
+                          </span>
+                        </Link>
+                      </li> */}
 
                     <li
                       className={`nav-item  besideHover width-fit  ${
@@ -921,7 +925,7 @@ export default function NewSideBar() {
                         href="/org/notifications"
                         className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
-                          setactvv("");
+                          togglePanel("");
                         }}
                       >
                         <Notif
@@ -949,7 +953,7 @@ export default function NewSideBar() {
                         href="/org/techsupport"
                         className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
-                          setactvv("");
+                          togglePanel("");
                         }}
                       >
                         <Supports
@@ -977,7 +981,7 @@ export default function NewSideBar() {
                         href="/org/orgprofile"
                         className="d-flex  p-2   gap-2  align-items-end"
                         onClick={() => {
-                          setactvv("");
+                          togglePanel("");
                         }}
                       >
                         <Accmanage
@@ -1010,7 +1014,7 @@ export default function NewSideBar() {
                         isAdminssion && "onSelect"
                       }  `}
                       onClick={() => {
-                        setactvv("isAdmission");
+                        togglePanel("isAdmission")
                       }}
                     >
                       <p
@@ -1038,7 +1042,7 @@ export default function NewSideBar() {
                         studentsRecords && "onSelect"
                       }      `}
                       onClick={() => {
-                        setactvv("isRegistered");
+                        togglePanel("isRegistered");
                       }}
                     >
                       <p
@@ -1067,7 +1071,7 @@ export default function NewSideBar() {
                         education && "onSelect"
                       }  `}
                       onClick={() => {
-                        setactvv("isEdu");
+                        togglePanel("isEdu");
                       }}
                     >
                       <p
@@ -1096,7 +1100,7 @@ export default function NewSideBar() {
                         isUsers && "onSelect"
                       }  `}
                       onClick={() => {
-                        setactvv("users");
+                        togglePanel("users");
                       }}
                     >
                       <p
@@ -1134,7 +1138,7 @@ export default function NewSideBar() {
                         isprostatic && "onSelect"
                       } `}
                       onClick={() => {
-                        setactvv("isprogramreg");
+                        togglePanel("isprogramreg");
                       }}
                     >
                       <p
@@ -1163,7 +1167,7 @@ export default function NewSideBar() {
                         isFin && "onSelect"
                       }   `}
                       onClick={() => {
-                        setactvv("isFinancial");
+                        togglePanel("isFinancial");
                       }}
                     >
                       <p
@@ -1192,11 +1196,11 @@ export default function NewSideBar() {
                         isSubscriptionmanagement && "onSelect"
                       }  `}
                     >
-                      <p
-                        // href="/org/subscription-management"
+                      <Link
+                        href="/org/subscription-management"
                         className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                         onClick={() => {
-                          setactvv("");
+                          togglePanel("");
                         }}
                       >
                         <Submange
@@ -1215,7 +1219,7 @@ export default function NewSideBar() {
                         >
                           {t("Subscription Management")}
                         </span>
-                      </p>
+                      </Link>
                     </li>
                   </ul>
 
@@ -1236,9 +1240,8 @@ export default function NewSideBar() {
                       <Link
                         href="/org/settings"
                         onClick={() => {
-                          setactvv("");
+                          togglePanel("");
                         }}
-                 
                       >
                         <SettingsIcons
                           className={`iconSize3    ${
@@ -1264,9 +1267,9 @@ export default function NewSideBar() {
                     >
                       <Link
                         href="/login"
-                        onClick={() => {
-                          setactvv("");
-                        }}
+                        // onClick={() => {
+                        //   setactvv("");
+                        // }}
                       >
                         <LogoutIcon
                           className={`iconSize2    ${
@@ -1291,7 +1294,12 @@ export default function NewSideBar() {
 
             <div className=" bg-white  d-flex  flex-column">
               <div className=" d-flex flex-column h-100">
-                {actv && <>{comp[tit]}</>}
+                {active === "isAdmission" && comp[tit]}
+                {active === "isRegistered" && comp[tit]}
+                {active === "isEdu" && comp[tit]}
+                {active === "users" && comp[tit]}
+                {active === "isprogramreg" && comp[tit]}
+                {active === "isFinancial" && comp[tit]}
               </div>
             </div>
           </div>
