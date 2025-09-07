@@ -412,6 +412,12 @@ export default function NewSideBar() {
       bg: isUsersStudent,
     },
     {
+      icon: User2,
+      tit: "instructors",
+      href: "/org/user-management/users/instructors",
+      bg: isUsersStudent,
+    },
+    {
       icon: User3,
       tit: "new-user",
       href: "/org/user-management/users/new-user",
