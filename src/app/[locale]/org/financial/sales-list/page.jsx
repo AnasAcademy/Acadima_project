@@ -1,124 +1,130 @@
-"use client";
 import React from "react";
-import FilterCard from "@/components/FilterCard/FilterCard";
-import SelectCard from "@/components/SelectCard/SelectCard";
-import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
-import { useTranslations } from "next-intl";
-import Pin from "@/assets/admin/pin.svg";
-import Removebin from "@/assets/admin/removebin.svg";
-import roundimage from "@/assets/admin/personla.png";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 
-export default function SalesList() {
-  const ts = useTranslations("SidebarA");
-  const t = useTranslations("employee_progress");
+import { FaUserTie, FaAward } from "react-icons/fa";
+import { PiCertificateFill } from "react-icons/pi";
+import { RiBarChart2Fill } from "react-icons/ri";
 
-  const TableHead = [
-    "",
-    t("employee_name"),
-    t("training_course"),
-    t("program_status"),
-    t("join_date"),
-    t("completion_rate"),
-    t("profile_access"),
+import DashboardCards from "@/components/AdminComp/Home/DashboardCards";
+import SalesListTable from "@/components/Tables&filters/financial/SalesListTable";
+import Rs from "@/assets/payments icons/rs.svg";
+
+export default async function SalesList() {
+  const ts = await getTranslations("SidebarA");
+  const t = await getTranslations("tables");
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token")?.value;
+
+  const companyName = process.env.company_name;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL.replace(
+    "${company_name}",
+    companyName
+  );
+
+  // Server-side fetch
+  async function fetchData(pageNumber = 1) {
+    try {
+      const res = await fetch(`${baseUrl}/financial/sales?page=${pageNumber}`, {
+        method: "GET",
+        headers: {
+          "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        cache: "no-store", // avoid stale data
+      });
+
+      const respond = await res.json();
+
+      return {
+        data: respond?.sales?.data || [],
+        currentPage: respond.sales?.current_page || 1,
+        totalPages: respond.sales?.last_page || 1,
+        dat: respond || [],
+      };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return { data: [], currentPage: 1, totalPages: 1 };
+    }
+  }
+
+  const { data, currentPage, totalPages, dat } = await fetchData(1);
+
+  const cards = [
+    {
+      title: t("total_sales_no_discount"),
+      value: dat.totalSales.count,
+      value2: (
+        <h3 className="">
+          {dat.totalSales.amount} <Rs className="iconcolor" />
+        </h3>
+      ),
+      icon: <FaUserTie size={18} />,
+    },
+    {
+      title: t("total_sales_no_discount"),
+      value: dat.totalSales2.count,
+      value2: (
+        <h3 className="">
+          {dat.totalSales2.amount} <Rs className="iconcolor" />
+        </h3>
+      ),
+      icon: <FaUserTie size={18} />,
+    },
+    {
+      title: t("total_discount"),
+      value: dat.totalDiscounts.count,
+      value2: (
+        <h3 className="">
+          {dat.totalDiscounts.amount} <Rs className="iconcolor" />
+        </h3>
+      ),
+      icon: <FaUserTie size={18} />,
+    },
+    {
+      title: t("total_seat_reservations"),
+      value: dat.classesSales.count,
+      value2: (
+        <h3 className="">
+          {dat.classesSales.amount} <Rs className="iconcolor" />
+        </h3>
+      ),
+      icon: <FaUserTie size={18} />,
+    },
+    {
+      title: t("failed_sales"),
+      value: dat.failedSales,
+      icon: <FaUserTie size={18} />,
+    },
+    {
+      title: t("total_bundles_sales"),
+      value: dat.bundlesSales.count,
+      value2: (
+        <h3 className="">
+          {dat.bundlesSales.amount} <Rs className="iconcolor" />
+        </h3>
+      ),
+      icon: <FaUserTie size={18} />,
+    },
   ];
-
-  const trainingData = [
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#48BB78",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("inProgress"),
-          icon: false,
-          color: "#50C1FA",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("notStarted"),
-          icon: false,
-          color: "#CBD5E0",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-  ];
-
-  const selectCardData = {
-    inputs: [
-      {
-        title: "training_course",
-        type: "select",
-        options: ["React", "Next.js", "Laravel"],
-      },
-      {
-        title: "branch",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "department",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "program_status",
-        type: "select",
-        options: ["on", "off"],
-      },
-    ],
-  };
 
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
         <div className=" p-lg-4  pt-0">
           <div className=" row m-0  p-2 g-3">
-            <h2 className="hvvv">{ts("students-list")}</h2>
-
-            <div className=" col-lg-12 ">
-              <SelectCard selectCardData={selectCardData} />
+            <h2 className="hvvv">{ts("sales-list")}</h2>
+            <div className="col-lg-12">
+              <DashboardCards cards={cards} />
             </div>
-
-            <div className=" col-12 ">
-              <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-                <OngoingTrain
-                  TableHead={TableHead}
-                  trainingData={trainingData}
-                  button={false}
-                  Icon={Pin}
-                  Icon2={Removebin}
-                />
-              </div>
+            <div className=" col-lg-12 ">
+              <SalesListTable
+                initialData={data}
+                initialPage={currentPage}
+                initialTotalPages={totalPages}
+              />
             </div>
           </div>
         </div>

@@ -29,11 +29,18 @@ export const UserDataProvider = ({ children }) => {
   const [bundles, setBundles] = useState([]);
   const [webinars, setWebinars] = useState([]);
   const [studentsList, setStudentsList] = useState([]); // page-1 snapshot [{ user_id, full_name }]
-  const [instructors, setInstructors] = useState([]);   // [{ value:id, label:full_name }]
+  const [instructors, setInstructors] = useState([]); // [{ value:id, label:full_name }]
 
-  // NEW: from /webinars
+  // From /programs_statistics/bundles -> data.batches
+  const [studyClasses, setStudyClasses] = useState([]); // array of batches
+
+  // From /webinars
   const [classesType, setClassesType] = useState(""); // e.g. "webinar"
   const [classTypeOptions, setClassTypeOptions] = useState([]); // normalized typeOptions
+
+  // From /financial/documents
+  const [financialAmountTypeOptions, setFinancialAmountTypeOptions] = useState([]); // normalized bilingual
+  const [financialDocumentTypeOptions, setFinancialDocumentTypeOptions] = useState([]); // normalized bilingual
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -70,12 +77,18 @@ export const UserDataProvider = ({ children }) => {
             ? JSON.stringify(await res.json()).slice(0, 300)
             : (await res.text()).slice(0, 300);
         } catch {}
-        throw new Error(`${url} failed: ${res.status} ${res.statusText} ${body}`);
+        throw new Error(
+          `${url} failed: ${res.status} ${res.statusText} ${body}`
+        );
       }
 
       if (ct.includes("application/json")) return res.json();
       const txt = await res.text();
-      try { return JSON.parse(txt); } catch { return txt; }
+      try {
+        return JSON.parse(txt);
+      } catch {
+        return txt;
+      }
     }
   };
 
@@ -113,7 +126,7 @@ export const UserDataProvider = ({ children }) => {
       }))
       .filter((x) => x.user_id && x.full_name);
 
-  // ---- Cached "all students" (for resolving labels & full local lists) ----
+  // ---- Cached "all students" ----
   const allStudentsCacheRef = useRef({
     list: /** @type {{value:number,label:string}[]} */ ([]),
     map: /** @type {Map<string,string>} */ (new Map()),
@@ -131,7 +144,10 @@ export const UserDataProvider = ({ children }) => {
     cache.loadingPromise = (async () => {
       const all = await fetchAllStudents("");
       const normalized = normalizeStudents(all);
-      cache.list = normalized.map((s) => ({ value: s.user_id, label: s.full_name }));
+      cache.list = normalized.map((s) => ({
+        value: s.user_id,
+        label: s.full_name,
+      }));
       cache.map = new Map(cache.list.map((x) => [String(x.value), x.label]));
       cache.loaded = true;
       cache.loadingPromise = null;
@@ -196,7 +212,7 @@ export const UserDataProvider = ({ children }) => {
       })
       .filter((x) => x.value && (x.label_en || x.label_ar));
 
-  // Async loader for search (fetches ALL pages, filtered by term server-side)
+  // Async loader for search (fetches ALL pages)
   const loadStudentOptions = async (term) => {
     const all = await fetchAllStudents(term || "");
     const normalized = normalizeStudents(all);
@@ -233,13 +249,49 @@ export const UserDataProvider = ({ children }) => {
         bundlesData,
         webinarsData,
         instructorsData,
+        programsStatsData,     // for batches
+        financialDocsData,     // for amount_types_options + types_options
       ] = await Promise.all([
-        fetchJson(`${API_BASE}/students/all?page=1`, { method: "GET", headers: commonHeaders }, { retries: 1 }),
-        fetchJson(`${API_BASE}/users/roles`, { method: "GET", headers: commonHeaders }, { retries: 1 }),
-        fetchJson(`${API_BASE}/classes/targetOptions`, { method: "GET", headers: commonHeaders }, { retries: 1 }),
-        fetchJson(`${API_BASE}/bundles?type=program`, { method: "GET", headers: commonHeaders }, { retries: 1 }),
-        fetchJson(`${API_BASE}/webinars`, { method: "GET", headers: commonHeaders }, { retries: 1 }),
-        fetchJson(`${API_BASE}/instructors`, { method: "GET", headers: commonHeaders }, { retries: 1 }),
+        fetchJson(
+          `${API_BASE}/students/all?page=1`,
+          { method: "GET", headers: commonHeaders },
+          { retries: 1 }
+        ),
+        fetchJson(
+          `${API_BASE}/users/roles`,
+          { method: "GET", headers: commonHeaders },
+          { retries: 1 }
+        ),
+        fetchJson(
+          `${API_BASE}/classes/targetOptions`,
+          { method: "GET", headers: commonHeaders },
+          { retries: 1 }
+        ),
+        fetchJson(
+          `${API_BASE}/bundles?type=program`,
+          { method: "GET", headers: commonHeaders },
+          { retries: 1 }
+        ),
+        fetchJson(
+          `${API_BASE}/webinars`,
+          { method: "GET", headers: commonHeaders },
+          { retries: 1 }
+        ),
+        fetchJson(
+          `${API_BASE}/instructors`,
+          { method: "GET", headers: commonHeaders },
+          { retries: 1 }
+        ),
+        fetchJson(
+          `${API_BASE}/programs_statistics/bundles?page=1`,
+          { method: "GET", headers: commonHeaders },
+          { retries: 1 }
+        ),
+        fetchJson(
+          `${API_BASE}/financial/documents?page=1`,
+          { method: "GET", headers: commonHeaders },
+          { retries: 1 }
+        ),
       ]);
 
       // ---- Instructors ----
@@ -286,9 +338,7 @@ export const UserDataProvider = ({ children }) => {
         : [];
       const formattedBundles = bundlesSrc.map((bundle) => ({
         id: bundle.id,
-        title:
-          bundle?.bundle_name_certificate ??
-          `Bundle ${bundle.id}`,
+        title: bundle?.bundle_name_certificate ?? `Bundle ${bundle.id}`,
         slug: bundle.slug,
         category_id: bundle.category_id,
         teacher_id: bundle.teacher_id,
@@ -328,6 +378,18 @@ export const UserDataProvider = ({ children }) => {
       if (Array.isArray(categoryFromWebinars) && categoryFromWebinars.length) {
         setCategories(categoryFromWebinars);
       }
+
+      // ---- study classes (from /programs_statistics/bundles -> data.batches) ----
+      const batches = programsStatsData?.data?.batches ?? [];
+      setStudyClasses(Array.isArray(batches) ? batches : []);
+
+      // ---- financial option lists (from /financial/documents) ----
+      const fin = financialDocsData || {};
+      const finAmount = fin.amount_types_options || fin.data?.amount_types_options || [];
+      const finTypes  = fin.types_options || fin.data?.types_options || [];
+
+      setFinancialAmountTypeOptions(normalizeBilingual(finAmount));
+      setFinancialDocumentTypeOptions(normalizeBilingual(finTypes));
     } catch (err) {
       console.error("Error fetching user data:", err);
       setError(err.message);
@@ -348,8 +410,12 @@ export const UserDataProvider = ({ children }) => {
 
   // --- STATIC: Program Attachment Options ---
   const programAttachmentOptions = [
-    { label_en: "attached to program", label_ar: "دورة خاصة ببرنامج", value: 1 },
-    { label_en: "unattached",         label_ar: "دورة مستقلة",        value: 0 },
+    {
+      label_en: "attached to program",
+      label_ar: "دورة خاصة ببرنامج",
+      value: 1,
+    },
+    { label_en: "unattached", label_ar: "دورة مستقلة", value: 0 },
   ];
 
   const value = {
@@ -362,10 +428,15 @@ export const UserDataProvider = ({ children }) => {
     webinars,
     studentsList,
     instructors,
+    studyClasses, // batches from programs_statistics/bundles
 
-    // NEW: metadata from /webinars
+    // metadata from /webinars
     classesType, // e.g. "webinar"
     classTypeOptions, // normalized bilingual array
+
+    // financial option lists (normalized bilingual)
+    financialAmountTypeOptions,
+    financialDocumentTypeOptions,
 
     // state
     loading,
@@ -467,20 +538,34 @@ export const UserDataProvider = ({ children }) => {
     getInstructorOptions: () => instructors,
 
     // Students helpers
-    // Snapshot (page 1) – light usage
     getStudentOptions: () =>
       studentsList.map((s) => ({ value: s.user_id, label: s.full_name })),
     getStudentPairs: () => studentsList.map((s) => [s.full_name, s.user_id]),
-
-    // All-pages async search
-    loadStudentOptions,
-
-    // NEW: full list (cached) & label resolver
+    loadStudentOptions, // all-pages async search
     getStudentOptionsAll: async () => {
       const cache = await ensureAllStudentsLoaded();
       return cache.list;
     },
     resolveStudentLabels, // async (ids:number[]) => [{value,label}]
+
+    // Batches as select options (title shown, id sent)
+    getStudyClassOptions: () =>
+      (studyClasses || []).map((b) => ({
+        value: b.id,
+        label: b.title || `#${b.id}`,
+      })),
+
+    // Financial option getters (value uses English key lowercase)
+    getFinancialAmountTypeOptions: () =>
+      (financialAmountTypeOptions || []).map((o) => ({
+        value: (o.label_en || o.value || "").toLowerCase(),
+        label: isAr ? o.label_ar || o.label_en : o.label_en || o.label_ar,
+      })),
+    getFinancialDocumentTypeOptions: () =>
+      (financialDocumentTypeOptions || []).map((o) => ({
+        value: (o.label_en || o.value || "").toLowerCase(),
+        label: isAr ? o.label_ar || o.label_en : o.label_en || o.label_ar,
+      })),
   };
 
   return (

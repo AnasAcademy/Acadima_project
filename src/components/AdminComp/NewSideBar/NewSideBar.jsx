@@ -79,6 +79,11 @@ export default function NewSideBar() {
     "/org/education/programs-statistics/bundles"
   );
   const isFin = pathname.includes("/org/financial/");
+  const isBalances = pathname.includes("/org/financial/balances");
+  const isSaleslist = pathname.includes("/org/financial/sales-list");
+  const isOfflinepay = pathname.includes("/org/financial/offline-payments");
+  const isInstallments = pathname.includes("/org/financial/installments");
+  const isDiscountcodes = pathname.includes("/org/financial/discount-codes");
   const isWebinarsStats = pathname.includes(
     "/org/education/programs-statistics/webinars"
   );
@@ -133,6 +138,9 @@ export default function NewSideBar() {
   const isUsersStaff = pathname.includes("/org/user-management/users/staff");
   const isUsersStudent = pathname.includes(
     "/org/user-management/users/students"
+  );
+  const isUserInstructor = pathname.includes(
+    "/org/user-management/users/instructors"
   );
   const isUsersNewacc = pathname.includes(
     "/org/user-management/users/new-user"
@@ -361,7 +369,7 @@ export default function NewSideBar() {
     {
       icon: User8,
       tit: "webinars",
-      href: "/org/education/programs-statistics/webinars",
+      href: "/org/education/programs-statistics/webinarsStats",
       bg: isWebinarsStats,
     },
   ];
@@ -370,31 +378,31 @@ export default function NewSideBar() {
       icon: Balance,
       tit: "balances",
       href: "/org/financial/balances",
-      bg: isBundlesStats,
+      bg: isBalances,
     },
     {
       icon: User9,
       tit: "sales-list",
       href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      bg: isSaleslist,
     },
     {
       icon: User10,
       tit: "offline-payments",
-      href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      href: "/org/financial/offline-payments",
+      bg: isOfflinepay,
     },
     {
       icon: User11,
       tit: "installments",
-      href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      href: "/org/financial/installments",
+      bg: isInstallments,
     },
     {
       icon: User12,
       tit: "discount-codes",
-      href: "/org/financial/sales-list",
-      bg: isWebinarsStats,
+      href: "/org/financial/discount-codes",
+      bg: isDiscountcodes,
     },
   ];
 
@@ -415,7 +423,7 @@ export default function NewSideBar() {
       icon: User2,
       tit: "instructors",
       href: "/org/user-management/users/instructors",
-      bg: isUsersStudent,
+      bg: isUserInstructor,
     },
     {
       icon: User3,
@@ -435,12 +443,12 @@ export default function NewSideBar() {
       href: "/org/user-management/groups",
       bg: isUsersgroups,
     },
-    {
-      icon: User6,
-      tit: "not-access-to-content",
-      href: "/org/user-management/not-access-to-content",
-      bg: isUsersaccs,
-    },
+    // {
+    //   icon: User6,
+    //   tit: "not-access-to-content",
+    //   href: "/org/user-management/not-access-to-content",
+    //   bg: isUsersaccs,
+    // },
   ];
 
   const [tit, setTit] = useState([]);
