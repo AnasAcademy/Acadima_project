@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations, getLocale } from "next-intl/server";
-import DiscountCodesTable from "@/components/Tables&filters/financial/DiscountCodesTable";
+import OfflinePaymentsTable from "@/components/Tables&filters/financial/OfflinePaymentsTable";
 import { cookies } from "next/headers";
 
 export default async function DiscountCodes() {
@@ -19,7 +19,7 @@ const t = await getTranslations("SidebarA");
 
     try {
       const res = await fetch(
-        `${BASE_URL}/financial/discounts?page=${pageNumber}`,
+        `${BASE_URL}/financial/offline_payments?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
@@ -32,9 +32,9 @@ const t = await getTranslations("SidebarA");
       );
       const respond = await res.json();
       return {
-        data: respond.discounts.data || [],
-        currentPage: respond.discounts.current_page || 1,
-        totalPages: respond.discounts.last_page || 1,
+        data: respond.offlinePayments.data || [],
+        currentPage: respond.offlinePayments.current_page || 1,
+        totalPages: respond.offlinePayments.last_page || 1,
       };
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -52,7 +52,7 @@ const t = await getTranslations("SidebarA");
           <div className="row m-0 p-2 g-3">
             <h2 className="hvvv">{t("discount-codes")}</h2>
             <div className="col-lg-12">
-              <DiscountCodesTable
+              <OfflinePaymentsTable
                 initialData={data}
                 initialPage={currentPage}
                 initialTotalPages={totalPages}

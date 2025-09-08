@@ -85,7 +85,12 @@
     "logout": " تسجيل الخروج",
     "plans": "الخطة والاشتراكات",
     "programs": "البرامج الدراسية",
-    "bridging_programs": "برامج التجسير"
+    "bridging_programs": "برامج التجسير",
+    "installment_plans": "خطط الأقساط",
+    "purchases": "المشتريات",
+    "overdue": "المتأخرات",
+    "overdue_history": "تاريخ المتأخرات",
+    "installment_settings": "إعدادات الأقساط"
   },
 
   "add-student-to-class": {

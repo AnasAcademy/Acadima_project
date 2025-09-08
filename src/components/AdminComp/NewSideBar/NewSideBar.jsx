@@ -158,6 +158,7 @@ export default function NewSideBar() {
   const [AiChatOpen, setAiChatOpen] = useState(false);
 
   const [openIndex, setOpenIndex] = useState(null);
+  const [openFinIndex, setOpenFinIndex] = useState(null);
 
   const accmange = [
     {
@@ -332,7 +333,7 @@ export default function NewSideBar() {
         {
           tit: "bridging_programs",
           href: "/org/education/bundles/bridging-programs",
-        }
+        },
       ],
     },
     {
@@ -392,18 +393,27 @@ export default function NewSideBar() {
       href: "/org/financial/offline-payments",
       bg: isOfflinepay,
     },
-    {
-      icon: User11,
-      tit: "installments",
-      href: "/org/financial/installments",
-      bg: isInstallments,
-    },
-    {
-      icon: User12,
-      tit: "discount-codes",
-      href: "/org/financial/discount-codes",
-      bg: isDiscountcodes,
-    },
+    // {
+    //   icon: User11,
+    //   tit: "installments",
+    //   href: "/org/financial/installments",
+    //   bg: isInstallments,
+    //   arrow: arrowDown,
+    //   icon2: point,
+    //   children: [
+    //     { tit: "installment_plans", href: "/org/financial/installments/plans" },
+    //     { tit: "purchases", href: "/org/financial/installments/purchases" },
+    //     { tit: "overdue", href: "/org/financial/installments/overdue" },
+    //     { tit: "overdue_history", href: "/org/financial/installments/overdue-history" },
+    //     { tit: "installment_settings", href: "/org/financial/installments/settings" },
+    //   ],
+    // },
+    // {
+    //   icon: User12,
+    //   tit: "discount-codes",
+    //   href: "/org/financial/discount-codes",
+    //   bg: isDiscountcodes,
+    // },
   ];
 
   const users = [
@@ -547,7 +557,6 @@ export default function NewSideBar() {
         </div>
       </>
     ),
-
     isEdu: (
       <>
         <div className=" d-flex   flex-column h-100  newSidebarpadding ">
@@ -617,7 +626,6 @@ export default function NewSideBar() {
         </div>
       </>
     ),
-
     isprogramreg: (
       <>
         <div className=" d-flex   flex-column h-100  newSidebarpadding ">
@@ -652,29 +660,68 @@ export default function NewSideBar() {
     ),
     isFinancial: (
       <>
-        <div className=" d-flex   flex-column h-100  newSidebarpadding ">
+        <div className="d-flex flex-column h-100 newSidebarpadding">
           <Link
-            className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+            className="nav-link Tit-14-700 text-dark text-nowrap p-3"
             aria-current="page"
           >
             {t("financial")}
           </Link>
-          <ul className="navbar-nav   d-lg-flex  flex-lg-column  justify-content-start align-items-start   newsidebarr    ">
+
+          <ul className="navbar-nav d-lg-flex flex-lg-column justify-content-start align-items-start newsidebarr">
             {finan.map((item, index) => {
+              const hasChildren =
+                Array.isArray(item.children) && item.children.length > 0;
+              const isOpen = openFinIndex === index;
+
               return (
                 <li
                   key={index}
-                  className={`nav-item d-flex    w-100  align-items-center  p-2 ${
-                    item.bg ? " bgNewSidebar rounded-3" : ""
-                  }   `}
+                  className="d-flex flex-column p-2 cursor-pointer"
                 >
-                  <item.icon className={`iconSize1 iconcolor `} />
-                  <Link
-                    className={` nav-link  tit-14-400 text-dark text-nowrap  `}
-                    href={item.href}
+                  <div
+                    className={`d-flex w-100 align-items-center ${
+                      isOpen ? "active-bg rounded-2" : ""
+                    }`}
+                    onClick={() =>
+                      hasChildren
+                        ? setOpenFinIndex((prev) =>
+                            prev === index ? null : index
+                          )
+                        : null
+                    }
                   >
-                    {t(item.tit)}
-                  </Link>
+                    <item.icon className="iconSize1 iconcolor m-1" />
+                    {hasChildren ? (
+                      <span className="tit-14-400 text-dark text-nowrap">
+                        {t(item.tit)}
+                        {item.arrow && <item.arrow className="iconcolor m-1" />}
+                      </span>
+                    ) : (
+                      <Link
+                        className="tit-14-400 text-dark text-nowrap"
+                        href={item.href}
+                      >
+                        {t(item.tit)}
+                      </Link>
+                    )}
+                  </div>
+
+                  {hasChildren && isOpen && (
+                    <ul className="pe-2">
+                      {item.children.map((child, cIdx) => (
+                        <li key={cIdx} className="d-flex align-items-center">
+                          {/* {item.icon2 && <item.icon2 className="iconcolor m-1" />} */}
+                          <Link
+                            className="nav-link tit-14-400 text-dark text-nowrap py-2"
+                            href={child.href}
+                          >
+                            {t(child.tit)}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               );
             })}
@@ -714,7 +761,6 @@ export default function NewSideBar() {
         </div>
       </>
     ),
-
     accmange: (
       <>
         <div className=" d-flex   flex-column h-100  newSidebarpadding ">
@@ -751,16 +797,16 @@ export default function NewSideBar() {
 
   // function setactvv(loc) {
   //   setActv(prev => {
-  //     const next = !prev;          
-  //     if (next && loc) setTit(loc); 
+  //     const next = !prev;
+  //     if (next && loc) setTit(loc);
   //     return next;
   //   });
   // }
 
   function togglePanel(loc) {
     setTit(loc);
-    setActive(prev => (prev === loc ? null : loc));
-} 
+    setActive((prev) => (prev === loc ? null : loc));
+  }
 
   return (
     <>
@@ -1028,7 +1074,7 @@ export default function NewSideBar() {
                         isAdminssion && "onSelect"
                       }  `}
                       onClick={() => {
-                        togglePanel("isAdmission")
+                        togglePanel("isAdmission");
                       }}
                     >
                       <p

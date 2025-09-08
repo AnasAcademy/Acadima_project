@@ -87,7 +87,12 @@
     "logout": "Logout",
     "plans": "Plans & Subscriptions",
     "programs": "Programs",
-    "bridging_programs": "Bridging Programs"
+    "bridging_programs": "Bridging Programs",
+    "installment_plans": "Plans",
+    "purchases": "Purchases",
+    "overdue": "Overdue",
+    "overdue_history": "Overdue History",
+    "installment_settings": "Installment Settings"
   },
   "NavbarA": {
     "search": "Search...",
