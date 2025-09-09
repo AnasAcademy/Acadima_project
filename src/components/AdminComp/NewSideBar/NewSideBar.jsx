@@ -393,27 +393,27 @@ export default function NewSideBar() {
       href: "/org/financial/offline-payments",
       bg: isOfflinepay,
     },
-    // {
-    //   icon: User11,
-    //   tit: "installments",
-    //   href: "/org/financial/installments",
-    //   bg: isInstallments,
-    //   arrow: arrowDown,
-    //   icon2: point,
-    //   children: [
-    //     { tit: "installment_plans", href: "/org/financial/installments/plans" },
-    //     { tit: "purchases", href: "/org/financial/installments/purchases" },
-    //     { tit: "overdue", href: "/org/financial/installments/overdue" },
-    //     { tit: "overdue_history", href: "/org/financial/installments/overdue-history" },
-    //     { tit: "installment_settings", href: "/org/financial/installments/settings" },
-    //   ],
-    // },
-    // {
-    //   icon: User12,
-    //   tit: "discount-codes",
-    //   href: "/org/financial/discount-codes",
-    //   bg: isDiscountcodes,
-    // },
+    {
+      icon: User11,
+      tit: "installments",
+      href: "/org/financial/installments",
+      bg: isInstallments,
+      arrow: arrowDown,
+      icon2: point,
+      children: [
+        { tit: "installment_plans", href: "/org/financial/installments/plans" },
+        { tit: "purchases", href: "/org/financial/installments/purchases" },
+        { tit: "overdue", href: "/org/financial/installments/overdue" },
+        { tit: "overdue_history", href: "/org/financial/installments/overdue-history" },
+        { tit: "installment_settings", href: "/org/financial/installments/settings" },
+      ],
+    },
+    {
+      icon: User12,
+      tit: "discount-codes",
+      href: "/org/financial/discount-codes",
+      bg: isDiscountcodes,
+    },
   ];
 
   const users = [

@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
+// import { getLocale } from "next-intl/server";
+import { headers } from 'next/headers';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+// const locale = await getLocale(); // Get current locale
 
 
 
@@ -45,6 +48,7 @@ async function proxyRequest(req, method, params) {
       'Content-Type': 'application/json',
       'x-api-key': API_KEY || '',
       ...(token && { Authorization: `Bearer ${token}` }),
+      // 'lang': locale || 'ar'
     },
     body,
     cache: 'no-store',

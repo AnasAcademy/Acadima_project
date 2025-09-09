@@ -119,13 +119,13 @@ export default function DiscountCodesTable({
       },
       { type: "text", value: item.created_at },
       { type: "text", value: item.expired_at },
-      { type: "text", value: item.amount },
-      { type: "text", value: item.discount_percentage + "%" },
+      { type: "text", value: item.count },
+      { type: "text", value: item.percent + "%" },
       {
         type: "text",
-        value: item.highest_value ? item.highest_value + "$" : "-",
+        value: item.max_amount || "-",
       },
-      { type: "text", value: item.capacity ? item.capacity + "$" : "-" },
+      { type: "text", value: item.amount || "-" },
       {
         type: "text",
         value: item.minimum_order || "-",
@@ -162,8 +162,8 @@ export default function DiscountCodesTable({
     t("type"),
     t("code"),
     t("users"),
-    t("creation_date"),
-    t("expiry_date"),
+    t("start_date"),
+    t("end_date"),
     t("times-used"),
     t("discount-percentage"),
     t("highest_value"),
@@ -174,33 +174,58 @@ export default function DiscountCodesTable({
   ];
 
   const selectCardData = {
-    // inputs: [
-    //   {
-    //     title: t("user-name"),
-    //     type: "search",
-    //     filter: "bundle_student.student.en_name",
-    //     placeholder: t("name-search"),
-    //     apiKey: "full_name",
-    //   },
-    //   {
-    //     title: t("status"),
-    //     type: "select",
-    //     filter: "status",
-    //     apiKey: "status",
-    //     options: [
-    //       { value: "pending", label: t("pending") },
-    //       { value: "approved", label: t("approved") },
-    //       { value: "rejected", label: t("rejected") },
-    //     ],
-    //   },
-    //   {
-    //     title: t("bank"),
-    //     type: "select",
-    //     filter: "bank",
-    //     apiKey: "bank",
-    //     options: [{ value: "Revolut Ltd	", label: "Revolut Ltd	" }]
-    //   },
-    // ],
+    inputs: [
+      {
+        title: t("title"),
+        type: "search",
+        filter: "title",
+        placeholder: t("title-search"),
+        apiKey: "title",
+      },
+      {
+        title: t("status"),
+        type: "select",
+        filter: "status",
+        apiKey: "status",
+        options: [
+          { value: "active", label: t("active") },
+          { value: "inactive", label: t("inactive") },
+          // { value: "rejected", label: t("rejected") },
+        ],
+      },
+      {
+        title: t("start_date"),
+        type: "date",
+        filter: "from",
+        apiKey: "from",
+      },
+      {
+        title: t("end_date"),
+        type: "date",
+        filter: "to",
+        apiKey: "to",
+      },
+      {
+        title: t("sort"),
+        type: "select",
+        filter: "sort",
+        apiKey: "sort",
+        options: [
+          { value: "percent_asc", label: t("percent_asc") },
+          { value: "percent_desc", label: t("percent_desc") },
+          { value: "amount_asc", label: t("amount_asc") },
+          { value: "amount_desc", label: t("amount_desc") },
+          { value: "usable_time_asc", label: t("usable_time_asc") },
+          { value: "usable_time_desc", label: t("usable_time_desc") },
+          { value: "usable_time_remain_asc", label: t("usable_time_remain_asc") },
+          { value: "usable_time_remain_desc", label: t("usable_time_remain_desc") },
+          { value: "created_at_asc", label: t("created_at_asc") },
+          { value: "created_at_desc", label: t("created_at_desc") },
+          { value: "expire_at_asc", label: t("expire_at_asc") },
+          { value: "expire_at_desc", label: t("expire_at_desc") },
+        ],
+      },
+    ],
   };
   return (
     <div className="row g-3">

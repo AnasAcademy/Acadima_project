@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "set WATCHPACK_POLLING=true&& set CHOKIDAR_USEPOLLING=true&& set NEXT_CACHE_DISABLED=1&& next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=development node server.js",
     "lint": "next lint"
   },
   "dependencies": {
