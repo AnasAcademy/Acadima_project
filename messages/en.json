@@ -1433,6 +1433,8 @@
     "late_installments": "Late Installments",
     "overdue_amount": "Overdue Amount",
     "first_overdue_installment_date": "First Overdue Installment Date",
-    "remaining_days": "Remaining Days"
+    "remaining_days": "Remaining Days",
+    "overdue_date": "Overdue Date",
+    "new_assignment": "New Assignment"
   }
 }

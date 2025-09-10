@@ -116,13 +116,13 @@ export default function GroupsTable({
   const trainingData = filter.map((item, index) => ({
     key: item.id || index,
     columns: [
-      { type: "text", value: item.id },
-      { type: "text", value: item.name },
+      { type: "text", value: item.id || "-" },
+      { type: "text", value: item.name || "-" },
       {
         type: "text",  value: item.capacity || "-" },
       { type: "text",   value: item.commission != null ? `${item.commission}%` : "0%"},
       { type: "text",   value: item.discount != null ? `${item.discount}%` : "0%"},
-      { type: "label", value: item.status },
+      { type: "label", value: item.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),

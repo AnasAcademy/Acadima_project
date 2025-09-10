@@ -11,6 +11,7 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function SalesListTable({
   initialData = [],
@@ -191,21 +192,21 @@ export default function SalesListTable({
       { type: "text", value: index + 1  },
       {
         type: "user",
-        name: item.buyer?.full_name,
-        email: item.buyer?.email,
-        id: item.buyer?.id,
-        code: item.buyer?.user_code,
-        payment_mail: item?.payment_email
+        name: item.buyer?.full_name || "-",
+        email: item.buyer?.email || "-",
+        id: item.buyer?.id  || "-",
+        code: item.buyer?.user_code || "-",
+        payment_mail: item?.payment_email || "-",
       },
-      { type: "text", value: item.total_amount },
-      { type: "text", value: item.amount },
-      { type: "user", name: item.discount, mobile: item.discout_percent },
-      { type: "text", value: item.tax },
-      { type: "user", name: item.item_title, id: item.item_id },
-      { type: "text", value: item.class_title },
-      { type: "text", value: item.type_label },
-      { type: "text", value: item.created_at },
-      { type: "label", value: item.status_label },
+      { type: "text", value: item.total_amount || "-" },
+      { type: "text", value: item.amount  || "-" },
+      { type: "user", name: item.discount  || "-" , mobile: item.discout_percent  || "-"},
+      { type: "text", value: item.tax || "-" },
+      { type: "user", name: item.item_title || "-", id: item.item_id || "-" },
+      { type: "text", value: item.class_title || "-" },
+      { type: "text", value: item.type_label || "-" },
+      { type: "text", value: formatDate(item.created_at) || "-"},
+      { type: "label", value: item.status_label || "-" },
       {
         type: "actionbutton",
         label: t("actions"),

@@ -13,6 +13,7 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function ScholarshipTable({
   initialData = [],
@@ -225,23 +226,23 @@ export default function ScholarshipTable({
     key: item.id || index,
     columns: [
       { type: "text", value: index + 1 },
-      { type: "text", value: item.buyer.user_code || item.code },
+      { type: "text", value: item.buyer.user_code || item.code || "-" },
       {
         type: "user",
-        name: item.buyer.en_name || item.buyer.full_name || item.buyer.name,
-        email: item.buyer.email,
-        phone: item.buyer.mobile || item.buyer.phone,
+        name: item.buyer.en_name || item.buyer.full_name || item.buyer.name || "-",
+        email: item.buyer.email || "-",
+        phone: item.buyer.mobile || item.buyer.phone || "-",
       },
-      { type: "image", value: item.buyer.identity_scan },
+      { type: "image", value: item.buyer.identity_scan || "-" },
       {
         type: "text",
         value:
           item.bundle.translations?.[0]?.title ||
           item.course ||
-          item.bundle?.translations?.[0]?.title,
+          item.bundle?.translations?.[0]?.title || "-",
       },
-      { type: "text", value: item.created_at || item.join_date },
-      { type: "label", value: item.buyer.status },
+      { type: "text", value: formatDate(item.created_at) || formatDate(item.join_date) || "-" },
+      { type: "label", value: item.buyer.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),

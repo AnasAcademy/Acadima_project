@@ -298,18 +298,18 @@ export default function NewSideBar() {
           tit: "webinars",
           href: "/org/education/courses/course",
         },
-        {
-          tit: "courses_webinars",
-          href: "/org/education/courses/webinars",
-        },
-        {
-          tit: "graduation_projects",
-          href: "/org/education/courses/graduation-projects",
-        },
-        {
-          tit: "text_lessons",
-          href: "/org/education/courses/text-lessons",
-        },
+        // {
+        //   tit: "courses_webinars",
+        //   href: "/org/education/courses/webinars",
+        // },
+        // {
+        //   tit: "graduation_projects",
+        //   href: "/org/education/courses/graduation-projects",
+        // },
+        // {
+        //   tit: "text_lessons",
+        //   href: "/org/education/courses/text-lessons",
+        // },
       ],
     },
     {
@@ -404,8 +404,8 @@ export default function NewSideBar() {
         { tit: "installment_plans", href: "/org/financial/installments/plans" },
         { tit: "purchases", href: "/org/financial/installments/purchases" },
         { tit: "overdue", href: "/org/financial/installments/overdue" },
-        { tit: "overdue_history", href: "/org/financial/installments/overdue-history" },
-        { tit: "installment_settings", href: "/org/financial/installments/settings" },
+        // { tit: "overdue_history", href: "/org/financial/installments/overdue-history" },
+        // { tit: "installment_settings", href: "/org/financial/installments/settings" },
       ],
     },
     {

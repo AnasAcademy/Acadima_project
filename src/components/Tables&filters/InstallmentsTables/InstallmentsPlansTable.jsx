@@ -11,6 +11,7 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function InstallmentsPalnsTable({
   initialData = [],
@@ -76,12 +77,12 @@ export default function InstallmentsPalnsTable({
     key: item.id || index,
     columns: [
       { type: "text", value: item.translations?.[0]?.title || "-" },
-      { type: "text", value: item.sales_count },
-      { type: "text", value: item.upfront },
-      { type: "text", value: item.steps_count },
+      { type: "text", value: item.sales_count || "-" },
+      { type: "text", value: item.upfront   || "-" },
+      { type: "text", value: item.steps_count || "-" },
         { type: "text", value: item.capacity || "-" },
-      { type: "text", value: item.start_date },
-      { type: "text", value: item.end_date },
+      { type: "text", value: formatDate(item.start_date) },
+      { type: "text", value: formatDate(item.end_date) },
       { type: "label", value: item.enable ? "active" : "inactive" },
       {
         type: "actionbutton",

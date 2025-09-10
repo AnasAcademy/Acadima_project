@@ -12,6 +12,8 @@ import printer from "@/assets/admin/printer.svg";
 import check from "@/assets/admin/Check.svg";
 import { useApiClient } from "@/hooks/useApiClient";
 import { useUserData } from "@/context/UserDataContext";
+import { formatDate } from "@/functions/formatDate";
+
 
 export default function EnrollmentHistoryTable({
   initialData = [],
@@ -248,7 +250,7 @@ export default function EnrollmentHistoryTable({
           type: "label",
           value: item.manual_added ? t("manual") : t("automatic"),
         },
-        { type: "text", value: item.created_at || item.join_date || "-" },
+        { type: "text", value: formatDate(item.created_at) || formatDate(item.join_date) || "-" },
         { type: "label", value: item.status_label || "-" },
         {
           type: "actionbutton",

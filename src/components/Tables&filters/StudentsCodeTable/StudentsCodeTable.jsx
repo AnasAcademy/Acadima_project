@@ -22,8 +22,8 @@ const { request } = useApiClient();
 
   const trainingData = data.map((item, index) => ({
     columns: [
-      { type: "text", value: item.student_code },
-      { type: "text", value: item.lst_sd_code },
+      { type: "text", value: item.student_code || "-" },
+      { type: "text", value: item.lst_sd_code || "-" },
     ],
   }));
 

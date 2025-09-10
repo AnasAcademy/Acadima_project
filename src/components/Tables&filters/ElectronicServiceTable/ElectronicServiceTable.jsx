@@ -12,6 +12,7 @@ import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import { useUserData } from "@/context/UserDataContext";
 import check from "@/assets/admin/Check.svg";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function ElectronicServiceTable({
   dat,
@@ -406,7 +407,7 @@ export default function ElectronicServiceTable({
       { type: "text", value: item.user.full_name },
       { type: "text", value: item.status },
       { type: "text", value: item.content },
-      { type: "text", value: item.created_at },
+      { type: "text", value: formatDate(item.created_at) },
       // Only show actions column if status is pending
       ...(item.status === "pending"
         ? [
@@ -444,9 +445,9 @@ export default function ElectronicServiceTable({
       { type: "text", value: item.price },
       { type: "label", value: item.status },
       { type: "text", value: item.created_by.full_name },
-      { type: "text", value: item.created_at },
-      { type: "text", value: item.start_date },
-      { type: "text", value: item.end_date },
+      { type: "text", value: formatDate(item.created_at) },
+      { type: "text", value: formatDate(item.start_date) },
+      { type: "text", value: formatDate(item.end_date) },
       {
         type: "actionbutton",
         label: t("actions"),

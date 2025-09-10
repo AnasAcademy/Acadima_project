@@ -9,6 +9,7 @@ import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import check from "@/assets/admin/Check.svg";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -107,20 +108,20 @@ export default function DiscountCodesTable({
   const trainingData = filter.map((item, index) => ({
     key: item.id || index,
     columns: [
-      { type: "text", value: item.title },
-      { type: "text", value: item.discount_type },
+      { type: "text", value: item.title  || "-" },
+      { type: "text", value: item.discount_type || "-" },
       {
         type: "text",
-        value: item.code,
+        value: item.code || "-",
       },
       {
         type: "text",
-        value: item.user_type,
+        value: item.user_type || "-",
       },
-      { type: "text", value: item.created_at },
-      { type: "text", value: item.expired_at },
-      { type: "text", value: item.count },
-      { type: "text", value: item.percent + "%" },
+      { type: "text", value: formatDate(item.created_at) || "-" },
+      { type: "text", value: formatDate(item.expired_at) || "-" },
+      { type: "text", value: item.count || "-" },
+      { type: "text", value: item.percent || "-" },
       {
         type: "text",
         value: item.max_amount || "-",
@@ -130,7 +131,7 @@ export default function DiscountCodesTable({
         type: "text",
         value: item.minimum_order || "-",
       },
-      { type: "label", value: item.status },
+      { type: "label", value: item.status || "-" },
 
       {
         type: "actionbutton",

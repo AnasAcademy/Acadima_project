@@ -11,6 +11,7 @@ import printer from "@/assets/admin/printer.svg";
 import check from "@/assets/admin/Check.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 
 export default function CourseCertificatesTable({
@@ -132,7 +133,7 @@ export default function CourseCertificatesTable({
           email: item.student?.email || "-",
         },
         { type: "text", value: item.webinar?.teacher?.full_name || "-" },
-        { type: "text", value: item.graduation_date || "-" },
+        { type: "text", value: formatDate(item.graduation_date) || "-" },
         {
           type: "actionbutton",
           label: t("actions"),

@@ -9,6 +9,8 @@ import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import check from "@/assets/admin/Check.svg";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
+
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -118,21 +120,21 @@ export default function offlinePaymentsTable({
   const trainingData = filter.map((item, index) => ({
     key: item.id || index,
     columns: [
-      { type: "text", value: item.user.full_name },
-      { type: "text", value: item.user.mobile },
+      { type: "text", value: item.user.full_name || "-" },
+      { type: "text", value: item.user.mobile   || "-" },
       {
         type: "text",
-        value: item.amount,
+        value: item.amount || "-",
       },
       {
         type: "text",
-        value: item.pay_for_label,
+        value: item.pay_for_label || "-",
       },
-      { type: "text", value: item.bank_name },
-      { type: "text", value: item.iban },
+      { type: "text", value: item.bank_name || "-" },
+      { type: "text", value: item.iban || "-" },
       //   { type: "image", value: item.attachment },
-      { type: "label", value: item.status },
-      { type: "text", value: item.created_at },
+      { type: "label", value: item.status || "-" },
+      { type: "text", value: formatDate(item.created_at) },
       {
         type: "actionbutton",
         label: t("actions"),

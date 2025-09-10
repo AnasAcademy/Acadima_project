@@ -11,6 +11,7 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function StaffTable({
   initialData = [],
@@ -140,13 +141,13 @@ export default function StaffTable({
       { type: "text", value: index + 1 },
       {
         type: "user",
-        name: item.en_name || item.full_name,
-        email: item.email,
-        phone: item.mobile,
+        name: item.en_name || item.full_name || "-",
+        email: item.email || "-",
+        phone: item.mobile || "-",
       },
-      { type: "text", value: item.role_name },
-      { type: "text", value: item.created_at },
-      { type: "label", value: item.status },
+      { type: "text", value: item.role_name || "-" },
+      { type: "text", value: formatDate(item.created_at) || "-" },
+      { type: "label", value: item.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),

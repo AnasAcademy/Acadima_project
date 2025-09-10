@@ -13,6 +13,7 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function CreateAccountTable({
   initialData = [],
@@ -211,13 +212,13 @@ export default function CreateAccountTable({
       { type: "text", value: index + 1 },
       {
         type: "user",
-        name: item.en_name || item.name,
-        email: item.email,
-        phone: item.mobile || item.phone,
+        name: item.en_name || item.name || "-",
+        email: item.email || "-",
+        phone: item.mobile || item.phone || "-",
       },
-      { type: "text", value: item.program_translation?.title || item.course },
-      { type: "text", value: item.created_at || item.join_date },
-      { type: "label", value: item.status },
+      { type: "text", value: item.program_translation?.title || item.course || "-" },
+      { type: "text", value: formatDate(item.created_at) || formatDate(item.join_date) || "-" },
+      { type: "label", value: item.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),

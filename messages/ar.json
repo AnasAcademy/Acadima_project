@@ -1428,6 +1428,8 @@
     "late_installments": "الأقساط المتأخرة",
     "overdue_amount": "المبلغ المتأخر",
     "first_overdue_installment_date": "تاريخ أول قسط متأخر",
-    "remaining_days": "الأيام المتبقية"
+    "remaining_days": "الأيام المتبقية",
+    "overdue_date" : "تاريخ الاستحقاق",
+    "new_assignment": "واجب جديد"
   }
 }

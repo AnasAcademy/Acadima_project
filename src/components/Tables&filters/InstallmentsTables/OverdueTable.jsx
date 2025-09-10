@@ -8,25 +8,19 @@ import Editform from "@/components/Editform/Editform";
 import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
-import check from "@/assets/admin/Check.svg";
-import Eye from "@/assets/admin/eye.svg";
 import Pen from "@/assets/admin/pen.svg";
-
-import DashboardCards from "@/components/AdminComp/Home/DashboardCards";
-import { FaUserTie, FaAward } from "react-icons/fa";
-
-import { useApiClient } from "@/hooks/useApiClient";
 import { useUserData } from "@/context/UserDataContext";
-import { Placeholder } from "react-bootstrap";
+import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
-export default function BundlesStatsTable({
+export default function OverdueTable({
   initialData = [],
   initialPage = 1,
   initialTotalPages = 1,
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("settings");
-  const { getStudyClassOptions, getCategoryGroupedOptions } =
+  const { getStudyClassOptions, getFinancialDocumentTypeOptions } =
     useUserData();
   const { request } = useApiClient();
   const [dataa, setDataa] = useState(initialData);
@@ -51,16 +45,16 @@ export default function BundlesStatsTable({
     try {
       const response = await request({
         method: "GET",
-        urlPath: `/programs_statistics/bundles`,
+        urlPath: `/financial/installments/overdue`,
         query: { page: pageNumber },
       });
 
-      const data = response?.data?.bundles || [];
+      const data = response?.orders?.data || [];
       setDataa(data);
       setFilter(data);
-      setCurrentPage(response?.data?.pagination?.current_page || 1);
-      setTotalPages(response?.data?.pagination?.last_page || 1);
-      setPage(response?.data?.pagination?.current_page || 1);
+      setCurrentPage(response?.orders?.current_page || 1);
+      setTotalPages(response?.orders?.last_page || 1);
+      setPage(response?.orders?.current_page || 1);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -85,16 +79,16 @@ export default function BundlesStatsTable({
 
       const response = await request({
         method: "GET",
-        urlPath: `/programs_statistics/bundles`,
+        urlPath: `/financial/installments/overdue`,
         query: queryParams,
       });
 
-      const data = response?.data?.bundles || [];
+      const data = response?.orders?.data || [];
       setFilter(data);
       setDataa(data);
-      setCurrentPage(response?.data?.pagination?.current_page || 1);
-      setTotalPages(response?.data?.pagination?.last_page || 1);
-      setPage(response?.data?.pagination?.current_page || 1);
+      setCurrentPage(response?.orders?.current_page || 1);
+      setTotalPages(response?.orders?.last_page || 1);
+      setPage(response?.orders?.current_page || 1);
     } catch (error) {
       console.error("Search error:", error);
     } finally {
@@ -115,57 +109,67 @@ export default function BundlesStatsTable({
   }, [page]);
 
   const TableHead = [
-    "ID",
-    t("name"),
-    t("batch-number"),
-    t("seat_students"),
-    t("program_students"),
-    t("direct_students"),
-    t("scholarship_students"),
+    "#",
+    t("user"),
+    t("installment_plan"),
+    t("item"),
+    t("count"),
+    t("overdue_date"),
     t("actions"),
   ];
 
   const selectCardData = {
     inputs: [
-      {
-        title: t("title"),
+        {
+        title: t("user-code"),
         type: "search",
-        filter: "title",
-        placeholder: t("title-search"),
-        apiKey: "title",
+        filter: "user_code",
+        placeholder: t("code-search"),
+        apiKey: "user_code",
       },
       {
-        title: t("categories"),
-        type: "select",
-        filter: "",
-        placeholder: t("categories"),
-        apiKey: "category_id",
-        options: getCategoryGroupedOptions(),
+        title: t("user-mail"),
+        type: "search",
+        filter: "email",
+        placeholder: t("mail-search"),
+        apiKey: "email",
       },
       {
-        title: t("study-classes"),
-        type: "select",
-        filter: "study_class.title",
-        apiKey: "batch",
-        options: getStudyClassOptions(),
-      }
+        title: t("user-name"),
+        type: "search",
+        filter: "full_name",
+        placeholder: t("name-search"),
+        apiKey: "full_name",
+      },
+      {
+        title: t("registered-program-type"),
+        type: "search",
+        filter: "bundle_title",
+        placeholder: t("program-search"),
+        apiKey: "bundle_title",
+      },
     ],
   };
 
   const trainingData = filter.map((item, index) => ({
     key: item.id || index,
     columns: [
-      { type: "text", value: item.id },
+      { type: "text", value: index + 1  },
       {
         type: "user",
-        name: item.title || "-",
-        phone: item.category_title || "-",
+        name: item.user?.full_name || "-",
+        email: item.user?.email || "-",
+        phone: item.user?.mobile || "-",
+        code: item.user?.user_code || "-",
       },
-      { type: "text", value: item.batch_title || "-" },
-      { type: "text", value: item.form_fee_sales_count || "-" },
-      { type: "label", value: item.bundle_sales_count || "-" },
-      { type: "text", value: item.direct_register_count  || "-" },
-      { type: "text", value: item.scholarship_sales_count || "-" },
+      { type: "text", value: item.installment?.translations?.[0]?.title || "-" },
+      {
+        type: "user",
+        name: item.bundle?.translations?.[0]?.title || "-",
+        email: "#" + item.bundle?.translations?.[0]?.id || "-",
+      },
+      { type: "text", value: item.amount || "-" },
+      { type: "text", value: formatDate(item.overdue_date) || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
@@ -218,8 +222,8 @@ export default function BundlesStatsTable({
         <div className="col-12">
           <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
             <ExcelDownload
-              endpoint="/api/proxy/programs_statistics/bundles/statistics/export"
-              filename="bundles_stats_report"
+              endpoint="/api/proxy/financial/installments/overdue/export"
+              filename="all_students_report"
               className="btn custfontbtn rounded-2 mb-3"
               onSuccess={() => {
                 setResultMessage(t("download_success"));

@@ -12,6 +12,7 @@ import Check from "@/assets/admin/Check.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function RolesTable({ initialData = [] }) {
   const t = useTranslations("tables");
@@ -76,7 +77,7 @@ export default function RolesTable({ initialData = [] }) {
         type: "text",
         value: item.name || "-",
       },
-      { type: "text", value: item.users_count },
+      { type: "text", value: item.users_count || "-" },
       {
         type: "label",
         value:
@@ -88,7 +89,7 @@ export default function RolesTable({ initialData = [] }) {
             "-" 
           ),
       },
-      { type: "text", value: item.created_at },
+      { type: "text", value: formatDate(item.created_at) || "-" },
       {
         type: "actionbutton",
         label: t("actions"),

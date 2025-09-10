@@ -11,6 +11,8 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
+
 
 export default function BalancesTable({
   initialData = [],
@@ -155,17 +157,17 @@ export default function BalancesTable({
     columns: [
       {
         type: "user",
-        name: item.title,
-        email: item?.program,
+        name: item.title || "-",
+        email: item?.program || "-",
       },
-      { type: "text", value: item.user },
+      { type: "text", value: item.user || "-" },
       { type: "text", value: item.has_tax ? t("yes") : t("no") },
       { type: "label", value: item.has_system ? t("yes") : t("no") },
-      { type: "label", value: item.amount },
-      { type: "label", value: item.type },
-      { type: "label", value: item.creator },
-      { type: "label", value: item.type_account },
-      { type: "label", value: item.created_at },
+      { type: "label", value: item.amount || "-" },
+      { type: "label", value: item.type || "-" },
+      { type: "label", value: item.creator || "-" },
+      { type: "label", value: item.type_account || "-" },
+      { type: "label", value: formatDate(item.created_at) },
       {
         type: "actionbutton",
         label: t("actions"),

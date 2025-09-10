@@ -10,6 +10,7 @@ import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function PurchasesTable({
   initialData = [],
@@ -62,7 +63,7 @@ export default function PurchasesTable({
     t("user"),
     t("installment_plan"),
     t("item"),
-    t("submission_date"),
+    t("registration_date"),
     t("total_amount"),
     t("first_installment"),
     t("number_of_installments"),
@@ -80,21 +81,21 @@ export default function PurchasesTable({
     columns: [
       {
         type: "user",
-        name: item.user,
-        email: item.userEmail,
-        phone: item.userPhone,
+        name: item.user || "-",
+        email: item.userEmail || "-",
+        phone: item.userPhone || "-",
       },
       { type: "text", value: item.installmentPlan || "-" },
-      { type: "text", value: item.sales_count || "-" },
-      { type: "text", value: item.upfront || "-"},
-      { type: "text", value: item.totalAmount },
+      { type: "text", value: item.webinarTitle || "-" },
+      { type: "text", value: formatDate(item.createdDate) || "-" },
+      { type: "text", value: item.totalAmount || "-" },
       { type: "text", value: item.firstInstallment || "-" },
-      { type: "text", value: item.InstallmentsCount },
-      { type: "text", value: item.InstallmentsTotalAmount },
-      { type: "text", value: item.lateInstallments },
-      { type: "text", value: item.overdueAmount },
-      { type: "text", value: item.FirstOverdueInst }, 
-      { type: "text", value: item.remainingDays }, 
+      { type: "text", value: item.InstallmentsCount || "-" },
+      { type: "text", value: item.InstallmentsTotalAmount || "-" },
+      { type: "text", value: item.lateInstallments || "-" },
+      { type: "text", value: item.overdueAmount || "-" },
+      { type: "text", value: formatDate(item.FirstOverdueInstDate) || "-" },
+      { type: "text", value: item.remainingDays || "-" },
       { type: "label", value: item.enable ? "active" : "inactive" },
       {
         type: "actionbutton",

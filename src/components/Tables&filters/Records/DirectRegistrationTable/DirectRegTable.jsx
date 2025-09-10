@@ -13,6 +13,7 @@ import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 export default function DirectRegTable({
   initialData = [],
@@ -145,16 +146,16 @@ export default function DirectRegTable({
     key: item.id || index,
     columns: [
       { type: "text", value: index + 1 },
-      { type: "text", value: item.buyer.user_code },
+      { type: "text", value: item.buyer.user_code || "-" },
       {
         type: "user",
-        name: item.en_name || item.buyer.full_name,
-        email: item.buyer.email,
-        phone: item.buyer.mobile,
+        name: item.en_name || item.buyer.full_name || "-",
+        email: item.buyer.email || "-",
+        phone: item.buyer.mobile || "-",
       },
-      { type: "text", value: item.bundle?.translations[0].title },
-      { type: "text", value: item.created_at },
-      { type: "label", value: item.buyer.status },
+      { type: "text", value: item.bundle?.translations[0].title || "-" },
+      { type: "text", value: formatDate(item.created_at) || "-"},
+      { type: "label", value: item.buyer.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),

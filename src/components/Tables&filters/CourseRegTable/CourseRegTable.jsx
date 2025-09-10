@@ -14,6 +14,8 @@ import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
 import { useLocale } from "next-intl";
 import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
+import { formatDate } from "@/functions/formatDate";
+
 
 export default function CourseRegTable({
   data = [],
@@ -606,14 +608,14 @@ export default function CourseRegTable({
                       trainingData={courses.map((item, i) => ({
                         key: item.id || i,
                         columns: [
-                          { type: "text", value: item.id },
+                          { type: "text", value: item.id || "-" },
                           {
                             type: "text",
-                            value: item?.translations?.[0]?.title ?? "-",
+                            value: item?.translations?.[0]?.title || "-",
                           },
-                          { type: "text", value: item?.sales_count ?? "-" },
-                          { type: "text", value: item?.groups_count ?? "-" },
-                          { type: "text", value: item?.start_date ?? "-" },
+                          { type: "text", value: item?.sales_count || "-" },
+                          { type: "text", value: item?.groups_count || "-" },
+                          { type: "text", value: formatDate(item?.start_date) || "-" },
                           {
                             type: "buttons",
                             buttons: [
@@ -665,12 +667,12 @@ export default function CourseRegTable({
                       key: g.id || i,
                       columns: [
                         { type: "text", value: i + 1 },
-                        { type: "text", value: g?.name ?? "-" },
-                        { type: "text", value: g?.enrollments_count ?? "-" },
-                        { type: "text", value: g?.capacity ?? "-" },
-                        { type: "label", value: g?.start_date ?? "-" },
-                        { type: "text", value: g?.end_date ?? "-" },
-                        { type: "label", value: g?.status ?? "-" },
+                        { type: "text", value: g?.name || "-" },
+                        { type: "text", value: g?.enrollments_count || "-" },
+                        { type: "text", value: g?.capacity || "-" },
+                        { type: "label", value: formatDate(g?.start_date) || "-" },
+                        { type: "text", value: formatDate(g?.end_date) || "-" },
+                        { type: "label", value: g?.status || "-" },
                         {
                           type: "actionbutton",
                           label: t("actions"),
@@ -749,15 +751,15 @@ export default function CourseRegTable({
                       key: e.id || i,
                       columns: [
                         { type: "text", value: i + 1 },
-                        { type: "text", value: e?.user?.user_code ?? "-" },
+                        { type: "text", value: e?.user?.user_code || "-" },
                         {
                           type: "user",
-                          name: e?.user?.full_name,
-                          email: e?.user?.email,
-                          phone: e?.user?.phone,
+                          name: e?.user?.full_name || "-",
+                          email: e?.user?.email || "-",
+                          phone: e?.user?.phone || "-"  ,
                         },
-                        { type: "text", value: e?.created_at ?? "-" },
-                        { type: "label", value: e?.user?.status ?? "-" },
+                        { type: "text", value: formatDate(e?.created_at) || "-" },
+                        { type: "label", value: e?.user?.status || "-" },
                         {
                           type: "actionbutton",
                           label: t("actions"),

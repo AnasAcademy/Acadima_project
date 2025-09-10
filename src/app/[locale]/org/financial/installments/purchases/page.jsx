@@ -46,7 +46,7 @@ export default async function InstallmentsPlans() {
       <div className="m-0 container-fluid p-0 d-flex flex-column">
         <div className="p-lg-4 pt-lg-0">
           <div className="row m-0 p-2 g-3">
-            <h2 className="hvvv">{t("installment_plans")}</h2>
+            <h2 className="hvvv">{t("purchases")}</h2>
             <div className="col-lg-12">
               <PurchasesTable
                 initialData={data}

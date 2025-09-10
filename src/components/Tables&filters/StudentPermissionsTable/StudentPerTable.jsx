@@ -8,7 +8,12 @@ import ExcelDownload from "@/components/ExcelDownload/ExcelDownload"; // Add imp
 import Arrow from "@/assets/admin/arrow down.svg";
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
+
+
+
 export default function StudentPerTable({
+
   initialData = [],
   initialStudyClasses = [],
   initialPage = 1,
@@ -135,12 +140,12 @@ export default function StudentPerTable({
       { type: "text", value: index + 1 },
       {
         type: "user",
-        name: item.buyer.full_name,
-        email: item.buyer.id,
-        phone: item.buyer.user_code,
+        name: item.buyer.full_name  || "-",
+        email: item.buyer.id || "-", 
+        phone: item.buyer.user_code || "-",
       },
-      { type: "text", value: item.item_title },
-      { type: "text", value: item.class.title },
+      { type: "text", value: item.item_title  || "-" },
+      { type: "text", value: item.class.title || "-" },
       {
         type: "toggleAccess",
         value: item.access_to_purchased_item,

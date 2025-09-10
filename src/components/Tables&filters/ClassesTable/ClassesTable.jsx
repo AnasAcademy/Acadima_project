@@ -10,6 +10,8 @@ import { useApiClient } from "@/hooks/useApiClient";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import { useUserData } from "@/context/UserDataContext";
 import { object } from "yup";
+import { formatDate } from "@/functions/formatDate";
+
 export default function ClassesTable({ dat }) {
   const ts = useTranslations("SidebarA");
   const tr = useTranslations("settings");
@@ -29,6 +31,7 @@ export default function ClassesTable({ dat }) {
   const { getRoleOptions, getStatusOptions } = useUserData();
   const { request } = useApiClient();
   const [showResultModal, setShowResultModal] = useState(false);
+
   const fetchData = async (Itemid, page) => {
     try {
       const response = await request({
@@ -42,31 +45,22 @@ export default function ClassesTable({ dat }) {
       } else if (page === "registered_users") {
         dat = response.data;
         setDatarg(dat);
-        console.log(dat);
       } else if (page === "users") {
         dat = response.data;
         setDatast(dat);
-        console.log(dat);
       } else if (page === "enrollers") {
         dat = response.message.data;
         setDatast(dat);
-        console.log(dat);
       } else if (page === "direct_register") {
         dat = response.data;
         setDataUser(dat);
-        console.log(dat);
-      }
-      else if (page === "scholarship") {
+      } else if (page === "scholarship") {
         dat = response.data;
         setDatast(dat);
-        console.log(dat);
-      }
-      else if (page === "requirements") {
+      } else if (page === "requirements") {
         dat = response.data;
         setDataUser(dat);
-        console.log(dat);
       }
-      
     } catch (error) {
       console.error("Fetch failed:", error);
     }
@@ -80,12 +74,10 @@ export default function ClassesTable({ dat }) {
       });
       setSData(response[0][0]);
       console.log(response[0][0]);
-
     } catch (error) {
       console.error("Fetch students failed:", error);
     }
   };
-
 
   const remove = async (id) => {
     try {
@@ -140,18 +132,17 @@ export default function ClassesTable({ dat }) {
     }
   };
 
-
-   const handleSubmitAdd = async (dataa) => {
+  const handleSubmitAdd = async (dataa) => {
     console.log("here ", dataa);
     Object.keys(dataa).forEach((key) => {
       if (dataa[key] === "") {
         dataa[key] = null;
       }
     });
-    console.log(dataa); 
+    console.log(dataa);
     try {
       const result = await request({
-        method: "POST", 
+        method: "POST",
         urlPath: `/classes`,
         body: {
           title: dataa.title,
@@ -183,20 +174,9 @@ export default function ClassesTable({ dat }) {
       }
       setShowModal(false);
       setShowResultModal(true);
-    } 
+    }
   };
 
-
-
-
-
-
-
-
-
-
-
-  
   const TableHeadstudents = [
     "ID",
     t("student_code"),
@@ -234,7 +214,7 @@ export default function ClassesTable({ dat }) {
   const trainingDatareg = datarg.map((item, index) => ({
     columns: [
       { type: "text", value: item.id },
-      { type: "text", value: item.full_name },
+      { type: "text", value: item.full_name || "-" },
       {
         type: "text",
         value:
@@ -242,20 +222,19 @@ export default function ClassesTable({ dat }) {
             ? item.applied_program.translations.map((t, index) => (
                 <p key={index}>{t.title}</p>
               ))
-            : "N/A",
+            : "-",
       },
       //  { type: "text", value: item.slug },
-      { type: "text", value: item.created_at },
-      { type: "label", value: item.status },
+      { type: "text", value: formatDate(item.created_at) || "-" },
+      { type: "label", value: item.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
-           setShowModal(!showModal);
-     
-           setStudent(true);
-           setFormState("edit");
-        
+          setShowModal(!showModal);
+
+          setStudent(true);
+          setFormState("edit");
         },
         icon: Arrowdown,
         color: "#48BB78",
@@ -266,7 +245,7 @@ export default function ClassesTable({ dat }) {
               setShowModal(!showModal);
               setId(item.id);
               setFormState("edit");
-                  fetchStudents(item.id);
+              fetchStudents(item.id);
             },
             icon: Pen,
           },
@@ -284,18 +263,18 @@ export default function ClassesTable({ dat }) {
   const trainingDatastudent = datast.map((item, index) => ({
     columns: [
       { type: "text", value: item.buyer.id },
-      { type: "text", value: item.buyer.user_code },
-      { type: "text", value: item.buyer.full_name },
-      { type: "text", value: item.buyer.identity_scan || "N/A" },
-      { type: "text", value: item.bundle.slug },
-      { type: "text", value: item.buyer.created_at },
-      { type: "text", value: item.buyer.status },
+      { type: "text", value: item.buyer.user_code || "-" },
+      { type: "text", value: item.buyer.full_name || "-" },
+      { type: "text", value: item.buyer.identity_scan || "-" },
+      { type: "text", value: item.bundle.slug || "-" },
+      { type: "text", value: formatDate(item.buyer.created_at) || "-" },
+      { type: "label", value: item.buyer.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
           setShowModal(!showModal);
-        
+
           setFormState("edit");
         },
         icon: Arrowdown,
@@ -326,21 +305,21 @@ export default function ClassesTable({ dat }) {
 
   const trainingDatadirect = dataUser.map((item, index) => ({
     columns: [
-      { type: "text", value: item.student.id },
-      { type: "text", value: item.student.user_id },
-      { type: "text", value: item.student.ar_name },
-      { type: "text", value: item.student.identity_scan || "N/A" },
-      { type: "text", value: item.bundle.slug },
-      { type: "text", value: item.student.created_at },
-      { type: "text", value: item.student.status },
+      { type: "text", value: item.student.id || "-" },
+      { type: "text", value: item.student.user_id || "-" },
+      { type: "text", value: item.student.ar_name || "-" },
+      { type: "text", value: item.student.identity_scan || "-" },
+      { type: "text", value: item.bundle.slug || "-" },
+      { type: "text", value: formatDate(item.student.created_at) || "-" },
+      { type: "label", value: item.student.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
-           setShowModal(!showModal);
-    
-           setStudent(true);
-           setFormState("edit");
+          setShowModal(!showModal);
+
+          setStudent(true);
+          setFormState("edit");
         },
         icon: Arrowdown,
         color: "#48BB78",
@@ -350,9 +329,9 @@ export default function ClassesTable({ dat }) {
             action: () => {
               setShowModal(!showModal);
               setId(item.student.id);
-        console.log(item.student.id);
+              console.log(item.student.id);
               setFormState("edit");
-                fetchStudents(item.student.user_id);
+              fetchStudents(item.student.user_id);
             },
             icon: Pen,
           },
@@ -369,24 +348,23 @@ export default function ClassesTable({ dat }) {
 
   const trainingData = data.map((item, index) => ({
     columns: [
-      { type: "text", value: item.id },
-      { type: "text", value: item.title },
-      { type: "text", value: item.register_enrollments },
-      { type: "text", value: item.form_fee_enrollments },
-      { type: "text", value: item.bundle_enrollments },
-      { type: "text", value: item.direct_register_enrollments },
-      { type: "text", value: item.scholarship_enrollments },
-      { type: "text", value: item.start_date },
-      { type: "text", value: item.end_date },
-      { type: "text", value: item.created_at },
+      { type: "text", value: item.id || "-" },
+      { type: "text", value: item.title || "-" },
+      { type: "text", value: item.register_enrollments || "-" },
+      { type: "text", value: item.form_fee_enrollments || "-" },
+      { type: "text", value: item.bundle_enrollments || "-" },
+      { type: "text", value: item.direct_register_enrollments || "-" },
+      { type: "text", value: item.scholarship_enrollments || "-" },
+      { type: "text", value: formatDate(item.start_date) || "-" },
+      { type: "text", value: formatDate(item.end_date) || "-" },
+      { type: "text", value: formatDate(item.created_at) || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
-        
           setShowModal(!showModal);
           setId(item.id);
-            console.log(item.id);
+          console.log(item.id);
           setFormState("edit");
         },
         icon: Arrowdown,
@@ -501,81 +479,66 @@ export default function ClassesTable({ dat }) {
     ],
   }));
 
+  const handleSubmitEditStudent = async (dataa) => {
+    console.log("here ", dataa);
+    console.log(Itemid);
 
-
-    const handleSubmitEditStudent = async (dataa) => {
-         console.log("here " , dataa);
-         console.log(Itemid);
-         
-       
-         Object.keys(dataa).forEach((key) => {
-           if (dataa[key] === "") {
-             dataa[key] = null;
-           }
-         });
-    
-      console.log(dataa);
-      try {
-        const result = await request({
-          method: "PUT",
-          urlPath: `/students/${Itemid}`,
-          body: {
-            full_name: dataa.full_name,
-            en_name: dataa.en_name,
-            role_name: dataa.role_name,
-            email: dataa.email,
-            mobile: dataa.mobile,
-            password: dataa.password,
-            bio: dataa.bio,
-            about: dataa.about,
-            status: dataa.status,
-          },
-        });
-        if (result.message === "User updated successfully") {
-          setShowModal(false);
-          setResultMessage(result.message);
-          setShowResultModal(true);
-        }else{
-
-           console.log(result.errors);
-        }
-
-        const updatedItem = {
-          ...data.find((item) => item.id === Itemid),  
-          ...dataa,
-        };
-        setDatast((prev) =>
-          prev.map(
-            (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
-          )
-        );
-      } 
-      catch (error) {
-        const apiErrors = error?.data?.errors;
-
-        if (apiErrors) {
-          Object.entries(apiErrors).forEach(([field, msgs]) => {
-            console.error(`${field}: ${msgs.ar || msgs.en}`);
-           setResultMessage(`${msgs.ar || msgs.en}`);
-          });
-        } else {
-          console.error("Unexpected error:", error.message);
-        }
-      
-        // setShowModal(false);
-        setShowResultModal(true);
+    Object.keys(dataa).forEach((key) => {
+      if (dataa[key] === "") {
+        dataa[key] = null;
       }
-    };
+    });
 
+    console.log(dataa);
+    try {
+      const result = await request({
+        method: "PUT",
+        urlPath: `/students/${Itemid}`,
+        body: {
+          full_name: dataa.full_name,
+          en_name: dataa.en_name,
+          role_name: dataa.role_name,
+          email: dataa.email,
+          mobile: dataa.mobile,
+          password: dataa.password,
+          bio: dataa.bio,
+          about: dataa.about,
+          status: dataa.status,
+        },
+      });
+      if (result.message === "User updated successfully") {
+        setShowModal(false);
+        setResultMessage(result.message);
+        setShowResultModal(true);
+      } else {
+        console.log(result.errors);
+      }
 
+      const updatedItem = {
+        ...data.find((item) => item.id === Itemid),
+        ...dataa,
+      };
+      setDatast((prev) =>
+        prev.map(
+          (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
+        )
+      );
+    } catch (error) {
+      const apiErrors = error?.data?.errors;
 
+      if (apiErrors) {
+        Object.entries(apiErrors).forEach(([field, msgs]) => {
+          console.error(`${field}: ${msgs.ar || msgs.en}`);
+          setResultMessage(`${msgs.ar || msgs.en}`);
+        });
+      } else {
+        console.error("Unexpected error:", error.message);
+      }
 
-
-
-
-
-
-
+      // setShowModal(false);
+      setShowResultModal(true);
+    }
+  };
 
   const formTitles = [
     {
@@ -595,7 +558,6 @@ export default function ClassesTable({ dat }) {
     { name: "start_date", label: t("start_date"), type: "date" },
     { name: "end_date", label: t("end_date"), type: "date" },
   ];
-
 
   const studentFields = [
     { name: "full_name", label: tr("full_name"), type: "text" },
@@ -618,16 +580,6 @@ export default function ClassesTable({ dat }) {
       options: getStatusOptions(),
     },
   ];
-
-
-
-
-
-
-
-
-
-
 
   const pageTitles = {
     classes: <OngoingTrain TableHead={TableHead} trainingData={trainingData} />,
@@ -667,13 +619,12 @@ export default function ClassesTable({ dat }) {
         trainingData={trainingDatastudent}
       />
     ),
-    requirements: ( 
+    requirements: (
       <OngoingTrain
         TableHead={TableHeadstudents}
-        trainingData={trainingDatastudent}  
+        trainingData={trainingDatastudent}
       />
     ),
-
   };
 
   function toogle() {
@@ -692,7 +643,6 @@ export default function ClassesTable({ dat }) {
               setShowModal={toogle}
               formState={formState}
               setId={setId}
-       
             />
           ) : (
             <Editform

@@ -87,9 +87,9 @@ export default function WebinarsStatsTable({
   const trainingData = filter.map((item, index) => ({
     key: item.id || index,
     columns: [
-      { type: "text", value: item.id },
-      { type: "text", value: item.webinarsTitle },
-      { type: "text", value: item.webinarsStudentsCount },
+      { type: "text", value: item.id || "-" },
+      { type: "text", value: item.webinarsTitle || "-" },
+      { type: "text", value: item.webinarsStudentsCount || "-" },
     ],
   }));
 

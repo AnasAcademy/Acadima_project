@@ -9,6 +9,7 @@ import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import check from "@/assets/admin/Check.svg";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -220,27 +221,27 @@ export default function AdmissionReqTable({
     key: item.id || index,
     columns: [
       { type: "text", value: index + 1 },
-      { type: "text", value: item.bundle_student.student.user.user_code },
+      { type: "text", value: item.bundle_student.student.user.user_code || "-" },
       {
         type: "user",
-        name: item.bundle_student.student.en_name,
-        email: item.bundle_student.student.email,
-        phone: item.bundle_student.student.phone,
+        name: item.bundle_student.student.en_name || "-",
+        email: item.bundle_student.student.email || "-",
+        phone: item.bundle_student.student.phone || "-",
       },
       {
         type: "text",
-        value: item.bundle_student.bundle.translations[0].title,
+        value: item.bundle_student.bundle.translations[0].title || "-",
       },
       {
         type: "text",
-        value: item.bundle_student.bundle.translations[0].title,
+        value: item.bundle_student.bundle.translations[0].title || "-",
       },
       { 
         type: "label", 
         value: item.status, 
         rejection_action: rejection_action(item)
       },
-      { type: "text", value: item.created_at },
+      { type: "text", value: formatDate(item.created_at) || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
