@@ -117,7 +117,7 @@ export default function OngoingTrain({
 
       return (
         <td key={key}>
-          <span className={`d-inline-block w-75 text-center ${textClass}`}>
+          <span className={`d-inline-block text-center ${textClass}`}>
             {textVal}
           </span>
           {col.value === "rejected" && (

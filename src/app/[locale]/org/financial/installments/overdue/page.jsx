@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import OverdueTable from "@/components/Tables&filters/installmentstables/OverdueTable";
 
 
-export default async function DiscountCodes() {
+export default async function Overdue() {
 const ts = await getTranslations("SidebarA");
   const t = await getTranslations("tables");
 

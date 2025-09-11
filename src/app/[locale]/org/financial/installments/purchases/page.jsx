@@ -3,7 +3,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { cookies } from "next/headers";
 import PurchasesTable from "@/components/Tables&filters/InstallmentsTables/PurchasesTable";
 
-export default async function InstallmentsPlans() {
+export default async function InstallmentsPurchases() {
   const t = await getTranslations("SidebarA");
   const locale = await getLocale(); // Get current locale
   const cookieStore = await cookies();
