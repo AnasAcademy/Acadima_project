@@ -48,13 +48,15 @@ export default function SelectCard({
                 <div className={fullCol} key={index}>
                   <div className="d-flex w-100 flex-column align-items-start position-relative">
                     {input.title && (
-                      <label className="h6 mb-1 text-end">{input.title}</label>
+                      <label className=" mb-1 text-end Tit-14-700">
+                        {input.title}
+                      </label>
                     )}
 
                     {input.type === "search" && (
-                      <div className="form-control mr-sm-2 d-flex gap-2">
+                      <div className="search-wrapper d-flex align-items-center">
                         {input.icon !== false && (
-                          <span className="" style={{ zIndex: 2 }}>
+                          <span className="search-icon" style={{ zIndex: 2 }}>
                             <SearchIcon width={15} height={15} />
                           </span>
                         )}
@@ -63,7 +65,7 @@ export default function SelectCard({
                           placeholder={
                             input.placeholder || t2("search-placeholder")
                           }
-                          className=" tit-12-400 border-0 w-75"
+                          className=" search-input"
                           onChange={(e) =>
                             handleFilterChange(input.filter, e.target.value)
                           }

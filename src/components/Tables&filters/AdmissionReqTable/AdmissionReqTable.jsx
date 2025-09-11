@@ -328,7 +328,7 @@ export default function AdmissionReqTable({
           <ExcelDownload
             endpoint="/api/proxy/requirements/export"
             filename="admission_requirements_report"
-            className="btn custfontbtn rounded-2 mb-3"
+            className="gradient-btn"
             onSuccess={() => {
               setResultMessage(t("download_success"));
               setShowResultModal(true);
@@ -338,7 +338,7 @@ export default function AdmissionReqTable({
               setShowResultModal(true);
             }}
           >
-            Excel
+            {t("export_to_excel")}
           </ExcelDownload>
 
           <OngoingTrain
@@ -401,7 +401,8 @@ export default function AdmissionReqTable({
               </option>
               {rejectionReasons.map((reason) => (
                 <option key={reason.value} value={reason.value}>
-                  {reason.label} {/* Use the already localized label from API */}
+                  {reason.label}{" "}
+                  {/* Use the already localized label from API */}
                 </option>
               ))}
             </select>
@@ -438,7 +439,7 @@ export default function AdmissionReqTable({
                 {selectedRejectionDetails.reason || t("no_reason_provided")}
               </p>
             </div>
-            
+
             {selectedRejectionDetails.description && (
               <div className="mb-3">
                 <strong>{t("rejection_details")}:</strong>
@@ -447,15 +448,16 @@ export default function AdmissionReqTable({
                 </p>
               </div>
             )}
-            
-            {!selectedRejectionDetails.reason && !selectedRejectionDetails.description && (
-              <div className="mb-3">
-                <strong>{t("rejection_message")}:</strong>
-                <p className="m-1 p-2 bg-light rounded">
-                  {selectedRejectionDetails.fullMessage}
-                </p>
-              </div>
-            )}
+
+            {!selectedRejectionDetails.reason &&
+              !selectedRejectionDetails.description && (
+                <div className="mb-3">
+                  <strong>{t("rejection_message")}:</strong>
+                  <p className="m-1 p-2 bg-light rounded">
+                    {selectedRejectionDetails.fullMessage}
+                  </p>
+                </div>
+              )}
           </div>
         )}
       </AlertModal>

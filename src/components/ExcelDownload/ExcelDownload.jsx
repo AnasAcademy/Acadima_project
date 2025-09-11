@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 export default function ExcelDownload({
   endpoint, // should now be a proxy path like `/api/proxy/organization/{companyName}/students/excelAll`
   filename = "export",
-  className = "btn custfontbtn rounded-2",
+  className ,
   children,
   onSuccess,
   onError,
@@ -17,7 +17,8 @@ export default function ExcelDownload({
   const downloadExcel = async () => {
     try {
       if (!endpoint) {
-        const errorMsg = t("download_failed") || "خطأ: لم يتم تحديد رابط التحميل";
+        const errorMsg =
+          t("download_failed") || "خطأ: لم يتم تحديد رابط التحميل";
         console.error("ExcelDownload: No endpoint provided");
         if (onError) onError(errorMsg);
         else alert(errorMsg);
@@ -42,14 +43,18 @@ export default function ExcelDownload({
       // Detect Excel file content type
       const contentType = response.headers.get("content-type") || "";
       const isExcelFile =
-        contentType.includes("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ||
+        contentType.includes(
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        ) ||
         contentType.includes("application/vnd.ms-excel") ||
         contentType.includes("application/octet-stream");
 
       if (!isExcelFile) {
         // Might be JSON error
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || t("download_failed") || "فشل في تحميل الملف");
+        throw new Error(
+          errorData.message || t("download_failed") || "فشل في تحميل الملف"
+        );
       }
 
       const blob = await response.blob();
@@ -71,7 +76,9 @@ export default function ExcelDownload({
       else alert(successMsg);
     } catch (error) {
       console.error("Excel download failed:", error);
-      const errorMsg = `${t("download_failed") || "فشل في تحميل الملف"}: ${error.message}`;
+      const errorMsg = `${t("download_failed") || "فشل في تحميل الملف"}: ${
+        error.message
+      }`;
       if (onError) onError(errorMsg);
       else alert(errorMsg);
     }

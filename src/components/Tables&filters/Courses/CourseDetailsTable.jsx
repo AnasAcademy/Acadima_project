@@ -1055,7 +1055,7 @@ export default function CourseDetailsTable({
                   <ExcelDownload
                     endpoint="/api/proxy/webinars/export"
                     filename="webinars_report"
-                    className="btn custfontbtn"
+                    className="gradient-btn"
                     onSuccess={() => {
                       setResultMessage(t("download_success"));
                       setShowResultModal(true);
@@ -1065,7 +1065,7 @@ export default function CourseDetailsTable({
                       setShowResultModal(true);
                     }}
                   >
-                    Excel
+                    {t("export_to_excel")}
                   </ExcelDownload>
                 )}
               </div>

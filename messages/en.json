@@ -1458,6 +1458,7 @@
     "first_overdue_installment_date": "First Overdue Installment Date",
     "remaining_days": "Remaining Days",
     "overdue_date": "Overdue Date",
-    "new_assignment": "New Assignment"
+    "new_assignment": "New Assignment",
+     "export_to_excel": "Export to Excel"
   }
 }

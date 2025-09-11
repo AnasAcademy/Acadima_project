@@ -1450,6 +1450,7 @@
     "first_overdue_installment_date": "تاريخ أول قسط متأخر",
     "remaining_days": "الأيام المتبقية",
     "overdue_date" : "تاريخ الاستحقاق",
-    "new_assignment": "واجب جديد"
+    "new_assignment": "واجب جديد",
+    "export_to_excel" : "استخراج في الاكسل"
   }
 }

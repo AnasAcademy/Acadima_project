@@ -1890,9 +1890,7 @@ export default function Editform({
                                               {index + 1}
                                             </h2>
                                             <h2>
-                                              {itm.chapter.translations?.find(
-                                                (t) => t.locale === "ar"
-                                              )?.title || "⚠️ No title"}
+                                              {itm.title || "⚠️ No title"}
                                             </h2>
                                           </div>
                                           {/* <h5>

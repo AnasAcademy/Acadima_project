@@ -259,12 +259,12 @@ export default function OngoingTrain({
   return (
     <>
       <div className=" table-responsive     ">
-        <table className="table  no-flag-style   align-middle   position-relative   ">
+        <table className="table  no-flag-style   align-middle   position-relative   p-4 pt-0 ">
           <thead className="  w-100">
             <tr className="text-nowrap text-center  ">
               {TableHead.map((head, index) => {
                 return (
-                  <th key={index} className="tableTextdir">
+                  <th key={index} className=" tableTextdir theads">
                     {head}
                   </th>
                 );
@@ -273,12 +273,16 @@ export default function OngoingTrain({
           </thead>
           <tbody>
             {trainingData.map((item, index) => (
-              <tr key={index} className="tableTextdir ">
+              <tr key={index} className=" tableTextdir ">
                 {item.columns.map((col, colindex) => {
                   return renderCell[col.type] ? (
                     renderCell[col.type](col, `${index}-${colindex}`)
                   ) : (
-                    <td key={`${index}-${colindex}`}></td>
+                    <td
+                      className="tableTextdir"
+                      key={`${index}-${colindex}`}
+                      style={{ border: "1px solid  " }}
+                    ></td>
                   );
                 })}
               </tr>
