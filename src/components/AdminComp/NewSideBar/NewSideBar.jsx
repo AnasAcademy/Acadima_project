@@ -404,7 +404,7 @@ export default function NewSideBar() {
         { tit: "installment_plans", href: "/org/financial/installments/plans" },
         { tit: "purchases", href: "/org/financial/installments/purchases" },
         { tit: "overdue", href: "/org/financial/installments/overdue" },
-        // { tit: "overdue_history", href: "/org/financial/installments/overdue-history" },
+        { tit: "overdue_history", href: "/org/financial/installments/overdue-history" },
         // { tit: "installment_settings", href: "/org/financial/installments/settings" },
       ],
     },

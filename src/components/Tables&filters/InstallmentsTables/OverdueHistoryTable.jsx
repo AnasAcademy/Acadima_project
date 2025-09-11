@@ -9,6 +9,7 @@ import ExcelDownload from "@/components/ExcelDownload/ExcelDownload";
 import Arrowdown from "@/assets/admin/arrow down.svg";
 import X from "@/assets/admin/x.svg";
 import Pen from "@/assets/admin/pen.svg";
+import { useUserData } from "@/context/UserDataContext";
 import { useApiClient } from "@/hooks/useApiClient";
 import { formatDate } from "@/functions/formatDate";
 
@@ -19,6 +20,8 @@ export default function OverdueHistoryTable({
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("settings");
+  const { getStudyClassOptions, getFinancialDocumentTypeOptions } =
+    useUserData();
   const { request } = useApiClient();
   const [dataa, setDataa] = useState(initialData);
   const [filter, setFilter] = useState(initialData);
@@ -59,50 +62,125 @@ export default function OverdueHistoryTable({
     }
   };
 
+  const handleSearch = async (filters, pageNumber = 1) => {
+    setLoading(true);
+    setCurrentFilters(filters);
+    try {
+      const queryParams = {};
+
+      selectCardData.inputs.forEach((input) => {
+        const value = filters[input.filter];
+        if (value) {
+          queryParams[input.apiKey || input.filter] = value;
+        }
+      });
+
+      queryParams.page = pageNumber;
+
+      const response = await request({
+        method: "GET",
+        urlPath: `/financial/installments/overdue_history`,
+        query: queryParams,
+      });
+
+      const data = response?.orders?.data || [];
+      setFilter(data);
+      setDataa(data);
+      setCurrentPage(response?.orders?.current_page || 1);
+      setTotalPages(response?.orders?.last_page || 1);
+      setPage(response?.orders?.current_page || 1);
+    } catch (error) {
+      console.error("Search error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      return;
+    }
+    if (Object.keys(currentFilters).length > 0) {
+      handleSearch(currentFilters, page);
+    } else {
+      fetchData(page);
+    }
+  }, [page]);
+
   const TableHead = [
+    "#",
     t("user"),
     t("installment_plan"),
     t("item"),
-    t("registration_date"),
-    t("total_amount"),
-    t("first_installment"),
-    t("number_of_installments"),
-    t("installments_amount"),
-    t("late_installments"),
-    t("overdue_amount"),
-    t("first_overdue_installment_date"),
-    t("remaining_days"),
+    t("count"),
+    t("overdue_date"),
     t("status"),
+    t("payment_date"),
+    t("late_period"),
     t("actions"),
   ];
+
+  const selectCardData = {
+    inputs: [
+        {
+        title: t("user-code"),
+        type: "search",
+        filter: "user_code",
+        placeholder: t("code-search"),
+        apiKey: "user_code",
+      },
+      {
+        title: t("user-mail"),
+        type: "search",
+        filter: "email",
+        placeholder: t("mail-search"),
+        apiKey: "email",
+      },
+      {
+        title: t("user-name"),
+        type: "search",
+        filter: "full_name",
+        placeholder: t("name-search"),
+        apiKey: "full_name",
+      },
+      {
+        title: t("registered-program-type"),
+        type: "search",
+        filter: "bundle_title",
+        placeholder: t("program-search"),
+        apiKey: "bundle_title",
+      },
+    ],
+  };
 
   const trainingData = filter.map((item, index) => ({
     key: item.id || index,
     columns: [
+      { type: "text", value: index + 1  },
       {
         type: "user",
-        name: item.user || "-",
-        email: item.userEmail || "-",
-        phone: item.userPhone || "-",
+        name: item.user?.full_name || "-",
+        email: item.user?.email || "-",
+        phone: item.user?.mobile || "-",
+        code: item.user?.user_code || "-",
       },
-      { type: "text", value: item.installmentPlan || "-" },
-      { type: "text", value: item.webinarTitle || "-" },
-      { type: "text", value: formatDate(item.createdDate) || "-" },
-      { type: "text", value: item.totalAmount || "-" },
-      { type: "text", value: item.firstInstallment || "-" },
-      { type: "text", value: item.InstallmentsCount || "-" },
-      { type: "text", value: item.InstallmentsTotalAmount || "-" },
-      { type: "text", value: item.lateInstallments || "-" },
-      { type: "text", value: item.overdueAmount || "-" },
-      { type: "text", value: formatDate(item.FirstOverdueInstDate) || "-" },
-      { type: "text", value: item.remainingDays || "-" },
-      { type: "label", value: item.enable ? "active" : "inactive" },
+      { type: "user", name: item.installment?.translations?.[0]?.title || "-", email: item.installment?.target_type || "-" },
+      {
+        type: "text",
+        value: "#" + item.bundle?.translations?.[0]?.id + item.bundle?.translations?.[0]?.title || "-",
+      },
+      { type: "text", value: item.amount + t("rs") || "-"  },
+      { type: "text", value: formatDate(item.overdue_date) || "-" },
+      { type: "label", value: item.status || "-"  },
+      { type: "text", value: formatDate(item.paid_at) || "-" },
+      { type: "text", value: item.overdue_days || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
         action: () => {
           setShowModal(!showModal);
-          setSelectedId(index);
+          setSelectedId(item.id);
           setFormState("edit");
           setEditFormData(item);
         },
@@ -128,44 +206,70 @@ export default function OverdueHistoryTable({
             icon: X,
           },
         ],
-        id: index,
+        id: item.id,
       },
     ],
   }));
 
   return (
     <>
-        <div className="row g-3">
-          <div className="col-12">
-            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-              <OngoingTrain
-                TableHead={TableHead}
-                trainingData={trainingData}
-                button={false}
-              />
+      <div className="row g-3">
+        <div className="col-12">
+          <SelectCard
+            selectCardData={selectCardData}
+            isTechSupport={true}
+            dataa={dataa}
+            setFilter={setFilter}
+            handleSearch={handleSearch}
+          />
+        </div>
 
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
-                <button
-                  disabled={currentPage === 1 || loading}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
-                >
-                  {t("previous-page")}
-                </button>
-                <span className="px-2 align-self-center col-1 text-center">
-                  {t("page")} {currentPage}
-                </span>
-                <button
-                  disabled={currentPage >= totalPages || loading}
-                  className="btn custfontbtn col-1"
-                  onClick={() => setPage(currentPage + 1)}
-                >
-                  {t("next-page")}
-                </button>
-              </div>
+        <div className="col-12">
+          <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+            <ExcelDownload
+              endpoint="/api/proxy/financial/installments/overdue_history/export"
+              filename="all_students_report"
+              className="btn custfontbtn rounded-2 mb-3"
+              onSuccess={() => {
+                setResultMessage(t("download_success"));
+                setShowResultModal(true);
+              }}
+              onError={() => {
+                setResultMessage(t("download_failed"));
+                setShowResultModal(true);
+              }}
+            >
+              Excel
+            </ExcelDownload>
+
+            <OngoingTrain
+              TableHead={TableHead}
+              trainingData={trainingData}
+              button={false}
+            />
+
+            <div className="row justify-content-center align-items-center gap-3 mt-3">
+              <button
+                disabled={currentPage === 1 || loading}
+                className="btn custfontbtn col-1"
+                onClick={() => setPage(Math.max(currentPage - 1, 1))}
+              >
+                {t("previous-page")}
+              </button>
+              <span className="px-2 align-self-center col-1 text-center">
+                {t("page")} {currentPage}
+              </span>
+              <button
+                disabled={currentPage >= totalPages || loading}
+                className="btn custfontbtn col-1"
+                onClick={() => setPage(currentPage + 1)}
+              >
+                {t("next-page")}
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
       <AlertModal
         show={showResultModal}
