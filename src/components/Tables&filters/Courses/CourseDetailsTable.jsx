@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
 import AlertModal from "@/components/AlertModal/AlertModal";
@@ -11,24 +11,24 @@ import X from "@/assets/admin/x.svg";
 import check from "@/assets/admin/Check.svg";
 import Eye from "@/assets/admin/eye.svg";
 import Pen from "@/assets/admin/pen.svg";
-
 import DashboardCards from "@/components/AdminComp/Home/DashboardCards";
 import { FaUserTie, FaAward } from "react-icons/fa";
-
 import { useApiClient } from "@/hooks/useApiClient";
 import { useUserData } from "@/context/UserDataContext";
 import { Placeholder } from "react-bootstrap";
+
 
 export default function CourseDetailsTable({
   initialData = [],
   initialPage = 1,
   initialTotalPages = 1,
   info = {},
+  type
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("settings");
   const { request } = useApiClient();
-
+  const [course ,setCourse]= useState(false);
   const {
     getStatusOptions,
     getCategoryGroupedOptions,
@@ -64,7 +64,9 @@ export default function CourseDetailsTable({
   const [selectedWebinarId, setSelectedWebinarId] = useState(null);
   const [webinarEditData, setWebinarEditData] = useState({});
   const [webinarEditLoading, setWebinarEditLoading] = useState(false);
-
+  const [chapters, setChapters] = useState([]); 
+  const [chapter, setChapter] = useState([]);
+  const [itemId , setItemId] = useState(null);
   // ui
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(initialPage);
@@ -76,7 +78,7 @@ export default function CourseDetailsTable({
   const [showResultModal, setShowResultModal] = useState(false);
   const [resultMessage, setResultMessage] = useState("");
 
-  const DEFAULT_QUERY = { type: "course" };
+  const DEFAULT_QUERY = { type: type };
 
   // ---------- Fetch webinars ----------
   const fetchData = async (pageNumber = 1) => {
@@ -150,7 +152,58 @@ export default function CourseDetailsTable({
         ],
       },
     ],
+
+
   };
+ 
+   async function getChapters(id){
+     console.log(id , "idddddd");
+     try {
+      const response = await request({
+        method: "GET",
+        urlPath: `/chapters/2453`,
+      });
+      setChapters(response?.data.chapters || []);
+      console.log(response?.data.chapters || [] , "chapters" );
+    } catch (err) {
+      console.log(err);
+    }
+        
+       
+   } 
+
+
+    async function DelteChapters(id) {
+
+
+   
+
+      console.log(id, "iddddYd");
+      try {
+        const response = await request({
+          method: "DELETE",
+          urlPath: `/chapters/${id}`,
+        });
+  
+        console.log(response.msg);
+             setChapters((prevChapters) => {
+                 prevChapters.filter((chapter) => chapter.id !== id);
+             });
+       
+      } catch (err) {
+        console.log(err);
+      }
+
+
+    } 
+
+
+
+
+
+
+
+
 
   const handleSearch = async (filters, pageNumber = 1) => {
     setLoading(true);
@@ -166,9 +219,11 @@ export default function CourseDetailsTable({
       if (x && !String(x).startsWith("__cat_")) {
         query.category_id = x;
       }
+      console.log("Search query:", query);
+
       const resp = await request({
         method: "GET",
-        urlPath: "/webinars",
+        urlPath: `/webinars`,
         query,
       });
 
@@ -326,6 +381,7 @@ export default function CourseDetailsTable({
 
   // ---- Webinar: Edit (form) ----
   const openWebinarEdit = async (webinar) => {
+    setCourse(true)
     setSelectedWebinarId(webinar?.id);
     setWebinarEditLoading(true);
     try {
@@ -438,6 +494,74 @@ export default function CourseDetailsTable({
       setWebinarEditLoading(false);
     }
   };
+  const locale = useLocale();
+
+ async function  EditChapter(chapter ,loc){
+ 
+    
+  console.log(chapter , "chapter to edit");
+
+   const updatedChapter = {
+     title: chapter.translations.find((t) => t.locale === loc)?.title,
+     status: chapter.status === "active" ? "on" : "off",
+     locale: locale,
+     check_all_contents_pass: "on",
+   };
+
+   try {
+       const response = await request({
+         method: "PUT",
+         urlPath: `/chapters/${chapter.id}`,
+         body: updatedChapter,
+       });
+
+   console.log(response.chapter);
+
+     setChapters((prevChapters) =>  
+        prevChapters.map((ch) =>
+          ch.id === chapter.id ? { ...ch, ...{
+            title: chapter.title,
+            status: chapter.status === "active" ? "active": "inactive",
+            
+
+          } } : ch
+
+        )
+      );
+   
+
+   } catch (error) {  
+    console.log(error);
+    }
+
+  }
+
+  async function AddChapter(chapter) {
+    console.log(chapter, "chapter to edit");
+     console.log(itemId , "itemidddddd");
+    const updatedChapter = {
+      webinar_id:  itemId ,
+      title: chapter.title,
+      status: chapter.status === "active" ? "on" : "off",
+      locale: locale,
+      check_all_contents_pass: "on",
+    };
+
+    try {
+      const response = await request({
+        method: "POST",
+        urlPath: `/chapters`,
+        body: updatedChapter,
+      });
+
+      console.log(response.chapter);
+       console.log(response.code);
+      setChapters((prevChapters) => [...prevChapters, response.chapter]);
+    
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // ---- Fetch students + switch table ----
   const fetchStudents = async (id, pageNum = 1) => {
@@ -555,7 +679,11 @@ export default function CourseDetailsTable({
             action: () => fetchStudents(item.id, 1),
             icon: Eye,
           },
-          { label: t("edit"), action: () => openWebinarEdit(item), icon: Pen },
+          { label: t("edit"), action: () => { 
+            setItemId(item.id)
+            getChapters(item.id)
+            openWebinarEdit(item)}, icon: Pen },
+            
           { label: t("delete"), action: () => remove(item.id), icon: X },
         ],
         id: item?.id,
@@ -675,7 +803,19 @@ export default function CourseDetailsTable({
   const webinarFormTitles = [
     { label: `${t("edit")} ${t("webinar")}`, type: "text" },
     { label: t("edit"), type: "text" },
+    { label: t("basic_information"), type: "text" },
+    { label: t("additional_info"), type: "text" },
   ];
+
+
+
+
+
+
+
+
+
+
 
   const webinarFields = [
     {
@@ -813,6 +953,13 @@ export default function CourseDetailsTable({
               setShowModal={() => setShowWebinarEditForm(false)}
               formState="edit"
               loading={webinarEditLoading}
+              course={course}
+              chapters={chapters}
+              EditChapter={EditChapter}
+              setChapter={setChapter}
+              chapter={chapter}
+              AddChapter={AddChapter}
+              DelteChapters={DelteChapters}
             />
           </div>
         </div>

@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTranslations } from "next-intl";
+import { useTranslations  ,useLocale } from "next-intl";
 import { useUserData } from "@/context/UserDataContext";
 import { set } from "date-fns";
 import Drag from "@/assets/admin/drag.svg"
@@ -550,7 +550,14 @@ export default function Editform({
   AddQuetion,
   setQType,
   reArrangeQuestions,
-  qId
+  qId,
+  course,
+  chapters,
+  EditChapter,
+  chapter,
+  setChapter,
+  AddChapter,
+  DelteChapters,
 }) {
   const [addquestion, setAddquestion] = useState(false);
   const [multiqes, setMultiqes] = useState(false);
@@ -587,12 +594,25 @@ export default function Editform({
   };
 
   const handleDragEnd = (result) => {
-    if (!result.destination) return; 
+    if (!result.destination) return;
+
+    console.log("here", result);
     const items = Array.from(questions);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setQuestions(items); // update the state with reordered array
-     reArrangeQuestions(items);
+    reArrangeQuestions(items);
+  };
+
+  const handleDragEn = (result) => {
+    if (!result.destination) return;
+
+    console.log("here3", result);
+    const items = Array.from(questions);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setQuestions(items); // update the state with reordered array
+    reArrangeQuestions(items);
   };
 
   const removeField = () => {
@@ -710,7 +730,7 @@ export default function Editform({
       }
 
       if (name === "description") {
-        rule = rule.min(10, `${t("desc")} يجب أن لا يقل عن 10 أحرف`);
+        rule = rule.min(10, `${t("desc")} ${t("min_10_chars")} `);
       }
 
       acc[name] = rule;
@@ -718,6 +738,8 @@ export default function Editform({
     }, {}),
     sub_categories: subCategoryValidation,
   });
+
+  const locale = useLocale();
 
   // Initial values
   const initialValues = fields.reduce((acc, field) => {
@@ -825,6 +847,22 @@ export default function Editform({
       }}
     >
       <h4>{formTitles?.[0]?.label}</h4>
+
+      {course ? (
+        <>
+          <div className=" d-flex align-items-center gap-3 ">
+            <div
+              className=" bg-dark  rounded-4"
+              style={{ width: "40px", height: "10px" }}
+            >
+              {" "}
+            </div>{" "}
+            <h3>{formTitles?.[2]?.label}</h3>{" "}
+          </div>
+        </>
+      ) : (
+        ""
+      )}
       <div className="container-fluid p-0">
         <div className="p-4 row g-3 d-flex justify-content-start">
           {fields.map((field, index) => {
@@ -1316,7 +1354,7 @@ export default function Editform({
                       setAddquestion(!addquestion);
                     }}
                   >
-                    اضف اختيار من متعدد
+                    {t("multiple_choice")}
                   </button>
                   <button
                     className="btn btn-light custfontbtn"
@@ -1329,7 +1367,7 @@ export default function Editform({
                       setAddquestion(!addquestion);
                     }}
                   >
-                    اضافة مقالي
+                    {t("add_essay")}
                   </button>
                 </div>
               </div>
@@ -1379,11 +1417,11 @@ export default function Editform({
                                     </div>
                                     <h5>
                                       {itm.type === "multiple"
-                                        ? "اختيار من متعدد"
+                                        ? t("multiple_choice")
                                         : itm.type === "descriptive"
-                                        ? "سؤال مقالي"
+                                        ? t("essay_question")
                                         : "⚠️ No type"}
-                                      {" | "} الدرجة:{" "}
+                                      {" | "} {t("grade")}:{" "}
                                       {itm.grade ?? "⚠️ No grade"}
                                     </h5>
                                   </div>
@@ -1440,10 +1478,10 @@ export default function Editform({
               {addquestion ? (
                 <div className=" position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center  p-3">
                   <div className="bg-white w-50 h-75 rounded shadow p-4   ">
-                    <h2 className=" mb-4">سؤال وصفي جديد</h2>
+                    <h2 className=" mb-4"> {t("new_descriptive_question")} </h2>
                     <div className=" row g-4  h-100  ">
                       <div className=" col-12 col-md-7">
-                        <h5>عنوان السؤال</h5>
+                        <h5> {t("question_title")} </h5>
                         <input
                           type="text"
                           name=""
@@ -1466,7 +1504,7 @@ export default function Editform({
                       </div>
 
                       <div className="col-12 col-md-5">
-                        <h5> الدرجة</h5>
+                        <h5> {t("grade")}</h5>
                         <input
                           type="text"
                           name=""
@@ -1484,7 +1522,7 @@ export default function Editform({
                       </div>
 
                       <div className=" col-12 col-md-6">
-                        <h5> صورة (اختياري)</h5>
+                        <h5> {t("image_optional")}</h5>
                         <input
                           type="text"
                           name=""
@@ -1493,7 +1531,7 @@ export default function Editform({
                         />
                       </div>
                       <div className="col-12 col-md-6">
-                        <h5> فيديو (اختياري)</h5>
+                        <h5> {t("video_optional")}</h5>
                         <input
                           type="text"
                           name=""
@@ -1505,7 +1543,7 @@ export default function Editform({
                       {multiqes ? (
                         <div className=" col-12 gap-4 d-flex flex-column ">
                           <div>
-                            <h2> الإجابات </h2>
+                            <h2> {t("answers")}</h2>
                             <button
                               className=" btn btn-dark"
                               type="button"
@@ -1523,7 +1561,7 @@ export default function Editform({
                                 }));
                               }}
                             >
-                              اضافة اجابة
+                              {t("add_answer")}
                             </button>
                           </div>
                           <div
@@ -1534,7 +1572,7 @@ export default function Editform({
                               (itm, index) => (
                                 <div className=" row border-1 p-3 border border-dark-subtle m-3  g-3">
                                   <div className=" col-12">
-                                    <h5> عنوان الاجابة</h5>
+                                    <h5> {t("answer_title")}</h5>
                                     <input
                                       type="text"
                                       name=""
@@ -1567,7 +1605,7 @@ export default function Editform({
                                     />
                                   </div>
                                   <div className=" col-6">
-                                    <h5> صورة الاجابة (اختياري) </h5>
+                                    <h5> {t("answer_image_optional")} </h5>
                                     <input
                                       type="text"
                                       name=""
@@ -1577,7 +1615,7 @@ export default function Editform({
                                   </div>
                                   <div className=" col-6 d-flex justify-content-center align-items-center">
                                     <div class="form-check form-switch d-flex gap-4">
-                                      <h5> الاجابة الصحيحة </h5>
+                                      <h5> {t("correct_answer")}</h5>
                                       <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1612,7 +1650,7 @@ export default function Editform({
                         </div>
                       ) : (
                         <div className=" col-12 ">
-                          <h5> الاجابة الصحيحة</h5>
+                          <h5> {t("correct_answer")} </h5>
                           <textarea
                             value={question.translations?.[0]?.correct || ""}
                             onChange={(e) => {
@@ -1648,7 +1686,7 @@ export default function Editform({
                           }}
                         >
                           {" "}
-                          حفظ{" "}
+                          {t("save")}{" "}
                         </button>
                         <button
                           className=" btn btn-danger  "
@@ -1657,7 +1695,7 @@ export default function Editform({
                           }}
                         >
                           {" "}
-                          اغلاق
+                          {t("close")}
                         </button>
                       </div>
                     </div>
@@ -1671,6 +1709,405 @@ export default function Editform({
             ""
           )}
 
+          {course ? (
+            <>
+              <div className="d-flex align-items-center gap-3 justify-content-between">
+                <div className="d-flex align-items-center gap-3">
+                  <div
+                    className="bg-dark rounded-4"
+                    style={{ width: "40px", height: "10px" }}
+                  ></div>
+                  <h3>{t("sections_optional")}</h3>
+                </div>
+                <button
+                  className="btn btn-success"
+                  onClick={() => {
+                    console.log("clicked");
+                    setAdd(true);
+                    setChapter([]);
+                    setAddquestion(!AddQuetion);
+                  }}
+                  type="button"
+                >
+                  {" "}
+                  {t("new_section")}{" "}
+                </button>
+              </div>
+
+              {addquestion ? (
+                <div className=" position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center  p-3 z-3">
+                  <div className="bg-white w-50 h-50 rounded shadow p-4   ">
+                    <h2 className=" mb-4"> {t("new_section")} </h2>
+                    <div className=" row g-4  h-100  ">
+                      <div className=" col-12 col-md-7">
+                        <h5> {t("section_title")} </h5>
+                        <input
+                          type="text"
+                          name=""
+                          value={
+                            chapter.translations?.find((t) => t.locale === "ar")
+                              ?.title
+                          }
+                          onChange={(e) => {
+                            const updated = {
+                              ...chapter,
+                              translations: chapter.translations.map((t) =>
+                                t.locale === "ar"
+                                  ? { ...t, title: e.target.value }
+                                  : t
+                              ),
+                            };
+                            setChapter(updated);
+                          }}
+                          id=""
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100  border-1"
+                        />
+                        <div className="form-check form-switch mt-4">
+                          <input
+                            className="form-check-input "
+                            type="checkbox"
+                            checked={chapter.status === "active"}
+                            onChange={(e) => {
+                              const updated = {
+                                ...chapter,
+                                status: e.target.checked
+                                  ? "active"
+                                  : "inactive",
+                              };
+                              setChapter(updated);
+                            }}
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                          />
+                          <label
+                            className="form-check-label"
+                            for="flexSwitchCheckDefault"
+                          >
+                            {t("active")}
+                          </label>
+                        </div>
+                        <div className="form-check form-switch mt-4">
+                          <input
+                            className="form-check-input "
+                            type="checkbox"
+                            checked={chapter.check_all_contents_pass === "on"}
+                            onChange={(e) => {
+                              const updated = {
+                                ...chapter,
+                                message: e.target.checked ? "on" : "off",
+                              };
+                              setChapter(updated);
+                            }}
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                          />
+                          <label
+                            className="form-check-label"
+                            for="flexSwitchCheckDefault"
+                          >
+                            {t("message")}
+                          </label>
+                        </div>
+                      </div>
+                      <div className=" d-flex justify-content-end gap-2 align-items-center">
+                        <button
+                          className=" btn btn-success  "
+                          type="button"
+                          onClick={() => {
+                            {
+                              add
+                                ? AddChapter(chapter)
+                                : EditChapter(chapter, locale);
+                            }
+                            setAddquestion(false);
+                          }}
+                        >
+                          {" "}
+                          {t("save")}
+                        </button>
+                        <button
+                          className=" btn btn-danger  "
+                          onClick={() => {
+                            setAddquestion(!addquestion);
+                          }}
+                        >
+                          {" "}
+                          {t("close")}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                " "
+              )}
+
+              {chapters.length > 0 ? (
+                <div className="d-flex flex-column gap-5 mb-5">
+                  <DragDropContext onDragEnd={handleDragEnd}>
+                    <Droppable
+                      droppableId="questions-list"
+                      direction="vertical"
+                    >
+                      {(provided) => (
+                        <div
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          className="questions-container"
+                        >
+                          {chapters.map((itm, index) => (
+                            <Draggable
+                              key={itm.id ?? `temp-${index}`}
+                              draggableId={(
+                                itm.id ?? `temp-${index}`
+                              ).toString()}
+                              index={index}
+                            >
+                              {(provided, snapshot) => {
+                                // lock movement to Y-axis only
+                                const style = {
+                                  ...provided.draggableProps.style,
+                                  transform:
+                                    provided.draggableProps.style?.transform?.replace(
+                                      /translate\(([^,]+),/,
+                                      "translate(0,"
+                                    ),
+                                };
+
+                                return (
+                                  <>
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      style={style}
+                                      className="d-flex flex-column justify-content-between shadow-lg border-3 p-4 gap-3 mb-3"
+                                    >
+                                      <div className="d-flex flex-column flex-md-row justify-content-between shadow-lg border-3 p-4 gap-3 mb-3 ">
+                                        <div>
+                                          <div className="d-flex align-items-center gap-3">
+                                            <h2 className="bg-dark p-2 text-white rounded-2">
+                                              {index + 1}
+                                            </h2>
+                                            <h2>
+                                              {itm.chapter.translations?.find(
+                                                (t) => t.locale === "ar"
+                                              )?.title || "⚠️ No title"}
+                                            </h2>
+                                          </div>
+                                          {/* <h5>
+                                        {itm.type === "multiple"
+                                          ? "اختيار من متعدد"
+                                          : itm.type === "descriptive"
+                                          ? "سؤال مقالي"
+                                          : "⚠️ No type"}
+                                        {" | "} الدرجة:{" "}
+                                        {itm.grade ?? "⚠️ No grade"}
+                                      </h5> */}
+                                        </div>
+
+                                        <div className="d-flex align-items-center gap-3">
+                                          <h2 className="btn btn-light d-flex align-items-center">
+                                            <Drag className="iconSize" />
+                                          </h2>
+
+                                          <button
+                                            className="btn btn-success"
+                                            type="button"
+                                            onClick={() => {
+                                              setAdd(false);
+                                              setChapter(itm);
+                                              setAddquestion(true);
+                                            }}
+                                          >
+                                            {t("edit")}
+                                          </button>
+
+                                          <button
+                                            className="btn btn-danger "
+                                            type="button"
+                                            onClick={() => {
+                                              setAdd(false);
+                                              DelteChapters(itm.chapter.id);
+                                            }}
+                                          >
+                                            {t("delete")}
+                                          </button>
+                                        </div>
+                                      </div>
+
+                                      <div className=" ">
+                                        {itm.items?.length > 0 ? (
+                                          <div className="d-flex flex-column gap-5 mb-5">
+                                            <DragDropContext
+                                              onDragEnd={handleDragEn}
+                                            >
+                                              <Droppable
+                                                droppableId="questions-list"
+                                                direction="vertical"
+                                              >
+                                                {(provided) => (
+                                                  <div
+                                                    {...provided.droppableProps}
+                                                    ref={provided.innerRef}
+                                                    className="questions-container  bg-light"
+                                                  >
+                                                    {itm.items.map(
+                                                      (item, index) => (
+                                                        <Draggable
+                                                          key={
+                                                            item.id ??
+                                                            `temp-${index}`
+                                                          }
+                                                          draggableId={(
+                                                            item.id ??
+                                                            `temp-${index}`
+                                                          ).toString()}
+                                                          index={index}
+                                                        >
+                                                          {(
+                                                            provided,
+                                                            snapshot
+                                                          ) => {
+                                                            // lock movement to Y-axis only
+                                                            const style = {
+                                                              ...provided
+                                                                .draggableProps
+                                                                .style,
+                                                              transform:
+                                                                provided.draggableProps.style?.transform?.replace(
+                                                                  /translate\(([^,]+),/,
+                                                                  "translate(0,"
+                                                                ),
+                                                            };
+
+                                                            return (
+                                                              <>
+                                                                <div
+                                                                  ref={
+                                                                    provided.innerRef
+                                                                  }
+                                                                  {...provided.draggableProps}
+                                                                  {...provided.dragHandleProps}
+                                                                  style={style}
+                                                                >
+                                                                  <div className="d-flex flex-column flex-md-row justify-content-between  border-1 p-4  border-dark-subtle  border  rounded-3 gap-3 m-4 bg-light">
+                                                                    <div>
+                                                                      <div className="d-flex align-items-center gap-3 bg-light">
+                                                                        <h2 className="bg-dark p-2 text-white rounded-2">
+                                                                          {index +
+                                                                            1}
+                                                                        </h2>
+                                                                        <h2>
+                                                                          {item
+                                                                            .details
+                                                                            ?.translations[0]
+                                                                            ?.title ||
+                                                                            "⚠️ No title"}
+                                                                        </h2>
+                                                                      </div>
+                                                                      {/* <h5>
+                                        {itm.type === "multiple"
+                                          ? "اختيار من متعدد"
+                                          : itm.type === "descriptive"
+                                          ? "سؤال مقالي"
+                                          : "⚠️ No type"}
+                                        {" | "} الدرجة:{" "}
+                                        {itm.grade ?? "⚠️ No grade"}
+                                      </h5> */}
+                                                                    </div>
+
+                                                                    <div className="d-flex align-items-center gap-3">
+                                                                      <h2 className="btn btn-light d-flex align-items-center">
+                                                                        <Drag className="iconSize" />
+                                                                      </h2>
+
+                                                                      <button
+                                                                        className="btn btn-success"
+                                                                        type="button"
+                                                                        onClick={() => {
+                                                                          setAdd(
+                                                                            false
+                                                                          );
+                                                                          setQuestion(
+                                                                            itm
+                                                                          );
+                                                                          setMultiqes(
+                                                                            itm.type ===
+                                                                              "multiple"
+                                                                          );
+                                                                          setAddquestion(
+                                                                            true
+                                                                          );
+                                                                        }}
+                                                                      >
+                                                                        {t(
+                                                                          "edit"
+                                                                        )}
+                                                                      </button>
+
+                                                                      <button
+                                                                        className="btn btn-danger"
+                                                                        type="button"
+                                                                        onClick={() => {
+                                                                          setAdd(
+                                                                            false
+                                                                          );
+                                                                          deleteQuetion(
+                                                                            itm.id ||
+                                                                              qId
+                                                                          );
+                                                                        }}
+                                                                      >
+                                                                        {t(
+                                                                          "delete"
+                                                                        )}
+                                                                      </button>
+
+                                                           
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </>
+                                                            );
+                                                          }}
+                                                        </Draggable>
+                                                      )
+                                                    )}
+                                                    {provided.placeholder}
+                                                  </div>
+                                                )}
+                                              </Droppable>
+                                            </DragDropContext>
+                                          </div>
+                                        ) : (
+                                          ""
+                                        )}
+                                      </div>
+                                    </div>
+                                  </>
+                                );
+                              }}
+                            </Draggable>
+                          ))}
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+                </div>
+              ) : (
+                <div className="d-flex justify-content-center align-items-center">
+                  <p className="d-flex flex-column justify-content-center align-items-center text-center gap-2">
+                    <span>لا أقسام!</span> من خلال إنشاء أقسام ، يمكنك تنظيم
+                    محتوى المقرر في فصول مختلفة.
+                  </p>
+                </div>
+              )}
+            </>
+          ) : (
+            ""
+          )}
           <div className="d-flex col-7 mt-4 ">
             <button
               className="btn btn-light custfontbtn w-25"

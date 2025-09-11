@@ -1365,7 +1365,28 @@
   "assistant_teacher": "Assistant teacher",
 
   "course_requirements": "Course requirements",
-   "course_namee": "Course name"
-
+   "course_namee": "Course name",
+   "basic_information": "Basic Information",
+     "additional_info": "Additional Information",
+     "sections_optional": "Sections (Optional)",
+      "new_section": "New Section",
+       "message": "The student must pass all parts",
+        "save": "Save",
+        "section_title": "Section Title",
+         "multiple_choice": "Multiple Choice",
+          "add_essay": "Add Essay",
+            "correct_answer": "Correct Answer",
+            "answer_image_optional": "Answer Image (Optional)",
+            "answer_title": "Answer Title",
+            "answers": "Answers",
+            "add_answer": "Add Answer",
+"question_title": "Question Title",
+"new_descriptive_question": "New Descriptive Question",
+ "image_optional": "Image (Optional)",
+   "video_optional": "Video (Optional)",
+   "essay_question": "Essay Question",
+   
+"min_10_chars": "Must not be less than 10 characters"
+    
   }
 }

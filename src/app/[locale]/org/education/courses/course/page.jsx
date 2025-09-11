@@ -49,6 +49,7 @@ export default async function CourseDetails() {
               initialPage={currentPage}
               initialTotalPages={totalPages}
               info={info}
+              type="course"
             />
           </div>
         </div>

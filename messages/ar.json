@@ -1364,6 +1364,26 @@
     "add_teacher_to_attendance": "إضافة معلم للحضور",
     "assistant_teacher": "مساعد معلم",
     "course_requirements": "متطلبات الدورة",
-    "course_namee": "اسم المقرر"
+    "course_namee": "اسم المقرر",
+    "basic_information": "المعلومات الأساسية",
+      "additional_info": "معلومات إضافية",
+       "sections_optional": "الأقسام (اختياري)",
+       "new_section":"قسم جديد",
+        "message": "أن يجتاز الطالب جميع الأجزاء",
+         "save": "حفظ",
+          "section_title": "عنوان القسم",
+           "multiple_choice": "اختيار من متعدد",
+            "add_essay": "إضافة مقالي",
+             "correct_answer": "الإجابة الصحيحة",
+              "answer_image_optional": "صورة الإجابة (اختياري)",
+                "answer_title": "عنوان الإجابة",
+                 "answers": "الإجابات",
+                 "add_answer": "إضافة إجابة",
+                  "question_title": "عنوان السؤال",
+                   "new_descriptive_question": "سؤال وصفي جديد",
+                   "image_optional": "صورة (اختياري)",
+                     "video_optional": "فيديو (اختياري)",
+                     "essay_question": "سؤال مقالي",
+                  "min_10_chars": "يجب أن لا يقل عن 10 أحرف"    
   }
 }
