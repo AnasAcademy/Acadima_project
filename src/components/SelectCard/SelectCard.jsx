@@ -73,11 +73,11 @@ export default function SelectCard({
 
                     {input.type === "date" && (
                       <div className="form-control mr-sm-2 d-flex gap-2">
-                        {input.icon !== false && (
+                        {/* {input.icon !== false && (
                           <span className="" style={{ zIndex: 2 }}>
                             <SearchIcon width={15} height={15} />
                           </span>
-                        )}
+                        )} */}
                         <input
                           type="date"
                           placeholder={

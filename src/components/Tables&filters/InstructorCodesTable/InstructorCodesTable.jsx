@@ -60,8 +60,8 @@ export default function InstructorCodesTable({ dat }) {
 
   const trainingData = data.map((item, index) => ({
     columns: [
-      { type: "text", value: item.instructor_code },
-      { type: "text", value: item.lst_tr_code },
+      { type: "text", value: item.instructor_code || "-" },
+      { type: "text", value: item.lst_tr_code || "-" },
     ],
   }));
 

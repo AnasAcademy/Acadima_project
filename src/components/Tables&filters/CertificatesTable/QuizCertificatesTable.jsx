@@ -12,6 +12,7 @@ import printer from "@/assets/admin/printer.svg";
 import check from "@/assets/admin/Check.svg";
 import Pen from "@/assets/admin/pen.svg";
 import { useApiClient } from "@/hooks/useApiClient";
+import { formatDate } from "@/functions/formatDate";
 
 
 export default function QuizCertificatesTable({
@@ -147,7 +148,7 @@ export default function QuizCertificatesTable({
           value: item.quiz?.teacher.full_name || item.quiz_score || "-",
         },
         { type: "text", value: item.quizzes_result?.user_grade || "-" },
-        { type: "text", value: item.graduation_date },
+        { type: "text", value: formatDate(item.graduation_date) },
         {
           type: "actionbutton",
           label: t("actions"),

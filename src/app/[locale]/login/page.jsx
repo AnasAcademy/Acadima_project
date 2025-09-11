@@ -18,8 +18,6 @@ import { usePathname, useRouter } from "next/navigation";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_Login_URL;
 export default function Login() {
-
-
   const t = useTranslations("Login");
 
   const [toggle, setToggle] = useState("");
@@ -101,7 +99,7 @@ export default function Login() {
 
             if (!response.ok) {
               const errorData = await response.json();
-              console.error("Token API error:", errorData); 
+              console.error("Token API error:", errorData);
               return;
             }
 
@@ -110,11 +108,15 @@ export default function Login() {
 
             // console.log("Router object:", router);
             // console.log("Navigating to /ar/dashboard");
-
-            setTimeout(() => {
-            
-              router.push(`/${locale}/paymentplans`);
-            }, 20);
+            if (data?.data?.user?.role === "admin") {
+              setTimeout(() => {
+                router.push(`/${locale}/org/panel`);
+              }, 20);
+            } else {
+              setTimeout(() => {
+                router.push(`/${locale}/paymentplans`);
+              }, 20);
+            }
           } catch (error) {
             console.error("Error in fetch to /api/set-token:", error);
           }

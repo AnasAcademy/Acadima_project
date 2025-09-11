@@ -9,6 +9,8 @@ import Pen from "@/assets/admin/pen.svg";
 import { useApiClient } from "@/hooks/useApiClient";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import SelectCard from "@/components/SelectCard/SelectCard";
+import Check from "@/assets/admin/Check.svg";
+import { formatDate } from "@/functions/formatDate";
 
 export default function QuizzesTable({ dat, current_page, last_page }) {
   const [currentPage, setCurrentPage] = useState(current_page);
@@ -28,8 +30,8 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
   const [question, setQuestion] = useState([]);
   const { request } = useApiClient();
   const [extraformquiz, setExtraformquiz] = useState(true);
-  const [qType ,setQType] = useState("")
-  const [qId ,setQId] = useState("")
+  const [qType, setQType] = useState("");
+  const [qId, setQId] = useState("");
 
   // async function fetchy(stat) {
   //   const newPage = stat === "up" ? currentPage + 1 : currentPage - 1;
@@ -243,39 +245,38 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
   };
 
   const updateQuetion = async (data) => {
-    console.log("oldone" ,data);
+    console.log("oldone", data);
 
     try {
+      const requestBody = {
+        type: data.type,
+        title: data.translations?.[0]?.title,
+        grade: data.grade,
+        locale: "AR",
+      };
 
-           const requestBody = {
-             type: data.type,
-             title: data.translations?.[0]?.title,
-             grade: data.grade,
-             locale: "AR",
-           };
+      // Conditionally add answers or correct field based on question type
+      if (qType === "multiple") {
+        requestBody.answers = data.quizzes_questions_answers.map(
+          (itm, inx) => ({
+            id: itm.id,
+            title: itm.translations[0]?.title,
+            correct: itm.correct,
+          })
+        );
+      } else {
+        console.log(
+          "descriptive data.correct",
+          data.translations?.[0]?.correct
+        );
+        requestBody.correct = data.translations?.[0]?.correct;
+      }
 
-           // Conditionally add answers or correct field based on question type
-           if (qType === "multiple") {
-             requestBody.answers = data.quizzes_questions_answers.map(
-               (itm, inx) => ({
-                 id: itm.id,
-                 title: itm.translations[0]?.title,
-                 correct: itm.correct,
-               })
-             );
-           } else {
-             console.log(
-               "descriptive data.correct",
-               data.translations?.[0]?.correct
-             );
-             requestBody.correct = data.translations?.[0]?.correct;
-           }
-
-   const response = await request({
-     method: "PUT",
-     urlPath: `/quizzes/questions/${data.id}`,
-     body: requestBody,
-   });
+      const response = await request({
+        method: "PUT",
+        urlPath: `/quizzes/questions/${data.id}`,
+        body: requestBody,
+      });
 
       // const response = await request({
       //   method: "PUT",
@@ -293,8 +294,8 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
       // });
 
       console.log(response.data);
-      const  updatedData = response.data;
-      
+      const updatedData = response.data;
+
       setQuestions((prev) =>
         prev.map((itm) =>
           itm.id === data.id ? { ...itm, ...updatedData } : itm
@@ -307,80 +308,75 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
 
   const AddQuetion = async (data) => {
     console.log(data);
-   console.log(Itemid);
-  try {
-    const requestBody = {
-      quiz_id: Itemid,
-      type: qType,
-      title: data.translations?.[0]?.title,
-      grade: data.grade,
-      locale: "AR"
-    };
+    console.log(Itemid);
+    try {
+      const requestBody = {
+        quiz_id: Itemid,
+        type: qType,
+        title: data.translations?.[0]?.title,
+        grade: data.grade,
+        locale: "AR",
+      };
 
-    // Conditionally add answers or correct field based on question type
-    if (qType === "multiple") {
-      requestBody.answers = data.quizzes_questions_answers.map((itm, inx) => ({
-        id: itm.id,
-        title: itm.translations[0]?.title,
-        correct: itm.correct,
-      }));
-    } else {
-      console.log("descriptive data.correct", data.translations?.[0]?.correct);
-      requestBody.correct = data.translations?.[0]?.correct;
-    }
+      // Conditionally add answers or correct field based on question type
+      if (qType === "multiple") {
+        requestBody.answers = data.quizzes_questions_answers.map(
+          (itm, inx) => ({
+            id: itm.id,
+            title: itm.translations[0]?.title,
+            correct: itm.correct,
+          })
+        );
+      } else {
+        console.log(
+          "descriptive data.correct",
+          data.translations?.[0]?.correct
+        );
+        requestBody.correct = data.translations?.[0]?.correct;
+      }
 
-    const response = await request({
-      method: "POST",
-      urlPath: `/quizzes/questions`,
-      body: requestBody,
-    });
+      const response = await request({
+        method: "POST",
+        urlPath: `/quizzes/questions`,
+        body: requestBody,
+      });
 
-   
-     
       const newQuestion = response.data;
 
- console.log("first" ,newQuestion.question);
-  console.log("second", questions[questions.length - 1]);
-  // console.log(newQuestion.question.id);
-  setQId(newQuestion.question.id)
-
+      console.log("first", newQuestion.question);
+      console.log("second", questions[questions.length - 1]);
+      // console.log(newQuestion.question.id);
+      setQId(newQuestion.question.id);
 
       setQuestions((prev) => [...prev, newQuestion.question]);
 
-       console.log(" this->", questions[questions.length -1 ]);
-
+      console.log(" this->", questions[questions.length - 1]);
     } catch (err) {
       console.log(err);
     }
   };
 
-
   const reArrangeQuestions = async (items) => {
-
     console.log("reArrangeQuestions");
     console.log(Itemid);
-        console.log(items[0].id);
+    console.log(items[0].id);
     try {
       const response = await request({
         method: "POST",
         urlPath: `/quizzes/questions/change/${Itemid}`,
-        body:{
-              items: items.map((itm , index)=>{
-                       return itm.id
-
-              }) ,
-            table:"quizzes_questions"
-        }
+        body: {
+          items: items.map((itm, index) => {
+            return itm.id;
+          }),
+          table: "quizzes_questions",
+        },
       });
 
       console.log(response);
-
-
     } catch (err) {
       console.log(err);
     }
   };
-  
 
   const getResData = async (id) => {
     try {
@@ -425,12 +421,12 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
 
   const resDat = restbledata.map((item, index) => ({
     columns: [
-      { type: "text", value: item.quiz_title },
-      { type: "text", value: item.student_name },
-      { type: "text", value: item.teacher_name },
-      { type: "text", value: item.grade },
-      { type: "text", value: item.quiz_date },
-      { type: "text", value: item.status },
+      { type: "text", value: item.quiz_title || "-" },
+      { type: "text", value: item.student_name || "-" },
+      { type: "text", value: item.teacher_name || "-" },
+      { type: "text", value: item.grade || "-" },
+      { type: "text", value: formatDate(item.quiz_date) || "-" },
+      { type: "label", value: item.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
@@ -457,13 +453,27 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
   const trainingData = data.map((item, index) => ({
     columns: [
       // { type: "text", value: index + 1 },
-      { type: "text", value: item.quizTitle },
-      { type: "text", value: item.teacher },
-      { type: "text", value: item.quizQuestions },
-      { type: "text", value: item.Students },
-      { type: "text", value: item.avgGrade },
-      { type: "text", value: item.certificate },
-      { type: "text", value: item.status },
+      {
+        type: "user",
+        name: item.quizTitle || "-",
+        email: item.webinarTitle || "-",
+      },
+      { type: "text", value: item.teacher || "-" },
+      { type: "text", value: item.quizQuestions || "-" },
+      { type: "text", value: item.Students || "-" },
+      { type: "text", value: item.avgGrade || "-" },
+      {
+        type: "text",
+        value:
+          item.certificate === 1 ? (
+            <Check className="text-success" size={16} />
+          ) : item.certificate === 0 ? (
+            <X className="text-danger" size={16} />
+          ) : (
+            "-"
+          ),
+      },
+      { type: "label", value: item.status || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
@@ -576,8 +586,8 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
         placeholder: t("status"),
         apiKey: "status",
         options: [
-          { value: "active", label: "active" },
-          { value: "inactive", label: "inactive" },
+          { value: "active", label: t("active") },
+          { value: "inactive", label: t("inactive") },
         ],
       },
     ],
@@ -679,7 +689,9 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
               <div className=" d-flex justify-content-end  ">
                 {restble ? (
                   <div className=" d-flex justify-content-between w-100">
-                    <h4>خدمة {} </h4>
+                    <h4>
+                      {t("quiz")} {}{" "}
+                    </h4>
 
                     <button
                       className="btn  btn-light custfontbtn "
@@ -688,7 +700,7 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
                       }}
                     >
                       {" "}
-                      back
+                      {t("back")}
                     </button>
                   </div>
                 ) : (

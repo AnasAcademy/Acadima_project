@@ -10,6 +10,7 @@ import { useApiClient } from "@/hooks/useApiClient";
 import AlertModal from "@/components/AlertModal/AlertModal";
 import SelectCard from "@/components/SelectCard/SelectCard";
 import { useUserData } from "@/context/UserDataContext";
+import { formatDate } from "@/functions/formatDate";
 
 export default function BundleBridingTable({ dat, current_page, last_page }) {
 
@@ -255,13 +256,13 @@ export default function BundleBridingTable({ dat, current_page, last_page }) {
 
     const resDat = restbledata.map((item, index) => ({
       columns: [
-        { type: "text", value: item.id },
-        { type: "text", value: item.full_name },
-        { type: "text", value: item.rate },
-        { type: "text", value: item.learning },
-        { type: "text", value: item.gpa },
-        { type: "text", value: item.bundle_join_date },
-        { type: "text", value: item.status },
+        { type: "text", value: item.id || "-" },
+        { type: "text", value: item.full_name || "-" },
+        { type: "text", value: item.rate || "-" },
+        { type: "text", value: item.learning || "-" },
+        { type: "text", value: item.gpa || "-" },
+        { type: "text", value: formatDate(item.bundle_join_date) || "-" },
+        { type: "label", value: item.status || "-" },
         {
           type: "actionbutton",
           label: t("actions"),
@@ -300,16 +301,16 @@ export default function BundleBridingTable({ dat, current_page, last_page }) {
         { type: "text", value: item.id },
         {
           type: "user",
-          name: item.translations?.[0]?.title,
-          email: item.batch.title,
+          name: item.translations?.[0]?.title || "-",
+          email: item.batch.title || "-",
         },
-        { type: "text", value: item.teacher.full_name },
-        { type: "text", value: item.price },
-        { type: "text", value: item.bundle_webinars_count },
+        { type: "text", value: item.teacher.full_name || "-" },
+        { type: "text", value: item.price || "-" },
+        { type: "text", value: item.bundle_webinars_count || "-" },
         { type: "text", value: item.hasGroup ? "مجموعات" : "دفعات" },
-        { type: "text", value: item.start_date },
-        { type: "text", value: item.end_date },
-        { type: "label", value: item.status },
+        { type: "text", value: formatDate(item.start_date) || "-" },
+        { type: "text", value: (item.end_date) || "-" },
+        { type: "label", value: item.status || "-" },
         {
           type: "actionbutton",
           label: t("actions"),
@@ -520,7 +521,7 @@ export default function BundleBridingTable({ dat, current_page, last_page }) {
                       }}
                     >
                       {" "}
-                      back
+                      {t("back")}
                     </button>
                   </div>
                 ) : (

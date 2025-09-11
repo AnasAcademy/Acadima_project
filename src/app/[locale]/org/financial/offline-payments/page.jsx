@@ -1,124 +1,62 @@
-"use client";
 import React from "react";
-import FilterCard from "@/components/FilterCard/FilterCard";
-import SelectCard from "@/components/SelectCard/SelectCard";
-import OngoingTrain from "@/components/AdminComp/ongoingTrain/OngoingTrain";
-import { useTranslations } from "next-intl";
-import Pin from "@/assets/admin/pin.svg";
-import Removebin from "@/assets/admin/removebin.svg";
-import roundimage from "@/assets/admin/personla.png";
+import { getTranslations, getLocale } from "next-intl/server";
+import OfflinePaymentsTable from "@/components/Tables&filters/financial/OfflinePaymentsTable";
+import { cookies } from "next/headers";
 
-export default function OfflinePayments() {
-  const ts = useTranslations("SidebarA");
-  const t = useTranslations("employee_progress");
+export default async function OfflinePayments() {
+const t = await getTranslations("SidebarA");
+  const locale = await getLocale(); // Get current locale
+  const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token")?.value;
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  // Server-side fetch for admission requirements data
 
-  const TableHead = [
-    "",
-    t("employee_name"),
-    t("training_course"),
-    t("program_status"),
-    t("join_date"),
-    t("completion_rate"),
-    t("profile_access"),
-  ];
 
-  const trainingData = [
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
+  async function fetchData(pageNumber = 1) {
+
+
+
+    try {
+      const res = await fetch(
+        `${BASE_URL}/financial/offline_payments?page=${pageNumber}`,
         {
-          type: "button",
-          value: t("completed"),
-          icon: false,
-          color: "#48BB78",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("inProgress"),
-          icon: false,
-          color: "#50C1FA",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-    {
-      columns: [
-        { type: "image", value: roundimage },
-        { type: "text", value: t("add_employee") },
-        { type: "text", value: t("leaderShip") },
-        {
-          type: "button",
-          value: t("notStarted"),
-          icon: false,
-          color: "#CBD5E0",
-        },
-        { type: "text", value: "14/06/21" },
-        { type: "progress", value: 60 },
-        { type: "button", value: t("profile"), icon: true },
-      ],
-    },
-  ];
+          method: "GET",
+          headers: {
+            "x-api-key": API_KEY,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token || ""}`,
+          },
+          cache: "no-store",
+        }
+      );
+      const respond = await res.json();
+      return {
+        data: respond.offlinePayments.data || [],
+        currentPage: respond.offlinePayments.current_page || 1,
+        totalPages: respond.offlinePayments.last_page || 1,
+      };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return { data: [], currentPage: 1, totalPages: 1 };
+    }
+  }
 
-  const selectCardData = {
-    inputs: [
-      {
-        title: "training_course",
-        type: "select",
-        options: ["React", "Next.js", "Laravel"],
-      },
-      {
-        title: "branch",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "department",
-        type: "select",
-        options: ["Cairo", "Alex"],
-      },
-      {
-        title: "program_status",
-        type: "select",
-        options: ["on", "off"],
-      },
-    ],
-  };
+  // Fetch both data sets in parallel for better performance
+    const { data, currentPage, totalPages } = await fetchData(1);
 
   return (
     <>
-      <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
-        <div className=" p-lg-4  pt-0">
-          <div className=" row m-0  p-2 g-3">
-            <h2 className="hvvv">{ts("students-list")}</h2>
-
-            <div className=" col-lg-12 ">
-              <SelectCard selectCardData={selectCardData} />
-            </div>
-
-            <div className=" col-12 ">
-              <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-                <OngoingTrain
-                  TableHead={TableHead}
-                  trainingData={trainingData}
-                  button={false}
-                  Icon={Pin}
-                  Icon2={Removebin}
-                />
-              </div>
+      <div className="m-0 container-fluid p-0 d-flex flex-column">
+        <div className="p-lg-4 pt-lg-0">
+          <div className="row m-0 p-2 g-3">
+            <h2 className="hvvv">{t("offline-payments")}</h2>
+            <div className="col-lg-12">
+              <OfflinePaymentsTable
+                initialData={data}
+                initialPage={currentPage}
+                initialTotalPages={totalPages}
+              />
             </div>
           </div>
         </div>
