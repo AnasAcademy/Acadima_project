@@ -67,6 +67,8 @@ export default function CourseDetailsTable({
   const [chapters, setChapters] = useState([]); 
   const [chapter, setChapter] = useState([]);
   const [itemId , setItemId] = useState(null);
+  const [prereq, setPrereq] = useState([]);
+    const [faqs, setFaqs] = useState([]);
   // ui
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(initialPage);
@@ -104,6 +106,9 @@ export default function CourseDetailsTable({
       setLoading(false);
     }
   };
+
+
+
 
   useEffect(() => {
     if (isInitialRender) {
@@ -161,7 +166,7 @@ export default function CourseDetailsTable({
      try {
       const response = await request({
         method: "GET",
-        urlPath: `/chapters/2453`,
+        urlPath: `/chapters/${id}`,
       });
       setChapters(response?.data.chapters || []);
       console.log(response?.data.chapters || [] , "chapters" );
@@ -173,18 +178,43 @@ export default function CourseDetailsTable({
    } 
 
 
+      async function getPrerequisites(id) {
+        console.log(id, "idddddd");
+        try {
+          const response = await request({
+            method: "GET",
+            urlPath: `/prerequisites/${id}/list`,
+          });
+          setPrereq(response?.prerequisites || []);
+          console.log(response?.prerequisites || [], "prerequisites");
+        } catch (err) {
+          console.log(err);
+        }
+      } 
+
+
+
+      async function getFaqs(id) {
+        console.log(id, "idddddd");
+        try {
+          const response = await request({
+            method: "GET",
+            urlPath: `/faqs/${id}/list`,
+          });
+          setFaqs(response?.faqs || []);
+          console.log(response?.faqs || [], "faqs");
+        } catch (err) {
+          console.log(err);
+        }
+      } 
+
     async function DelteChapters(id) {
-
-
-   
-
       console.log(id, "iddddYd");
       try {
         const response = await request({
           method: "DELETE",
           urlPath: `/chapters/${id}`,
         });
-  
         console.log(response.msg);
              setChapters((prevChapters) => {
                  prevChapters.filter((chapter) => chapter.id !== id);
@@ -193,9 +223,43 @@ export default function CourseDetailsTable({
       } catch (err) {
         console.log(err);
       }
-
-
     } 
+
+
+
+
+
+
+ async function reArrangeChapters(ch , id , des ,typ) {
+   console.log(id, "iddddYd");
+      console.log(ch, "chapterddYd");
+        console.log(des, "destiontion");
+   try {
+
+     const response = await request({
+       method: "POST",
+       urlPath: `/chapters/change`,
+       body: {
+         item_id: id,
+         item_type: "text_lesson",
+         chapter_id: ch,
+         webinar_id: itemId,
+         order: des,
+       },
+     });
+
+     console.log(response.message);
+    //  setChapters((prevChapters) => {
+    //    prevChapters.filter((chapter) => chapter.id !== id);
+    //  });
+   } catch (err) {
+     console.log(err);
+   }
+ } 
+
+ 
+
+
 
 
 
@@ -502,7 +566,7 @@ export default function CourseDetailsTable({
   console.log(chapter , "chapter to edit");
 
    const updatedChapter = {
-     title: chapter.translations.find((t) => t.locale === loc)?.title,
+     title: chapter.title,
      status: chapter.status === "active" ? "on" : "off",
      locale: locale,
      check_all_contents_pass: "on",
@@ -540,7 +604,7 @@ export default function CourseDetailsTable({
     console.log(chapter, "chapter to edit");
      console.log(itemId , "itemidddddd");
     const updatedChapter = {
-      webinar_id:  itemId ,
+      webinar_id: itemId,
       title: chapter.title,
       status: chapter.status === "active" ? "on" : "off",
       locale: locale,
@@ -556,6 +620,7 @@ export default function CourseDetailsTable({
 
       console.log(response.chapter);
        console.log(response.code);
+
       setChapters((prevChapters) => [...prevChapters, response.chapter]);
     
     } catch (error) {
@@ -682,6 +747,8 @@ export default function CourseDetailsTable({
           { label: t("edit"), action: () => { 
             setItemId(item.id)
             getChapters(item.id)
+            getPrerequisites(item.id)
+            getFaqs(item.id)
             openWebinarEdit(item)}, icon: Pen },
             
           { label: t("delete"), action: () => remove(item.id), icon: X },
@@ -960,6 +1027,8 @@ export default function CourseDetailsTable({
               chapter={chapter}
               AddChapter={AddChapter}
               DelteChapters={DelteChapters}
+              setChapters={setChapters}
+              reArrangeChapters={reArrangeChapters}
             />
           </div>
         </div>
@@ -1111,7 +1180,7 @@ export default function CourseDetailsTable({
                   <>
                     <button
                       disabled={studentsPage === 1 || loading}
-                      className="btn custfontbtn col-1"
+                      className="btn custfontbtn col-1 "
                       onClick={() =>
                         fetchStudents(
                           currentWebinarId,

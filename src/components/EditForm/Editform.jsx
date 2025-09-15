@@ -7,6 +7,7 @@ import { useUserData } from "@/context/UserDataContext";
 import { set } from "date-fns";
 import Drag from "@/assets/admin/drag.svg"
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import OngoingTrain from "../AdminComp/ongoingTrain/OngoingTrain";
 // import { GripVertical } from "lucide-react"; // optional icon
 /** Lightweight searchable select with optional async loader (no extra deps) */
 function SearchSelect({
@@ -558,10 +559,14 @@ export default function Editform({
   setChapter,
   AddChapter,
   DelteChapters,
+  setChapters,
+  reArrangeChapters,
+  
 }) {
   const [addquestion, setAddquestion] = useState(false);
   const [multiqes, setMultiqes] = useState(false);
   const [add, setAdd] = useState(false);
+    const [chapterId, setChapterId] = useState('');
   const t = useTranslations("tables");
   const { loadStudentOptions } = useUserData();
 
@@ -604,15 +609,32 @@ export default function Editform({
     reArrangeQuestions(items);
   };
 
-  const handleDragEn = (result) => {
+  const handleDragEndchapter = (result) => {
+    if (!result.destination) return;
+
+    console.log("chapter", result);
+    const items = Array.from(chapters);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setChapters(items); // update the state with reordered array
+   reArrangeChapters(items, result.draggableId, result.destination.index);
+  };
+
+  const handleDragEn = (result , chapterId ) => {
     if (!result.destination) return;
 
     console.log("here3", result);
-    const items = Array.from(questions);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setQuestions(items); // update the state with reordered array
-    reArrangeQuestions(items);
+    console.log(chapterId , "herer009");
+    // const items = Array.from(chapters.items);
+     
+    // const [reorderedItem] = items.splice(result.source.index, 1);
+
+
+    // items.splice(result.destination.index, 0, reorderedItem);
+
+
+    // setChapters(items); // update the state with reordered array
+    reArrangeChapters(chapterId, result.draggableId, result.destination.index);
   };
 
   const removeField = () => {
@@ -1744,19 +1766,16 @@ export default function Editform({
                         <input
                           type="text"
                           name=""
-                          value={
-                            chapter.translations?.find((t) => t.locale === "ar")
-                              ?.title
-                          }
+                          value={chapter.chapter?.title}
                           onChange={(e) => {
                             const updated = {
                               ...chapter,
-                              translations: chapter.translations.map((t) =>
-                                t.locale === "ar"
-                                  ? { ...t, title: e.target.value }
-                                  : t
-                              ),
+                              chapter: {
+                                ...chapter.chapter,
+                                title: e.target.value, // ✅ update nested title
+                              },
                             };
+
                             setChapter(updated);
                           }}
                           id=""
@@ -1844,7 +1863,7 @@ export default function Editform({
 
               {chapters.length > 0 ? (
                 <div className="d-flex flex-column gap-5 mb-5">
-                  <DragDropContext onDragEnd={handleDragEnd}>
+                  <DragDropContext onDragEnd={handleDragEndchapter}>
                     <Droppable
                       droppableId="questions-list"
                       direction="vertical"
@@ -1883,14 +1902,15 @@ export default function Editform({
                                       style={style}
                                       className="d-flex flex-column justify-content-between shadow-lg border-3 p-4 gap-3 mb-3"
                                     >
-                                      <div className="d-flex flex-column flex-md-row justify-content-between shadow-lg border-3 p-4 gap-3 mb-3 ">
+                                      <div className="d-flex flex-column flex-md-row justify-content-between shadow-lg border-3 p-4 gap-3 mb-3    ">
                                         <div>
-                                          <div className="d-flex align-items-center gap-3">
+                                          <div className="d-flex align-items-center gap-3 ">
                                             <h2 className="bg-dark p-2 text-white rounded-2">
                                               {index + 1}
                                             </h2>
                                             <h2>
-                                              {itm.title || "⚠️ No title"}
+                                              {itm.chapter?.title ||
+                                                "⚠️ No title"}
                                             </h2>
                                           </div>
                                           {/* <h5>
@@ -1904,41 +1924,48 @@ export default function Editform({
                                       </h5> */}
                                         </div>
 
-                                        <div className="d-flex align-items-center gap-3">
+                                        <div className="d-flex align-items-center gap-3  justify-content-between ">
                                           <h2 className="btn btn-light d-flex align-items-center">
                                             <Drag className="iconSize" />
                                           </h2>
 
-                                          <button
-                                            className="btn btn-success"
-                                            type="button"
-                                            onClick={() => {
-                                              setAdd(false);
-                                              setChapter(itm);
-                                              setAddquestion(true);
-                                            }}
-                                          >
-                                            {t("edit")}
-                                          </button>
+                                          <div className=" d-flex gap-1">
+                                            <button
+                                              className="btn   custfontbtnnew   bg-success "
+                                              type="button"
+                                              onClick={() => {
+                                                setAdd(false);
+                                                setChapter(itm);
+                                                setAddquestion(true);
+                                              }}
+                                            >
+                                              {t("edit")}
+                                            </button>
 
-                                          <button
-                                            className="btn btn-danger "
-                                            type="button"
-                                            onClick={() => {
-                                              setAdd(false);
-                                              DelteChapters(itm.chapter.id);
-                                            }}
-                                          >
-                                            {t("delete")}
-                                          </button>
+                                            <button
+                                              className="btn custfontbtnnew   bg-danger "
+                                              type="button"
+                                              onClick={() => {
+                                                setAdd(false);
+                                                DelteChapters(itm.chapter.id);
+                                              }}
+                                            >
+                                              {t("delete")}
+                                            </button>
+                                          </div>
                                         </div>
                                       </div>
 
                                       <div className=" ">
                                         {itm.items?.length > 0 ? (
-                                          <div className="d-flex flex-column gap-5 mb-5">
+                                          <div className="d-flex flex-column gap-5 mb-5 ">
                                             <DragDropContext
-                                              onDragEnd={handleDragEn}
+                                              onDragEnd={(result) => {
+                                                handleDragEn(
+                                                  result,
+                                                  itm.chapter.id
+                                                );
+                                              }}
                                             >
                                               <Droppable
                                                 droppableId="questions-list"
@@ -1954,11 +1981,11 @@ export default function Editform({
                                                       (item, index) => (
                                                         <Draggable
                                                           key={
-                                                            item.id ??
+                                                            item.details.id ??
                                                             `temp-${index}`
                                                           }
                                                           draggableId={(
-                                                            item.id ??
+                                                            item.details.id ??
                                                             `temp-${index}`
                                                           ).toString()}
                                                           index={index}
@@ -1989,7 +2016,7 @@ export default function Editform({
                                                                   {...provided.dragHandleProps}
                                                                   style={style}
                                                                 >
-                                                                  <div className="d-flex flex-column flex-md-row justify-content-between  border-1 p-4  border-dark-subtle  border  rounded-3 gap-3 m-4 bg-light">
+                                                                  <div className="d-flex flex-column flex-md-row justify-content-between  border-1 p-2 p-md-4  border-dark-subtle  border  rounded-3 gap-3 m-4 bg-light">
                                                                     <div>
                                                                       <div className="d-flex align-items-center gap-3 bg-light">
                                                                         <h2 className="bg-dark p-2 text-white rounded-2">
@@ -2015,54 +2042,54 @@ export default function Editform({
                                       </h5> */}
                                                                     </div>
 
-                                                                    <div className="d-flex align-items-center gap-3">
-                                                                      <h2 className="btn btn-light d-flex align-items-center">
+                                                                    <div className="d-flex align-items-center justify-content-between  gap-1">
+                                                                      <h2 className="btn  d-flex align-items-center">
                                                                         <Drag className="iconSize" />
                                                                       </h2>
 
-                                                                      <button
-                                                                        className="btn btn-success"
-                                                                        type="button"
-                                                                        onClick={() => {
-                                                                          setAdd(
-                                                                            false
-                                                                          );
-                                                                          setQuestion(
-                                                                            itm
-                                                                          );
-                                                                          setMultiqes(
-                                                                            itm.type ===
-                                                                              "multiple"
-                                                                          );
-                                                                          setAddquestion(
-                                                                            true
-                                                                          );
-                                                                        }}
-                                                                      >
-                                                                        {t(
-                                                                          "edit"
-                                                                        )}
-                                                                      </button>
+                                                                      <div className=" d-flex gap-1">
+                                                                        <button
+                                                                          className="btn custfontbtnnew   bg-success"
+                                                                          type="button"
+                                                                          onClick={() => {
+                                                                            setAdd(
+                                                                              false
+                                                                            );
+                                                                            setQuestion(
+                                                                              itm
+                                                                            );
+                                                                            setMultiqes(
+                                                                              itm.type ===
+                                                                                "multiple"
+                                                                            );
+                                                                            setAddquestion(
+                                                                              true
+                                                                            );
+                                                                          }}
+                                                                        >
+                                                                          {t(
+                                                                            "edit"
+                                                                          )}
+                                                                        </button>
 
-                                                                      <button
-                                                                        className="btn btn-danger"
-                                                                        type="button"
-                                                                        onClick={() => {
-                                                                          setAdd(
-                                                                            false
-                                                                          );
-                                                                          deleteQuetion(
-                                                                            itm.id ||
-                                                                              qId
-                                                                          );
-                                                                        }}
-                                                                      >
-                                                                        {t(
-                                                                          "delete"
-                                                                        )}
-                                                                      </button>
-
-                                                           
+                                                                        <button
+                                                                          className="btn custfontbtnnew   bg-danger"
+                                                                          type="button"
+                                                                          onClick={() => {
+                                                                            setAdd(
+                                                                              false
+                                                                            );
+                                                                            deleteQuetion(
+                                                                              itm.id ||
+                                                                                qId
+                                                                            );
+                                                                          }}
+                                                                        >
+                                                                          {t(
+                                                                            "delete"
+                                                                          )}
+                                                                        </button>
+                                                                      </div>
                                                                     </div>
                                                                   </div>
                                                                 </div>
@@ -2106,6 +2133,70 @@ export default function Editform({
           ) : (
             ""
           )}
+          {course ? (
+            <>
+              <div className="d-flex align-items-center gap-3 justify-content-between">
+                <div className="d-flex align-items-center gap-3">
+                  <div
+                    className="bg-dark rounded-4"
+                    style={{ width: "40px", height: "10px" }}
+                  ></div>
+                  <h3>{t("prerequisites")}</h3>
+                </div>
+                <button
+                  className="btn btn-success"
+                  onClick={() => {
+                    console.log("clicked");
+                    setAdd(true);
+                    setChapter([]);
+                    setAddquestion(!AddQuetion);
+                  }}
+                  type="button"
+                >
+                  {" "}
+                  {t("new_prerequisite")}{" "}
+                </button>
+              </div>
+
+              {/* 
+               <OngoingTrain /> */}
+            </>
+          ) : (
+            ""
+          )}
+
+          {course ? (
+            <>
+              <div className="d-flex align-items-center gap-3 justify-content-between">
+                <div className="d-flex align-items-center gap-3">
+                  <div
+                    className="bg-dark rounded-4"
+                    style={{ width: "40px", height: "10px" }}
+                  ></div>
+                  <h3>{t("instructions")}</h3>
+                </div>
+                <button
+                  className="btn btn-success"
+                  onClick={() => {
+                    console.log("clicked");
+                    setAdd(true);
+                    setChapter([]);
+                    setAddquestion(!AddQuetion);
+                  }}
+                  type="button"
+                >
+                  {" "}
+                  {t("new_prerequisite")}{" "}
+                </button>
+              </div>
+
+              {/* 
+               <OngoingTrain /> */}
+            </>
+          ) : (
+            ""
+          )}
+
           <div className="d-flex col-7 mt-4 ">
             <button
               className="btn btn-light custfontbtn w-25"

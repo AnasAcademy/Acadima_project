@@ -72,41 +72,31 @@ export default function SelectCard({
                         />
                       </div>
                     )}
-
                     {input.type === "date" && (
-                      <div className="form-control mr-sm-2 d-flex gap-2">
-                        {/* {input.icon !== false && (
-                          <span className="" style={{ zIndex: 2 }}>
-                            <SearchIcon width={15} height={15} />
-                          </span>
-                        )} */}
+                      <div className="search-wrapper d-flex align-items-center">
+                        <span className="search-icon">📅</span>
                         <input
                           type="date"
-                          placeholder={
-                            input.placeholder || t2("search-placeholder")
-                          }
-                          className=" tit-12-400 border-0 w-75"
+                          className="search-input"
                           onChange={(e) =>
                             handleFilterChange(input.filter, e.target.value)
                           }
                         />
                       </div>
                     )}
-
                     {input.type === "select" && (
-                      <div className="d-flex justify-content-center align-items-center w-100 position-relative">
+                      <div className="search-wrapper d-flex align-items-center  ">
                         <select
-                          className="form-select custroundbtn"
+                          className="search-input "
                           defaultValue=""
                           onChange={(e) =>
                             handleFilterChange(input.filter, e.target.value)
                           }
                         >
-                          <option value="">
+                          <option value=" " >
                             {input.placeholder || t("sort_by")}
                           </option>
                           {input.options?.map((option, i) => {
-                            // Handle both string options and objects with value/label
                             const value =
                               typeof option === "object"
                                 ? option.value
@@ -116,13 +106,12 @@ export default function SelectCard({
                                 ? option.label
                                 : option;
                             return (
-                              <option key={i} value={value}>
+                              <option key={i} value={value} >
                                 {label}
                               </option>
                             );
                           })}
                         </select>
-                        <Arrow className="iconSize5 position-absolute selclass p-1" />
                       </div>
                     )}
                   </div>

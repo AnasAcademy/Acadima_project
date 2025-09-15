@@ -1451,6 +1451,9 @@
     "remaining_days": "الأيام المتبقية",
     "overdue_date" : "تاريخ الاستحقاق",
     "new_assignment": "واجب جديد",
-    "export_to_excel" : "استخراج في الاكسل"
+    "export_to_excel" : "استخراج في الاكسل",
+     "prerequisites": "المتطلبات الأساسية",
+      "new_prerequisite": "شرط أساسي جديد",
+       "instructions": "التعليمات"
   }
 }

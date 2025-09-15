@@ -84,7 +84,7 @@ export default function OngoingTrain({
         col.value === "approved" ||
         col.value === "success" ||
         col.value === "publish" ||
-        col.value === "passed" 
+        col.value === "passed"
       ) {
         textClass = "text-bg-success p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
@@ -105,7 +105,7 @@ export default function OngoingTrain({
         col.value === "inactive" ||
         col.value === "rejected" ||
         col.value === "blocked" ||
-        col.value === "failed" 
+        col.value === "failed"
       ) {
         textClass = "text-bg-danger p-2 rounded-2 tit-12-400";
         textVal = t(col.value);
@@ -117,7 +117,7 @@ export default function OngoingTrain({
 
       return (
         <td key={key}>
-          <span className={`d-inline-block text-center ${textClass}`}>
+          <span className={`d-inline-block text-center ${textClass} w-100 `}>
             {textVal}
           </span>
           {col.value === "rejected" && (
@@ -195,7 +195,9 @@ export default function OngoingTrain({
             <h4 className="text-muted small m-0 ">{col.phone}</h4>
             <h4 className="text-muted small m-0 ">{col.email}</h4>
             {col.payment_mail && (
-              <h4 className=" m-0 ">{t("payment_email")}:{col.payment_mail}</h4>
+              <h4 className=" m-0 ">
+                {t("payment_email")}:{col.payment_mail}
+              </h4>
             )}
           </div>
         </div>
@@ -220,11 +222,11 @@ export default function OngoingTrain({
       <td key={key}>
         <div
           ref={setCellRef(col.id)}
-          className="justify-content-center align-items-center position-relative"
+          className="justify-content-center align-items-center position-relative "
         >
           <button
-            className={`tit-12-400 btncolor text-center cursor-pointer text-nowrap d-flex align-items-center gap-2 justify-content-center actionButton w-100 ${
-              openId === col.id ? "actionButton-borderradius" : "rounded-2"
+            className={`tit-12-400 btncolor text-center cursor-pointer text-nowrap d-flex align-items-center gap-2 justify-content-center actionButton w-100  ${
+              openId === col.id ? "actionButton-borderradius " : "rounded-2 "
             }`}
             onClick={() =>
               setOpenId((prev) => (prev === col.id ? null : col.id))
@@ -235,19 +237,23 @@ export default function OngoingTrain({
           </button>
 
           {openId === col.id && (
-            <div className="bg-white d-flex flex-column justify-content-center align-items-center position-absolute z-3 w-100 border-1 border">
+            <div className="action-menu position-absolute z-3 w-100 bg-white border ">
               {col.lists.map((list, index) => (
-                <h6
+                <button
                   key={`${col.id}-${index}`}
-                  className="text-dark d-flex justify-content-center align-items-center gap-2 p-1 cursor-pointer"
+                  className="menu-item "
                   onClick={() => {
                     list.action();
                     setOpenId(null);
-                  }} // optional: close after click
+                  }}
                 >
-                  {list.icon && <list.icon />}
-                  {list.label}
-                </h6>
+                  {list.icon && (
+                    <span className="menu-icon">
+                      <list.icon />
+                    </span>
+                  )}
+                  <span>{list.label}</span>
+                </button>
               ))}
             </div>
           )}

@@ -1459,6 +1459,9 @@
     "remaining_days": "Remaining Days",
     "overdue_date": "Overdue Date",
     "new_assignment": "New Assignment",
-     "export_to_excel": "Export to Excel"
+     "export_to_excel": "Export to Excel",
+     "prerequisites": "Prerequisites",
+     "new_prerequisite": "New Prerequisite",
+     "instructions": "Instructions"
   }
 }
