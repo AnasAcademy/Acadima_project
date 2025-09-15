@@ -164,11 +164,10 @@ export default function OverdueTable({
       },
       { type: "text", value: item.installment?.translations?.[0]?.title || "-" },
       {
-        type: "user",
-        name: item.bundle?.translations?.[0]?.title || "-",
-        email: "#" + item.bundle?.translations?.[0]?.id || "-",
+        type: "text",
+        value: "#" + item.bundle?.translations?.[0]?.id + item.bundle?.translations?.[0]?.title || "-",
       },
-      { type: "text", value: item.amount || "-" },
+      { type: "text", value: item.amount + t("rs") || "-"  },
       { type: "text", value: formatDate(item.overdue_date) || "-" },
       {
         type: "actionbutton",

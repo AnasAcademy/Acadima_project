@@ -120,7 +120,7 @@ export default function SalesListTable({
     t("batch-number"),
     t("sales_type"),
     t("date"),
-    t("status"),
+    // t("status"),
     t("actions"),
   ];
 
@@ -206,7 +206,7 @@ export default function SalesListTable({
       { type: "text", value: item.class_title || "-" },
       { type: "text", value: item.type_label || "-" },
       { type: "text", value: formatDate(item.created_at) || "-"},
-      { type: "label", value: item.status_label || "-" },
+      // { type: "label", value: item.status_label || "-" },
       {
         type: "actionbutton",
         label: t("actions"),
