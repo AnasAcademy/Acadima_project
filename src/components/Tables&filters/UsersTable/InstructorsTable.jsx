@@ -75,7 +75,6 @@ export default function UsersTable({
       });
 
       queryParams.page = pageNumber;
-
       const response = await request({
         method: "GET",
         urlPath: `/instructors`,
@@ -95,6 +94,103 @@ export default function UsersTable({
     }
   };
 
+  const DeleteUser = async () => {
+    if (!selectedId) return;
+    try {
+      const updatedData = dataa.filter((item) => item.id !== selectedId);
+      const updatedFilter = filter.filter((item) => item.id !== selectedId);
+      setDataa(updatedData);
+      setFilter(updatedFilter);
+
+      const response = await request({
+        method: "DELETE",
+        urlPath: `/users/${selectedId}`,
+      });
+      console.log("Delete response:", response);
+      // if (!response?.success) {
+      //   setDataa(dataa);
+      //   setFilter(filter);
+      //   throw new Error("Failed to delete");
+      // }
+
+      setResultMessage(response?.message || "تم التحديث بنجاح");
+      setShowResultModal(true);
+      setShowModal(false);
+      setSelectedId(null);
+
+      if (updatedFilter.length === 0 && currentPage > 1) {
+        fetchData(currentPage - 1);
+      }
+    } catch (error) {
+      console.log("Deletion failed:", error);
+      fetchData(page);
+      alert("فشل الحذف. حاول مرة أخرى.");
+    }
+  };
+
+  const handleSubmitEdit = async (formData) => {
+    if (!selectedId) return;
+
+    try {
+      setEditFormLoading(true);
+      const apiData = {};
+
+      Object.entries(formData).forEach(([key, value]) => {
+        const original = editFormData[key];
+        const cleaned = typeof value === "string" ? value.trim() : value;
+        const cleanedOriginal =
+          typeof original === "string" ? original.trim() : original;
+
+        if (
+          cleaned !== cleanedOriginal &&
+          cleaned !== "" &&
+          cleaned !== null &&
+          cleaned !== undefined
+        ) {
+          if (key === "mobile") {
+            apiData[key] = String(cleaned).replace(/\s+/g, "");
+          } else if (key === "role_name") {
+            apiData["role_id"] = cleaned;
+          } else if (key === "status") {
+            apiData[key] = String(cleaned).toLowerCase();
+          } else {
+            apiData[key] = cleaned;
+          }
+        }
+      });
+
+      if (Object.keys(apiData).length === 0) {
+        setResultMessage("لا يوجد تغييرات لإرسالها");
+        setShowResultModal(true);
+        setEditFormLoading(false);
+        return;
+      }
+
+      console.log("Submitting edit with data:", apiData);
+      const response = await request({
+        method: "PUT",
+        urlPath: `/users/${selectedId}`,
+        body: apiData,
+      });
+
+      setResultMessage(t("operation_completed"));
+      setShowResultModal(true);
+      setShowEditForm(false);
+
+      if (Object.keys(currentFilters).length > 0) {
+        handleSearch(currentFilters, currentPage);
+      } else {
+        fetchData(currentPage);
+      }
+    } catch (error) {
+      console.error("Edit failed:", error);
+      setResultMessage("فشل التحديث. حاول مرة أخرى.");
+      setShowResultModal(true);
+    } finally {
+      setEditFormLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (isInitialRender) {
       setIsInitialRender(false);
@@ -110,7 +206,11 @@ export default function UsersTable({
   const TableHead = [
     "#",
     t("name"),
-    t("role_name"),
+    t("user_code"),
+    t("classes_sales"),
+    t("meeting_sales"),
+    t("classes_purchased"),
+    t("meeting_purchased"),
     t("creation_date"),
     t("status"),
     t("actions"),
@@ -125,13 +225,21 @@ export default function UsersTable({
         placeholder: t("name-search"),
         apiKey: "full_name",
       },
-      // {
-      //   title: t("role_name"),
-      //   name: "role_name",
-      //   label: t("role_name"),
-      //   type: "select",
-      //   options: getRoleOptions(),
-      // },
+      {
+        title: t("start_date"),
+        type: "date",
+        filter: "",
+        placeholder: t("start_date"),
+        apiKey: "from",
+      },
+      {
+        title: t("status"),
+        type: "select",
+        filter: "status",
+        placeholder: t("status"),
+        apiKey: "status",
+        options: getStatusOptions(),
+      },
     ],
   };
 
@@ -143,9 +251,28 @@ export default function UsersTable({
         type: "user",
         name: item.en_name || item.full_name || "-",
         email: item.email || "-",
-        phone: item.mobile || "-",
       },
-      { type: "text", value: item.role_name || "-" },
+      { type: "text", value: item.user_code || "-" },
+      {
+        type: "user",
+        name: item.classesSalesCount || "-",
+        email: item.classesSalesSum + t("rs") || "-",
+      },
+      {
+        type: "user",
+        name: item.meetingsSalesCount || "-",
+        email: item.meetingsSalesSum + t("rs") || "-",
+      },
+      {
+        type: "user",
+        name: item.classesPurchasedsCount || "-",
+        email: item.classesPurchasedsSum + t("rs") || "-",
+      },
+      {
+        type: "user",
+        name: item.meetingsPurchasedsCount || "-",
+        email: item.meetingsPurchasedsSum + t("rs") || "-",
+      },
       { type: "text", value: formatDate(item.created_at) || "-" },
       { type: "label", value: item.status || "-" },
       {
@@ -161,21 +288,21 @@ export default function UsersTable({
         lists: [
           {
             label: t("edit"),
-            // action: () => {
-            //   setSelectedId(item.id);
-            //   setFormState("edit");
-            //   setEditFormData(item);
-            //   setShowEditForm(true);
-            // },
+            action: () => {
+              setSelectedId(item.id);
+              setFormState("edit");
+              setEditFormData(item);
+              setShowEditForm(true);
+            },
             icon: Pen,
           },
           {
             label: t("delete"),
-            // action: () => {
-            //   setShowModal(!showModal);
-            //   setSelectedId(item.id);
-            //   setFormState("delete");
-            // },
+            action: () => {
+              setShowModal(!showModal);
+              setSelectedId(item.id);
+              setFormState("delete");
+            },
             icon: X,
           },
         ],
@@ -184,65 +311,145 @@ export default function UsersTable({
     ],
   }));
 
+  const formTitles = [
+    {
+      label:
+        (formState === "add" ? t("add") : t("edit")) + " " + t("instructor"),
+      type: "text",
+    },
+    { label: formState === "add" ? t("add") : t("edit"), type: "text" },
+  ];
+
+  const fields = [
+    { name: "full_name", label: ts("full_name"), type: "text" },
+    { name: "en_name", label: ts("en_name"), type: "text" },
+    {
+      name: "role_name",
+      label: ts("user_role"),
+      type: "select",
+      options: getRoleOptions(),
+    },
+    { name: "email", label: ts("email"), type: "text" },
+    { name: "mobile", label: ts("mobile"), type: "text" },
+    { name: "password", label: ts("password"), type: "text" },
+    { name: "bio", label: ts("bio"), type: "text" },
+    { name: "about", label: ts("about"), type: "text" },
+    {
+      name: "status",
+      label: t("status"),
+      type: "select",
+      options: getStatusOptions(),
+    },
+  ];
+
+  const normalizeUserForForm = (user) => {
+    return {
+      ...user,
+      role_name:
+        user.role_id || // use ID if API sends it
+        getRoleOptions().find((o) => o.label === user.role_name)?.value ||
+        "",
+    };
+  };
+
   return (
     <>
-      <div className="row g-3">
-        <div className="col-12">
-          <SelectCard
-            selectCardData={selectCardData}
-            isTechSupport={true}
-            dataa={dataa}
-            setFilter={setFilter}
-            handleSearch={handleSearch}
-          />
-        </div>
-
-        <div className="col-12">
-          <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
-            <ExcelDownload
-              endpoint="/api/proxy/students/excelAll"
-              filename="all_students_report"
-              className="btn custfontbtn rounded-2 mb-3"
-              onSuccess={() => {
-                setResultMessage(t("download_success"));
-                setShowResultModal(true);
-              }}
-              onError={() => {
-                setResultMessage(t("download_failed"));
-                setShowResultModal(true);
-              }}
-            >
-              Excel
-            </ExcelDownload>
-
-            <OngoingTrain
-              TableHead={TableHead}
-              trainingData={trainingData}
-              button={false}
-            />
-
-            <div className="row justify-content-center align-items-center gap-3 mt-3">
-              <button
-                disabled={currentPage === 1 || loading}
-                className="btn custfontbtn col-1"
-                onClick={() => setPage(Math.max(currentPage - 1, 1))}
-              >
-                {t("previous-page")}
-              </button>
-              <span className="px-2 align-self-center col-1 text-center">
-                {t("page")} {currentPage}
-              </span>
-              <button
-                disabled={currentPage >= totalPages || loading}
-                className="btn custfontbtn col-1"
-                onClick={() => setPage(currentPage + 1)}
-              >
-                {t("next-page")}
-              </button>
+      {showEditForm ? (
+        <div className="row g-3">
+          <div className="col-12">
+            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+              <Editform
+                fields={fields}
+                data={normalizeUserForForm(
+                  dataa.find((i) => i.id === selectedId) || {}
+                )}
+                formTitles={formTitles}
+                handleSubmitEdit={handleSubmitEdit}
+                setShowModal={() => setShowEditForm(false)}
+                formState={formState}
+                loading={editFormLoading}
+              />
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="row g-3">
+          <div className="col-12">
+            <SelectCard
+              selectCardData={selectCardData}
+              isTechSupport={true}
+              dataa={dataa}
+              setFilter={setFilter}
+              handleSearch={handleSearch}
+            />
+          </div>
+
+          <div className="col-12">
+            <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+              <ExcelDownload
+                endpoint="/api/proxy/students/excelAll"
+                filename="all_students_report"
+                className="btn custfontbtn rounded-2 mb-3"
+                onSuccess={() => {
+                  setResultMessage(t("download_success"));
+                  setShowResultModal(true);
+                }}
+                onError={() => {
+                  setResultMessage(t("download_failed"));
+                  setShowResultModal(true);
+                }}
+              >
+                Excel
+              </ExcelDownload>
+
+              <OngoingTrain
+                TableHead={TableHead}
+                trainingData={trainingData}
+                button={false}
+              />
+
+              <div className="row justify-content-center align-items-center mt-3">
+                <button
+                  disabled={currentPage === 1 || loading}
+                  className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
+                  onClick={() => setPage(Math.max(currentPage - 1, 1))}
+                >
+                  {t("previous-page")}
+                </button>
+                <span className="mx-2 align-self-center col-md-2 col-4 text-center p-0 my-2">
+                  {t("page")} {currentPage}
+                </span>
+                <button
+                  disabled={currentPage >= totalPages || loading}
+                  className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
+                  onClick={() => setPage(currentPage + 1)}
+                >
+                  {t("next-page")}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <AlertModal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={DeleteUser}
+        title={t("are_you_sure_you_want_to_delete")}
+        btn={t("yes")}
+      >
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            DeleteUser();
+          }}
+        >
+          <div className="mb-3">
+            <p className="m-0 text-center">{t("delete_validation")}</p>
+          </div>
+        </form>
+      </AlertModal>
 
       <AlertModal
         show={showResultModal}

@@ -40,7 +40,7 @@
     "electronic-services": "الخدمات الإلكترونية",
     "classes": "الدفعات الدراسية",
     "student-codes": "أكواد الطلاب",
-    "instructor-codes": "أكواد المعلمين",
+    "instructor-codes": "أكواد المعلمون",
     "categories": "اللأقسام",
     "enrollment": "التسجيل",
     "enrollment-history": "تاريخ التسجيل",
@@ -68,8 +68,8 @@
     "staff-list": "قائمة الطاقم",
     "roles-list": "قائمة الأدوار",
     "students": "الطلاب",
-    "instructors": "المعلمين",
-    "instructors-list": "قائمة المعلمين",
+    "instructors": "المعلمون",
+    "instructors-list": "قائمة المعلمون",
     "new-user": "إنشاء مستخدم جديد",
     "certificates": "الشهادات",
     "admin_dashboard": "لوحة الإدارة",
@@ -92,12 +92,10 @@
     "overdue_history": "سجل الأقساط المتأخرة",
     "installment_settings": "إعدادات الأقساط"
   },
-
   "add-student-to-class": {
     "class": "المقرر الدراسي",
     "user": "المستخدم"
   },
-
   "NavbarA": {
     "search": "أريد أن ابحث عن ....",
     "dashboard": "لوحة التحكم",
@@ -486,7 +484,14 @@
         "حالة عملية الدفع"
       ],
       "rows": [
-        ["01", "القسط الأول", "1150 ر.س", "-", "1 نوفمبر 2024", "مدفوع"],
+        [
+          "01",
+          "القسط الأول",
+          "1150 ر.س",
+          "-",
+          "1 نوفمبر 2024",
+          "مدفوع"
+        ],
         [
           "02",
           "القسط الثاني",
@@ -556,7 +561,8 @@
     "portfolio_links": "روابط الأعمال",
     "connections": "المعروفون",
     "completion_note": "عزيزي الطالب، يرجى التأكد من ملء جميع الحقول المطلوبة (المدرجة أدناه بالنجمة *) بشكل صحيح لضمان قبولك في البرنامج.",
-    "progress": "15%"
+    "progress": "15%",
+    "user_name": "الايميل او رقم الموبايل"
   },
   "personalData": {
     "academic_data": "البيانات الأكاديمية",
@@ -627,7 +633,15 @@
     "linkTitle": "عنوان الرابط"
   },
   "calendar": {
-    "days": ["أحد", "اثنين", "ثلاثاء", "اربعاء", "خميس", "جمعة", "سبت"],
+    "days": [
+      "أحد",
+      "اثنين",
+      "ثلاثاء",
+      "اربعاء",
+      "خميس",
+      "جمعة",
+      "سبت"
+    ],
     "tasksTitle": "المهام لهذا اليوم :",
     "noTasks": "لا يوجد أي مهام أو أحداث مهمة لليوم"
   },
@@ -673,6 +687,7 @@
     "no_more_uploads": "لم يعد يمكنك إرسال ملفات مع الأسف ..."
   },
   "employee_progress": {
+    "month": "الشهر",
     "page_title": "متابعة تقدم المستخدمين",
     "add_employee": "إضافة موظف/ة",
     "filter": "فلتر",
@@ -766,7 +781,6 @@
     "senderName": "اسم الجهة المرسلة",
     "searchPlaceholder": "البحث عن اشعار ......"
   },
-
   "techSupport": {
     "tech-support": "الدعم الفني",
     "create-new-ticket": "إنشاء  تذكرة دعم جديدة",
@@ -862,7 +876,6 @@
     "try-again": "حاول مرة أخرى",
     "start-exam": "بدء الاختبار"
   },
-
   "assignments": {
     "assignments": "الواجبات",
     "statsHeader": "احصائيات الواجبات",
@@ -879,7 +892,6 @@
     "passing-grade": "درجة النجاح",
     "show-assignment": "عرض الواجب"
   },
-
   "orgProfile": {
     "orgprofile-table-title": "البرامج التدريبية",
     "username": "اسم المستخدم",
@@ -924,7 +936,6 @@
     "company_title": "شركة الرؤية المستقبلية للتقنيات",
     "company_desc": " هي إحدى الشركات السعودية الرائدة في مجال التحول الرقمي، وتسعى إلى تمكين كوادرها من خلال برامج تدريبية متخصصة تهدف إلى رفع الكفاءة وتعزيز الإنتاجية داخل بيئة العمل."
   },
-
   "adminSettings": {
     "settings": "الإعدادات",
     "account": "الحساب",
@@ -956,7 +967,6 @@
     "change": "تغيير",
     "save_changes": "حفظ التعديلات"
   },
-
   "adminSettingsTeam": {
     "system_settings": "إعدادات عامة للنظام",
     "upload_logo": "تحميل شعار المنشأة",
@@ -966,20 +976,17 @@
     "default_region": "المنطقة الزمنية الافتراضية للنظام",
     "select_language": "اختر اللغة العربية",
     "select_region": "اختر المنطقة الزمنية",
-
     "login_security": "الدخول والأمان",
     "enable_2fa": "تفعيل التحقق بخطوتين (2FA)",
     "2fa_settings": "إعدادات التحقق بخطوتين (2FA)",
     "choose_2fa_method": "اختيار الطريقة المفضلة للتحقق",
     "session_duration": "مدة بقاء الجلسة",
     "logout_all": "تسجيل الخروج من كل الأجهزة الآن",
-
     "customize_interface": "تخصيص واجهة النظام",
     "primary_color": "اللون الرئيسي للواجهة",
     "theme_style": "نسق الواجهة",
     "light_mode": "الوضع الفاتح",
     "dark_mode": "الوضع الداكن",
-
     "integration_settings": "إعدادات ربط المنصات",
     "teams": "Teams",
     "zoom": "Zoom",
@@ -989,7 +996,6 @@
     "last_used": "آخر استخدام قبل",
     "reset_active_sessions": "إعادة تعيين الجلسات المفتوحة"
   },
-
   "aihelper": {
     "title_tasks": "مهام المساعد الذكي",
     "select_tasks": "اختر المهام التي تفضل أن يقوم الذكاء الاصطناعي بتنفيذها للمستخدمين:",
@@ -999,7 +1005,6 @@
     "procedure_guides": "تقديم شروحات للإجراءات",
     "report_summaries": "عرض ملخصات تقارير",
     "suggest_new_tasks": "هل تقترح إضافة مهام جديدة يمكن تطويرها للمساعد الآلي؟",
-
     "title_settings": "إعدادات المساعد الذكي",
     "enable_assistant": "تفعيل المساعد الذكي",
     "enable_assistant_note": "يمكنك إيقاف المساعد الذكي مؤقتًا لجميع المستخدمين.",
@@ -1014,7 +1019,6 @@
     "restore_defaults": "استعادة الإعدادات الافتراضية للذكاء",
     "restore_defaults_note": "يمكنك إيقاف المساعد الذكي مؤقتًا لجميع المستخدمين."
   },
-
   "aisupport": {
     "title_support_settings": "إعدادات الدعم الفقـي",
     "description_support_settings": "خصّص تجربة الدعم الفني داخل المنصة وحدد القنوات والخيارات المتاحة للمستخدمين.",
@@ -1036,6 +1040,7 @@
     "channel_phone": "رقم الهاتف"
   },
   "tables": {
+    "user_code": "كود المستخدم",
     "add_new_user": "إضافة مستخدم جديد",
     "admission-requirements": "متطلبات القبول",
     "role_name": "دور المستخدم",
@@ -1108,7 +1113,7 @@
     "rejection_details": "تفاصيل الرفض",
     "student_code": "كود الطلاب",
     "last_student_code": "أخر كود طالب",
-    "teacher_codes": "كود المعلمين",
+    "teacher_codes": "كود المعلمون",
     "last_teacher_code": "آخر كود معلم",
     "index": "الترتيب",
     "student_name": "اسم الطالب",
@@ -1259,7 +1264,7 @@
     "order": "الترتيب",
     "subCategories": "الاقسام الفرعية",
     "chapters": "الفصول",
-    "teachers": "المعلمين",
+    "teachers": "المعلمون",
     "reject_request": "رفض الطلب",
     "enter_rejection_reason": "أدخل سبب الرفض",
     "rejection_reason_required": "سبب الرفض مطلوب",
@@ -1449,7 +1454,7 @@
     "overdue_amount": "المبلغ المتأخر",
     "first_overdue_installment_date": "تاريخ أول قسط متأخر",
     "remaining_days": "الأيام المتبقية",
-    "export_to_excel" : "استخراج في الاكسل",
+    "export_to_excel": "استخراج في الاكسل",
     "overdue_date": "تاريخ الاستحقاق",
     "new_assignment": "واجب جديد",
      "prerequisites": "المتطلبات الأساسية",
@@ -1459,6 +1464,32 @@
     "payment_date": "تاريخ الدفع",
     "late_period": "مدة التأخير (أيام)",
     "paid": "مدفوع",
-    "unpaid": "غير مدفوع"
+    "unpaid": "غير مدفوع",
+    "disable_course_access_when_user_have_an_overdue_installment": "تعطيل الوصول للدورة عند وجود قسط متأخر",
+    "disable_instalments_when_the_user_have_an_overdue_installment": "إيقاف إنشاء أقساط جديدة عند وجود قسط متأخر",
+    "disable_all_courses_access_when_user_have_an_overdue_installment": "تعطيل الوصول لجميع الدورات عند وجود قسط متأخر",
+    "disable_installments_when_the_user_have_an_overdue_installment": "إيقاف إنشاء أقساط جديدة عند وجود قسط متأخر",
+    "allow_cancel_verification": "السماح بإلغاء التحقق",
+    "display_installment_button": "عرض زر التقسيط",
+    "overdue_interval_days": "فترة التأخير (أيام)",
+    "installment_plans_position": "موضع خطط التقسيط",
+    "top_of_page": "أعلى الصفحة",
+    "bottom_of_page": "أسفل الصفحة",
+    "reminder_before_overdue_days": "تذكير قبل التأخير (أيام)",
+    "reminder_after_overdue_days": "تذكير بعد التأخير (أيام)",
+    "terms_description": "وصف الشروط",
+    "modified": "تم التعديل",
+    "saved_successfully": "تم الحفظ بنجاح",
+    "saving": "جاري الحفظ...",
+    "inactive_students": "الطلاب غير النشطين",
+    "ban_student": "الطلاب المحظورون",
+    "all_students": "كل الطلاب",
+    "instructor": "معلم",
+    "classes_sales":"مبيعات المقرر",
+    "meeting_sales": "مبيعات الجلسات",
+    "classes_purchased": "الفصول التي تم شرائها",
+    "meeting_purchased": "الجلسات التي تم شرائها",
+    "account_balance": "رصيد الحساب",
+    "user_name": "الايميل او رقم الموبايل"
   }
 }

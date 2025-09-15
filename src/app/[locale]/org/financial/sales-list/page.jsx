@@ -94,11 +94,6 @@ export default async function SalesList() {
       icon: <FaUserTie size={18} />,
     },
     {
-      title: t("failed_sales"),
-      value: dat.failedSales,
-      icon: <FaUserTie size={18} />,
-    },
-    {
       title: t("total_bundles_sales"),
       value: dat.bundlesSales.count,
       value2: (
@@ -106,6 +101,11 @@ export default async function SalesList() {
           {dat.bundlesSales.amount} <Rs className="iconcolor" />
         </h3>
       ),
+      icon: <FaUserTie size={18} />,
+    },
+    {
+      title: t("failed_sales"),
+      value: dat.failedSales,
       icon: <FaUserTie size={18} />,
     },
   ];
@@ -117,7 +117,7 @@ export default async function SalesList() {
           <div className=" row m-0  p-2 g-3">
             <h2 className="hvvv">{ts("sales-list")}</h2>
             <div className="col-lg-12">
-              <DashboardCards cards={cards} />
+              <DashboardCards cards={cards} minHeight="95px"/>
             </div>
             <div className=" col-lg-12 ">
               <SalesListTable

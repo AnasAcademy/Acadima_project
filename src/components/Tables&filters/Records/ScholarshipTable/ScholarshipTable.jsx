@@ -117,7 +117,7 @@ export default function ScholarshipTable({
 
       const response = await request({
         method: "DELETE",
-        urlPath: `/students/${selectedId}`,
+        urlPath: `/users/${selectedId}`,
       });
 
       if (!response?.success) {
@@ -200,7 +200,7 @@ export default function ScholarshipTable({
 
       const response = await request({
         method: "PUT",
-        urlPath: `/students/${selectedId}`,
+        urlPath: `/users/${selectedId}`,
         body: apiData,
       });
 
@@ -424,20 +424,20 @@ export default function ScholarshipTable({
                 Icon2={Removebin}
               />
 
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
+              <div className="row justify-content-center align-items-center mt-3">
                 <button
                   disabled={currentPage === 1 || loading}
-                  className="btn custfontbtn col-1"
+                  className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                   onClick={() => setPage(Math.max(currentPage - 1, 1))}
                 >
                   {t("previous-page")}
                 </button>
-                <span className="px-2 align-self-center col-1 text-center">
+                <span className="mx-2 align-self-center col-md-2 col-4 text-center p-0 my-2">
                   {t("page")} {currentPage}
                 </span>
                 <button
                   disabled={currentPage >= totalPages || loading}
-                  className="btn custfontbtn col-1"
+                  className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                   onClick={() => setPage(currentPage + 1)}
                 >
                   {t("next-page")}

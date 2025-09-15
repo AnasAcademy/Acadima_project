@@ -392,6 +392,7 @@ export default function CourseRegTable({
       email: user?.email ?? "",
       mobile: user?.mobile ?? "",
       status: user?.status ?? "",
+      role_name: user?.role_name || user?.role_id || "",
     });
     setShowStudentModal(true); // hide tables
   };
@@ -408,7 +409,7 @@ export default function CourseRegTable({
       try {
         await request({
           method: "PUT",
-          urlPath: `/students/${editingStudent.id}`,
+          urlPath: `/users/${editingStudent.id}`,
           body: payload,
         });
         setStudents((prev) =>
@@ -792,20 +793,20 @@ export default function CourseRegTable({
               </>
             )}
 
-            <div className="row justify-content-center align-items-center gap-3 mt-3">
+            <div className="row justify-content-center align-items-center mt-3">
               <button
                 disabled={currentPage === 1 || loading}
-                className="btn custfontbtn col-1"
+                className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                 onClick={goPrev}
               >
                 {t("previous-page")}
               </button>
-              <span className="px-2 align-self-center col-1 text-center">
+              <span className="mx-2 align-self-center col-md-2 col-4 text-center p-0 my-2">
                 {t("page")} {currentPage}
               </span>
               <button
                 disabled={currentPage >= totalPages || loading}
-                className="btn custfontbtn col-1"
+                className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                 onClick={goNext}
               >
                 {t("next-page")}

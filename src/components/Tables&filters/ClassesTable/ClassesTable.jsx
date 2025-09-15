@@ -493,7 +493,7 @@ export default function ClassesTable({ dat }) {
     try {
       const result = await request({
         method: "PUT",
-        urlPath: `/students/${Itemid}`,
+        urlPath: `/users/${Itemid}`,
         body: {
           full_name: dataa.full_name,
           en_name: dataa.en_name,

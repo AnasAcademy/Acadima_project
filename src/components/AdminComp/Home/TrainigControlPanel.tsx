@@ -22,10 +22,10 @@ const TrainigControlPanel = () => {
 
           <div className={` col-7   `}>
             <h3 className="fw-bold mb-2">{tD("training_system_title")}</h3>
-            <p className="mb-2">{tD("training_system_desc")}</p>
+            <h6 className="mb-2 fw-nornal">{tD("training_system_desc")}</h6>
             <Link
               href="#"
-              className="text-secondary fw-semibold text-decoration-none"
+              className="textcolor fw-semibold text-decoration-none"
             >
               {tD("training_system_cta")}
             </Link>

@@ -49,7 +49,7 @@ export default async function WebinarsStats() {
       <div className="m-0 container-fluid p-0 d-flex flex-column">
         <div className="p-lg-4 pt-lg-0">
           <div className="row m-0 p-2 g-3">
-            <h2 className="hvvv">{t("bundles_statistics")}</h2>
+            <h2 className="hvvv">{t("webinars_statistics")}</h2>
             <div className="col-lg-12">
               <WebinarsTable
                 initialData={data}

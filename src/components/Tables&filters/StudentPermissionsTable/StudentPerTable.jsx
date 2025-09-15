@@ -10,10 +10,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 import { useApiClient } from "@/hooks/useApiClient";
 import { formatDate } from "@/functions/formatDate";
 
-
-
 export default function StudentPerTable({
-
   initialData = [],
   initialStudyClasses = [],
   initialPage = 1,
@@ -91,45 +88,47 @@ export default function StudentPerTable({
     }
   }, [page]);
 
-  const handleToggle = async (id, currentValue) => {
-    const newValue = currentValue === 1 ? 0 : 1;
+  // handleToggle now receives the NEXT state directly
+  const handleToggle = async (id, nextChecked) => {
+    const nextValue = nextChecked ? 1 : 0;
 
-    // Optimistically update the access value immediately
-    const updatedData = dataa.map((item) =>
-      item.id === id ? { ...item, access_to_purchased_item: newValue } : item
+    // optimistic – functional updates to avoid stale closures
+    setDataa((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, access_to_purchased_item: nextValue } : item
+      )
     );
-    const updatedFilter = filter.map((item) =>
-      item.id === id ? { ...item, access_to_purchased_item: newValue } : item
+    setFilter((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, access_to_purchased_item: nextValue } : item
+      )
     );
-    setDataa(updatedData);
-    setFilter(updatedFilter);
 
     try {
-      const response = await request({
+      await request({
         method: "POST",
         urlPath: `/permission/toggle_access/${id}`,
-        body: { value: newValue },
+        body: { value: nextValue },
       });
-
-      // if (!response.ok) {
-      //   // If toggle failed, restore the original data
-      //   setDataa(dataa);
-      //   setFilter(filter);
-      //   throw new Error("Failed to toggle access");
-      // }
-
-      // Show success message from response
       setResultMessage(t("access_toggled_success"));
       setShowResultModal(true);
     } catch (err) {
       console.error("Toggle failed:", err);
-      // Restore original data on error
-      if (activeFilters) {
-        handleSearch(activeFilters, page);
-      } else {
-        fetchData(page);
-      }
-      // Show error message
+      // revert on error
+      setDataa((prev) =>
+        prev.map((item) =>
+          item.id === id
+            ? { ...item, access_to_purchased_item: nextValue ? 0 : 1 }
+            : item
+        )
+      );
+      setFilter((prev) =>
+        prev.map((item) =>
+          item.id === id
+            ? { ...item, access_to_purchased_item: nextValue ? 0 : 1 }
+            : item
+        )
+      );
       setResultMessage("تعذر تعديل حالة الوصول");
       setShowResultModal(true);
     }
@@ -140,17 +139,17 @@ export default function StudentPerTable({
       { type: "text", value: index + 1 },
       {
         type: "user",
-        name: item.buyer.full_name  || "-",
-        email: item.buyer.id || "-", 
+        name: item.buyer.full_name || "-",
+        email: item.buyer.id || "-",
         phone: item.buyer.user_code || "-",
       },
-      { type: "text", value: item.item_title  || "-" },
+      { type: "text", value: item.item_title || "-" },
       { type: "text", value: item.class.title || "-" },
       {
         type: "toggleAccess",
-        value: item.access_to_purchased_item,
+        value: item.access_to_purchased_item, // might be 0/1 or "0"/"1"
         id: item.id,
-        onToggle: handleToggle,
+        onToggle: handleToggle, // receives (id, nextChecked)
       },
     ],
   }));
@@ -229,20 +228,20 @@ export default function StudentPerTable({
             trainingData={trainingData}
             button={false}
           />
-          <div className="row justify-content-center align-items-center gap-3 mt-3">
+          <div className="row justify-content-center align-items-center mt-3">
             <button
               disabled={currentPage === 1}
-              className="btn custfontbtn col-1"
+              className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
               onClick={() => setPage(Math.max(currentPage - 1, 1))}
             >
               {t("previous-page")}
             </button>
-            <span className="px-2 align-self-center col-1 text-center">
+            <span className="mx-2 align-self-center col-md-2 col-4 text-center p-0 my-2">
               {t("page")} {currentPage}
             </span>
             <button
               disabled={currentPage >= totalPages}
-              className="btn custfontbtn col-1"
+              className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
               onClick={() => setPage(currentPage + 1)}
             >
               {t("next-page")}

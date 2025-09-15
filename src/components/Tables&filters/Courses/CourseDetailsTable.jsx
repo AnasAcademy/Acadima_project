@@ -423,7 +423,7 @@ export default function CourseDetailsTable({
       await request({
         method: "PUT",
         // urlPath: `/webinars/${currentWebinarId}/students/${selectedStudentId}`,
-        urlPath: `/students/${selectedStudentId}`,
+        urlPath: `/users/${selectedStudentId}`,
         body: apiData,
       });
 
@@ -1155,22 +1155,22 @@ export default function CourseDetailsTable({
               )}
 
               {/* Pagination */}
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
+              <div className="row justify-content-center align-items-center mt-3">
                 {!showStudents ? (
                   <>
                     <button
                       disabled={currentPage === 1 || loading}
-                      className="btn custfontbtn col-1"
+                      className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                       onClick={() => setPage(Math.max(currentPage - 1, 1))}
                     >
                       {loading ? "..." : t("previous-page")}
                     </button>
-                    <span className="px-2 align-self-center col-1 text-center">
+                    <span className="mx-2 align-self-center col-md-2 col-4 text-center p-0 my-2">
                       {t("page")} {currentPage}
                     </span>
                     <button
                       disabled={currentPage >= totalPages || loading}
-                      className="btn custfontbtn col-1"
+                      className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                       onClick={() => setPage(currentPage + 1)}
                     >
                       {loading ? "..." : t("next-page")}
@@ -1180,7 +1180,7 @@ export default function CourseDetailsTable({
                   <>
                     <button
                       disabled={studentsPage === 1 || loading}
-                      className="btn custfontbtn col-1 "
+                      className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                       onClick={() =>
                         fetchStudents(
                           currentWebinarId,
@@ -1190,12 +1190,12 @@ export default function CourseDetailsTable({
                     >
                       {loading ? "..." : t("previous-page")}
                     </button>
-                    <span className="px-2 align-self-center col-1 text-center">
+                    <span className="mx-2 align-self-center col-md-2 col-4 text-center p-0 my-2">
                       {t("page")} {studentsPage}
                     </span>
                     <button
                       disabled={studentsPage >= studentsTotalPages || loading}
-                      className="btn custfontbtn col-1"
+                      className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                       onClick={() =>
                         fetchStudents(currentWebinarId, studentsPage + 1)
                       }

@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations, getLocale } from "next-intl/server";
-import OfflinePaymentsTable from "@/components/Tables&filters/financial/OfflinePaymentsTable";
+import InstallmentSettingsForm from "@/components/Tables&filters/InstallmentsTables/InstallmentSettingsForm";
 import { cookies } from "next/headers";
 
 export default async function DiscountCodes() {
@@ -19,7 +19,7 @@ const t = await getTranslations("SidebarA");
 
     try {
       const res = await fetch(
-        `${BASE_URL}/financial/offline_payments?page=${pageNumber}`,
+        `${BASE_URL}/financial/installments/settings`,
         {
           method: "GET",
           headers: {
@@ -32,30 +32,26 @@ const t = await getTranslations("SidebarA");
       );
       const respond = await res.json();
       return {
-        data: respond.offlinePayments.data || [],
-        currentPage: respond.offlinePayments.current_page || 1,
-        totalPages: respond.offlinePayments.last_page || 1,
+        data: respond.settings || [],
       };
     } catch (error) {
       console.error("Error fetching data:", error);
-      return { data: [], currentPage: 1, totalPages: 1 };
+      return { data: []};
     }
   }
 
   // Fetch both data sets in parallel for better performance
-    const { data, currentPage, totalPages } = await fetchData(1);
+    const { data } = await fetchData(1);
 
   return (
     <>
       <div className="m-0 container-fluid p-0 d-flex flex-column">
         <div className="p-lg-4 pt-lg-0">
           <div className="row m-0 p-2 g-3">
-            <h2 className="hvvv">{t("discount-codes")}</h2>
+            <h2 className="hvvv">{t("installment_settings")}</h2>
             <div className="col-lg-12">
-              <OfflinePaymentsTable
+              <InstallmentSettingsForm
                 initialData={data}
-                initialPage={currentPage}
-                initialTotalPages={totalPages}
               />
             </div>
           </div>

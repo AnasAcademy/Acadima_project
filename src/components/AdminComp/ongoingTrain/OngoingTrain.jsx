@@ -84,7 +84,7 @@ export default function OngoingTrain({
         col.value === "approved" ||
         col.value === "success" ||
         col.value === "publish" ||
-        col.value === "passed" || 
+        col.value === "passed" ||
         col.value === "paid"
       ) {
         textClass = "text-bg-success p-2 rounded-2 tit-12-400";
@@ -106,7 +106,7 @@ export default function OngoingTrain({
         col.value === "inactive" ||
         col.value === "rejected" ||
         col.value === "blocked" ||
-        col.value === "failed" || 
+        col.value === "failed" ||
         col.value === "unpaid"
       ) {
         textClass = "text-bg-danger p-2 rounded-2 tit-12-400";
@@ -178,7 +178,11 @@ export default function OngoingTrain({
       </td>
     ),
     user: (col, key) => (
-      <td key={key} className="col-2" style={{ maxWidth: "150px" }}>
+      <td
+        key={key}
+        // className="col-2"
+        style={{ maxWidth: "150px" }}
+      >
         <div className="d-flex align-items-center justify-content-start gap-2">
           {isUserImg && (
             <Image
@@ -212,14 +216,15 @@ export default function OngoingTrain({
             <input
               className="form-check-input"
               type="checkbox"
-              checked={col.value === 1}
-              onChange={() => col.onToggle?.(col.id, col.value)}
+              checked={!!Number(col.value)} // controlled
+              onChange={(e) => col.onToggle?.(col.id, e.target.checked)} // pass NEXT state
             />
           </label>
           <span>Access</span>
         </div>
       </td>
     ),
+
     actionbutton: (col, key) => (
       <td key={key}>
         <div

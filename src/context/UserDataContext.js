@@ -39,8 +39,11 @@ export const UserDataProvider = ({ children }) => {
   const [classTypeOptions, setClassTypeOptions] = useState([]); // normalized typeOptions
 
   // From /financial/documents
-  const [financialAmountTypeOptions, setFinancialAmountTypeOptions] = useState([]); // normalized bilingual
-  const [financialDocumentTypeOptions, setFinancialDocumentTypeOptions] = useState([]); // normalized bilingual
+  const [financialAmountTypeOptions, setFinancialAmountTypeOptions] = useState(
+    []
+  ); // normalized bilingual
+  const [financialDocumentTypeOptions, setFinancialDocumentTypeOptions] =
+    useState([]); // normalized bilingual
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -188,29 +191,27 @@ export const UserDataProvider = ({ children }) => {
     (arr || [])
       .map((r) => {
         if (typeof r === "string") {
-          const name = r;
+          // fallback shape if API ever returns plain strings
           return {
-            value: String(name).toLowerCase(),
-            label_en: name,
-            label_ar: name,
+            id: r,
+            value: String(r).toLowerCase(),
+            label_en: r,
+            label_ar: r,
           };
         }
-        if (r.label_en || r.label_ar || r.value) {
-          const nameForLabel = r.label_en ?? r.label_ar ?? r.value ?? "";
-          return {
-            value: String(r.value ?? nameForLabel).toLowerCase(),
-            label_en: r.label_en ?? nameForLabel,
-            label_ar: r.label_ar ?? nameForLabel,
-          };
-        }
-        const name = r.name ?? r.id ?? "";
+
+        const id = r.id ?? r.role_id ?? r.value ?? r.name ?? "";
+        const nameForLabel =
+          r.label_en ?? r.label_ar ?? r.name ?? r.value ?? "";
+
         return {
-          value: String(r.value ?? name).toLowerCase(),
-          label_en: r.name ?? String(name),
-          label_ar: r.name ?? String(name),
+          id, // <-- keep numeric/string id
+          value: String(r.value ?? r.name ?? nameForLabel).toLowerCase(), // internal key if you still need it
+          label_en: r.label_en ?? nameForLabel,
+          label_ar: r.label_ar ?? nameForLabel,
         };
       })
-      .filter((x) => x.value && (x.label_en || x.label_ar));
+      .filter((x) => (x.id ?? x.value) && (x.label_en || x.label_ar));
 
   // Async loader for search (fetches ALL pages)
   const loadStudentOptions = async (term) => {
@@ -249,8 +250,8 @@ export const UserDataProvider = ({ children }) => {
         bundlesData,
         webinarsData,
         instructorsData,
-        programsStatsData,     // for batches
-        financialDocsData,     // for amount_types_options + types_options
+        programsStatsData, // for batches
+        financialDocsData, // for amount_types_options + types_options
       ] = await Promise.all([
         fetchJson(
           `${API_BASE}/students/all?page=1`,
@@ -385,8 +386,9 @@ export const UserDataProvider = ({ children }) => {
 
       // ---- financial option lists (from /financial/documents) ----
       const fin = financialDocsData || {};
-      const finAmount = fin.amount_types_options || fin.data?.amount_types_options || [];
-      const finTypes  = fin.types_options || fin.data?.types_options || [];
+      const finAmount =
+        fin.amount_types_options || fin.data?.amount_types_options || [];
+      const finTypes = fin.types_options || fin.data?.types_options || [];
 
       setFinancialAmountTypeOptions(normalizeBilingual(finAmount));
       setFinancialDocumentTypeOptions(normalizeBilingual(finTypes));
@@ -452,7 +454,7 @@ export const UserDataProvider = ({ children }) => {
 
     getRoleOptions: () =>
       roles.map((r) => ({
-        value: (r.value || r.label_en || r.label_ar || "").toLowerCase(),
+        value: r.id ?? r.value, // <-- prefer the id
         label: isAr ? r.label_ar || r.label_en : r.label_en || r.label_ar,
       })),
 

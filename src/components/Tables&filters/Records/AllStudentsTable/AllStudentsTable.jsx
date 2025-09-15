@@ -150,8 +150,8 @@ export default function AllStudentsTable({
         ) {
           if (key === "mobile") {
             apiData[key] = String(cleaned).replace(/\s+/g, "");
-          } else if (key === "user_role") {
-            apiData["role_name"] = cleaned;
+          } else if (key === "role_name") {
+            apiData["role_id"] = cleaned;
           } else if (key === "status") {
             // 👇 always send lowercase
             apiData[key] = String(cleaned).toLowerCase();
@@ -167,13 +167,13 @@ export default function AllStudentsTable({
         setEditFormLoading(false);
         return;
       }
-
+      console.log("Submitting edit with data:", apiData);
       const response = await request({
         method: "PUT",
-        urlPath: `/students/${selectedId}`,
+        urlPath: `/users/${selectedId}`,
         body: apiData,
       });
-
+      console.log("Edit response:", response);
       setResultMessage(t("operation_completed"));
       setShowResultModal(true);
       setShowEditForm(false);
@@ -347,6 +347,16 @@ export default function AllStudentsTable({
     },
   ];
 
+  const normalizeUserForForm = (user) => {
+    return {
+      ...user,
+      role_name:
+        user.role_id || // use ID if API sends it
+        getRoleOptions().find((o) => o.label === user.role_name)?.value ||
+        "",
+    };
+  };
+
   return (
     <>
       {showEditForm ? (
@@ -355,7 +365,9 @@ export default function AllStudentsTable({
             <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
               <Editform
                 fields={fields}
-                data={dataa.find((i) => i.id === selectedId) || {}}
+                data={normalizeUserForForm(
+                  dataa.find((i) => i.id === selectedId) || {}
+                )}
                 formTitles={formTitles}
                 handleSubmitEdit={handleSubmitEdit}
                 setShowModal={() => setShowEditForm(false)}
@@ -401,20 +413,20 @@ export default function AllStudentsTable({
                 button={false}
               />
 
-              <div className="row justify-content-center align-items-center gap-3 mt-3">
+              <div className="row justify-content-center align-items-center mt-3">
                 <button
                   disabled={currentPage === 1 || loading}
-                  className="btn custfontbtn col-1"
+                  className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                   onClick={() => setPage(Math.max(currentPage - 1, 1))}
                 >
                   {t("previous-page")}
                 </button>
-                <span className="px-2 align-self-center col-1 text-center">
+                <span className="mx-2 align-self-center col-md-2 col-4 text-center p-0 my-2">
                   {t("page")} {currentPage}
                 </span>
                 <button
                   disabled={currentPage >= totalPages || loading}
-                  className="btn custfontbtn col-1"
+                  className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
                   onClick={() => setPage(currentPage + 1)}
                 >
                   {t("next-page")}

@@ -74,29 +74,61 @@ export default function NewSideBar() {
   const isSettings = pathname.includes("/org/settings");
   const isAdminssion = pathname.includes("/org/admission/");
   const iSenrollment = pathname.includes("/org/enrollment/");
-  const isprostatic = pathname.includes("/org/education/programs-statistics");
-  const isBundlesStats = pathname.includes(
-    "/org/education/programs-statistics/bundles"
+  const isprostatic = pathname.includes("/org/programs-statistics");
+  const isBundlesStats = pathname.includes("/org/programs-statistics/bundles");
+  const isWebinarsStats = pathname.includes(
+    "/org/programs-statistics/webinars"
   );
+
   const isFin = pathname.includes("/org/financial/");
   const isBalances = pathname.includes("/org/financial/balances");
   const isSaleslist = pathname.includes("/org/financial/sales-list");
   const isOfflinepay = pathname.includes("/org/financial/offline-payments");
   const isInstallments = pathname.includes("/org/financial/installments");
-  const isDiscountcodes = pathname.includes("/org/financial/discount-codes");
-  const isWebinarsStats = pathname.includes(
-    "/org/education/programs-statistics/webinars"
+  const isInstallmentsPlans = pathname.includes(
+    "/org/financial/installments/plans"
   );
+  const isInstallmentsPurchases = pathname.includes(
+    "/org/financial/installments/purchases"
+  );
+  const isInstallmentsOverdue = pathname.includes(
+    "/org/financial/installments/overdue"
+  );
+  const isInstallmentsOverdueHistory = pathname.includes(
+    "/org/financial/installments/history"
+  );
+  const isInstallmentSettings = pathname.includes("/org/financial/installments/settings");
+  const isDiscountcodes = pathname.includes("/org/financial/discount-codes");
+
   const isQuizzes = pathname.includes("/org/education/quizzes");
   const isAssignments = pathname.includes("/org/education/assignments");
-  const education = isQuizzes || isAssignments;
+  const education = pathname.includes("/org/education/");
 
   const isCourses = pathname.includes("/org/education/courses");
+  const isCourse = pathname.includes("/org/education/courses/course");
+  const isWebinar = pathname.includes("/org/education/courses/webinars");
+  const isGradProject = pathname.includes(
+    "/org/education/courses/graduation-projects"
+  );
+  const isTextLesson = pathname.includes("/org/education/courses/text-lessons");
   const isCertificates = pathname.includes("/org/education/certificates");
+  const isCertificateTemplates = pathname.includes(
+    "/org/education/certificates/certificate-templates"
+  );
+  const isCourseCertificates = pathname.includes(
+    "/org/education/certificates/course-certificate"
+  );
+  const isQuizCertificates = pathname.includes(
+    "/org/education/certificates/quiz-certificate"
+  );
   const isCoursesRegistration = pathname.includes(
     "/org/education/course-registration"
   );
   const isBundles = pathname.includes("/org/education/bundles");
+  const isPrograms = pathname.includes("/org/education/bundles/programs");
+  const isBridgingPrograms = pathname.includes(
+    "/org/education/bundles/bridging-programs"
+  );
   const iSenrollmentHis = pathname.includes("/org/enrollment/history");
 
   const isAdmissionReq = pathname.includes(
@@ -146,8 +178,8 @@ export default function NewSideBar() {
     "/org/user-management/users/new-user"
   );
   const isPlans = pathname.includes("/org/plans");
-  const isUsersRoles = pathname.includes("/org/user-management/users/roles");
-  const isUsersgroups = pathname.includes("/org/user-management/users/groups");
+  const isUsersRoles = pathname.includes("/org/user-management/roles");
+  const isUsersgroups = pathname.includes("/org/user-management/groups");
   const isUsersaccs = pathname.includes(
     "/org/user-management/users/not-access-to-content"
   );
@@ -297,18 +329,22 @@ export default function NewSideBar() {
         {
           tit: "webinars",
           href: "/org/education/courses/course",
+          bg: isCourse,
         },
         // {
         //   tit: "courses_webinars",
         //   href: "/org/education/courses/webinars",
+        //  bg: isWebinar
         // },
         // {
         //   tit: "graduation_projects",
         //   href: "/org/education/courses/graduation-projects",
+        // bg: isGradProject
         // },
         // {
         //   tit: "text_lessons",
         //   href: "/org/education/courses/text-lessons",
+        // bg: isTextLesson
         // },
       ],
     },
@@ -329,10 +365,12 @@ export default function NewSideBar() {
         {
           tit: "programs",
           href: "/org/education/bundles/programs",
+          bg: isPrograms,
         },
         {
           tit: "bridging_programs",
           href: "/org/education/bundles/bridging-programs",
+          bg: isBridgingPrograms,
         },
       ],
     },
@@ -347,14 +385,17 @@ export default function NewSideBar() {
         {
           tit: "quiz_certificates",
           href: "/org/education/certificates/quiz-certificate",
+          bg: isQuizCertificates,
         },
         {
           tit: "course_certificates",
           href: "/org/education/certificates/course-certificate",
+          bg: isCourseCertificates,
         },
         {
           tit: "certificate_templates",
           href: "/org/education/certificates/certificate-templates",
+          bg: isCertificateTemplates,
         },
       ],
     },
@@ -364,13 +405,13 @@ export default function NewSideBar() {
     {
       icon: User7,
       tit: "bundles",
-      href: "/org/education/programs-statistics/bundlesStats",
+      href: "/org/programs-statistics/bundlesStats",
       bg: isBundlesStats,
     },
     {
       icon: User8,
       tit: "webinars",
-      href: "/org/education/programs-statistics/webinarsStats",
+      href: "/org/programs-statistics/webinarsStats",
       bg: isWebinarsStats,
     },
   ];
@@ -401,11 +442,31 @@ export default function NewSideBar() {
       arrow: arrowDown,
       icon2: point,
       children: [
-        { tit: "installment_plans", href: "/org/financial/installments/plans" },
-        { tit: "purchases", href: "/org/financial/installments/purchases" },
-        { tit: "overdue", href: "/org/financial/installments/overdue" },
-        { tit: "overdue_history", href: "/org/financial/installments/overdue-history" },
-        // { tit: "installment_settings", href: "/org/financial/installments/settings" },
+        {
+          tit: "installment_plans",
+          href: "/org/financial/installments/plans",
+          bg: isInstallmentsPlans,
+        },
+        {
+          tit: "purchases",
+          href: "/org/financial/installments/purchases",
+          bg: isInstallmentsPurchases,
+        },
+        {
+          tit: "overdue",
+          href: "/org/financial/installments/overdue",
+          bg: isInstallmentsOverdue,
+        },
+        {
+          tit: "overdue_history",
+          href: "/org/financial/installments/history",
+          bg: isInstallmentsOverdueHistory,
+        },
+        {
+          tit: "installment_settings",
+          href: "/org/financial/installments/settings",
+          bg: isInstallmentSettings
+        },
       ],
     },
     {
@@ -559,27 +620,31 @@ export default function NewSideBar() {
     ),
     isEdu: (
       <>
-        <div className=" d-flex   flex-column h-100  newSidebarpadding ">
+        <div className="d-flex flex-column h-100 newSidebarpadding">
           <Link
-            className={` nav-link  Tit-14-700 text-dark text-nowrap p-3 `}
+            className="nav-link Tit-14-700 text-dark text-nowrap p-3"
             aria-current="page"
           >
             {t("education")}
           </Link>
+
           <ul className="navbar-nav d-lg-flex flex-lg-column justify-content-start align-items-start">
             {edu.map((item, index) => {
-              const hasChildren = item.children && item.children.length > 0;
+              const hasChildren =
+                Array.isArray(item.children) && item.children.length > 0;
               const isOpen = openIndex === index;
+              const childActive =
+                hasChildren && item.children.some((ch) => ch.bg); // 👈 check children
 
               return (
                 <li
                   key={index}
-                  className=" d-flex flex-column p-2 cursor-pointer"
+                  className={`nav-item w-100 align-items-center d-flex flex-column cursor-pointer p-2 ${
+                    item.bg && !childActive ? "bgNewSidebar rounded-3" : "" // 👈 parent bg only if no child active
+                  }`}
                 >
                   <div
-                    className={`d-flex w-100 align-items-center ${
-                      isOpen ? "active-bg rounded-2" : ""
-                    }`}
+                    className="d-flex w-100 align-items-center"
                     onClick={() =>
                       hasChildren
                         ? setOpenIndex((prev) =>
@@ -589,10 +654,17 @@ export default function NewSideBar() {
                     }
                   >
                     <item.icon className="iconSize1 iconcolor m-1" />
+
                     {hasChildren ? (
-                      <span className=" tit-14-400 text-dark text-nowrap">
+                      <span className="tit-14-400 text-dark text-nowrap">
                         {t(item.tit)}
-                        <item.arrow className="iconcolor m-1 " />
+                        {item.arrow && (
+                          <item.arrow
+                            className={`iconcolor m-1 ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
+                          />
+                        )}
                       </span>
                     ) : (
                       <Link
@@ -607,10 +679,14 @@ export default function NewSideBar() {
                   {hasChildren && isOpen && (
                     <ul className="pe-2">
                       {item.children.map((child, cIdx) => (
-                        <li key={cIdx} className=" d-flex align-items-center">
-                          {/* <item.icon2 className="iconcolor m-1"/> */}
+                        <li
+                          key={cIdx}
+                          className={`d-flex align-items-center px-2 rounded-3 ${
+                            child.bg ? "bgNewSidebar" : ""
+                          }`}
+                        >
                           <Link
-                            className="nav-link tit-14-400 text-dark text-nowrap"
+                            className="nav-link tit-14-400 text-dark text-nowrap py-2"
                             href={child.href}
                           >
                             {t(child.tit)}
@@ -668,34 +744,59 @@ export default function NewSideBar() {
             {t("financial")}
           </Link>
 
-          <ul className="navbar-nav d-lg-flex flex-lg-column justify-content-start align-items-start newsidebarr">
+          <ul className="navbar-nav d-lg-flex flex-lg-column justify-content-start align-items-start">
             {finan.map((item, index) => {
               const hasChildren =
                 Array.isArray(item.children) && item.children.length > 0;
               const isOpen = openFinIndex === index;
 
+              // parent is active ONLY on its exact route (no descendants)
+              const parentActiveStrict =
+                typeof item.href === "string" &&
+                (pathname === item.href || pathname === `${item.href}/`);
+
+              // any child is active?
+              const childActive =
+                hasChildren &&
+                item.children.some(
+                  (ch) =>
+                    ch.bg ||
+                    (typeof ch.href === "string" &&
+                      (pathname === ch.href ||
+                        pathname.startsWith(`${ch.href}/`)))
+                );
+
               return (
                 <li
                   key={index}
-                  className="d-flex flex-column p-2 cursor-pointer"
+                  className="nav-item w-100 align-items-center d-flex flex-column cursor-pointer p-2"
                 >
+                  {/* Parent row: no bg on open; bg only if parentActiveStrict AND no child active */}
                   <div
                     className={`d-flex w-100 align-items-center ${
-                      isOpen ? "active-bg rounded-2" : ""
+                      parentActiveStrict && !childActive
+                        ? "bgNewSidebar rounded-3"
+                        : ""
                     }`}
-                    onClick={() =>
-                      hasChildren
-                        ? setOpenFinIndex((prev) =>
-                            prev === index ? null : index
-                          )
-                        : null
-                    }
+                    onClick={() => {
+                      if (hasChildren)
+                        setOpenFinIndex((prev) =>
+                          prev === index ? null : index
+                        );
+                    }}
                   >
                     <item.icon className="iconSize1 iconcolor m-1" />
+
                     {hasChildren ? (
                       <span className="tit-14-400 text-dark text-nowrap">
                         {t(item.tit)}
-                        {item.arrow && <item.arrow className="iconcolor m-1" />}
+                        {item.arrow && (
+                          <item.arrow
+                            className={`iconcolor m-1 ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
+                          />
+                        )}
                       </span>
                     ) : (
                       <Link
@@ -707,19 +808,33 @@ export default function NewSideBar() {
                     )}
                   </div>
 
+                  {/* Children list */}
                   {hasChildren && isOpen && (
                     <ul className="pe-2">
-                      {item.children.map((child, cIdx) => (
-                        <li key={cIdx} className="d-flex align-items-center">
-                          {/* {item.icon2 && <item.icon2 className="iconcolor m-1" />} */}
-                          <Link
-                            className="nav-link tit-14-400 text-dark text-nowrap py-2"
-                            href={child.href}
+                      {item.children.map((child, cIdx) => {
+                        const childIsActive =
+                          child.bg ||
+                          (typeof child.href === "string" &&
+                            (pathname === child.href ||
+                              pathname.startsWith(`${child.href}/`)));
+
+                        return (
+                          <li
+                            key={cIdx}
+                            className="d-flex align-items-center px-2 rounded-3"
+                            onClick={(e) => e.stopPropagation()} // don't toggle parent when clicking child
                           >
-                            {t(child.tit)}
-                          </Link>
-                        </li>
-                      ))}
+                            <Link
+                              className={`nav-link tit-14-400 text-dark text-nowrap py-2 ${
+                                childIsActive ? "bgNewSidebar rounded-3" : ""
+                              }`}
+                              href={child.href}
+                            >
+                              {t(child.tit)}
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </li>
@@ -1099,7 +1214,7 @@ export default function NewSideBar() {
                     </li>
                     <li
                       className={`nav-item d-flex  gap-2   align-items-end besideHover width-fit  ${
-                        studentsRecords && "onSelect"
+                        (studentsRecords || iSenrollmentHis) && "onSelect"
                       }      `}
                       onClick={() => {
                         togglePanel("isRegistered");
@@ -1111,7 +1226,9 @@ export default function NewSideBar() {
                       >
                         <ClassesIcon
                           className={`iconSize1   ${
-                            studentsRecords ? "iconcolor" : "iconcolor2"
+                            studentsRecords || iSenrollmentHis
+                              ? "iconcolor"
+                              : "iconcolor2"
                           }  `}
                         />
                         <span

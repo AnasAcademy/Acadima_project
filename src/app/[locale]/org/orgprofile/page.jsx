@@ -180,62 +180,62 @@ export default async function OrgProfile() {
                         <Icon3 />
                         {active.price}
                       </h3>
-                      <h4 className="tit-20-400 pt-3 text-start text-nowrap">
-                        /الشهر
-                      </h4>
+                      <h6 className="tit-20-400 pt-3 text-start text-nowrap">
+                        /{t("month")}
+                      </h6>
                     </div>
                   </div>
                 </div>
 
                 <div className="col-lg-3">
-                  <div className="bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm d-flex flex-column justify-content-center align-items-center  align-items-md-start justify-content-md-start">
+                  <div className="bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm d-flex flex-column justify-content-center align-items-start justify-content-md-start">
                     <div className="border rounded-2 shadow-sm width-fit p-2">
                       <Org1 className={`iconcolor`} />
                     </div>
                     <div className="d-flex flex-row justify-content-between align-items-start w-100">
                       <div className="d-flex flex-column align-items-start">
                         <h3 className="tit-18-700 textcolor">اسم المنشأة:</h3>
-                        <p className="tit-16-400">
+                        <p className="tit-16-400 fw-bold">
                           {" "}
                           شركة الرؤية المستقبلية للتقنيات
                         </p>
                       </div>
                       <div className="d-flex flex-column align-items-start">
                         <h3 className="tit-18-700 textcolor ">المجال : </h3>
-                        <p className="tit-16-400">تقنية معلومات </p>
+                        <p className="tit-16-400 fw-bold">تقنية معلومات </p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white card border-0 rounded-4 gap-3 shadow-sm p-3 mt-3 d-flex flex-column justify-content-center align-items-center  align-items-md-start justify-content-md-start">
+                  <div className="bg-white card border-0 rounded-4 gap-3 shadow-sm p-3 mt-3 d-flex flex-column justify-content-center  align-items-start justify-content-md-start">
                     <div className="border rounded-2 shadow-sm width-fit p-2">
                       <Org2 />
                     </div>
                     <div className="d-flex flex-row justify-content-between align-items-center w-100">
                       <div className="d-flex flex-column align-items-start">
                         <h3 className="tit-18-700 textcolor">عدد الموظفين:</h3>
-                        <p className="tit-16-400">
+                        <p className="tit-16-400 fw-bold">
                           {dashboardData.total_users} موظف
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white card border-0 rounded-4 p-3 mt-3 gap-3  shadow-sm d-flex flex-column justify-content-center align-items-center  align-items-md-start justify-content-md-start">
+                  <div className="bg-white card border-0 rounded-4 p-3 mt-3 gap-3  shadow-sm d-flex flex-column justify-content-center  align-items-start justify-content-md-start">
                     <div className="border rounded-2 shadow-sm width-fit p-2">
                       <Org3 />
                     </div>
                     <div className="d-flex flex-row justify-content-between align-items-center w-100">
                       <div className="d-flex flex-column align-items-start">
                         <h3 className="tit-18-700 textcolor">تاريخ التسجيل:</h3>
-                        <p className="tit-16-400"> {active.start_date} </p>
+                        <p className="tit-16-400 fw-bold"> {active.start_date} </p>
                       </div>
                       <div className="d-flex flex-column align-items-start">
                         <h3 className="tit-18-700 textcolor ">
                           {" "}
                           تاريخ إنتهاء الإشتراك :{" "}
                         </h3>
-                        <p className="tit-16-400"> {active.end_date} </p>
+                        <p className="tit-16-400 fw-bold"> {active.end_date} </p>
                       </div>
                     </div>
                   </div>

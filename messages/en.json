@@ -516,7 +516,8 @@
     "portfolio_links": "Portfolio Links",
     "connections": "Connections",
     "completion_note": "Dear student, please make sure to fill out all required fields (marked with a *) correctly to ensure program acceptance.",
-    "progress": "15%"
+    "progress": "15%",
+    "user_name": "Email or Phonee number"
   },
   "personalData": {
     "academic_data": "Academic Data",
@@ -629,7 +630,15 @@
     "confirm": "Confirm"
   },
   "calendar": {
-    "days": ["Sat", "Fri", "Thu", "Wed", "Tue", "Mon", "Sun"],
+    "days": [
+      "Sat",
+      "Fri",
+      "Thu",
+      "Wed",
+      "Tue",
+      "Mon",
+      "Sun"
+    ],
     "tasksTitle": "Tasks for Today:",
     "noTasks": "No tasks or important events for today"
   },
@@ -675,6 +684,7 @@
     "no_more_uploads": "Unfortunately, you can no longer submit files..."
   },
   "employee_progress": {
+    "month": "Month",
     "page_title": "Employee Progress Tracking",
     "add_employee": "Add Employee",
     "filter": "Filter",
@@ -862,7 +872,6 @@
     "try-again": "Try again",
     "start-exam": "Start Quiz"
   },
-
   "assignments": {
     "assignments": "Assignments",
     "statsHeader": "Assignment Statistics",
@@ -879,7 +888,6 @@
     "passing-grade": "Passing Grade",
     "show-assignment": "Show Assignment"
   },
-
   "orgProfile": {
     "orgprofile-table-title": "Programs",
     "username": "Username",
@@ -922,7 +930,6 @@
     "edit": "Edit",
     "company_desc": "Future Vision Technologies Company is one of the leading Saudi companies in the field of digital transformation. It strives to empower its workforce through specialized training programs aimed at improving efficiency and enhancing productivity in the workplace."
   },
-
   "adminSettings": {
     "settings": "Settings",
     "account": "Account",
@@ -954,7 +961,6 @@
     "change": "Change",
     "save_changes": "Save Changes"
   },
-
   "adminSettingsTeam": {
     "system_settings": "General System Settings",
     "upload_logo": "Upload Organization Logo",
@@ -964,20 +970,17 @@
     "default_region": "System Default Timezone",
     "select_language": "Select Arabic Language",
     "select_region": "Select Timezone",
-
     "login_security": "Login & Security",
     "enable_2fa": "Enable Two-Factor Authentication (2FA)",
     "2fa_settings": "Two-Factor Authentication Settings (2FA)",
     "choose_2fa_method": "Choose preferred 2FA method",
     "session_duration": "Session Timeout Duration",
     "logout_all": "Logout from all devices now",
-
     "customize_interface": "Customize System Interface",
     "primary_color": "Primary Interface Color",
     "theme_style": "Interface Theme",
     "light_mode": "Light Mode",
     "dark_mode": "Dark Mode",
-
     "integration_settings": "Integration Settings",
     "teams": "Teams",
     "zoom": "Zoom",
@@ -987,7 +990,6 @@
     "last_used": "Last used",
     "reset_active_sessions": "Reset active sessions"
   },
-
   "aihelper": {
     "title_tasks": "Smart Assistant Tasks",
     "select_tasks": "Select the tasks you prefer the AI assistant to perform for users:",
@@ -997,7 +999,6 @@
     "procedure_guides": "Provide procedural guides",
     "report_summaries": "Display report summaries",
     "suggest_new_tasks": "Would you suggest new tasks that can be developed for the assistant?",
-
     "title_settings": "Smart Assistant Settings",
     "enable_assistant": "Enable Smart Assistant",
     "enable_assistant_note": "You can temporarily disable the assistant for all users.",
@@ -1012,7 +1013,6 @@
     "restore_defaults": "Restore AI Default Settings",
     "restore_defaults_note": "You can temporarily disable the assistant for all users."
   },
-
   "aisupport": {
     "title_support_settings": "Technical Support Settings",
     "description_support_settings": "Customize the support experience within the platform and set available channels and options for users.",
@@ -1034,6 +1034,7 @@
     "channel_phone": "Phone Number"
   },
   "tables": {
+    "user_code": "User Code",
     "add_new_user": "Add New User",
     "admission-requirements": "Admission Requirements",
     "role_name": "User Role",
@@ -1119,7 +1120,6 @@
     "chapters": "Chapters",
     "teachers": "Teachers",
     "is_required": "This field is required",
-
     "approved": "Approved",
     "rejected": "Rejected",
     "registration_record": "Registration Record",
@@ -1258,7 +1258,6 @@
     "rejection_message": "Rejection Message",
     "no_reason_provided": "No reason provided",
     "subCategories": "Subcategories",
-
     "reject_request": "Reject Request",
     "enter_rejection_reason": "Enter rejection reason",
     "rejection_reason_required": "Rejection reason is required",
@@ -1303,7 +1302,6 @@
     "categories": "Categories",
     "addRequirements": "Add admission requirements to the program",
     "addReqButton": "+ Add Requirements",
-
     "editing_webinar": "Editing Webinar",
     "editing_student": "Editing Student",
     "course_name_certificate": "Course Name on Certificate",
@@ -1327,7 +1325,6 @@
     "partners": "Partners",
     "student_id": "Student ID",
     "sub_cat_included": "Sub-categories Included",
-
     "questions": "Questions",
     "students": "Students",
     "average_grades": "Average Grades",
@@ -1345,7 +1342,6 @@
     "sort_options": "Sort Options",
     "coursek": "Course",
     "new_quiz": "New Quiz",
-
     "evaluations": "Evaluations",
     "learninbg": "Learning",
     "courses_count": "Number of Courses",
@@ -1366,13 +1362,10 @@
     "lastSubmission": "Last Submission",
     "course_type": "Course type",
     "program_type": "Program type",
-
     "certificate_course_name": "Course name on certificate",
     "exclude_student_from_certificate": "Exclude student from certificate",
     "add_teacher_to_attendance": "Add teacher to attendance",
-
     "assistant_teacher": "Assistant teacher",
-
     "course_requirements": "Course requirements",
     "course_namee": "Course name",
     "basic_information": "Basic Information",
@@ -1394,9 +1387,7 @@
     "image_optional": "Image (Optional)",
     "video_optional": "Video (Optional)",
     "essay_question": "Essay Question",
-
     "min_10_chars": "Must not be less than 10 characters",
-
     "number_of_users": "Number of users",
     "User Groups List": "User Groups List",
     "commission": "commission",
@@ -1466,6 +1457,33 @@
     "payment_date": "Payment Date",
     "late_period": "Late Period (Days)",
     "paid": "Paid",
-    "unpaid": "Unpaid"
+    "unpaid": "Unpaid",
+    "disable_course_access_when_user_have_an_overdue_installment": "Disable course access when user has an overdue installment",
+    "disable_instalments_when_the_user_have_an_overdue_installment": "Disable creating new installments when user has an overdue installment",
+    "disable_all_courses_access_when_user_have_an_overdue_installment": "Disable access to all courses when user has an overdue installment",
+    "disable_installments_when_the_user_have_an_overdue_installment": "Disable creating new installments when user has an overdue installment",
+    "allow_cancel_verification": "Allow cancel verification",
+    "display_installment_button": "Display installment button",
+    "overdue_interval_days": "Overdue interval (days)",
+    "installment_plans_position": "Installment plans position",
+    "top_of_page": "Top of page",
+    "bottom_of_page": "Bottom of page",
+    "reminder_before_overdue_days": "Reminder before overdue (days)",
+    "reminder_after_overdue_days": "Reminder after overdue (days)",
+    "terms_description": "Terms description",
+    "modified": "Modified",
+    "saved_successfully": "Saved successfully",
+    "saving": "Saving...",
+    "inactive_students": " Inactive Students",
+    "ban_student": "Ban Student",
+    "all_students": "All Students",
+    "instructor": "Instructor",
+    "classes_sales":" Classes Sales",
+    "meeting_sales": "Meeting Sales",
+    "classes_purchased": "Classes Purchased",
+    "meeting_purchased": " Meeting Purchased",
+    "account_balance": "Account Balance",
+    "user_name": "Email or Phonee number"
+
   }
 }
