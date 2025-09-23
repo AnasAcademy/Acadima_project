@@ -108,11 +108,11 @@ export default function StaffTable({
         urlPath: `/users/${selectedId}`,
       });
 
-      if (!response?.success) {
-        setDataa(dataa);
-        setFilter(filter);
-        throw new Error("Failed to delete");
-      }
+      // if (!response?.success) {
+      //   setDataa(dataa);
+      //   setFilter(filter);
+      //   throw new Error("Failed to delete");
+      // }
 
       setResultMessage(response?.message || "تم التحديث بنجاح");
       setShowResultModal(true);

@@ -2,10 +2,10 @@
 import React, { useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTranslations  ,useLocale } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useUserData } from "@/context/UserDataContext";
 import { set } from "date-fns";
-import Drag from "@/assets/admin/drag.svg"
+import Drag from "@/assets/admin/drag.svg";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import OngoingTrain from "../AdminComp/ongoingTrain/OngoingTrain";
 // import { GripVertical } from "lucide-react"; // optional icon
@@ -19,7 +19,7 @@ function SearchSelect({
   minChars = 3,
   onChange, // expects number or "" to clear
   loadOptions,
- // async (term) => Promise<{label,value}[]>
+  // async (term) => Promise<{label,value}[]>
 }) {
   const [open, setOpen] = useState(false);
   const [term, setTerm] = useState("");
@@ -561,12 +561,11 @@ export default function Editform({
   DelteChapters,
   setChapters,
   reArrangeChapters,
-  
 }) {
   const [addquestion, setAddquestion] = useState(false);
   const [multiqes, setMultiqes] = useState(false);
   const [add, setAdd] = useState(false);
-    const [chapterId, setChapterId] = useState('');
+  const [chapterId, setChapterId] = useState("");
   const t = useTranslations("tables");
   const { loadStudentOptions } = useUserData();
 
@@ -617,21 +616,19 @@ export default function Editform({
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setChapters(items); // update the state with reordered array
-   reArrangeChapters(items, result.draggableId, result.destination.index);
+    reArrangeChapters(items, result.draggableId, result.destination.index);
   };
 
-  const handleDragEn = (result , chapterId ) => {
+  const handleDragEn = (result, chapterId) => {
     if (!result.destination) return;
 
     console.log("here3", result);
-    console.log(chapterId , "herer009");
+    console.log(chapterId, "herer009");
     // const items = Array.from(chapters.items);
-     
+
     // const [reorderedItem] = items.splice(result.source.index, 1);
 
-
     // items.splice(result.destination.index, 0, reorderedItem);
-
 
     // setChapters(items); // update the state with reordered array
     reArrangeChapters(chapterId, result.draggableId, result.destination.index);
@@ -1129,6 +1126,41 @@ export default function Editform({
                         </div>
                       );
                     })()
+                  ) : type === "number" ? (
+                    <div className="d-flex flex-column w-100">
+                      <input
+                        type="number"
+                        className="form-control"
+                        name={name}
+                        value={
+                          formik.values[name] === null ||
+                          formik.values[name] === undefined
+                            ? ""
+                            : formik.values[name]
+                        }
+                        placeholder={field.placeholder || ""}
+                        min={field.min ?? 0}
+                        max={field.max ?? 100}
+                        step={field.step ?? 1}
+                        disabled={loading || field.disabled}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          // allow empty string while typing
+                          if (val === "") return formik.setFieldValue(name, "");
+                          const num = Number(val);
+                          formik.setFieldValue(
+                            name,
+                            Number.isNaN(num) ? "" : num
+                          );
+                        }}
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched[name] && formik.errors[name] ? (
+                        <small className="text-danger mt-1">
+                          {formik.errors[name]}
+                        </small>
+                      ) : null}
+                    </div>
                   ) : type === "" ? (
                     <></>
                   ) : name === "image" ? (
