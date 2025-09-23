@@ -2186,7 +2186,7 @@ export default function Editform({
                   type="button"
                 >
                   {" "}
-                  {t("new_prerequisite")}{" "}
+                  {t("new_instructions")}{" "}
                 </button>
               </div>
 

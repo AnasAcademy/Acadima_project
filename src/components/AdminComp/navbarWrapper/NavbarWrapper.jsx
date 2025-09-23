@@ -17,8 +17,6 @@ export default function NavbarWrapper() {
     "/en/reset-password",
     "/ar/bundles/4/course/learning/4",
     "/en/bundles/4/course/learning/4",
-    "/ar/org/orgprofile",
-    "/en/org/orgprofile",
     "/ar/checkout",
     "/en/checkout",
   ];

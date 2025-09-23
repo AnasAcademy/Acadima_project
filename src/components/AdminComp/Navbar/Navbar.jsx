@@ -11,6 +11,9 @@ import Circle from "@/assets/notifCard/Ellipse 26.svg";
 import Link from "next/link";
 import Sidebar from "../../sidebar/sidebarr/Sidebar";
 import logo from "../../../assets/admin/logo2.png";
+import SidebarAdmin from "@/components/AdminComp/sideBar/Sidebar";
+import SidebarA from "@/components/AdminComp/NewSideBar/NewSideBar"
+
 const Navbar = () => {
   const tn = useTranslations("Navbar");
   const ts = useTranslations("Sidebar");
@@ -27,6 +30,21 @@ const Navbar = () => {
     
     setIsVisible(!isVisible);
   }
+
+
+ 
+    const hideSidebarRoutes = ["ar/org", "en/org"];
+
+    const shouldShowSidebar = hideSidebarRoutes.some((route) =>
+      pathnam.includes(route)
+    );
+
+
+
+
+
+
+
 
  function  handleClick(key){
 
@@ -191,10 +209,9 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <div className="  d-lg-none position-relative  mb-5   ">
-        <div className=" navbgCol position-absolute top-0 end-0  z-3  w-100">
-          
-          <Sidebar />
+      <div className="  d-lg-none position-relative     ">
+        <div className="  position-absolute top-0 end-0  z-3  w-100">
+          {shouldShowSidebar ? <SidebarA /> : <Sidebar />}
         </div>
       </div>
     </div>

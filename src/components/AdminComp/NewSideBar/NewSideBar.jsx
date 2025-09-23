@@ -59,11 +59,17 @@ import AIChat from "@/components/AIChat/AIChat";
 import Animate from "@/assets/admin/animate.gif";
 import arrowDown from "@/assets/admin/Arrow-down.svg";
 import point from "@/assets/Vector.svg";
+import X from "@/assets/admin/x.svg"
+import Back from "@/assets/admin/back.svg"
+
 
 export default function NewSideBar() {
   // const [actv, setActv] = useState(false);
   const [active, setActive] = useState(null);
+  const [open, SetOpen] = useState(false);
   const [message, setMessage] = useState(false);
+  const [inMobile, setInmobile] = useState(false);
+  const [widh , setWidh] = useState("100")
   const t = useTranslations("SidebarA");
   const pathname = usePathname();
   const isPanel = pathname.includes("/org/panel");
@@ -97,7 +103,9 @@ export default function NewSideBar() {
   const isInstallmentsOverdueHistory = pathname.includes(
     "/org/financial/installments/history"
   );
-  const isInstallmentSettings = pathname.includes("/org/financial/installments/settings");
+  const isInstallmentSettings = pathname.includes(
+    "/org/financial/installments/settings"
+  );
   const isDiscountcodes = pathname.includes("/org/financial/discount-codes");
 
   const isQuizzes = pathname.includes("/org/education/quizzes");
@@ -188,9 +196,34 @@ export default function NewSideBar() {
   // const isAccMange = isOrgprofile || isAiAssistant || isSettings;
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [AiChatOpen, setAiChatOpen] = useState(false);
-
   const [openIndex, setOpenIndex] = useState(null);
   const [openFinIndex, setOpenFinIndex] = useState(null);
+  const [hide , setHide] = useState(false)
+  // function you can call from anywhere
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  // Functions to control menu
+  const showMenu = () => setIsMenuVisible(true);
+  const hideMenu = () => setIsMenuVisible(false);
+  const toggleMenu = () =>{     setActive(null);
+  setHide(false); setIsMenuVisible((prev) => !prev);  } ;
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 992) {
+        setInmobile(false);
+        setSidebarOpen(false); // mobile
+      } else {
+        setInmobile(true);
+        setSidebarOpen(true); // desktop
+      }
+    };
+
+    handleResize(); // run once on mount
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const accmange = [
     {
@@ -331,21 +364,21 @@ export default function NewSideBar() {
           href: "/org/education/courses/course",
           bg: isCourse,
         },
-        // {
-        //   tit: "courses_webinars",
-        //   href: "/org/education/courses/webinars",
-        //  bg: isWebinar
-        // },
-        // {
-        //   tit: "graduation_projects",
-        //   href: "/org/education/courses/graduation-projects",
-        // bg: isGradProject
-        // },
-        // {
-        //   tit: "text_lessons",
-        //   href: "/org/education/courses/text-lessons",
-        // bg: isTextLesson
-        // },
+        {
+          tit: "courses_webinars",
+          href: "/org/education/courses/webinars",
+          bg: isWebinar,
+        },
+        {
+          tit: "graduation_projects",
+          href: "/org/education/courses/graduation-projects",
+          bg: isGradProject,
+        },
+        {
+          tit: "text_lessons",
+          href: "/org/education/courses/text-lessons",
+          bg: isTextLesson,
+        },
       ],
     },
     {
@@ -465,7 +498,7 @@ export default function NewSideBar() {
         {
           tit: "installment_settings",
           href: "/org/financial/installments/settings",
-          bg: isInstallmentSettings
+          bg: isInstallmentSettings,
         },
       ],
     },
@@ -925,8 +958,9 @@ export default function NewSideBar() {
 
   return (
     <>
-      <div className=" d-flex flex-column  ">
-        <div className="d-flex flex-column newSiebarMargin ">
+      {/* d-flex flex-column */}
+      <div className="     ">
+        <div className={`   ${inMobile && "newSiebarMargin"}     `}>
           {/* <div className=" pe-3  ps-3  ">
             <Link
               className="text-white text-decoration-none  m-lg-auto  d-flex  "
@@ -936,23 +970,27 @@ export default function NewSideBar() {
               <Image src={logo} alt="ai" width={120} height={33} priority />
             </Link>
           </div> */}
-          <Image
-            src={toggle}
-            alt="toggle"
-            width={20}
-            height={20}
-            className=" sidebarimgToggle"
-            onClick={() => setSidebarOpen((prev) => !prev)}
-          />
+          {inMobile ? (
+            <Image
+              src={toggle}
+              alt="toggle"
+              width={20}
+              height={20}
+              className=" sidebarimgToggle "
+              onClick={() => setSidebarOpen((prev) => !prev)}
+            />
+          ) : (
+            ""
+          )}
           <div
-            className="position-fixed Aichat"
+            className="position-fixed Aichat bg-white"
             style={{
               top: message ? "33%" : "46%",
             }}
           >
             {AiChatOpen ? (
               <div
-                className=" bg-white"
+                className=" "
                 style={{
                   borderRadius: "5%",
                   cursor: "pointer",
@@ -988,28 +1026,57 @@ export default function NewSideBar() {
               ""
             )}
           </div>
-
           <div
             className="position-fixed m-1 Aichatt"
             onClick={() => setAiChatOpen((prev) => !prev)}
           >
-            <Frame15 width={70} height={70} />
+            <Frame15 width={60} height={60} />
           </div>
-          <div className=" d-flex  mt-md-4      newbg    position-relative">
-            <nav className="navbar navbar-light navbar-expand-lg  p-0       ">
-              <div className=" d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column h-100  align-items-start p-0   ">
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
+          {/* newbg */}
+          <div
+            className={` d-flex  mt-lg-4    ${
+              inMobile
+                ? "position-relative "
+                : ` flex-column  position-absolute  ${
+                    isMenuVisible ? "w-75" : "w-100"
+                  } }   `
+            }    `}
+          >
+            <nav className={`navbar navbar-light navbar-expand-lg  p-0     `}>
+              <div className=" d-flex flex-sm-column flex-lg-column flex-column flex-md-column flex-xl-column h-100   justify-content-between p-0  w-100    ">
+                <div
+                  className={` d-flex justify-content-between  bg-white    ${
+                    !inMobile && "p-3 border border-1 mobBordSideBar"
+                  } `}
                 >
-                  <span className="navbar-toggler-icon"></span>
-                </button>
+                  <Link
+                    className="text-white text-decoration-none  m-lg-auto    d-flex  d-md-row d-lg-none justify-content-center "
+                    role="button"
+                    href="/"
+                  >
+                    <Image
+                      src={logo}
+                      alt="ai"
+                      width={120}
+                      height={32}
+                      priority
+                    />
+                  </Link>
 
+                  <button
+                    className="navbar-toggler"
+                    type="button"
+                    onClick={toggleMenu}
+                    aria-expanded={isMenuVisible}
+                    aria-label="Toggle navigation"
+                  >
+                    {isMenuVisible ? (
+                      <X />
+                    ) : (
+                      <span className="navbar-toggler-icon"></span>
+                    )}
+                  </button>
+                </div>
                 {/* <div
                   className={` d-flex   w-100    justify-content-center   bg-white   p-3  m-0 ${
                     actv ? "NewsideLogov3actv" : ""
@@ -1021,48 +1088,52 @@ export default function NewSideBar() {
                     } `}
                   />
                 </div> */}
+                {/* d-flex flex-column */}
 
-                <div
-                  className="collapse navbar-collapse       d-flex flex-column   "
-                  id="navbarSupportedContent"
-                >
-                  <ul className="navbar-nav   d-lg-flex w-100 flex-lg-column    p-3    bg-white    newSidebar     ">
-                    <div className="d-flex align-items-center justify-content-center">
-                      <h6 className=" text-center text-nowrap tit-10-400">
-                        {t("admin_dashboard")}
-                      </h6>
-                    </div>
+                {!hide && (
+                  <div
+                    className={`collapse navbar-collapse   ${
+                      isMenuVisible ? "show" : ""
+                    }  d-lg-flex flex-column   w-100   `}
+                    id="navbarSupportedContent"
+                  >
+                    <ul className="navbar-nav   d-lg-flex w-100 flex-lg-column    p-3      newSidebar   bg-white  ">
+                      <div className="d-flex align-items-center justify-content-center">
+                        <h6 className=" text-center text-nowrap tit-10-400">
+                          {t("admin_dashboard")}
+                        </h6>
+                      </div>
 
-                    <li
-                      className={`nav-item   besideHover width-fit  ${
-                        isPanel && "onSelect"
-                      }  `}
-                    >
-                      <Link
-                        href="/org/panel"
-                        className="d-flex  p-2   gap-2  align-items-end"
-                        onClick={() => {
-                          togglePanel("");
-                        }}
+                      <li
+                        className={`nav-item   besideHover width-fit  ${
+                          isPanel && "onSelect"
+                        }  `}
                       >
-                        <Home
-                          className={`iconSize1      ${
-                            isPanel ? "iconcolor" : "iconcolor2"
-                          } `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100 "
-                          }`}
+                        <Link
+                          href="/org/panel"
+                          className="d-flex  p-2   gap-2  align-items-end"
+                          onClick={() => {
+                            togglePanel("");
+                          }}
                         >
-                          {t("dashboard")}
-                        </span>
-                      </Link>
-                    </li>
+                          <Home
+                            className={`iconSize1      ${
+                              isPanel ? "iconcolor" : "iconcolor2"
+                            } `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100 "
+                            }`}
+                          >
+                            {t("dashboard")}
+                          </span>
+                        </Link>
+                      </li>
 
-                    {/* <li
+                      {/* <li
                       className={`nav-item besideHover width-fit  ${
                         isEmployeeprogress && "onSelect"
                       }  `}
@@ -1091,392 +1162,485 @@ export default function NewSideBar() {
                         </Link>
                       </li> */}
 
-                    <li
-                      className={`nav-item  besideHover width-fit  ${
-                        isNotfiPage && "onSelect"
-                      }   `}
+                      <li
+                        className={`nav-item  besideHover width-fit  ${
+                          isNotfiPage && "onSelect"
+                        }   `}
+                      >
+                        <Link
+                          href="/org/notifications"
+                          className="d-flex  p-2   gap-2  align-items-end"
+                          onClick={() => {
+                            togglePanel("");
+                          }}
+                        >
+                          <Notif
+                            className={`iconSize1   ${
+                              isNotfiPage ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100 "
+                            }`}
+                          >
+                            {t("Notifications")}
+                          </span>
+                        </Link>
+                      </li>
+                      <li
+                        className={`nav-item  besideHover width-fit  ${
+                          isTechSupport && "onSelect"
+                        } `}
+                      >
+                        <Link
+                          href="/org/techsupport"
+                          className="d-flex  p-2   gap-2  align-items-end"
+                          onClick={() => {
+                            togglePanel("");
+                          }}
+                        >
+                          <Supports
+                            className={`iconSize1    ${
+                              isTechSupport ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("Technical Support")}
+                          </span>
+                        </Link>
+                      </li>
+                      <li
+                        className={`nav-item  besideHover width-fit  ${
+                          isOrgprofile && "onSelect"
+                        } `}
+                      >
+                        <Link
+                          href="/org/orgprofile"
+                          className="d-flex  p-2   gap-2  align-items-end"
+                          onClick={() => {
+                            togglePanel("");
+                          }}
+                        >
+                          <Accmanage
+                            className={`iconSize1    ${
+                              isOrgprofile ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("Account Management")}
+                          </span>
+                        </Link>
+                      </li>
+                    </ul>
+                    <ul
+                      className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPart    `}
                     >
-                      <Link
-                        href="/org/notifications"
-                        className="d-flex  p-2   gap-2  align-items-end"
+                      <div className="d-flex align-items-center justify-content-center">
+                        <h6 className=" text-center text-nowrap tit-10-400 ">
+                          {t("academy")}
+                        </h6>
+                      </div>
+                      <li
+                        className={`nav-item d-flex  p-2 gap-2  align-items-end  besideHover width-fit   ${
+                          isAdminssion && "onSelect"
+                        }  `}
                         onClick={() => {
-                          togglePanel("");
+                          togglePanel("isAdmission");
+                          !inMobile && setHide(true);
                         }}
                       >
-                        <Notif
-                          className={`iconSize1   ${
-                            isNotfiPage ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100 "
-                          }`}
+                        <p
+                          // href="/org/admission/admission-requirements"
+                          className="d-flex  m-0  gap-2  align-items-end cursor-pointer"
                         >
-                          {t("Notifications")}
-                        </span>
-                      </Link>
-                    </li>
-                    <li
-                      className={`nav-item  besideHover width-fit  ${
-                        isTechSupport && "onSelect"
-                      } `}
-                    >
-                      <Link
-                        href="/org/techsupport"
-                        className="d-flex  p-2   gap-2  align-items-end"
+                          <AdmissionIcon
+                            className={`iconSize1    ${
+                              isAdminssion ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("admission")}
+                          </span>
+                        </p>
+                      </li>
+
+                      <li
+                        className={`nav-item d-flex  gap-2   align-items-end besideHover width-fit   ${
+                          (studentsRecords || iSenrollmentHis) && "onSelect"
+                        }      `}
                         onClick={() => {
-                          togglePanel("");
+                          togglePanel("isRegistered");
+                          !inMobile && setHide(true);
                         }}
                       >
-                        <Supports
-                          className={`iconSize1    ${
-                            isTechSupport ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
+                        <p
+                          // href="/org/students-records/all-students"
+                          className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                         >
-                          {t("Technical Support")}
-                        </span>
-                      </Link>
-                    </li>
-                    <li
-                      className={`nav-item  besideHover width-fit  ${
-                        isOrgprofile && "onSelect"
-                      } `}
-                    >
-                      <Link
-                        href="/org/orgprofile"
-                        className="d-flex  p-2   gap-2  align-items-end"
+                          <ClassesIcon
+                            className={`iconSize1   ${
+                              studentsRecords || iSenrollmentHis
+                                ? "iconcolor"
+                                : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("registrations")}
+                          </span>
+                        </p>
+                      </li>
+
+                      <li
+                        className={`nav-item d-flex  gap-2   align-items-end besideHover width-fit  ${
+                          education && "onSelect"
+                        }  `}
                         onClick={() => {
-                          togglePanel("");
+                          togglePanel("isEdu");
+                          !inMobile && setHide(true);
                         }}
                       >
-                        <Accmanage
-                          className={`iconSize1    ${
-                            isOrgprofile ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
+                        <p
+                          // href="/org/education/quizzes"
+                          className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                         >
-                          {t("Account Management")}
-                        </span>
-                      </Link>
-                    </li>
-                  </ul>
-                  <ul
-                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPart    `}
-                  >
-                    <div className="d-flex align-items-center justify-content-center">
-                      <h6 className=" text-center text-nowrap tit-10-400 ">
-                        {t("academy")}
-                      </h6>
-                    </div>
-                    <li
-                      className={`nav-item d-flex  p-2 gap-2  align-items-end  besideHover width-fit  ${
-                        isAdminssion && "onSelect"
-                      }  `}
-                      onClick={() => {
-                        togglePanel("isAdmission");
-                      }}
-                    >
-                      <p
-                        // href="/org/admission/admission-requirements"
-                        className="d-flex  m-0  gap-2  align-items-end cursor-pointer"
-                      >
-                        <AdmissionIcon
-                          className={`iconSize1    ${
-                            isAdminssion ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
-                        >
-                          {t("admission")}
-                        </span>
-                      </p>
-                    </li>
-                    <li
-                      className={`nav-item d-flex  gap-2   align-items-end besideHover width-fit  ${
-                        (studentsRecords || iSenrollmentHis) && "onSelect"
-                      }      `}
-                      onClick={() => {
-                        togglePanel("isRegistered");
-                      }}
-                    >
-                      <p
-                        // href="/org/students-records/all-students"
-                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
-                      >
-                        <ClassesIcon
-                          className={`iconSize1   ${
-                            studentsRecords || iSenrollmentHis
-                              ? "iconcolor"
-                              : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
-                        >
-                          {t("registrations")}
-                        </span>
-                      </p>
-                    </li>
+                          <Quiz
+                            className={`iconSize1    ${
+                              education ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("education")}
+                          </span>
+                        </p>
+                      </li>
 
-                    <li
-                      className={`nav-item d-flex  gap-2   align-items-end besideHover width-fit  ${
-                        education && "onSelect"
-                      }  `}
-                      onClick={() => {
-                        togglePanel("isEdu");
-                      }}
-                    >
-                      <p
-                        // href="/org/education/quizzes"
-                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
-                      >
-                        <Quiz
-                          className={`iconSize1    ${
-                            education ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
-                        >
-                          {t("education")}
-                        </span>
-                      </p>
-                    </li>
-
-                    <li
-                      className={`nav-item d-flex   gap-2  align-items-end    besideHover width-fit ${
-                        isUsers && "onSelect"
-                      }  `}
-                      onClick={() => {
-                        togglePanel("users");
-                      }}
-                    >
-                      <p
-                        // href="/org/user-management/users/staff"
-                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
-                      >
-                        <Userss
-                          className={`iconSize1    ${
-                            isUsers ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
-                        >
-                          {t("users")}
-                        </span>
-                      </p>
-                    </li>
-                  </ul>
-                  <ul
-                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPartt    `}
-                  >
-                    <div className="d-flex align-items-center justify-content-center">
-                      <h6 className=" text-center text-nowrap tit-10-400 ">
-                        {t("reports_and_finance")}
-                      </h6>
-                    </div>
-
-                    <li
-                      className={`nav-item d-flex  gap-2   align-items-end  besideHover width-fit ${
-                        isprostatic && "onSelect"
-                      } `}
-                      onClick={() => {
-                        togglePanel("isprogramreg");
-                      }}
-                    >
-                      <p
-                        // href="/org/education/programs-statistics/bundlesStats"
-                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
-                      >
-                        <Statics
-                          className={`iconSize1    ${
-                            isprostatic ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
-                        >
-                          {t("programs-statistics")}
-                        </span>
-                      </p>
-                    </li>
-
-                    <li
-                      className={`nav-item d-flex   gap-2   align-items-end    besideHover width-fit ${
-                        isFin && "onSelect"
-                      }   `}
-                      onClick={() => {
-                        togglePanel("isFinancial");
-                      }}
-                    >
-                      <p
-                        // href="/org/financial/balances"
-                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
-                      >
-                        <Card
-                          className={`iconSize1    ${
-                            isFin ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
-                        >
-                          {t("financial")}
-                        </span>
-                      </p>
-                    </li>
-
-                    <li
-                      className={`nav-item d-flex   gap-2  align-items-end  besideHover width-fit  ${
-                        isSubscriptionmanagement && "onSelect"
-                      }  `}
-                    >
-                      <Link
-                        href="/org/subscription-management"
-                        className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
+                      <li
+                        className={`nav-item d-flex   gap-2  align-items-end    besideHover width-fit ${
+                          isUsers && "onSelect"
+                        }  `}
                         onClick={() => {
-                          togglePanel("");
+                          togglePanel("users");
+                          !inMobile && setHide(true);
                         }}
                       >
-                        <Submange
-                          className={`iconSize1    ${
-                            isSubscriptionmanagement
-                              ? "iconcolor"
-                              : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
+                        <p
+                          // href="/org/user-management/users/staff"
+                          className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                         >
-                          {t("Subscription Management")}
-                        </span>
-                      </Link>
-                    </li>
-                  </ul>
-
-                  <ul
-                    className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPartt    `}
-                  >
-                    <div className="d-flex align-items-center justify-content-center">
-                      <h6 className=" text-center text-nowrap tit-10-400 ">
-                        {t("Settings")}
-                      </h6>
-                    </div>
-
-                    <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover     justify-content-center ${
-                        isSettings && "onSelect"
-                      }  `}
+                          <Userss
+                            className={`iconSize1    ${
+                              isUsers ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("users")}
+                          </span>
+                        </p>
+                      </li>
+                    </ul>
+                    <ul
+                      className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPartt    `}
                     >
-                      <Link
-                        href="/org/settings"
+                      <div className="d-flex align-items-center justify-content-center">
+                        <h6 className=" text-center text-nowrap tit-10-400 ">
+                          {t("reports_and_finance")}
+                        </h6>
+                      </div>
+
+                      <li
+                        className={`nav-item d-flex  gap-2   align-items-end  besideHover width-fit ${
+                          isprostatic && "onSelect"
+                        } `}
                         onClick={() => {
-                          togglePanel("");
+                          togglePanel("isprogramreg");
+                          !inMobile && setHide(true);
                         }}
                       >
-                        <SettingsIcons
-                          className={`iconSize3    ${
-                            isSettings ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
+                        <p
+                          // href="/org/education/programs-statistics/bundlesStats"
+                          className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
                         >
+                          <Statics
+                            className={`iconSize1    ${
+                              isprostatic ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("programs-statistics")}
+                          </span>
+                        </p>
+                      </li>
+
+                      <li
+                        className={`nav-item d-flex   gap-2   align-items-end    besideHover width-fit ${
+                          isFin && "onSelect"
+                        }   `}
+                        onClick={() => {
+                          togglePanel("isFinancial");
+                          !inMobile && setHide(true);
+                        }}
+                      >
+                        <p
+                          // href="/org/financial/balances"
+                          className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
+                        >
+                          <Card
+                            className={`iconSize1    ${
+                              isFin ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("financial")}
+                          </span>
+                        </p>
+                      </li>
+
+                      <li
+                        className={`nav-item d-flex   gap-2  align-items-end  besideHover width-fit  ${
+                          isSubscriptionmanagement && "onSelect"
+                        }  `}
+                      >
+                        <Link
+                          href="/org/subscription-management"
+                          className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end"
+                          onClick={() => {
+                            togglePanel("");
+                          }}
+                        >
+                          <Submange
+                            className={`iconSize1    ${
+                              isSubscriptionmanagement
+                                ? "iconcolor"
+                                : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("Subscription Management")}
+                          </span>
+                        </Link>
+                      </li>
+                    </ul>
+
+                    <ul
+                      className={`navbar-nav  w-100  d-lg-flex  flex-lg-column    p-3    bg-white    lastPartt    `}
+                    >
+                      <div className="d-flex align-items-center justify-content-center">
+                        <h6 className=" text-center text-nowrap tit-10-400 ">
                           {t("Settings")}
-                        </span>
-                      </Link>
-                    </li>
+                        </h6>
+                      </div>
 
-                    <li
-                      className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit   ${
-                        isLogOut && "onSelect"
-                      }  `}
-                    >
-                      <Link
-                        href="/login"
-                        // onClick={() => {
-                        //   setactvv("");
-                        // }}
+                      <li
+                        className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover  width-fit   ${
+                          isSettings && "onSelect"
+                        }  `}
                       >
-                        <LogoutIcon
-                          className={`iconSize2    ${
-                            isLogOut ? "iconcolor" : "iconcolor2"
-                          }  `}
-                        />
-                        <span
-                          className={`text-nowrap custfont ${
-                            sidebarOpen
-                              ? "tooltipText text-body-secondary"
-                              : "w-100"
-                          }`}
+                        <Link
+                          href="/org/settings"
+                          onClick={() => {
+                            togglePanel("");
+                          }}
+                          className="d-flex  p-2 m-0 cursor-pointer  gap-2  align-items-end "
                         >
-                          {t("logout")}
-                        </span>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+                          <SettingsIcons
+                            className={`iconSize3    ${
+                              isSettings ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("Settings")}
+                          </span>
+                        </Link>
+                      </li>
+
+                      <li
+                        className={`nav-item d-flex  p-2  gap-2  align-items-end  besideHover width-fit   ${
+                          isLogOut && "onSelect"
+                        }  `}
+                      >
+                        <Link
+                          href="/login"
+                          // onClick={() => {
+                          //   setactvv("");
+                          // }}
+                        >
+                          <LogoutIcon
+                            className={`iconSize2    ${
+                              isLogOut ? "iconcolor" : "iconcolor2"
+                            }  `}
+                          />
+                          <span
+                            className={`text-nowrap custfont ${
+                              sidebarOpen
+                                ? "tooltipText text-body-secondary"
+                                : "w-100"
+                            }`}
+                          >
+                            {t("logout")}
+                          </span>
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             </nav>
 
-            <div className=" bg-white  d-flex  flex-column">
-              <div className=" d-flex flex-column h-100">
-                {active === "isAdmission" && comp[tit]}
-                {active === "isRegistered" && comp[tit]}
-                {active === "isEdu" && comp[tit]}
-                {active === "users" && comp[tit]}
-                {active === "isprogramreg" && comp[tit]}
-                {active === "isFinancial" && comp[tit]}
+            <div className=" bg-white  d-flex  flex-column  ">
+              <div className=" d-flex flex-column  ">
+                {active === "isAdmission" && (
+                  <>
+                    {" "}
+                    <div className=" d-flex  align-items-start">
+                      {comp[tit]}{" "}
+                      <Back
+                        className=" mt-3"
+                        onClick={() => {
+                          setActive(null);
+                          setHide(false);
+                        }}
+                      />
+                    </div>{" "}
+                  </>
+                )}
+                {active === "isRegistered" && (
+                  <>
+                    {" "}
+                    <div className=" d-flex  align-items-start">
+                      {comp[tit]}{" "}
+                      <Back
+                        className=" mt-3"
+                        onClick={() => {
+                          setActive(null);
+                          setHide(false);
+                        }}
+                      />
+                    </div>{" "}
+                  </>
+                )}
+                {active === "isEdu" && (
+                  <>
+                    {" "}
+                    <div className=" d-flex  align-items-start">
+                      {comp[tit]}{" "}
+                      <Back
+                        className=" mt-3"
+                        onClick={() => {
+                          setActive(null);
+                          setHide(false);
+                        }}
+                      />
+                    </div>{" "}
+                  </>
+                )}
+                {active === "users" && (
+                  <>
+                    {" "}
+                    <div className=" d-flex  align-items-start">
+                      {comp[tit]}{" "}
+                      <Back
+                        className=" mt-3"
+                        onClick={() => {
+                          setActive(null);
+                          setHide(false);
+                        }}
+                      />
+                    </div>{" "}
+                  </>
+                )}
+                {active === "isprogramreg" && (
+                  <>
+                    {" "}
+                    <div className=" d-flex  align-items-start">
+                      {comp[tit]}{" "}
+                      <Back
+                        className=" mt-3"
+                        onClick={() => {
+                          setActive(null);
+                          setHide(false);
+                        }}
+                      />
+                    </div>{" "}
+                  </>
+                )}
+                {active === "isFinancial" && (
+                  <>
+                    {" "}
+                    <div className=" d-flex  align-items-start">
+                      {comp[tit]}{" "}
+                      <Back
+                        className=" mt-3"
+                        onClick={() => {
+                          setActive(null);
+                          setHide(false);
+                        }}
+                      />
+                    </div>{" "}
+                  </>
+                )}
               </div>
             </div>
           </div>

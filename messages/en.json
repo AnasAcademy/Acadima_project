@@ -928,7 +928,26 @@
     "view_more_programs": "View more programs",
     "delete": "Delete",
     "edit": "Edit",
-    "company_desc": "Future Vision Technologies Company is one of the leading Saudi companies in the field of digital transformation. It strives to empower its workforce through specialized training programs aimed at improving efficiency and enhancing productivity in the workplace."
+    "company_desc": "Future Vision Technologies Company is one of the leading Saudi companies in the field of digital transformation. It strives to empower its workforce through specialized training programs aimed at improving efficiency and enhancing productivity in the workplace.",
+     "organization_profile": "Organization Profile",
+      "company": "Company",
+ "org_general_info": "General Information for the Organization",
+  "reports_and_statistics": "Reports and Statistics",
+  "organization_name": "Organization Name",
+  "field": "Field",
+  "information_technology": "Information Technology",
+  "employees_count": "Number of Employees",
+  "employee": "Employee",
+  "sub_expiry_date": "Subscription Expiry Date",
+  "training_perf_indicators": "Training Performance Indicators",
+   "total_trainees": "Total Trainees",
+   "trainee": "Trainee",
+   "comp_train_pro": "Completed Training Programs",
+    "certificate": "Certificate",
+"certificates_issued": "Certificates Issued",
+"from_last_month": "From Last Month",
+"comp_pro_ratio": "Completed Programs Ratio"
+
   },
   "adminSettings": {
     "settings": "Settings",
@@ -1483,7 +1502,8 @@
     "classes_purchased": "Classes Purchased",
     "meeting_purchased": " Meeting Purchased",
     "account_balance": "Account Balance",
-    "user_name": "Email or Phonee number"
+    "user_name": "Email or Phonee number",
+    "new_instructions": "New Instructions"
 
   }
 }

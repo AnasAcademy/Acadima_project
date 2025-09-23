@@ -10,7 +10,7 @@ import NotificationProvider from "@/context/NotificationContext";
 import { UserDataProvider } from "@/context/UserDataContext";
 import BootstrapClient from '@/components/bootstrapClient/BootstrapClient'
 import SideBarWrapper from "@/components/sideBarWrapper/SideBarWrapper";
-import SidebarWrapperUser from "@/components/AdminComp/sideBarWrapper/SideBarWrapper"
+import SidebarWrapperAdmin from "@/components/AdminComp/sideBarWrapper/SideBarWrapper"
 
 
 
@@ -57,12 +57,12 @@ export default async function RootLayout({
                 {/* Sidebar – visible on lg and xl only */}
                 <div className=" d-flex  w-100 ">
                   <div className="d-none d-md-none d-lg-flex d-xl-flex ">
-                    <SidebarWrapperUser />
+                    <SidebarWrapperAdmin />
                     {/* <NewSideBar /> */}
                     <SideBarWrapper />
                   </div>
 
-                  <div className=" mt-5 mt-lg-0 pt-5 pt-lg-0 w-100 ">
+                  <div className=" mt-lg-0 pt-5 pt-lg-0 w-100   ">
                     {children}
                   </div>
                 </div>

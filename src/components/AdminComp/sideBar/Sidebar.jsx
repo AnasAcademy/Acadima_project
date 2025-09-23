@@ -107,8 +107,10 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className=" p-3  d-flex flex-column">
+      <div className=" p-3  d-flex flex-column bg-dark-subtle">
         <nav className="navbar navbar-light navbar-expand-lg     mt-md-4">
+
+          
           <div className="container-fluid  d-flex flex-sm-row flex-lg-column flex-row flex-md-row flex-xl-column min-vh-lg-100   align-items-start p-0  ">
             <Link
               className="text-white text-decoration-none  m-lg-auto  d-flex justify-content-center "
@@ -578,7 +580,7 @@ export default function Sidebar() {
                 </li>
 
                 <li
-                  className={`nav-item d-flex  p-2   w-100  align-items-center  bg-danger  ${
+                  className={`nav-item d-flex  p-2   w-100  align-items-center    ${
                     isCourses ? "cardbg  rounded-4   " : ""
                   }   `}
                 >

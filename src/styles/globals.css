@@ -1893,7 +1893,6 @@ select.no-native-arrow {
 }
 [dir="rtl"] .Aichatt {
   top: 92%;
-
   left: 1.5%;
   right: auto;
   z-index: 141;
@@ -2148,4 +2147,18 @@ input:focus {
 .rotate-180 {
   transform: rotate(180deg);
   transition: transform 200ms;
+}
+
+.mobBordSideBar{
+
+
+
+
+ border-radius: 10px 0px 0px 0px;
+
+
+
+
+
+
 }

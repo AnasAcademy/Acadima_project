@@ -89,7 +89,7 @@ export default async function Admin() {
   ];
 
   return (
-    <div className="m-0 container-fluid p-0 d-flex flex-column">
+    <div className="m-0 container-fluid p-0 d-flex flex-column ">
       <div>
         <div className="row m-0 p-2 g-3">
           <div className="col-lg-12">

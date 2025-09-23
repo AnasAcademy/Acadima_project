@@ -24,6 +24,8 @@ export default function NotificationProvider({ children }) {
         (Array.isArray(json?.data?.notifications) && json.data.notifications) ||
         [];
 
+
+         console.log(json)
       setNotifications(list);
 
       // keep a parallel status array for quick read/unread UI state
