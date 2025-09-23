@@ -175,42 +175,41 @@ export default function AIChat({
             <AiMessage key={index} message={msg.text} />
           )
         )}
-        
+
         {/* Loading Animation */}
         {isLoading && (
           <div className="d-flex align-items-end justify-content-end gap-2 mb-2">
-           
             {/* Typing Bubble */}
             <div className="bg-light rounded-4 p-3">
               <div className="d-flex align-items-center gap-2">
                 {/* <span className="text-muted small">{t("typing")}</span> */}
                 {/* Animated dots */}
                 <div className="d-flex gap-1">
-                  <div 
+                  <div
                     className="rounded-circle bg-secondary"
-                    style={{ 
-                      width: '6px', 
-                      height: '6px',
-                      animation: 'pulse 1.4s ease-in-out infinite',
-                      animationDelay: '0s'
+                    style={{
+                      width: "6px",
+                      height: "6px",
+                      animation: "pulse 1.4s ease-in-out infinite",
+                      animationDelay: "0s",
                     }}
                   ></div>
-                  <div 
+                  <div
                     className="rounded-circle bg-secondary"
-                    style={{ 
-                      width: '6px', 
-                      height: '6px',
-                      animation: 'pulse 1.4s ease-in-out infinite',
-                      animationDelay: '0.2s'
+                    style={{
+                      width: "6px",
+                      height: "6px",
+                      animation: "pulse 1.4s ease-in-out infinite",
+                      animationDelay: "0.2s",
                     }}
                   ></div>
-                  <div 
+                  <div
                     className="rounded-circle bg-secondary"
-                    style={{ 
-                      width: '6px', 
-                      height: '6px',
-                      animation: 'pulse 1.4s ease-in-out infinite',
-                      animationDelay: '0.4s'
+                    style={{
+                      width: "6px",
+                      height: "6px",
+                      animation: "pulse 1.4s ease-in-out infinite",
+                      animationDelay: "0.4s",
                     }}
                   ></div>
                 </div>
@@ -221,7 +220,7 @@ export default function AIChat({
       </div>
 
       {/* Input */}
-      <div className="chat-input p-3 d-flex align-items-center gap-3">
+      <div className="chat-input p-3 d-flex align-items-center gap-3 ">
         <div
           className="rounded-pill bg-body-tertiary p-2 cursor-pointer"
           onClick={handleSend}
@@ -232,7 +231,7 @@ export default function AIChat({
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="form-control rounded-4 border px-3 py-2 bg-body-tertiary"
+          className="form-control rounded-4 border px-3 py-2 bg-body-tertiary    "
           placeholder={t("send-placeholder")}
           onKeyDown={(e) => {
             if (e.key === "Enter") handleSend();

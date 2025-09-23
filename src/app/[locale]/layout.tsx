@@ -62,7 +62,7 @@ export default async function RootLayout({
                     <SideBarWrapper />
                   </div>
 
-                  <div className=" mt-lg-0 pt-5 pt-lg-0 w-100   ">
+                  <div className=" mt-lg-0 pt-5 pt-lg-0 w-100   mt-3 ">
                     {children}
                   </div>
                 </div>

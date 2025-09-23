@@ -8,7 +8,7 @@ const DashboardCards = ({ cards, minHeight }) => {
   const isRTL = locale === "ar";
 
   return (
-    <div className="  ">
+    <div className="   ">
       <div className="row g-2  ">
         {cards.map((card, index) => (
           <div key={index} className="col-12 col-md-6 col-xl-3">

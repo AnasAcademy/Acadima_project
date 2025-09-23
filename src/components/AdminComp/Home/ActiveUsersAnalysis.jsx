@@ -48,7 +48,7 @@ const ActiveUsersAnalysis = ({ dat }) => {
   const isRTL = locale === "ar"; // Correct detection of Arabic
 
   return (
-    <div className="card  border-0 shadow-sm rounded-3 p-3 text-white">
+    <div className="card  border-0 shadow-sm rounded-3 p-3 text-white ">
       {/* Chart */}
       <div
         className="p-3 mb-4 rounded-3"

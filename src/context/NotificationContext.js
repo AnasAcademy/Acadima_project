@@ -15,7 +15,7 @@ export default function NotificationProvider({ children }) {
 
   const fetchNotifications = useCallback(async () => {
     try {
-      const res = await fetch("/api/proxy/notifications", { cache: "no-store" });
+      const res = await fetch("/api/proxy/notifications?limit=10&page=1");
       const json = await res.json();
 
       // Support both { notifications: [...] } and { data: { notifications: [...] } }
@@ -25,7 +25,7 @@ export default function NotificationProvider({ children }) {
         [];
 
 
-         console.log(json)
+         console.log(list)
       setNotifications(list);
 
       // keep a parallel status array for quick read/unread UI state

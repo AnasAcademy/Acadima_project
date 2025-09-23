@@ -6,7 +6,7 @@ import Elipse from "@/assets/admin/Ellipse.svg"
 export default function AdminPrevCard({ date, title, show, MsgData }) {
   return (
     <>
-      <div className=" text-white d-lg-flex  h-100  w-100 justify-content-center    d-sm-none d-none min-prev-ht   ">
+      <div className=" text-white d-lg-flex  h-100  w-100 justify-content-center    d-sm-none d-none min-prev-ht     ">
         {show === "show" ? (
           <div className="  w-100 ">
             <div className=" d-flex  justify-content-between p-4    pb-0    align-items-center">

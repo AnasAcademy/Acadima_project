@@ -19,7 +19,7 @@ export default function AiAssistantClient() {
       <h2 className="hvvv py-4">{t("AiAssistant")}</h2>
       <div className=" col-12">
         <div
-          className="d-flex flex-column flex-md-row w-100 h-100 cardbg rounded-4 shadow overflow-hidden"
+          className="d-flex  flex-column-reverse flex-md-row w-100 h-100 cardbg rounded-4 shadow overflow-hidden "
           style={{ minHeight: "675px" }}
         >
           {/* === RIGHT CHAT PANEL === */}

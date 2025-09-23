@@ -148,8 +148,8 @@ export default async function OrgProfile() {
               (p) => Number(p?.is_active) === 1
             );
             return active ? (
-              <div className=" row m-0     g-4    ">
-                <div className="col-lg-5     ">
+              <div className=" row m-0     g-4      ">
+                <div className="col-xl-5    col-md-6    ">
                   <div className=" d-flex   flex-column  justify-content-between   align-content-between h-100   gap-3">
                     <div className="rounded-4 shadow-sm     p-3 py-4 cardbg     ">
                       <Logo className=" iconSize15" />
@@ -160,26 +160,28 @@ export default async function OrgProfile() {
                       </p>
                     </div>
 
-                    <div className="bg-white card border-0 rounded-4 p-3 py-4 shadow-sm   d-flex flex-column justify-content-center align-items-center  align-items-md-start justify-content-md-start   ">
-                      <div className="position-relative p-0  col-12  d-flex justify-content-center align-items-center align-items-md-start justify-content-md-start">
-                        <div className=" d-flex   justify-content-center justify-content-md-start ">
+                    <div className=" card border-0 rounded-4 p-3 py-4 shadow-sm   d-flex flex-column justify-content-start align-items-center  align-items-md-start justify-content-md-start   ">
+                      <div className=" p-0  col-12  d-flex justify-content-start align-items-center align-items-md-start justify-content-md-start">
+                        <div className="   position-relative d-flex   justify-content-center   ">
                           <Planbg
                             className="h-auto"
                             style={{ opacity: 0.8 }}
                             width={210}
                             height={50}
                           />
+                          <div className=" d-flex justify-content-start justify-content-md-start ">
+                            <h4 className="position-absolute text-white planabsolute text-nowrap m-0  text-center ">
+                              {active.name}
+                            </h4>
+                          </div>
                         </div>
-                        <h4 className="position-absolute text-white planabsolute text-nowrap m-0">
-                          {active.name}
-                        </h4>
                       </div>
-                      <h3 className="  tit-20-700 text-dark text-nowrap">
+                      <h3 className="  tit-20-700 text-dark text-nowrap d-flex justify-content-start ">
                         {active.name_ar}
                       </h3>
                       <h4 className="tit-16-400">{active.description}</h4>
-                      <div className="d-flex  justify-content-center  justify-content-md-start mt-5">
-                        <h3 className="tit-40-700 text-dark text-start text-nowrap d-flex  justify-content-center align-items-center ">
+                      <div className="d-flex  justify-content-center  justify-content-md-start mt-3">
+                        <h3 className="tit-20-700 text-dark text-start text-nowrap d-flex  justify-content-center align-items-center ">
                           <Icon3 />
                           {active.price}
                         </h3>
@@ -191,83 +193,93 @@ export default async function OrgProfile() {
                   </div>
                 </div>
 
-                <div className="col-lg-3  ">
+                <div className="col-xl-3  col-md-6  ">
                   <div className="  d-flex   flex-column  justify-content-between   align-content-between h-100   gap-3 ">
-                    <div className="bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm d-flex flex-column justify-content-center align-items-start justify-content-md-start">
-                      <div className="border rounded-2 shadow-sm width-fit p-2">
-                        <Org1 className={`iconcolor`} />
-                      </div>
-                      <div className="d-flex flex-row justify-content-between align-items-start w-100">
-                        <div className="d-flex flex-column align-items-start">
-                          <h3 className="tit-18-700 textcolor">
-                            {" "}
-                            {ts("organization_name")}:
-                          </h3>
-                          <p className="tit-16-400 fw-bold">
-                            {" "}
-                            شركة الرؤية المستقبلية للتقنيات
-                          </p>
+                    <div className="bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm  ">
+                      <div className="d-flex gap-2 align-items-center">
+                        <div className="border rounded-2 shadow-sm  p-2 width-fit">
+                          <Org1 className={`iconcolor`} />
                         </div>
-                        <div className="d-flex flex-column align-items-start">
-                          <h3 className="tit-18-700 textcolor ">
-                            {" "}
-                            {ts("field")} :{" "}
-                          </h3>
-                          <p className="tit-16-400 fw-bold">
-                            {" "}
-                            {ts("information_technology")}{" "}
-                          </p>
-                        </div>
+
+                        <h3 className="tit-18-700 textcolor m-0 p-0">
+                          {" "}
+                          {ts("organization_name")}:
+                        </h3>
+                        <p className="tit-16-400 fw-bold m-0 p-0">
+                          {" "}
+                          شركة الرؤية المستقبلية للتقنيات
+                        </p>
                       </div>
                     </div>
 
-                    <div className="bg-white card border-0 rounded-4 gap-3 shadow-sm p-3 mt-3 d-flex flex-column justify-content-center  align-items-start justify-content-md-start">
-                      <div className="border rounded-2 shadow-sm width-fit p-2">
-                        <Org2 />
-                      </div>
-                      <div className="d-flex flex-row justify-content-between align-items-center w-100">
-                        <div className="d-flex flex-column align-items-start">
-                          <h3 className="tit-18-700 textcolor">
-                            {" "}
-                            {ts("employees_count")}:
-                          </h3>
-                          <p className="tit-16-400 fw-bold">
-                            {dashboardData.total_users} {ts("employee")}:
-                          </p>
+                    <div className=" bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm  ">
+                      <div className="d-flex gap-2 align-items-center      ">
+                        <div className="border rounded-2 shadow-sm  p-2 width-fit">
+                          <Org1 className={`iconcolor`} />
                         </div>
+
+                        <h3 className="tit-18-700 textcolor p-0 m-0 ">
+                          {" "}
+                          {ts("field")} :{" "}
+                        </h3>
+                        <p className="tit-16-400 fw-bold m-0 p-0">
+                          {" "}
+                          {ts("information_technology")}{" "}
+                        </p>
                       </div>
                     </div>
 
-                    <div className="bg-white card border-0 rounded-4 p-3 mt-3 gap-3  shadow-sm d-flex flex-column justify-content-center  align-items-start justify-content-md-start">
-                      <div className="border rounded-2 shadow-sm width-fit p-2">
-                        <Org3 />
+                    <div className=" bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm ">
+                      <div className="d-flex gap-2 align-items-center   ">
+                        <div className="border rounded-2 shadow-sm  p-2 width-fit">
+                          <Org2 />
+                        </div>
+                        <h3 className="tit-18-700 textcolor p-0 m-0 ">
+                          {" "}
+                          {ts("employees_count")}:
+                        </h3>
+                        <p className="tit-16-400 fw-bold m-0 p-0">
+                          {" "}
+                          {dashboardData.total_users} {ts("employee")}:
+                        </p>
                       </div>
-                      <div className="d-flex flex-row justify-content-between align-items-center w-100">
-                        <div className="d-flex flex-column align-items-start">
-                          <h3 className="tit-18-700 textcolor">
-                            {ts("registration_date")} :
-                          </h3>
-                          <p className="tit-16-400 fw-bold">
-                            {" "}
-                            {active.start_date}{" "}
-                          </p>
+                    </div>
+
+                    <div className=" bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm ">
+                      <div className="d-flex gap-2 align-items-center    ">
+                        <div className="border rounded-2 shadow-sm  p-2 width-fit">
+                          <Org3 />
                         </div>
-                        <div className="d-flex flex-column align-items-start">
-                          <h3 className="tit-18-700 textcolor ">
-                            {" "}
-                            {ts("sub_expiry_date")} :{" "}
-                          </h3>
-                          <p className="tit-16-400 fw-bold">
-                            {" "}
-                            {active.end_date}{" "}
-                          </p>
+                        <h3 className="tit-18-700 textcolor p-0 m-0 ">
+                          {" "}
+                          {ts("registration_date")} :
+                        </h3>
+                        <p className="tit-16-400 fw-bold m-0 p-0">
+                          {" "}
+                          {active.start_date}{" "}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className=" bg-white card border-0 rounded-4 p-3 gap-3 shadow-sm ">
+                      <div className="d-flex gap-2 align-items-center    ">
+                        <div className="border rounded-2 shadow-sm  p-2 width-fit">
+                          <Org3 />
                         </div>
+                        <h3 className="tit-18-700 textcolor p-0 m-0 ">
+                          {" "}
+                          {ts("registration_date")} :
+                        </h3>
+                        <p className="tit-16-400 fw-bold m-0 p-0">
+                          {" "}
+                          {active.end_date}{" "}
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="  col-lg-4   ">
+                <div className="  col-xl-4  col-md-12  ">
                   <div className=" d-flex flex-column gap-3 cardbg rounded-4 p-3  ">
                     <div className="  d-flex  justify-content-between">
                       <h4 className="  tit-18-700 ">

@@ -100,7 +100,7 @@ export default function OngoingTrain({
         textVal = t(col.value);
       } // Yellow
       else if (col.value === t("manual")) {
-        textClass = "text-warning ";
+        textClass = "text-warning  ";
         textVal = col.value;
       } else if (
         col.value === "inactive" ||
@@ -124,7 +124,7 @@ export default function OngoingTrain({
           </span>
           {col.value === "rejected" && (
             <p
-              className="text-danger cursor-pointer"
+              className="text-danger cursor-pointer  text-nowrap"
               onClick={col.rejection_action}
             >
               {t("rejection_reason")}

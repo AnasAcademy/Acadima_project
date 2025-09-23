@@ -94,8 +94,8 @@ export default function AdminNotifi() {
 
   return (
     <>
-      <div className="w-100">
-        <div className="row d-flex flex-column-reverse flex-lg-row gy-4">
+      <div className="w-100 ">
+        <div className="row d-flex flex-column-reverse flex-lg-row gy-4 ">
           {/* Left column: list */}
           <div className="col-lg-4 col-xl-3 col-sm-12 d-flex justify-content-start align-items-center flex-column gap-4">
             <div className="d-flex justify-content-between align-items-center gap-5 w-100">
@@ -104,7 +104,7 @@ export default function AdminNotifi() {
             </div>
 
             {/* Tabs */}
-            <div className="d-flex gap-3 col-12 rounded-5 border-1 p-1 ps-3 pe-3 justify-content-center align-items-center prevcarda">
+            <div className="d-flex gap-3 col-12 rounded-5 border-1 p-1 ps-3 pe-3 justify-content-center align-items-center prevcarda ">
               <h4
                 className="tit-10-700 m-0 p-2 rounded-3 cursor-pointer"
                 style={
@@ -139,7 +139,7 @@ export default function AdminNotifi() {
               {filtered.map(({ n: dat, i: orig }) => (
                 <div
                   key={dat.id ?? orig}
-                  className={` " rounded-4 shadow-sm w-100 d-flex flex-column prevcardta p-3 max-notfi-ht ${
+                  className={` " rounded-4 shadow-sm w-100 d-flex flex-column prevcardta p-3 max-notfi-ht cursor-pointer    ${
                     index === orig ? " cardbg swap" : " cardbg "
                   }    "  `}
                 >
@@ -164,7 +164,7 @@ export default function AdminNotifi() {
                     <div className="d-flex flex-column w-100">
                       <div className="d-flex flex-column w-100">
                         <div className="d-flex flex-column gap-2 w-100">
-                          <div className="d-flex justify-content-between g-4 w-100">
+                          <div className="d-flex justify-content-between g-4 w-100  flex-column ">
                             <h4
                               className={`custsubtitle3 p-0 m-0 ${
                                 index === orig ? " swap" : "  "
@@ -197,9 +197,7 @@ export default function AdminNotifi() {
 
                         {index === orig ? (
                           <p className="d-xl-none d-lg-none d-sm-flex d-flex">
-                            <div className="h6v mt-3 p-3">
-                              {MsgData}
-                            </div>
+                            <div className="h6v mt-3 p-3">{MsgData}</div>
                           </p>
                         ) : (
                           ""

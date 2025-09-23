@@ -1984,7 +1984,9 @@ select.no-native-arrow {
 
 .planabsolute {
   top: 6px;
-  right: 30px !important;
+  right: 0px;
+    transform: translateX(-40%);
+ 
 }
 .active-bg {
   background-color: #f6f6ff;
@@ -2161,4 +2163,10 @@ input:focus {
 
 
 
+}
+
+
+.form-control:focus {
+  border-color: #ced4da !important; /* same as normal border */
+  box-shadow: none !important;      /* remove Bootstrap glow */
 }

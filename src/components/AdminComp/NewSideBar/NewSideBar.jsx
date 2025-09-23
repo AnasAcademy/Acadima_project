@@ -1038,7 +1038,7 @@ export default function NewSideBar() {
               inMobile
                 ? "position-relative "
                 : ` flex-column  position-absolute  ${
-                    isMenuVisible ? "w-75" : "w-100"
+                    isMenuVisible ? "w-50" : "w-100"
                   } }   `
             }    `}
           >
@@ -1556,13 +1556,17 @@ export default function NewSideBar() {
                     {" "}
                     <div className=" d-flex  align-items-start">
                       {comp[tit]}{" "}
-                      <Back
-                        className=" mt-3"
-                        onClick={() => {
-                          setActive(null);
-                          setHide(false);
-                        }}
-                      />
+                      {inMobile ? (
+                        ""
+                      ) : (
+                        <Back
+                          className=" mt-3"
+                          onClick={() => {
+                            setActive(null);
+                            setHide(false);
+                          }}
+                        />
+                      )}
                     </div>{" "}
                   </>
                 )}
@@ -1571,13 +1575,17 @@ export default function NewSideBar() {
                     {" "}
                     <div className=" d-flex  align-items-start">
                       {comp[tit]}{" "}
-                      <Back
-                        className=" mt-3"
-                        onClick={() => {
-                          setActive(null);
-                          setHide(false);
-                        }}
-                      />
+                      {inMobile ? (
+                        ""
+                      ) : (
+                        <Back
+                          className=" mt-3"
+                          onClick={() => {
+                            setActive(null);
+                            setHide(false);
+                          }}
+                        />
+                      )}
                     </div>{" "}
                   </>
                 )}
@@ -1586,13 +1594,17 @@ export default function NewSideBar() {
                     {" "}
                     <div className=" d-flex  align-items-start">
                       {comp[tit]}{" "}
-                      <Back
-                        className=" mt-3"
-                        onClick={() => {
-                          setActive(null);
-                          setHide(false);
-                        }}
-                      />
+                      {inMobile ? (
+                        ""
+                      ) : (
+                        <Back
+                          className=" mt-3"
+                          onClick={() => {
+                            setActive(null);
+                            setHide(false);
+                          }}
+                        />
+                      )}
                     </div>{" "}
                   </>
                 )}
@@ -1601,13 +1613,17 @@ export default function NewSideBar() {
                     {" "}
                     <div className=" d-flex  align-items-start">
                       {comp[tit]}{" "}
-                      <Back
-                        className=" mt-3"
-                        onClick={() => {
-                          setActive(null);
-                          setHide(false);
-                        }}
-                      />
+                      {inMobile ? (
+                        ""
+                      ) : (
+                        <Back
+                          className=" mt-3"
+                          onClick={() => {
+                            setActive(null);
+                            setHide(false);
+                          }}
+                        />
+                      )}
                     </div>{" "}
                   </>
                 )}
@@ -1616,13 +1632,17 @@ export default function NewSideBar() {
                     {" "}
                     <div className=" d-flex  align-items-start">
                       {comp[tit]}{" "}
-                      <Back
-                        className=" mt-3"
-                        onClick={() => {
-                          setActive(null);
-                          setHide(false);
-                        }}
-                      />
+                      {inMobile ? (
+                        ""
+                      ) : (
+                        <Back
+                          className=" mt-3"
+                          onClick={() => {
+                            setActive(null);
+                            setHide(false);
+                          }}
+                        />
+                      )}
                     </div>{" "}
                   </>
                 )}
@@ -1631,13 +1651,17 @@ export default function NewSideBar() {
                     {" "}
                     <div className=" d-flex  align-items-start">
                       {comp[tit]}{" "}
-                      <Back
-                        className=" mt-3"
-                        onClick={() => {
-                          setActive(null);
-                          setHide(false);
-                        }}
-                      />
+                      {inMobile ? (
+                        ""
+                      ) : (
+                        <Back
+                          className=" mt-3"
+                          onClick={() => {
+                            setActive(null);
+                            setHide(false);
+                          }}
+                        />
+                      )}
                     </div>{" "}
                   </>
                 )}

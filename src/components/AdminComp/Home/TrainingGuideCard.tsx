@@ -9,8 +9,8 @@ const TrainingGuideCard = () => {
   const tD = useTranslations("DashboardA");
 
   return (
-    <div className=" mb-lg-0   ">
-      <div className="card border-0 shadow-sm overflow-hidden   rounded-3  bg-success  min-tr-ht">
+    <div className=" mb-lg-0  ">
+      <div className="card border-0 shadow-sm overflow-hidden   rounded-3  min-tr-ht">
         <div className="position-relative rounded-2">
           <Image
             src={imgbk}
