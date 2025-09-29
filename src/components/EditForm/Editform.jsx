@@ -905,7 +905,9 @@ export default function Editform({
                       onChange={(e) => handleFieldChange(e, field)}
                       onBlur={formik.handleBlur}
                       disabled={loading}
-                      className="d-flex justify-content-center align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 "
+                      className={`d-flex justify-content-center align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 ${
+      formik.touched[name] && formik.errors[name] ? "is-invalid" : ""
+    }`}
                       style={{ border: "1px solid #E3E3E3" }}
                     >
                       <option value="" disabled>
@@ -993,7 +995,7 @@ export default function Editform({
                       onChange={(e) => handleFieldChange(e, field)}
                       onBlur={formik.handleBlur}
                       disabled={loading}
-                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                      className={`d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 ${formik.touched[name] && formik.errors[name] ? "is-invalid" : ""}`}
                       style={{ border: "1px solid #E3E3E3" }}
                     />
                   ) : type === "multiselectsearch" ? (
@@ -1133,7 +1135,7 @@ export default function Editform({
                     <div className="d-flex flex-column w-100">
                       <input
                         type="number"
-                        className="form-control"
+                        className={`form-control ${formik.touched[name] && formik.errors[name] ? "is-invalid" : ""}`}
                         name={name}
                         value={
                           formik.values[name] === null ||
@@ -1227,7 +1229,8 @@ export default function Editform({
                       onChange={(e) => handleFieldChange(e, field)}
                       onBlur={formik.handleBlur}
                       disabled={loading}
-                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 "
+                      className={`d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 ${formik.touched[name] && formik.errors[name] ? "is-invalid" : ""}`}
+   
                       style={{ border: "1px solid #E3E3E3" }}
                     />
                   )}
