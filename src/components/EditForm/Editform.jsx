@@ -666,7 +666,7 @@ export default function Editform({
     })
   );
 
-  // Build validation schema
+  // Build validation schema----------------------------------------------->
   const validationSchema = Yup.object({
     ...fields.reduce((acc, field) => {
       const { name, type, required } = field;
@@ -674,17 +674,17 @@ export default function Editform({
 
       switch (type) {
         case "text":
-          rule = Yup.string();
+          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);
           break;
 
         case "number":
-          rule = Yup.number()
+          rule = Yup.number().required(`${t(name)} ${t("is_required")}`)
             .transform((val, orig) => (orig === "" ? undefined : val))
             .typeError(`${t(name)} يجب أن يكون رقمًا`);
           break;
 
         case "select":
-          rule = Yup.string();
+          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "selectsearch":
@@ -694,11 +694,13 @@ export default function Editform({
           break;
 
         case "multiselect":
-          rule = Yup.array().of(Yup.number());
+          rule = Yup.array()
+            .of(Yup.number())
+            .required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "date":
-          rule = Yup.string();
+          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "multiselectsearch":
@@ -859,11 +861,12 @@ export default function Editform({
 
   return (
     <form
-      encType="multipart/form-data"
+      encType="multipart/form-data "
       onSubmit={(e) => {
         e.preventDefault();
         formik.handleSubmit(e);
       }}
+       className="  p-4"
     >
       <h4>{formTitles?.[0]?.label}</h4>
 
@@ -883,7 +886,7 @@ export default function Editform({
         ""
       )}
       <div className="container-fluid p-0">
-        <div className="p-4 row g-3 d-flex justify-content-start">
+        <div className="p-1 row g-3 d-flex justify-content-start">
           {fields.map((field, index) => {
             if (field.hidden) return null;
             if (!shouldShowField(field)) return null;
@@ -1139,8 +1142,8 @@ export default function Editform({
                             : formik.values[name]
                         }
                         placeholder={field.placeholder || ""}
-                        min={field.min ?? 0}
-                        max={field.max ?? 100}
+                        min={field.min ?? 1}
+                        max={field.max }
                         step={field.step ?? 1}
                         disabled={loading || field.disabled}
                         onChange={(e) => {
@@ -1155,11 +1158,6 @@ export default function Editform({
                         }}
                         onBlur={formik.handleBlur}
                       />
-                      {formik.touched[name] && formik.errors[name] ? (
-                        <small className="text-danger mt-1">
-                          {formik.errors[name]}
-                        </small>
-                      ) : null}
                     </div>
                   ) : type === "" ? (
                     <></>
@@ -1229,14 +1227,14 @@ export default function Editform({
                       onChange={(e) => handleFieldChange(e, field)}
                       onBlur={formik.handleBlur}
                       disabled={loading}
-                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                      className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 "
                       style={{ border: "1px solid #E3E3E3" }}
                     />
                   )}
 
                   {formik.touched[name] && formik.errors[name] && (
-                    <div className="text-danger mt-1">
-                      {formik.errors[name]}
+                    <div className=" mt-1">
+                      <h6 className=" text-danger">{formik.errors[name]}</h6>
                     </div>
                   )}
                 </div>
@@ -1396,7 +1394,7 @@ export default function Editform({
               <div className=" d-flex justify-content-between w-100">
                 <h3>{t("questions")}</h3>
 
-                <div className=" d-flex">
+                <div className=" d-flex ">
                   <button
                     className="btn btn-light custfontbtn"
                     type="button"
@@ -2229,7 +2227,7 @@ export default function Editform({
             ""
           )}
 
-          <div className="d-flex col-7 mt-4 ">
+          <div className="d-flex col-7 mt-4  gap-2">
             <button
               className="btn btn-light custfontbtn w-25"
               type="submit"

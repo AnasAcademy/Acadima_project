@@ -324,11 +324,11 @@ export default function AdmissionReqTable({
       </div>
 
       <div className="col-12">
-        <div className="rounded-4 shadow-sm p-4 container-fluid cardbg min-train-ht">
+        <div className="rounded-4 shadow-sm p-3   container-fluid cardbg min-train-ht">
           <ExcelDownload
-            endpoint="/api/proxy/requirements/export"
+            endpoint="/api/proxy/requirements/excel"
             filename="admission_requirements_report"
-            className="gradient-btn"
+            className="gradient-btn "
             onSuccess={() => {
               setResultMessage(t("download_success"));
               setShowResultModal(true);

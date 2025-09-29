@@ -94,6 +94,7 @@ export default function ElectronicServiceTable({
     try {
       const originalItem = data.find((item) => item.id === Itemid);
 
+        console.log(Itemid)
       if (!originalItem) {
         throw new Error("Original item not found");
       }
@@ -139,7 +140,7 @@ export default function ElectronicServiceTable({
       }
 
       if (Object.keys(changedData).length === 0) {
-        setResultMessage(t("no_changes_detected"));
+        setResultMessage("no_changes_detected");
         setShowResultModal(true);
         return;
       }
@@ -150,14 +151,6 @@ export default function ElectronicServiceTable({
         body: changedData ,
       });
 
-      if (result.errors) {
-        const messages = Object.values(result.errors).map(
-          (error) => error.ar || error
-        );
-        setAlertmssg(messages.join("\n"));
-        setShowAlertModal(true);
-        return;
-      }
 
       if (result.success || result.message) {
         const updatedItem = {
@@ -186,9 +179,15 @@ export default function ElectronicServiceTable({
         throw new Error(t("service_update_failed"));
       }
     } catch (error) {
+const { errors } = error.data;
+
+const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+const message = errors[firstKey]?.ar;
       console.error("Update failed:", error);
-      setResultMessage(t("service_update_failed"));
+      setResultMessage(message);
       setShowResultModal(true);
+
+
     }
   };
 
@@ -258,8 +257,16 @@ export default function ElectronicServiceTable({
         throw new Error(t("service_add_failed"));
       }
     } catch (err) {
-      console.error("Add failed:", err);
-      setResultMessage(t("service_add_failed"));
+
+
+const { errors } = err.data;
+
+const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+const message = errors[firstKey]?.ar;
+      console.error("Update failed:", message);
+
+   
+      setResultMessage(message);
       setShowResultModal(true);
     }
   };

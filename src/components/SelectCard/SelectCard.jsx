@@ -74,7 +74,7 @@ export default function SelectCard({
                     )}
                     {input.type === "date" && (
                       <div className="search-wrapper d-flex align-items-center">
-                        <span className="search-icon">📅</span>
+                        
                         <input
                           type="date"
                           className="search-input"

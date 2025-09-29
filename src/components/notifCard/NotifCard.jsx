@@ -25,7 +25,6 @@ export default function NotifCard() {
     setTitle(info[key].title);
     setDate(info[key].date);
    
-
     if (index === key) {
 
       setIndex(null);
@@ -84,7 +83,7 @@ export default function NotifCard() {
                 return (
                   <div
                     key={key}
-                    className={` " rounded-4 shadow-sm  w-100 d-flex flex-column    p-3 min-notfi-ht ${
+                    className={` " rounded-4 shadow-sm  w-100 d-flex flex-column  p-3 min-notfi-ht ${
                       index === key ? " tableCardco swap" : " cardbg "
                     }    "  `}
                   >

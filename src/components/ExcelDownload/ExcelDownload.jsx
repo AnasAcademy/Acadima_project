@@ -86,7 +86,7 @@ export default function ExcelDownload({
 
   return (
     <button
-      className={className}
+      className={`${className ?? ""} mx-3`}
       onClick={downloadExcel}
       disabled={disabled}
       title={t("download_excel") || "تحميل Excel"}

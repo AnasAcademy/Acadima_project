@@ -125,9 +125,15 @@ export default function ClassesTable({ dat }) {
         )
       );
     } catch (error) {
-      console.error("Status update failed:", error);
-      setShowModal(false);
-      setResultMessage("تعذر تحديث الحالة، حاول مرة أخرى.");
+
+      const { errors } = error.data;
+
+      const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+      const message = errors[firstKey]?.ar;
+      console.error("Update failed:", message);
+
+      setResultMessage(message);
+   
       setShowResultModal(true);
     }
   };
@@ -163,17 +169,15 @@ export default function ClassesTable({ dat }) {
       };
       setData((prev) => [...prev, newItem]); // Add the new item to the existing data
     } catch (error) {
-      const apiErrors = error?.data?.errors;
-      if (apiErrors) {
-        Object.entries(apiErrors).forEach(([field, msgs]) => {
-          console.error(`${field}: ${msgs.ar || msgs.en}`);
-          setResultMessage(`${msgs.ar || msgs.en}`);
-        });
-      } else {
-        console.error("Unexpected error:", error.message);
-      }
-      setShowModal(false);
-      setShowResultModal(true);
+    const { errors } = error.data;
+
+    const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+    const message = errors[firstKey]?.ar;
+    console.error("Update failed:", message);
+
+    setResultMessage(message);
+
+    setShowResultModal(true);
     }
   };
 
@@ -514,29 +518,35 @@ export default function ClassesTable({ dat }) {
         console.log(result.errors);
       }
 
+     console.log("item id is ", Itemid);
+
       const updatedItem = {
         ...data.find((item) => item.id === Itemid),
         ...dataa,
       };
-      setDatast((prev) =>
+
+      console.log(updatedItem);
+
+      const updated = setDatast((prev) => {
         prev.map(
-          (item) => (item.id === Itemid ? updatedItem : item) // replace only the edited item
-        )
-      );
+          (item) => (item.id == Itemid ? updatedItem : item) // replace only the edited item
+        );
+
+        console.log("Prev:", prev);
+        console.log("Updated:", updated);
+      });
     } catch (error) {
-      const apiErrors = error?.data?.errors;
+  
 
-      if (apiErrors) {
-        Object.entries(apiErrors).forEach(([field, msgs]) => {
-          console.error(`${field}: ${msgs.ar || msgs.en}`);
-          setResultMessage(`${msgs.ar || msgs.en}`);
-        });
-      } else {
-        console.error("Unexpected error:", error.message);
-      }
+  const { errors } = error.data;
 
-      // setShowModal(false);
-      setShowResultModal(true);
+  const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+  const message = errors[firstKey]?.ar;
+  console.error("Update failed:", message);
+
+  setResultMessage(message);
+
+  setShowResultModal(true);
     }
   };
 

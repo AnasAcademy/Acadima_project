@@ -212,11 +212,11 @@ export default function AdminNotifi() {
 
           {/* Right column: preview */}
           <div className="mt-4 col-lg-8 col-xl-9 col-sm-12 col-12 rounded-4 prevcarda">
-            <form className="form-inline my-2 my-lg-0 d-flex p-3 prevcardta ">
-              <div className="form-control mr-sm-2 w-50 d-flex gap-2 rounded-4 cardbg p-2 ">
+            <form className="form-inline my-2 my-lg-0 d-flex p-3 prevcardta  ">
+              <div className="form-control mr-sm-2 w-50 d-flex gap-3 rounded-4 cardbg p-3 ">
                 <Search className="iconSize" />
                 <input
-                  className="tit-12-400 border-0"
+                  className="tit-12-400 border-0 "
                   type="search"
                   placeholder={t("searchPlaceholder")}
                   aria-label="Search"

@@ -87,7 +87,7 @@ export default function OngoingTrain({
         col.value === "passed" ||
         col.value === "paid"
       ) {
-        textClass = "text-bg-success p-2 rounded-2 tit-12-400";
+        textClass = "text-bg-success p-2 rounded-2 tit-12-400 ";
         textVal = t(col.value);
       } // Green
       else if (
@@ -118,13 +118,13 @@ export default function OngoingTrain({
       }
 
       return (
-        <td key={key}>
-          <span className={`d-inline-block text-center ${textClass} w-100 `}>
+        <td key={key} style={{ width: "80px", height: "20px" }}>
+          <span className={`d-inline-block text-center ${textClass}  w-100 `}>
             {textVal}
           </span>
           {col.value === "rejected" && (
             <p
-              className="text-danger cursor-pointer  text-nowrap"
+              className="text-danger cursor-pointer  text-nowrap mt-1"
               onClick={col.rejection_action}
             >
               {t("rejection_reason")}
@@ -232,9 +232,10 @@ export default function OngoingTrain({
           className="justify-content-center align-items-center position-relative "
         >
           <button
-            className={`tit-12-400 btncolor text-center cursor-pointer text-nowrap d-flex align-items-center gap-2 justify-content-center actionButton w-100  ${
-              openId === col.id ? "actionButton-borderradius " : "rounded-2 "
+            className={`tit-12-400 btncolor text-center cursor-pointer text-nowrap d-flex align-items-center gap-2 justify-content-center actionButton ${
+              openId === col.id ? "actionButton-borderradius" : "rounded-2"
             }`}
+            style={{ width: "120px", height: "35px" }} // adjust as needed
             onClick={() =>
               setOpenId((prev) => (prev === col.id ? null : col.id))
             }
@@ -244,7 +245,10 @@ export default function OngoingTrain({
           </button>
 
           {openId === col.id && (
-            <div className="action-menu position-absolute z-3 w-100 bg-white border ">
+            <div
+              className="action-menu position-absolute z-3  bg-white border "
+              style={{ width: "120px", height: "auto" }}
+            >
               {col.lists.map((list, index) => (
                 <button
                   key={`${col.id}-${index}`}
@@ -272,7 +276,7 @@ export default function OngoingTrain({
   return (
     <>
       <div className=" table-responsive     ">
-        <table className="table  no-flag-style   align-middle   position-relative   p-4 pt-0 ">
+        <table className="table  no-flag-style   align-middle   position-relative   p-2 pt-0 ">
           <thead className="  w-100">
             <tr className="text-nowrap text-center  ">
               {TableHead.map((head, index) => {

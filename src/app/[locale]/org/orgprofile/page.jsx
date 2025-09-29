@@ -128,7 +128,7 @@ export default async function OrgProfile() {
                   </div>
                 </div>
 
-                <div className=" d-flex  gap-3 justify-content-center align-items-center flex-lg-row flex-column ">
+                <div className=" d-flex  gap-3 justify-content-center align-items-center flex-row   ">
                   <button className=" btn btn-light Tit-12-700 d-flex gap-1 align-items-center ">
                     {" "}
                     {ts("org_general_info")}
@@ -161,7 +161,7 @@ export default async function OrgProfile() {
                     </div>
 
                     <div className=" card border-0 rounded-4 p-3 py-4 shadow-sm   d-flex flex-column justify-content-start align-items-center  align-items-md-start justify-content-md-start   ">
-                      <div className=" p-0  col-12  d-flex justify-content-start align-items-center align-items-md-start justify-content-md-start">
+                      <div className=" p-0  col-12  d-flex justify-content-start align-items-center align-items-md-start justify-content-md-start ">
                         <div className="   position-relative d-flex   justify-content-center   ">
                           <Planbg
                             className="h-auto"

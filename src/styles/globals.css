@@ -1504,13 +1504,16 @@ table tbody td:first-child {
 }
 .gradient-bg {
   background: linear-gradient(to right, #216ed7, #a300cc);
-  border-top-right-radius: 0;
+  border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
 
+
+
+
 [dir="rtl"] .gradient-bg {
   border-top-right-radius: 10px;
-  border-top-left-radius: 0;
+  border-top-left-radius: 10px;
 }
 
 .chat-body {
@@ -2021,6 +2024,16 @@ select.no-native-arrow {
 /* .table-responsive {
   padding-bottom: 120px;
 } */
+.is-invalid {
+  border: 1px solid red !important;
+}
+
+.table-responsive {
+  overflow-x: auto; /* ensure horizontal scroll */
+  scrollbar-width: thin;              /* Firefox */
+  scrollbar-color: #1024dd #f0f0f0;   /* thumb color | track color */
+}
+
 
 input[type="search"]:active,
 input:focus {
