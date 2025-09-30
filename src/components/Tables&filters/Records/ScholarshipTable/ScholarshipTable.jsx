@@ -233,7 +233,7 @@ export default function ScholarshipTable({
         email: item.buyer.email || "-",
         phone: item.buyer.mobile || item.buyer.phone || "-",
       },
-      { type: "image", value: item.buyer.identity_scan || "-" },
+      { type: "image", value: item.buyer?.identity_scan || "-" },
       {
         type: "text",
         value:

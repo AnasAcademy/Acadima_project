@@ -260,25 +260,47 @@ function SearchSelect({
 
 function MultiSearchSelect({
   name,
-  value = [], // array of numbers
-  options = [], // baseline local options
+  value = [],              // may come as array, string "1,2", or object
+  options = [],
   placeholder = "Search",
   disabled = false,
   minChars = 3,
-  onChange, // expects number[] (new array)
-  loadOptions, // async (term) => Promise<{label,value}[]>
+  onChange,                 // expects number[] back
+  loadOptions,              // async (term) => Promise<{label,value}[]>
 }) {
-  const [open, setOpen] = useState(false);
-  const [term, setTerm] = useState("");
-  const [remote, setRemote] = useState([]);
-  const [loadingRemote, setLoadingRemote] = useState(false);
-  const boxRef = useRef(null);
+  const [open, setOpen] = React.useState(false);
+  const [term, setTerm] = React.useState("");
+  const [remote, setRemote] = React.useState([]);
+  const [loadingRemote, setLoadingRemote] = React.useState(false);
+  const boxRef = React.useRef(null);
+
+  // --- NEW: normalize `value` into an array of numbers ---
+  const selected = React.useMemo(() => {
+    if (Array.isArray(value)) {
+      return value
+        .map(v => (typeof v === "object" && v !== null ? v.value ?? v.id ?? v.user_id : v))
+        .map(Number)
+        .filter(Number.isFinite);
+    }
+    if (typeof value === "string") {
+      return value
+        .split(",")
+        .map(s => s.trim())
+        .filter(Boolean)
+        .map(Number)
+        .filter(Number.isFinite);
+    }
+    if (value && typeof value === "object" && "value" in value) {
+      const n = Number(value.value);
+      return Number.isFinite(n) ? [n] : [];
+    }
+    return [];
+  }, [value]);
+  // -------------------------------------------------------
 
   // allow options as [[label,value]] too
   const normalize = (arr) =>
-    (arr || []).map((o) =>
-      Array.isArray(o) ? { label: o[0], value: o[1] } : o
-    );
+    (arr || []).map(o => (Array.isArray(o) ? { label: o[0], value: o[1] } : o));
 
   const baseOptions = normalize(options);
 
@@ -304,7 +326,7 @@ function MultiSearchSelect({
     const id = setTimeout(async () => {
       try {
         const res = await loadOptions(s);
-        if (!cancelled) setRemote(Array.isArray(res) ? res : []);
+        if (!cancelled) setRemote(normalize(Array.isArray(res) ? res : [])); // normalize remote too
       } catch {
         if (!cancelled) setRemote([]);
       } finally {
@@ -321,105 +343,59 @@ function MultiSearchSelect({
   const filteredLocal = React.useMemo(() => {
     const s = term.trim().toLowerCase();
     if (s.length < minChars) return [];
-    return baseOptions.filter((o) => String(o.label).toLowerCase().includes(s));
+    return baseOptions.filter(o => String(o.label).toLowerCase().includes(s));
   }, [term, baseOptions, minChars]);
 
   // merge + de-dup by value, and exclude already selected
   const merged = React.useMemo(() => {
     const seen = new Set();
-    const selectedSet = new Set((value || []).map((v) => String(v)));
-    const arr = (loadOptions ? remote : filteredLocal).filter(
-      (o) => !selectedSet.has(String(o.value))
-    );
-    return arr.filter((o) => {
-      if (seen.has(String(o.value))) return false;
-      seen.add(String(o.value));
+    const selectedSet = new Set(selected.map(v => String(v)));
+    const source = loadOptions ? remote : filteredLocal;
+
+    const arr = source.filter(o => !selectedSet.has(String(o.value)));
+    return arr.filter(o => {
+      const k = String(o.value);
+      if (seen.has(k)) return false;
+      seen.add(k);
       return true;
     });
-  }, [baseOptions, remote, filteredLocal, loadOptions, value]);
+  }, [remote, filteredLocal, loadOptions, selected]);
 
   // for selected chips, we want labels for current values
-  const allKnown = React.useMemo(
-    () => [...baseOptions, ...remote],
-    [baseOptions, remote]
-  );
+  const allKnown = React.useMemo(() => [...baseOptions, ...remote], [baseOptions, remote]);
   const labelFor = (val) =>
-    allKnown.find((o) => String(o.value) === String(val))?.label ?? String(val);
+    allKnown.find(o => String(o.value) === String(val))?.label ?? String(val);
 
   const addValue = (opt) => {
     const num = Number(opt.value);
-    if (!Number.isNaN(num)) onChange([...(value || []), num]);
+    if (!Number.isNaN(num)) onChange(Array.from(new Set([...selected, num])));
     setTerm("");
   };
-  const removeValue = (val) => {
-    onChange((value || []).filter((v) => Number(v) !== Number(val)));
-  };
+  const removeValue = (val) => onChange(selected.filter(v => Number(v) !== Number(val)));
   const clearAll = () => onChange([]);
 
   return (
-    <div
-      ref={boxRef}
-      className="rounded-3"
-      style={{
-        border: "1px solid #E3E3E3",
-        background: "#fff",
-        position: "relative",
-      }}
-    >
+    <div ref={boxRef} className="rounded-3" style={{ border: "1px solid #E3E3E3", background: "#fff", position: "relative" }}>
       {/* header with chips */}
       <div
-        onClick={() => !disabled && setOpen((v) => !v)}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "8px 10px",
-          cursor: disabled ? "not-allowed" : "pointer",
-          flexWrap: "wrap",
-          minHeight: 40,
-        }}
+        onClick={() => !disabled && setOpen(v => !v)}
+        style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", cursor: disabled ? "not-allowed" : "pointer", flexWrap: "wrap", minHeight: 40 }}
       >
-        {(value || []).length === 0 ? (
+        {selected.length === 0 ? (
           <div style={{ color: "#9aa0a6" }}>{placeholder}</div>
         ) : (
-          (value || []).map((v) => (
-            <span
-              key={v}
-              className="badge text-bg-light"
-              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
-              onClick={(e) => e.stopPropagation()}
-            >
+          selected.map(v => (
+            <span key={v} className="badge text-bg-light" style={{ display: "inline-flex", alignItems: "center", gap: 6 }} onClick={(e) => e.stopPropagation()}>
               {labelFor(v)}
-              <button
-                type="button"
-                className="btn btn-sm btn-link p-0"
-                onClick={() => removeValue(v)}
-              >
-                ×
-              </button>
+              <button type="button" className="btn btn-sm btn-link p-0" onClick={() => removeValue(v)}>×</button>
             </span>
           ))
         )}
-        <div style={{ marginLeft: "auto", fontSize: 10, opacity: 0.7 }}>
-          {open ? "▲" : "▼"}
-        </div>
+        <div style={{ marginLeft: "auto", fontSize: 10, opacity: 0.7 }}>{open ? "▲" : "▼"}</div>
       </div>
 
       {open && (
-        <div
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            zIndex: 20,
-            borderTop: "1px solid #E3E3E3",
-            background: "#fff",
-            boxShadow: "0 6px 18px rgba(0,0,0,.06)",
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
-          }}
-        >
+        <div style={{ position: "absolute", top: "100%", left: 0, right: 0, zIndex: 20, borderTop: "1px solid #E3E3E3", background: "#fff", boxShadow: "0 6px 18px rgba(0,0,0,.06)", borderBottomLeftRadius: 8, borderBottomRightRadius: 8 }}>
           <div style={{ padding: 8 }}>
             <input
               placeholder={placeholder}
@@ -427,103 +403,36 @@ function MultiSearchSelect({
               onChange={(e) => setTerm(e.target.value)}
               disabled={disabled}
               autoFocus
-              style={{
-                width: "100%",
-                border: "1px solid #E3E3E3",
-                borderRadius: 4,
-                padding: "8px 10px",
-                outline: "none",
-              }}
+              style={{ width: "100%", border: "1px solid #E3E3E3", borderRadius: 4, padding: "8px 10px", outline: "none" }}
             />
           </div>
 
-          <div
-            style={{ maxHeight: 220, overflowY: "auto", padding: "0 8px 8px" }}
-          >
+          <div style={{ maxHeight: 220, overflowY: "auto", padding: "0 8px 8px" }}>
             {term.trim().length < minChars ? (
-              <div
-                style={{
-                  padding: "8px 10px",
-                  color: "#6b7280",
-                  fontSize: 12,
-                  textAlign: "right",
-                }}
-              >
-                Please enter {minChars} or more characters
-              </div>
+              <div style={{ padding: "8px 10px", color: "#6b7280", fontSize: 12, textAlign: "right" }}>Please enter {minChars} or more characters</div>
             ) : loadOptions && loadingRemote ? (
-              <div
-                style={{
-                  padding: "8px 10px",
-                  color: "#6b7280",
-                  fontSize: 12,
-                  textAlign: "right",
-                }}
-              >
-                جارٍ البحث...
-              </div>
+              <div style={{ padding: "8px 10px", color: "#6b7280", fontSize: 12, textAlign: "right" }}>جارٍ البحث...</div>
             ) : merged.length === 0 ? (
-              <div
-                style={{
-                  padding: "8px 10px",
-                  color: "#6b7280",
-                  fontSize: 12,
-                  textAlign: "right",
-                }}
-              >
-                لا توجد نتائج
-              </div>
+              <div style={{ padding: "8px 10px", color: "#6b7280", fontSize: 12, textAlign: "right" }}>لا توجد نتائج</div>
             ) : (
-              merged.map((opt) => (
-                <div
-                  key={opt.value}
-                  onClick={() => addValue(opt)}
-                  style={{
-                    padding: "8px 10px",
-                    borderRadius: 6,
-                    cursor: "pointer",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  onMouseDown={(e) => e.preventDefault()}
-                >
+              merged.map(opt => (
+                <div key={opt.value} onClick={() => addValue(opt)} style={{ padding: "8px 10px", borderRadius: 6, cursor: "pointer", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} onMouseDown={(e) => e.preventDefault()}>
                   {opt.label}
                 </div>
               ))
             )}
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: 8,
-              padding: "8px 10px",
-              borderTop: "1px solid #F1F1F1",
-            }}
-          >
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={clearAll}
-              disabled={disabled}
-            >
-              مسح
-            </button>
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={() => setOpen(false)}
-            >
-              إغلاق
-            </button>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 8, padding: "8px 10px", borderTop: "1px solid #F1F1F1" }}>
+            <button type="button" className="btn btn-light" onClick={clearAll} disabled={disabled}>مسح</button>
+            <button type="button" className="btn btn-light" onClick={() => setOpen(false)}>إغلاق</button>
           </div>
         </div>
       )}
     </div>
   );
 }
+
 
 export default function Editform({
   fields,
@@ -1142,10 +1051,7 @@ export default function Editform({
                         className={`form-control ${formik.touched[name] && formik.errors[name] ? "is-invalid" : ""}`}
                         name={name}
                         value={
-                          formik.values[name] === null ||
-                          formik.values[name] === undefined
-                            ? ""
-                            : formik.values[name]
+                          formik.values[name]
                         }
                         placeholder={field.placeholder || ""}
                         min={field.min ?? 1}

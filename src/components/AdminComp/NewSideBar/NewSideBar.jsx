@@ -999,7 +999,7 @@ export default function NewSideBar() {
               >
                 <div className=" d-flex justify-content-between align-items-center p-4">
                   {" "}
-                  <Acc2 width={40} height={40} /> <h3>AI Chat Boat</h3>
+                  <Acc2 width={40} height={40} /> <h3>AI Chat Bot</h3>
                 </div>
 
                 <div className=" d-flex justify-content-center flex-column align-items-center ">

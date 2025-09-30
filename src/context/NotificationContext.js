@@ -25,7 +25,6 @@ export default function NotificationProvider({ children }) {
         [];
 
 
-         console.log(list)
       setNotifications(list);
 
       // keep a parallel status array for quick read/unread UI state
