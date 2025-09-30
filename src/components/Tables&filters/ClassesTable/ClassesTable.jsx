@@ -13,6 +13,7 @@ import { object } from "yup";
 import { formatDate } from "@/functions/formatDate";
 
 export default function ClassesTable({ dat }) {
+  
   const ts = useTranslations("SidebarA");
   const tr = useTranslations("settings");
   const [showModal, setShowModal] = useState(false);

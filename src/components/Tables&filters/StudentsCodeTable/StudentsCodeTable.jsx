@@ -43,14 +43,14 @@ const { request } = useApiClient();
         },
       });
 
-      const result = await response.json();
+      
 
-      if (response.ok && result.success) {
+      if (response.ok && response.success) {
         // Update the student_code in the data to the submitted value
-        setData(prevData => 
-          prevData.map(item => ({
+        setData((prevData) =>
+          prevData.map((item) => ({
             ...item,
-            student_code: studentCode
+            student_code: studentCode,
           }))
         );
 
@@ -58,7 +58,7 @@ const { request } = useApiClient();
         setShowAddCodeModal(false);
         setStudentCode("");
       } else {
-        throw new Error(result.message || t("code_creation_failed"));
+        throw new Error(response.message || t("code_creation_failed"));
       }
     } catch (error) {
       console.error("Failed to create code:", error);
@@ -72,14 +72,14 @@ const { request } = useApiClient();
     <>
       <div className="rounded-4 shadow-sm p-md-4 p-2 container-fluid cardbg min-train-ht">
         {/* Add Code Button */}
-        <div className="d-flex justify-content-end mb-3">
+        {/* <div className="d-flex justify-content-end mb-3">
           <button
             className="btn btn-light custfontbtn"
             onClick={() => setShowAddCodeModal(true)}
           >
             {t("add_student_code")}
           </button>
-        </div>
+        </div> */}
 
         <OngoingTrain
           TableHead={TableHead}

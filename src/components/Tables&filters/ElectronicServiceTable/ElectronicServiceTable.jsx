@@ -179,10 +179,10 @@ export default function ElectronicServiceTable({
         throw new Error(t("service_update_failed"));
       }
     } catch (error) {
-const { errors } = error.data;
 
+  const { errors } = error.data;
 const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
-const message = errors[firstKey]?.ar;
+ const message = errors[firstKey]?.ar;
       console.error("Update failed:", error);
       setResultMessage(message);
       setShowResultModal(true);

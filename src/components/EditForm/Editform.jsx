@@ -674,17 +674,20 @@ export default function Editform({
 
       switch (type) {
         case "text":
-          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);
+          rule = Yup.string()
+          // .required(`${t(name)} ${t("is_required")}`);
           break;
 
         case "number":
-          rule = Yup.number().required(`${t(name)} ${t("is_required")}`)
+          rule = Yup.number()
+          // .required(`${t(name)} ${t("is_required")}`)
             .transform((val, orig) => (orig === "" ? undefined : val))
             .typeError(`${t(name)} يجب أن يكون رقمًا`);
           break;
 
         case "select":
-          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);;
+          rule = Yup.string()
+          // .required(`${t(name)} ${t("is_required")}`);
           break;
 
         case "selectsearch":
@@ -696,11 +699,12 @@ export default function Editform({
         case "multiselect":
           rule = Yup.array()
             .of(Yup.number())
-            .required(`${t(name)} ${t("is_required")}`);;
+            // .required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "date":
-          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);;
+          rule = Yup.string()
+          // .required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "multiselectsearch":

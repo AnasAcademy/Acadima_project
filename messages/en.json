@@ -1511,7 +1511,32 @@
     "meeting_purchased": " Meeting Purchased",
     "account_balance": "Account Balance",
     "user_name": "Email or Phonee number",
-    "new_instructions": "New Instructions"
+    "new_instructions": "New Instructions",
+    "edit_user": "Edit User Data",
+    "full_name": "Full Name",
+    "en_name": "Full Name in English",
+    "bio": "User Bio",
+    "academic_info": "Academic Information",
+    "academic_code": "Academic Code",
+    "email": "Email",
+    "birthdate": "Date of Birth",
+    "language": "Language",
+    "arabic_language": "Arabic Language",
+    "region_unit": "Region / Timezone",
+    "mobile": "Mobile Number",
+    "password": "Password",
+    "toggle_language": "Enable Arabic Menu",
+    "toggle_profile": "Enable Profile Card",
+    "settings_header": "All Settings",
+    "basic_data": "Basic Data",
+    "personal_data": "Personal Information",
+    "education": "Education & Experience",
+    "extra_info": "Additional Info",
+    "portfolio_links": "Portfolio Links",
+    "connections": "Connections",
+    "completion_note": "Dear student, please make sure to fill out all required fields (marked with a *) correctly to ensure program acceptance.",
+    "progress": "15%"
+ 
 
   }
 }

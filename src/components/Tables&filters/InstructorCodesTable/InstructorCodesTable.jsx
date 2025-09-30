@@ -69,14 +69,14 @@ export default function InstructorCodesTable({ dat }) {
     <>
       <div className="rounded-4 shadow-sm p-md-4 p-2 container-fluid cardbg min-train-ht">
         {/* Add Code Button */}
-        <div className="d-flex justify-content-end mb-3">
+        {/* <div className="d-flex justify-content-end mb-3">
           <button
             className="btn btn-light custfontbtn"
             onClick={() => setShowAddCodeModal(true)}
           >
             {t("add_instructor_code")}
           </button>
-        </div>
+        </div> */}
 
         <OngoingTrain
           TableHead={TableHead}
