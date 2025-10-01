@@ -17,7 +17,7 @@ export default function GroupsTable({
 }) {
   const t = useTranslations("tables");
   const ts = useTranslations("settings");
-  const { getStatusOptions } = useUserData();
+  const { getStatusOptions, getStudentOptions } = useUserData();
   const { request } = useApiClient();
 
   const [dataa, setDataa] = useState(initialData);
@@ -76,6 +76,7 @@ export default function GroupsTable({
   const TableHead = [
     "#",
     t("name") || "Name",
+    t("capacity"),
     t("number_of_users") || "Number of Users",
     t("commission") || "Commission",
     t("coupon_discount") || "Coupon Discount",
@@ -90,7 +91,13 @@ export default function GroupsTable({
         columns: [
           { type: "text", value: item.id ?? "-" },
           { type: "text", value: item.name ?? "-" },
-          { type: "text", value: item.capacity ?? "-" }, // number of users
+          { type: "text", value: item.capacity ?? "-" },
+          {
+            type: "text",
+            value: Array.isArray(item.group_users)
+              ? item.group_users.length
+              : "0",
+          },
           {
             type: "text",
             value: item.commission != null ? `${item.commission}%` : "0%",
@@ -111,17 +118,22 @@ export default function GroupsTable({
                 label: t("edit") || "Edit",
                 icon: Pen,
                 action: () => {
+                  const ids = Array.isArray(item.users)
+                    ? item.users.map((n) => Number(n)).filter(Number.isFinite)
+                    : Array.isArray(item.group_users)
+                    ? item.group_users
+                        .map((u) => Number(u.user_id ?? u.id ?? u))
+                        .filter(Number.isFinite)
+                    : [];
                   setSelectedId(item.id);
                   setFormState("edit");
                   setEditFormData({
                     id: item.id,
                     name: item.name,
-                    // If your list API doesn't include users array, this stays blank.
-                    usersCsv: Array.isArray(item.users)
-                      ? item.users.join(",")
-                      : "",
-                    commission: item.commission,
-                    discount: item.discount,
+                    group_users: ids,
+                    users: ids,
+                    commission: item.commission || 0,
+                    discount: item.discount || 0,
                     status: item.status,
                   });
                   setShowEditForm(true);
@@ -142,7 +154,7 @@ export default function GroupsTable({
     [filter, t]
   );
 
-  // ---------- Editform config ----------
+
   const statusOptions = useMemo(() => {
     const raw = getStatusOptions?.() ?? [
       { value: "active", label_en: "Active", label_ar: "نشط" },
@@ -162,30 +174,40 @@ export default function GroupsTable({
   const fields = [
     { name: "name", label: t("name") || "Name", type: "text", required: true },
     {
-      name: "usersCsv",
-      label: (t("users") || "Users") + " (IDs, comma-separated)",
-      type: "text",
-      placeholder: "1866, 1859",
+      name: "users",
+      label: t("group_users"),
+      type: "multiselectsearch",
+      options: (getStudentOptions?.() ?? []).map((s) => ({
+        label:
+          s.full_name ??
+          s.label ??
+          s.name ??
+          String(s.user_id ?? s.id ?? s.value),
+        value: s.user_id ?? s.id ?? s.value,
+      })),
+      required: false,
     },
     {
       name: "commission",
       label: (t("commission") || "Commission") + " %",
-      placeholder:
-        t("comission_placeholder") ||
-        "Leave empty for default percentage (Specified in settings)",
+      // placeholder:
+      //   t("comission_placeholder") ||
+      //   "Leave empty for default percentage (Specified in settings)",
       type: "number",
       min: 0,
       max: 100,
       step: 1,
+      required: false,
     },
     {
-      name: "coupon_discount",
-      label: t("coupon_title"),
-      placeholder: t("coupon_placeholder"),
+      name: "discount",
+      label: t("discount") + " %",
+      // placeholder: t("coupon_placeholder"),
       type: "number",
       min: 0,
       max: 100,
       step: 1,
+      required: false,
     },
     {
       name: "status",
@@ -195,25 +217,40 @@ export default function GroupsTable({
     },
   ];
 
-  const buildPayload = (formData) => {
-    const usersArr =
-      (formData.usersCsv ?? "")
+  const toIds = (input) => {
+    if (!input) return [];
+    if (Array.isArray(input)) {
+      // supports arrays of numbers, strings, or option objects
+      return input
+        .map((x) =>
+          typeof x === "object" && x !== null ? x.value ?? x.id ?? x.user_id : x
+        )
+        .map(Number)
+        .filter(Number.isFinite);
+    }
+    if (typeof input === "string") {
+      return input
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean)
-        .map((n) => Number(n))
-        .filter((n) => !Number.isNaN(n)) || [];
+        .map(Number)
+        .filter(Number.isFinite);
+    }
+    return [];
+  };
 
+  const buildPayload = (formData) => {
     return {
       name: (formData.name || "").trim(),
-      users: usersArr,
+      // prefer `users`, fall back to `group_users` if your edit form still uses it
+      users: toIds(formData.users ?? formData.group_users),
       commission: Number(formData.commission ?? 0),
-      discount: Number(formData.discount ?? 0),
+      // read from coupon_discount (fallback to discount)
+      discount: Number(formData.coupon_discount ?? formData.discount ?? 0),
       status: formData.status || "active",
     };
   };
 
-  // ---------- CRUD handlers ----------
   const handleSubmitAdd = async (formData) => {
     setEditFormLoading(true);
     try {
@@ -316,7 +353,7 @@ export default function GroupsTable({
                       setFormState("add");
                       setEditFormData({
                         name: "",
-                        usersCsv: "",
+                        users: [],
                         commission: "",
                         discount: "",
                         status: "",

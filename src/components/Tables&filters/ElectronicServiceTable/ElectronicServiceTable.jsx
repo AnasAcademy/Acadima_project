@@ -43,7 +43,7 @@ export default function ElectronicServiceTable({
     getBundleOptions,
     getWebinarOptions, // Add webinar options helper
   } = useUserData();
-  
+
   const { request } = useApiClient();
 
   async function fetchy(stat) {
@@ -94,7 +94,7 @@ export default function ElectronicServiceTable({
     try {
       const originalItem = data.find((item) => item.id === Itemid);
 
-        console.log(Itemid)
+      console.log(Itemid);
       if (!originalItem) {
         throw new Error("Original item not found");
       }
@@ -148,9 +148,8 @@ export default function ElectronicServiceTable({
       const result = await request({
         method: "PUT",
         urlPath: `/services/${Itemid}`,
-        body: changedData ,
+        body: changedData,
       });
-
 
       if (result.success || result.message) {
         const updatedItem = {
@@ -186,8 +185,6 @@ const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
       console.error("Update failed:", error);
       setResultMessage(message);
       setShowResultModal(true);
-
-
     }
   };
 
@@ -257,15 +254,12 @@ const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
         throw new Error(t("service_add_failed"));
       }
     } catch (err) {
+      const { errors } = err.data;
 
-
-const { errors } = err.data;
-
-const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
-const message = errors[firstKey]?.ar;
+      const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+      const message = errors[firstKey]?.ar;
       console.error("Update failed:", message);
 
-   
       setResultMessage(message);
       setShowResultModal(true);
     }

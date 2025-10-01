@@ -274,11 +274,34 @@ function MultiSearchSelect({
   const [loadingRemote, setLoadingRemote] = React.useState(false);
   const boxRef = React.useRef(null);
 
+  // --- NEW: normalize `value` into an array of numbers ---
+  const selected = React.useMemo(() => {
+    if (Array.isArray(value)) {
+      return value
+        .map(v => (typeof v === "object" && v !== null ? v.value ?? v.id ?? v.user_id : v))
+        .map(Number)
+        .filter(Number.isFinite);
+    }
+    if (typeof value === "string") {
+      return value
+        .split(",")
+        .map(s => s.trim())
+        .filter(Boolean)
+        .map(Number)
+        .filter(Number.isFinite);
+    }
+    if (value && typeof value === "object" && "value" in value) {
+      const n = Number(value.value);
+      return Number.isFinite(n) ? [n] : [];
+    }
+    return [];
+  }, [value]);
+  // -------------------------------------------------------
+
   // normalize local options
   const normalize = (arr) =>
-    (arr || []).map((o) =>
-      Array.isArray(o) ? { label: o[0], value: o[1] } : o
-    );
+    (arr || []).map(o => (Array.isArray(o) ? { label: o[0], value: o[1] } : o));
+
   const baseOptions = normalize(options);
 
   // close dropdown on outside click
@@ -304,7 +327,7 @@ function MultiSearchSelect({
     const id = setTimeout(async () => {
       try {
         const res = await loadOptions(s);
-        if (!cancelled) setRemote(Array.isArray(res) ? res : []);
+        if (!cancelled) setRemote(normalize(Array.isArray(res) ? res : [])); // normalize remote too
       } catch {
         if (!cancelled) setRemote([]);
       } finally {
@@ -321,22 +344,23 @@ function MultiSearchSelect({
   const filteredLocal = React.useMemo(() => {
     const s = term.trim().toLowerCase();
     if (s.length < minChars) return [];
-    return baseOptions.filter((o) => String(o.label).toLowerCase().includes(s));
+    return baseOptions.filter(o => String(o.label).toLowerCase().includes(s));
   }, [term, baseOptions, minChars]);
 
   // merged results
   const merged = React.useMemo(() => {
     const seen = new Set();
-    const selectedSet = new Set(value.map((v) => String(v.value)));
-    const arr = (loadOptions ? remote : filteredLocal).filter(
-      (o) => !selectedSet.has(String(o.value))
-    );
-    return arr.filter((o) => {
-      if (seen.has(String(o.value))) return false;
-      seen.add(String(o.value));
+    const selectedSet = new Set(selected.map(v => String(v)));
+    const source = loadOptions ? remote : filteredLocal;
+
+    const arr = source.filter(o => !selectedSet.has(String(o.value)));
+    return arr.filter(o => {
+      const k = String(o.value);
+      if (seen.has(k)) return false;
+      seen.add(k);
       return true;
     });
-  }, [baseOptions, remote, filteredLocal, loadOptions, value]);
+  }, [remote, filteredLocal, loadOptions, selected]);
 
   // handlers
   const addValue = (opt) => {
@@ -356,16 +380,8 @@ function MultiSearchSelect({
     >
       {/* chips */}
       <div
-        onClick={() => !disabled && setOpen((v) => !v)}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "8px 10px",
-          cursor: disabled ? "not-allowed" : "pointer",
-          flexWrap: "wrap",
-          minHeight: 40,
-        }}
+        onClick={() => !disabled && setOpen(v => !v)}
+        style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", cursor: disabled ? "not-allowed" : "pointer", flexWrap: "wrap", minHeight: 40 }}
       >
         {value.length === 0 ? (
           <div style={{ color: "#9aa0a6" }}>{placeholder}</div>
@@ -388,26 +404,11 @@ function MultiSearchSelect({
             </span>
           ))
         )}
-        <div style={{ marginLeft: "auto", fontSize: 10, opacity: 0.7 }}>
-          {open ? "▲" : "▼"}
-        </div>
+        <div style={{ marginLeft: "auto", fontSize: 10, opacity: 0.7 }}>{open ? "▲" : "▼"}</div>
       </div>
 
       {open && (
-        <div
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            zIndex: 20,
-            borderTop: "1px solid #E3E3E3",
-            background: "#fff",
-            boxShadow: "0 6px 18px rgba(0,0,0,.06)",
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
-          }}
-        >
+        <div style={{ position: "absolute", top: "100%", left: 0, right: 0, zIndex: 20, borderTop: "1px solid #E3E3E3", background: "#fff", boxShadow: "0 6px 18px rgba(0,0,0,.06)", borderBottomLeftRadius: 8, borderBottomRightRadius: 8 }}>
           <div style={{ padding: 8 }}>
             <input
               placeholder={placeholder}
@@ -415,13 +416,7 @@ function MultiSearchSelect({
               onChange={(e) => setTerm(e.target.value)}
               disabled={disabled}
               autoFocus
-              style={{
-                width: "100%",
-                border: "1px solid #E3E3E3",
-                borderRadius: 4,
-                padding: "8px 10px",
-                outline: "none",
-              }}
+              style={{ width: "100%", border: "1px solid #E3E3E3", borderRadius: 4, padding: "8px 10px", outline: "none" }}
             />
           </div>
 
@@ -479,7 +474,6 @@ function MultiSearchSelect({
     </div>
   );
 }
-
 
 
 export default function Editform({
@@ -1110,10 +1104,7 @@ export default function Editform({
                         }`}
                         name={name}
                         value={
-                          formik.values[name] === null ||
-                          formik.values[name] === undefined
-                            ? ""
-                            : formik.values[name]
+                          formik.values[name]
                         }
                         placeholder={field.placeholder || ""}
                         min={field.min ?? 1}
