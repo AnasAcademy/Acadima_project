@@ -19,6 +19,8 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
   const [Alertmssg, setAlertmssg] = useState("");
   const [filter, setFilter] = useState(dat);
   const [Itemid, setId] = useState(null);
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [resultMessage, setResultMessage] = useState("");
   const t = useTranslations("tables");
   const ts = useTranslations("SidebarA");
   const [data, setData] = useState(dat);
@@ -136,8 +138,14 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
       //   setShowModal(false);
       // }
     } catch (error) {
-      console.error("Status update failed:", error);
-      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+         const { errors } = error.data;
+         const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+         const message = errors[firstKey]?.ar;
+         console.error("Update failed:", error);
+         setResultMessage(message);
+         setShowResultModal(true);
+
+
     }
   };
 
@@ -150,9 +158,9 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
         urlPath: `/quizzes`,
         body: {
           webinar_id: dataa.webinar_id,
-          title: dataa.title || "null",
+          title: dataa.quizTitle,
           time: dataa.time,
-          attemp: dataa.attemp,
+          attempt: dataa.attempt,
           pass_mark: dataa.pass_mark,
           expiry_days: dataa.expiry_days,
           display_questions_randomly: 1,
@@ -163,18 +171,33 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
 
       console.log(response);
 
-      // if (result.service) {
-      //   const newItem = result.service;
-      //   setData((prev) => [...prev, newItem]);
-      //   //  Success Alert
-      //   alert("تمت الإضافة بنجاح ");
-      //   setShowModal(false);
-      // } else {
-      //   alert("فشل في الإضافة، يرجى المحاولة مرة أخرى.");
-      // }
+   
+        const newItem = response.data;
+
+        console.log(newItem , "newwwwwwwwww");
+        setData((prev) => [...prev, newItem]);
+        //  Success Alert
+        setShowModal(false);
+        setResultMessage(t("service_added_successfully"));
+        setShowResultModal(true);
+
+    
     } catch (err) {
-      console.error("Status update failed:", err);
-      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+  
+
+                const { errors } = err.data;
+                const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+                const message = errors[firstKey]?.ar;
+                console.error("Update failed:", err);
+                setResultMessage(message);
+                setShowResultModal(true);
+
+
+
+
+
+
+
     }
   };
 
@@ -536,7 +559,7 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
       : []),
     { name: "quizTitle", label: t("quiz_title"), type: "text" },
     { name: "time", label: t("quiz_time"), type: "number" },
-    { name: "attemp", label: t("attempts"), type: "number" },
+    { name: "attempt", label: t("attempts"), type: "number" },
     { name: "pass_mark", label: t("passing-grade"), type: "number" },
     { name: "expiry_days", label: t("expiryDays"), type: "number" },
   ];
@@ -759,6 +782,14 @@ export default function QuizzesTable({ dat, current_page, last_page }) {
           )}
         </div>
       </div>
+      <AlertModal
+        show={showResultModal}
+        onClose={() => setShowResultModal(false)}
+        onSubmit={() => setShowResultModal(false)}
+        title={t("operation_result")}
+      >
+        <p className="m-0 text-center">{resultMessage}</p>
+      </AlertModal>
     </>
   );
 }

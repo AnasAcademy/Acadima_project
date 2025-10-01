@@ -298,6 +298,16 @@ function MultiSearchSelect({
   }, [value]);
   // -------------------------------------------------------
 
+
+
+
+
+
+
+
+
+
+  
   // normalize local options
   const normalize = (arr) =>
     (arr || []).map(o => (Array.isArray(o) ? { label: o[0], value: o[1] } : o));
@@ -584,6 +594,36 @@ export default function Editform({
     reArrangeChapters(chapterId, result.draggableId, result.destination.index);
   };
 
+
+
+
+
+
+const QuestionSchema = Yup.object().shape({
+  translations: Yup.array().of(
+    Yup.object().shape({
+      title: Yup.string().required("Title is required"),
+      correct: Yup.string().when([], {
+        is: () => true,
+        then: (schema) => schema.required("Correct answer is required"),
+      }),
+    })
+  ),
+  grade: Yup.number()
+    .typeError("Grade must be a number")
+    .required("Grade is required"),
+  quizzes_questions_answers: Yup.array().of(
+    Yup.object().shape({
+      translations: Yup.array().of(
+        Yup.object().shape({
+          title: Yup.string().required("Answer title is required"),
+        })
+      ),
+      correct: Yup.boolean(),
+    })
+  ),
+});
+
   const removeField = () => {
     if (reqtble.length > 1) {
       setReqTable(reqtble.slice(0, -1));
@@ -625,17 +665,20 @@ export default function Editform({
 
       switch (type) {
         case "text":
-          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);
+          rule = Yup.string()
+          // .required(`${t(name)} ${t("is_required")}`);
           break;
 
         case "number":
-          rule = Yup.number().required(`${t(name)} ${t("is_required")}`)
+          rule = Yup.number()
+          // .required(`${t(name)} ${t("is_required")}`)
             .transform((val, orig) => (orig === "" ? undefined : val))
             .typeError(`${t(name)} يجب أن يكون رقمًا`);
           break;
 
         case "select":
-          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);
+          rule = Yup.string()
+          // .required(`${t(name)} ${t("is_required")}`);
           break;
 
         case "selectsearch":
@@ -645,11 +688,13 @@ export default function Editform({
           break;
 
         case "multiselect":
-          rule = Yup.array().of(Yup.number()).required(`${t(name)} ${t("is_required")}`);;
+          rule = Yup.array().of(Yup.number())
+          // .required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "date":
-          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);;
+          rule = Yup.string()
+          // .required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "multiselectsearch":
@@ -1515,7 +1560,8 @@ export default function Editform({
                   <div className="bg-white w-50 h-75 rounded shadow p-4   ">
                     <h2 className=" mb-4"> {t("new_descriptive_question")} </h2>
                     <div className=" row g-4  h-100  ">
-                      <div className=" col-12 col-md-7">
+                    {/* question.type === "multiple" ?----------------------------------------------------------------- ( */}
+                      <div className=" col-12 col-md-7 bg-danger">
                         <h5> {t("question_title")} </h5>
                         <input
                           type="text"
@@ -1537,7 +1583,7 @@ export default function Editform({
                           className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100  border-1"
                         />
                       </div>
-
+    {/* question.type === "multiple" ?----------------------------------------------------------------- ( */}
                       <div className="col-12 col-md-5">
                         <h5> {t("grade")}</h5>
                         <input
@@ -1770,7 +1816,7 @@ export default function Editform({
               </div>
 
               {addquestion ? (
-                <div className=" position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center  p-3 z-3">
+                <div className=" position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center  p-3 z-3 ">
                   <div className="bg-white w-50 h-50 rounded shadow p-4   ">
                     <h2 className=" mb-4"> {t("new_section")} </h2>
                     <div className=" row g-4  h-100  ">
