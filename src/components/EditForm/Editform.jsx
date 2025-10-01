@@ -260,28 +260,28 @@ function SearchSelect({
 
 function MultiSearchSelect({
   name,
-  value = [], // array of numbers
-  options = [], // baseline local options
+  value = [],          // array of {label, value}
+  options = [],        // local options
   placeholder = "Search",
   disabled = false,
   minChars = 3,
-  onChange, // expects number[] (new array)
-  loadOptions, // async (term) => Promise<{label,value}[]>
+  onChange,            // expects array of {label, value}
+  loadOptions,         // async (term) => Promise<{label, value}[]>
 }) {
-  const [open, setOpen] = useState(false);
-  const [term, setTerm] = useState("");
-  const [remote, setRemote] = useState([]);
-  const [loadingRemote, setLoadingRemote] = useState(false);
-  const boxRef = useRef(null);
+  const [open, setOpen] = React.useState(false);
+  const [term, setTerm] = React.useState("");
+  const [remote, setRemote] = React.useState([]);
+  const [loadingRemote, setLoadingRemote] = React.useState(false);
+  const boxRef = React.useRef(null);
 
-  // allow options as [[label,value]] too
+  // normalize local options
   const normalize = (arr) =>
     (arr || []).map((o) =>
       Array.isArray(o) ? { label: o[0], value: o[1] } : o
     );
-
   const baseOptions = normalize(options);
 
+  // close dropdown on outside click
   React.useEffect(() => {
     if (!open) return;
     const onDocClick = (e) => {
@@ -317,17 +317,17 @@ function MultiSearchSelect({
     };
   }, [term, minChars, loadOptions]);
 
-  // filter local when no loader OR to merge
+  // local filter
   const filteredLocal = React.useMemo(() => {
     const s = term.trim().toLowerCase();
     if (s.length < minChars) return [];
     return baseOptions.filter((o) => String(o.label).toLowerCase().includes(s));
   }, [term, baseOptions, minChars]);
 
-  // merge + de-dup by value, and exclude already selected
+  // merged results
   const merged = React.useMemo(() => {
     const seen = new Set();
-    const selectedSet = new Set((value || []).map((v) => String(v)));
+    const selectedSet = new Set(value.map((v) => String(v.value)));
     const arr = (loadOptions ? remote : filteredLocal).filter(
       (o) => !selectedSet.has(String(o.value))
     );
@@ -338,21 +338,13 @@ function MultiSearchSelect({
     });
   }, [baseOptions, remote, filteredLocal, loadOptions, value]);
 
-  // for selected chips, we want labels for current values
-  const allKnown = React.useMemo(
-    () => [...baseOptions, ...remote],
-    [baseOptions, remote]
-  );
-  const labelFor = (val) =>
-    allKnown.find((o) => String(o.value) === String(val))?.label ?? String(val);
-
+  // handlers
   const addValue = (opt) => {
-    const num = Number(opt.value);
-    if (!Number.isNaN(num)) onChange([...(value || []), num]);
+    onChange([...(value || []), opt]);
     setTerm("");
   };
   const removeValue = (val) => {
-    onChange((value || []).filter((v) => Number(v) !== Number(val)));
+    onChange(value.filter((v) => v.value !== val.value));
   };
   const clearAll = () => onChange([]);
 
@@ -360,13 +352,9 @@ function MultiSearchSelect({
     <div
       ref={boxRef}
       className="rounded-3"
-      style={{
-        border: "1px solid #E3E3E3",
-        background: "#fff",
-        position: "relative",
-      }}
+      style={{ border: "1px solid #E3E3E3", background: "#fff", position: "relative" }}
     >
-      {/* header with chips */}
+      {/* chips */}
       <div
         onClick={() => !disabled && setOpen((v) => !v)}
         style={{
@@ -379,21 +367,21 @@ function MultiSearchSelect({
           minHeight: 40,
         }}
       >
-        {(value || []).length === 0 ? (
+        {value.length === 0 ? (
           <div style={{ color: "#9aa0a6" }}>{placeholder}</div>
         ) : (
-          (value || []).map((v) => (
+          value.map((opt) => (
             <span
-              key={v}
+              key={opt.value}
               className="badge text-bg-light"
               style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {labelFor(v)}
+              {opt.label}
               <button
                 type="button"
                 className="btn btn-sm btn-link p-0"
-                onClick={() => removeValue(v)}
+                onClick={() => removeValue(opt)}
               >
                 ×
               </button>
@@ -437,40 +425,17 @@ function MultiSearchSelect({
             />
           </div>
 
-          <div
-            style={{ maxHeight: 220, overflowY: "auto", padding: "0 8px 8px" }}
-          >
+          <div style={{ maxHeight: 220, overflowY: "auto", padding: "0 8px 8px" }}>
             {term.trim().length < minChars ? (
-              <div
-                style={{
-                  padding: "8px 10px",
-                  color: "#6b7280",
-                  fontSize: 12,
-                  textAlign: "right",
-                }}
-              >
+              <div style={{ padding: "8px 10px", color: "#6b7280", fontSize: 12, textAlign: "right" }}>
                 Please enter {minChars} or more characters
               </div>
             ) : loadOptions && loadingRemote ? (
-              <div
-                style={{
-                  padding: "8px 10px",
-                  color: "#6b7280",
-                  fontSize: 12,
-                  textAlign: "right",
-                }}
-              >
+              <div style={{ padding: "8px 10px", color: "#6b7280", fontSize: 12, textAlign: "right" }}>
                 جارٍ البحث...
               </div>
             ) : merged.length === 0 ? (
-              <div
-                style={{
-                  padding: "8px 10px",
-                  color: "#6b7280",
-                  fontSize: 12,
-                  textAlign: "right",
-                }}
-              >
+              <div style={{ padding: "8px 10px", color: "#6b7280", fontSize: 12, textAlign: "right" }}>
                 لا توجد نتائج
               </div>
             ) : (
@@ -486,7 +451,6 @@ function MultiSearchSelect({
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                   }}
-                  onMouseDown={(e) => e.preventDefault()}
                 >
                   {opt.label}
                 </div>
@@ -503,19 +467,10 @@ function MultiSearchSelect({
               borderTop: "1px solid #F1F1F1",
             }}
           >
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={clearAll}
-              disabled={disabled}
-            >
+            <button type="button" className="btn btn-light" onClick={clearAll} disabled={disabled}>
               مسح
             </button>
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={() => setOpen(false)}
-            >
+            <button type="button" className="btn btn-light" onClick={() => setOpen(false)}>
               إغلاق
             </button>
           </div>
@@ -524,6 +479,8 @@ function MultiSearchSelect({
     </div>
   );
 }
+
+
 
 export default function Editform({
   fields,
@@ -621,7 +578,6 @@ export default function Editform({
 
   const handleDragEn = (result, chapterId) => {
     if (!result.destination) return;
-
     console.log("here3", result);
     console.log(chapterId, "herer009");
     // const items = Array.from(chapters.items);
@@ -658,11 +614,12 @@ export default function Editform({
     }
     formik.setFieldValue("sub_categories", sub);
   };
+
+  // Validation schema for sub-categories
   const subCategoryValidation = Yup.array().of(
     Yup.object().shape({
       title: Yup.string().required("عنوان التصنيف الفرعي مطلوب"),
-      slug: Yup.string(),
-      icon: Yup.string(),
+
     })
   );
 
@@ -674,20 +631,17 @@ export default function Editform({
 
       switch (type) {
         case "text":
-          rule = Yup.string()
-          // .required(`${t(name)} ${t("is_required")}`);
+          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);
           break;
 
         case "number":
-          rule = Yup.number()
-          // .required(`${t(name)} ${t("is_required")}`)
+          rule = Yup.number().required(`${t(name)} ${t("is_required")}`)
             .transform((val, orig) => (orig === "" ? undefined : val))
             .typeError(`${t(name)} يجب أن يكون رقمًا`);
           break;
 
         case "select":
-          rule = Yup.string()
-          // .required(`${t(name)} ${t("is_required")}`);
+          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);
           break;
 
         case "selectsearch":
@@ -697,14 +651,11 @@ export default function Editform({
           break;
 
         case "multiselect":
-          rule = Yup.array()
-            .of(Yup.number())
-            // .required(`${t(name)} ${t("is_required")}`);;
+          rule = Yup.array().of(Yup.number()).required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "date":
-          rule = Yup.string()
-          // .required(`${t(name)} ${t("is_required")}`);;
+          rule = Yup.string().required(`${t(name)} ${t("is_required")}`);;
           break;
 
         case "multiselectsearch":
@@ -762,6 +713,13 @@ export default function Editform({
       return acc;
     }, {}),
     sub_categories: subCategoryValidation,
+    requirements: Yup.array().of(
+      Yup.object().shape({
+        title: Yup.string().required("عنوان المتطلب مطلوب"),
+        description: Yup.string().required("وصف المتطلب مطلوب"),
+      })
+    ),
+
   });
 
   const locale = useLocale();
@@ -870,7 +828,7 @@ export default function Editform({
         e.preventDefault();
         formik.handleSubmit(e);
       }}
-       className="  p-4"
+      className="  p-4"
     >
       <h4>{formTitles?.[0]?.label}</h4>
 
@@ -910,8 +868,10 @@ export default function Editform({
                       onBlur={formik.handleBlur}
                       disabled={loading}
                       className={`d-flex justify-content-center align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 ${
-      formik.touched[name] && formik.errors[name] ? "is-invalid" : ""
-    }`}
+                        formik.touched[name] && formik.errors[name]
+                          ? "is-invalid"
+                          : ""
+                      }`}
                       style={{ border: "1px solid #E3E3E3" }}
                     >
                       <option value="" disabled>
@@ -999,7 +959,11 @@ export default function Editform({
                       onChange={(e) => handleFieldChange(e, field)}
                       onBlur={formik.handleBlur}
                       disabled={loading}
-                      className={`d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 ${formik.touched[name] && formik.errors[name] ? "is-invalid" : ""}`}
+                      className={`d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 ${
+                        formik.touched[name] && formik.errors[name]
+                          ? "is-invalid"
+                          : ""
+                      }`}
                       style={{ border: "1px solid #E3E3E3" }}
                     />
                   ) : type === "multiselectsearch" ? (
@@ -1139,7 +1103,11 @@ export default function Editform({
                     <div className="d-flex flex-column w-100">
                       <input
                         type="number"
-                        className={`form-control ${formik.touched[name] && formik.errors[name] ? "is-invalid" : ""}`}
+                        className={`form-control ${
+                          formik.touched[name] && formik.errors[name]
+                            ? "is-invalid"
+                            : ""
+                        }`}
                         name={name}
                         value={
                           formik.values[name] === null ||
@@ -1149,7 +1117,7 @@ export default function Editform({
                         }
                         placeholder={field.placeholder || ""}
                         min={field.min ?? 1}
-                        max={field.max }
+                        max={field.max}
                         step={field.step ?? 1}
                         disabled={loading || field.disabled}
                         onChange={(e) => {
@@ -1233,8 +1201,11 @@ export default function Editform({
                       onChange={(e) => handleFieldChange(e, field)}
                       onBlur={formik.handleBlur}
                       disabled={loading}
-                      className={`d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 ${formik.touched[name] && formik.errors[name] ? "is-invalid" : ""}`}
-   
+                      className={`d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100 ${
+                        formik.touched[name] && formik.errors[name]
+                          ? "is-invalid"
+                          : ""
+                      }`}
                       style={{ border: "1px solid #E3E3E3" }}
                     />
                   )}
@@ -1351,20 +1322,27 @@ export default function Editform({
                       style={{ border: "1px solid #E3E3E3" }}
                     >
                       <div className=" d-flex justify-content-between align-items-center gap-3">
-                        <input
-                          type="text"
-                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
-                          style={{ border: "1px solid #E3E3E3" }}
-                          placeholder="title"
-                          value={item.title}
-                          onChange={(e) => {
-                            const updated = [...reqtble];
-                            updated[index].title = e.target.value;
-                            setReqTable(updated);
-                            formik.setFieldValue("requirements", updated);
-                          }}
-                        />
+                        <div className=" d-flex flex-column">
+                          <input
+                            type="text"
+                            className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                            style={{ border: "1px solid #E3E3E3" }}
+                            placeholder="title"
+                            value={item.title}
+                            onChange={(e) => {
+                              const updated = [...reqtble];
+                              updated[index].title = e.target.value;
+                              setReqTable(updated);
+                              formik.setFieldValue("requirements", updated);
+                            }}
+                          />
 
+                          {formik.errors.requirements?.[index]?.title && (
+                            <div className="text-danger mt-1">
+                              {formik.errors.requirements[index].title}
+                            </div>
+                          )}
+                        </div>
                         <button
                           className=" btn btn-danger "
                           type="button"
@@ -1374,19 +1352,26 @@ export default function Editform({
                           x{" "}
                         </button>
                       </div>
-                      <input
-                        type="text"
-                        className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
-                        style={{ border: "1px solid #E3E3E3" }}
-                        placeholder="admin/main.description"
-                        value={item.description}
-                        onChange={(e) => {
-                          const updated = [...reqtble];
-                          updated[index].description = e.target.value;
-                          setReqTable(updated);
-                          formik.setFieldValue("requirements", updated);
-                        }}
-                      />
+                      <div className=" d-flex flex-column">
+                        <input
+                          type="text"
+                          className="d-flex justify-content-end align-items-center rounded-3 p-2 gap-2 Tit-14-700 w-100"
+                          style={{ border: "1px solid #E3E3E3" }}
+                          placeholder="admin/main.description"
+                          value={item.description}
+                          onChange={(e) => {
+                            const updated = [...reqtble];
+                            updated[index].description = e.target.value;
+                            setReqTable(updated);
+                            formik.setFieldValue("requirements", updated);
+                          }}
+                        />
+                        {formik.errors.requirements?.[index]?.description && (
+                          <div className="text-danger ">
+                            {formik.errors.requirements[index].description}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>

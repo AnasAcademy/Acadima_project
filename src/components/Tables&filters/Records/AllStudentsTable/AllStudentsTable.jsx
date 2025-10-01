@@ -132,6 +132,9 @@ export default function AllStudentsTable({
   const handleSubmitEdit = async (formData) => {
     if (!selectedId) return;
 
+
+       console.log("Form data to submit:", formData);
+
     try {
       setEditFormLoading(true);
       const apiData = {};
@@ -144,7 +147,7 @@ export default function AllStudentsTable({
 
         if (
           cleaned !== cleanedOriginal &&
-          cleaned !== "" &&
+          // cleaned !== "" &&
           cleaned !== null &&
           cleaned !== undefined
         ) {
@@ -184,9 +187,16 @@ export default function AllStudentsTable({
         fetchData(currentPage);
       }
     } catch (error) {
-      console.error("Edit failed:", error);
-      setResultMessage("فشل التحديث. حاول مرة أخرى.");
-      setShowResultModal(true);
+
+
+     const { errors } = error.data;
+     const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+     const message = errors[firstKey]?.ar;
+     console.error("Update failed:", error);
+     setResultMessage(message);
+     setShowResultModal(true);
+
+
     } finally {
       setEditFormLoading(false);
     }

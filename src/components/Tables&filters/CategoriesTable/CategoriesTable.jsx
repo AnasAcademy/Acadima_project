@@ -22,8 +22,10 @@ export default function CategoriesTable({ dat }) {
   const [reqtable, setReqTable] = useState([]);
   const [Alertmssg, setAlertmssg] = useState("");
   const [subcat, setSubcat] = useState(false);
+  const [resultMessage, setResultMessage] = useState("");
   const [sub, setSub] = useState([]);
   const { request } = useApiClient();
+   const [showResultModal, setShowResultModal] = useState(false);
   const [subCount, setSubCount] = useState(null);
   const viewStack = useRef([]);
 
@@ -148,8 +150,12 @@ export default function CategoriesTable({ dat }) {
         setShowModal(false);
       }
     } catch (error) {
-      console.error("Status update failed:", error);
-      alert("تعذر تحديث الحالة، حاول مرة أخرى.");
+       const { errors } = error.data;
+       const firstKey = Object.keys(errors)[0]; // e.g., "status" or "title"
+       const message = errors[firstKey]?.ar;
+       console.error("Update failed:", message);
+       setResultMessage(message);
+       setShowResultModal(true);
     }
   };
 
@@ -373,10 +379,11 @@ export default function CategoriesTable({ dat }) {
           </AlertModal>
         </div>
       ) : (
-        <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
-          <OngoingTrain TableHead={TableHead} trainingData={trainingData} />
+        <>
+          <div className="rounded-4 shadow-sm   p-md-4  p-2 container-fluid  cardbg    min-train-ht">
+            <OngoingTrain TableHead={TableHead} trainingData={trainingData} />
 
-          {/* <div className="row justify-content-center align-items-center mt-3">
+            {/* <div className="row justify-content-center align-items-center mt-3">
                      <button
                        disabled={currentPage === 1}
                        className="btn custfontbtn col-xl-1 col-lg-2 col-md-2 col-10"
@@ -399,8 +406,18 @@ export default function CategoriesTable({ dat }) {
                        {t("next-page")}
                      </button>
                    </div> */}
-        </div>
+          </div>
+        </>
       )}
+
+      <AlertModal
+        show={showResultModal}
+        onClose={() => setShowResultModal(false)}
+        onSubmit={() => setShowResultModal(false)}
+        title={t("operation_result")}
+      >
+        <p className="m-0 text-center">{resultMessage}</p>
+      </AlertModal>
     </>
   );
 }

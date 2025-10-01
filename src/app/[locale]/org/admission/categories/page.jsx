@@ -38,16 +38,6 @@ try {
 }
 
 
-
-
-
-
-
-
-
-
-
-
   return (
     <>
       <div className="  m-0  container-fluid p-0 d-flex flex-column   ">
